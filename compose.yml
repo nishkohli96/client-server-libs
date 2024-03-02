@@ -1,0 +1,46 @@
+services:
+  # run frontend-prod build on Port 5000
+  frontend:
+    image: docker_username/frontend
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile
+    ports:
+      - '3000:80'
+
+  # run frontend in dev mode on Port 3000, with hot reloading
+  frontend-dev:
+    image: docker_username/frontend-dev
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile.dev
+    ports:
+      - '3001:3000'
+    volumes:
+      - '/app/node_modules'
+      - './apps/frontend:/app/apps/frontend'
+
+  next-client:
+    image: docker_username/next-client
+    build:
+      context: .
+      dockerfile: ./apps/next-client/Dockerfile
+    ports:
+      - '3002:3000'
+
+  express-server:
+    image: docker_username/express-server
+    build:
+      context: .
+      dockerfile: ./apps/express-server/Dockerfile
+    ports:
+      - '5000:5000'
+
+  # somehow port mapping not working for this
+  nestjs-server:
+    image: docker_username/nestjs-server
+    build:
+      context: .
+      dockerfile: ./apps/nestjs-server/Dockerfile
+    ports:
+      - '4000:4000'
