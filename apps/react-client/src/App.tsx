@@ -3,7 +3,7 @@ import { useAppSelector, ThemeSelector } from 'redux-store';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppTheme from 'assets/styles/theme';
-import { Loading } from 'shared';
+import { Loading } from 'components';
 import Routing from 'routes';
 
 function App() {

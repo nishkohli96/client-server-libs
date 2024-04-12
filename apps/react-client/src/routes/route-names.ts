@@ -6,10 +6,7 @@
 
 const RouteNames = {
   home: '/',
-  account: {
-    rootPath: '/account',
-    subRoutes: { manage: 'manage' },
-  },
+  datoCMS: '/dato-cms',
 };
 
 export default RouteNames;

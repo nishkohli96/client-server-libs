@@ -1,4 +1,4 @@
-# frontend
+# react-client
 
 **[ReactJS](https://reactjs.org/) app with the following features -**
 
