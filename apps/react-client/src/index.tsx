@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from 'redux-store';
@@ -12,11 +13,13 @@ const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={''} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PersistGate loading={''} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

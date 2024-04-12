@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { PageHeading } from '@core/lib';
 import { useDatoCMSQuery } from 'hooks';
-import { Loading } from 'components';
+import { Loading, PageLayout } from 'components';
 import { AllLegalPagesQuery } from './queries';
 
 type Store = {
@@ -16,17 +16,20 @@ type Store = {
 }
 
 export default function DatoCMSPage() {
+  const pageTitle = 'DatoCMS Querying';
   const { data: storesList, isLoading } = useDatoCMSQuery<Store[]>(AllLegalPagesQuery);
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <PageHeading title="Dato CMS Query Fetching" />
-      </Grid>
-      {isLoading ? <Loading /> : (
+    <PageLayout seoTitle={pageTitle}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
-          {JSON.stringify(storesList)}
+          <PageHeading title={pageTitle} />
         </Grid>
-      )}
-    </Grid>
+        {isLoading ? <Loading /> : (
+          <Grid item xs={12}>
+            {JSON.stringify(storesList)}
+          </Grid>
+        )}
+      </Grid>
+    </PageLayout>
   );
 }

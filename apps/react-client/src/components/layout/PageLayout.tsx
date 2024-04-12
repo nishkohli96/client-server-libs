@@ -1,4 +1,5 @@
-import { ReactElement } from 'react';
+import { Fragment, ReactElement } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Box from '@mui/material/Box';
 
 type PageLayoutProps = {
@@ -8,8 +9,21 @@ type PageLayoutProps = {
 
 export default function PageLayout({ seoTitle, children }: PageLayoutProps) {
   return (
-    <Box sx={{ padding: '10px' }}>
-      {children}
-    </Box>
+    <Fragment>
+      <Helmet>
+        <title>
+          {seoTitle}
+        </title>
+      </Helmet>
+      <Box sx={{
+        padding: {
+          xs: '25px',
+          md: '20px 25px'
+        }
+      }}
+      >
+        {children}
+      </Box>
+    </Fragment>
   );
 }
