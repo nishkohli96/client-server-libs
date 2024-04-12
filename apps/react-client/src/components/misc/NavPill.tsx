@@ -10,7 +10,7 @@ export default function NavPill({ text, pathName }: NavPillProps) {
     <Button
       variant="outlined" color="primary" href={pathName} sx={{
         mb: '20px',
-        mr: '20px',
+        mr: '20px'
       }}
     >
       {text}

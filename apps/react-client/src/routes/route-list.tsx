@@ -7,6 +7,6 @@ export const RouteList = [
   {
     path: RouteNames.datoCMS,
     text: 'Dato CMS',
-    element: <DatoCMSPage />,
-  },
+    element: <DatoCMSPage />
+  }
 ];

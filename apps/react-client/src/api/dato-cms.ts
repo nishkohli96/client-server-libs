@@ -3,7 +3,7 @@ import { ApiEndpoints, ENV_VARS } from 'app-constants';
 
 const datoCMSApi = axios.create({
   baseURL: ApiEndpoints.datoCMS,
-  headers: { Authorization: `Bearer ${ENV_VARS.dataCMS_apiKey}` },
+  headers: { Authorization: `Bearer ${ENV_VARS.dataCMS_apiKey}` }
 });
 
 datoCMSApi.interceptors.response.use(
@@ -17,7 +17,7 @@ datoCMSApi.interceptors.response.use(
   },
   function throwError(error) {
     return error;
-  },
+  }
 );
 
 export { datoCMSApi };

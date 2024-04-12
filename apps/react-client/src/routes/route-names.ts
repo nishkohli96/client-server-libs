@@ -6,7 +6,7 @@
 
 const RouteNames = {
   home: '/',
-  datoCMS: '/dato-cms',
+  datoCMS: '/dato-cms'
 };
 
 export default RouteNames;

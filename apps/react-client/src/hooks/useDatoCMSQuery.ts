@@ -17,7 +17,7 @@ export default function useDatoCMSQuery<T>(query: string): QueryResult<T> {
       try {
         const response = await datoCMSApi.post<object, GraphQueryResponse<T>>(
           '',
-          { query },
+          { query }
         );
         setResult(response.data);
       } catch (err) {
