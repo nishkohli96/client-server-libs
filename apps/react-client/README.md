@@ -1,21 +1,8 @@
 # react-client
 
-**[ReactJS](https://reactjs.org/) app with the following features -**
-
-- Latest version of [ReactJS](https://reactjs.org/).
-- Well-defined folder structure
-- Enabled Typescript support
-- Pre-configured routes
-- [Mui](https://mui.com/) theme configured
-- Configured [Redux](https://redux.js.org/) store using [redux-toolkit](https://redux-toolkit.js.org/), which also takes care of api fetching
-- Github Actions for checking build status
-- Dockerfile configured
-
-
 ## Running the app
 
 Build the local npm package `@core/lib` first.
-
 ```
 yarn workspace @core/lib lib:build
 ```
@@ -27,3 +14,10 @@ $ yarn run dev
 # production mode
 $ yarn run start:prod
 ```
+
+## Libraries & Frameworks used
+
+- [axios](https://axios-http.com/)
+- [dato-cms](https://www.datocms.com/)
+- [mui](https://mui.com/)
+- [react-helmet-async](https://www.npmjs.com/package/react-helmet-async)

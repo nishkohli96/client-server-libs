@@ -22,6 +22,11 @@ export default function DatoCMSPage() {
       <Grid item xs={12}>
         <PageHeading title="Dato CMS Query Fetching" />
       </Grid>
+      {isLoading ? <Loading /> : (
+        <Grid item xs={12}>
+          {JSON.stringify(storesList)}
+        </Grid>
+      )}
     </Grid>
   );
 }
