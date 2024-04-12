@@ -1,16 +1,14 @@
 export const AllLegalPagesQuery = `{
   allLegalPages {
-	id
-	title
-	_status
-	_firstPublishedAt
+    id
+    title
+    _status
+    _firstPublishedAt
   }
-    
   _allLegalPagesMeta {
-	count
+    count
   }
 }`;
-
 
 export const StoreLocationsQuery = `{
   store {
