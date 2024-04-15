@@ -1,6 +1,6 @@
 import { Fragment, ReactElement } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Box from '@mui/material/Box';
+import { PageContent } from '@csl/shared-fe';
 
 type PageLayoutProps = {
   seoTitle: string;
@@ -15,15 +15,9 @@ export default function PageLayout({ seoTitle, children }: PageLayoutProps) {
           {seoTitle}
         </title>
       </Helmet>
-      <Box sx={{
-        padding: {
-          xs: '25px',
-          md: '20px 25px'
-        }
-      }}
-      >
-        {children}
-      </Box>
+      <PageContent>
+        { children}
+      </PageContent>
     </Fragment>
   );
 }

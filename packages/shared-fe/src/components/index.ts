@@ -1,4 +1,2 @@
-import TextWithBadge from './TextWithBadge';
-
-export { PageHeading } from './Texts';
-export { TextWithBadge };
+export * from './layout';
+export * from './misc';

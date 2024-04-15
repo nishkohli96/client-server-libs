@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <PageLayout seoTitle="Home Page">
       <Typography variant="h5" color="error" sx={{ mb: '20px' }}>
-        Hello from the Home Page!
+        Hello from the Home Page of CRA !
       </Typography>
       <Fragment>
         {RouteList.map(route => (

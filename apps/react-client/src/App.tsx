@@ -2,8 +2,8 @@ import { Suspense, useMemo } from 'react';
 import { useAppSelector, ThemeSelector } from 'redux-store';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Loading } from '@csl/shared-fe';
 import AppTheme from 'assets/styles/theme';
-import { Loading } from 'components';
 import Routing from 'routes';
 
 function App() {
