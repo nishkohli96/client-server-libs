@@ -1,5 +1,5 @@
 {
-  "name": "@core/lib",
+  "name": "@csl/shared-fe",
   "version": "1.0.0",
   "author": "Nishant Kohli",
   "main": "./dist/index.js",

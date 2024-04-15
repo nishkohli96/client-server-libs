@@ -1,4 +1,4 @@
-# @core/lib
+# @csl/shared-fe
 
 Local npm package that is being used in `frontend` app. Make sure to build this before running its dependents. 
 

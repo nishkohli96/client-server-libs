@@ -2,9 +2,9 @@
 
 ## Running the app
 
-Build the local npm package `@core/lib` first.
+Build the local npm package `@csl/shared-fe` first.
 ```
-yarn workspace @core/lib lib:build
+yarn workspace @csl/shared-fe lib:build
 ```
 
 ```bash
