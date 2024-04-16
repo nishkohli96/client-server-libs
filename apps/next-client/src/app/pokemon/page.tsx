@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import MenuItem from '@mui/material/MenuItem';
 
 type Pokemon = {
@@ -8,6 +10,8 @@ type Pokemon = {
 type PokeApiResult = {
   results: Pokemon[];
 };
+
+export const metadata: Metadata = { title: 'Pokemon List' };
 
 async function getData() {
   const res = await fetch(
@@ -31,7 +35,9 @@ export default async function PokemonList() {
     <main>
       {data.results.map((pokemon, idx) => (
         <MenuItem key={idx}>
-          {pokemon.name}
+          <Link href={`/pokemon/${pokemon.name}`}>
+            {pokemon.name}
+          </Link>
         </MenuItem>
       ))}
     </main>

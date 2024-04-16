@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { ReactNode, ReactElement } from 'react';
 import Box from '@mui/material/Box';
 
 type PageContentProps = {
-  children: ReactElement | ReactElement[];
+  children: ReactNode | ReactElement | ReactElement[];
 };
 
 export default function PageContent({ children }: PageContentProps) {
