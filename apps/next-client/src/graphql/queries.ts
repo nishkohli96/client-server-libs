@@ -10,3 +10,16 @@ export const StoreLocationsQuery = (limit: number, skip: number) => `{
 	  }
 	}
   }`;
+
+export const SingleStoreLocationsQuery = `{
+	store {
+	  storeName
+	  storeImage {
+		url
+	  }
+	  storeLocation {
+		latitude
+		longitude
+	  }
+	}
+  }`;
