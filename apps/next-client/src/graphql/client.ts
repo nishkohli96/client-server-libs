@@ -4,7 +4,7 @@ import { ENV_VARS } from '@/app-constants';
 
 export const datoCmsClient = new GraphQLClient({
   url: 'https://graphql.datocms.com/',
-  headers: { Authorization: `Bearer ${ENV_VARS.dataCMS_apiKey}` },
+  headers: { Authorization: `Bearer ${ENV_VARS.datoCMS.key_client}` },
   cache: memCache(),
   ssrMode: true
 });

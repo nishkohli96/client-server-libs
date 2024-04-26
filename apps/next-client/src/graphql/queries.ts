@@ -16,6 +16,10 @@ export const SingleStoreLocationsQuery = `{
 	  storeName
 	  storeImage {
 		url
+		responsiveImage {
+		  width
+		  height
+		}
 	  }
 	  storeLocation {
 		latitude
