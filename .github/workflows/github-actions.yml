@@ -36,5 +36,5 @@ jobs:
       - name: Build react-client
         run: yarn workspace react-client build
 
-      - name: Build next-client
-        run: yarn workspace next-client build
+      # - name: Build next-client
+      #   run: yarn workspace next-client build
