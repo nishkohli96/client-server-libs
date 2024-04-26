@@ -3,14 +3,19 @@ import Image from 'next/image';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { ENV_VARS } from '@/app-constants';
+import { ApiEndpoints, ENV_VARS } from '@/app-constants';
 import { SingleStoreLocationsQuery } from '@/graphql/queries';
 
 export default async function DatoCMSServerFetchPage() {
   const response = await axios.post(
-    'https://graphql.datocms.com/',
+    ApiEndpoints.datoCMS,
     { query: SingleStoreLocationsQuery },
-    { headers: { Authorization: `Bearer ${ENV_VARS.datoCMS.key_server}` } }
+    {
+      headers: {
+        Authorization: `Bearer ${ENV_VARS.datoCMS.key_server}`
+      // ...(includeDrafts ? { "X-Include-Drafts": "true" } : {}),
+      }
+    }
   );
   const storeInfo = response.data.data;
 
