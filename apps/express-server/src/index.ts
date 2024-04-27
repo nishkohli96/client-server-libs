@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import os from 'os';
 import { createServer } from 'node:http';
+import { Server } from 'socket.io';
 import { ENV_VARS } from 'app-constants';
 import { winstonLogger } from 'middleware';
 import app from './app';
@@ -20,6 +21,11 @@ function bootstrap() {
   // }
 
   const server = createServer(app);
+  const io = new Server(server, { /* options */ });
+
+  io.on('connection', socket => {
+    winstonLogger.info('Socket connection established');
+  });
 
   server.listen(port, () => {
     winstonLogger.info(
