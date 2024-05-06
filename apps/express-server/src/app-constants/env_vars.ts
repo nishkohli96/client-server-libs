@@ -10,3 +10,5 @@ export const ENV_VARS = Object.freeze({
   port: env.PORT ?? 5000,
   postgresUrl: env.POSTGRES_URL ?? ''
 });
+
+export const isProductionEnv = ENV_VARS.env === 'production';
