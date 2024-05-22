@@ -1,3 +1,3 @@
-import { authRouter } from './auth/controller';
+import { fileRouter } from './file/controller';
 
-export { authRouter };
+export { fileRouter };

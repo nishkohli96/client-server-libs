@@ -1,3 +1,6 @@
 const env = process.env;
 
-export const ENV_VARS = Object.freeze({ dataCMS_apiKey: env.REACT_APP_DATO_API_TOKEN ?? '' });
+export const ENV_VARS = Object.freeze({
+  dataCMS_apiKey: env.REACT_APP_DATO_API_TOKEN ?? '',
+  serverURL: 'http://localhost:5000/api'
+});
