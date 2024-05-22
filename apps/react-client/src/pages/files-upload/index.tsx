@@ -20,8 +20,7 @@ export default function FilesUploadPage() {
         `${rootPath}/${subRoutes.upload}`,
         formData
       );
-      console.log('response: ', response);
-	  toast.success('File Uploaded');
+      toast.success('File Uploaded');
     } catch (err) {
       toast.error(JSON.stringify(err));
     }
@@ -30,7 +29,7 @@ export default function FilesUploadPage() {
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <Typography>File Uploads</Typography>
           <FileUploader onFileUpload={handleFileUpload} />
         </Grid>

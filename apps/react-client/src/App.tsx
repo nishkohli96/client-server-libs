@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { Loading } from '@csl/shared-fe';
 import AppTheme from 'assets/styles/theme';
 import Routing from 'routes';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
   const mode = useAppSelector(ThemeSelector);

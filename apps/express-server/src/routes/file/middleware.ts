@@ -11,15 +11,12 @@ export function createUploadFolder(
   next: NextFunction
 ) {
   const subFolder = moment().format('YYYY-MMM');
-  const folderPath = path.join(__dirname, FileRouteConfig.uploadFolder, subFolder);
-  console.log('folderPath: ', folderPath);
+  const folderPath = path.join(FileRouteConfig.uploadFolder, subFolder);
 
   if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath);
-    next();
-  } else {
-  	next();
+    fs.mkdirSync(folderPath, { recursive: true });
   }
+  next();
 }
 
 const fileFilter = function (allowedFileTypes?: string[]) {
@@ -41,13 +38,15 @@ const fileFilter = function (allowedFileTypes?: string[]) {
 
 const fileStorage = (dirPath: string) =>
   multer.diskStorage({
+    /* Destination folder for uploaded files */
     destination(req, file, cb) {
-      /* Destination folder for uploaded files */
-      cb(null, dirPath);
+	  const subFolderName = moment().format('YYYY-MMM');
+	  const directoryPath = path.join(dirPath, subFolderName);
+      cb(null, directoryPath);
     },
+    /* Can modify file name based on req params */
     filename(req, file, cb) {
-      /* Use current timestamp as filename to ensure uniqueness */
-      cb(null, moment().format('YYYY-MMM') + path.extname(file.originalname));
+      cb(null, file.originalname);
     }
   });
 

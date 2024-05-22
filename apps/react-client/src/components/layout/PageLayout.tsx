@@ -22,7 +22,11 @@ export default function PageLayout({
         </title>
       </Helmet>
       <PageContent>
-        {!hidePageTitle && <PageHeading title={seoTitle} /> }
+        {!hidePageTitle && (
+          <Box sx={{ mb: '30px' }}>
+            <PageHeading title={seoTitle} />
+          </Box>
+        )}
         {children}
       </PageContent>
     </Fragment>
