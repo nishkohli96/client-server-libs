@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Image } from 'react-datocms';
-import { Loading, PageHeading } from '@csl/shared-fe';
+import { Loading } from '@csl/shared-fe';
 import { useDatoCMSQuery } from 'hooks';
 import { PageLayout } from 'components';
 import { StoreLocationsQuery } from './queries';
@@ -31,9 +31,6 @@ export default function DatoCMSPage() {
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <PageHeading title={pageTitle} />
-        </Grid>
         {isLoading ? (
           <Loading />
         ) : (

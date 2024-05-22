@@ -6,7 +6,8 @@
 
 const RouteNames = {
   home: '/',
-  datoCMS: '/dato-cms'
+  datoCMS: '/dato-cms',
+  fileUploads: '/file-uploads'
 };
 
 export default RouteNames;

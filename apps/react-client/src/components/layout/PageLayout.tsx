@@ -1,13 +1,19 @@
 import { Fragment, ReactElement } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { PageContent } from '@csl/shared-fe';
+import Box from '@mui/material/Box';
+import { PageContent, PageHeading } from '@csl/shared-fe';
 
 type PageLayoutProps = {
   seoTitle: string;
   children: ReactElement | ReactElement[];
-}
+  hidePageTitle?: boolean;
+};
 
-export default function PageLayout({ seoTitle, children }: PageLayoutProps) {
+export default function PageLayout({
+  seoTitle,
+  children,
+  hidePageTitle
+}: PageLayoutProps) {
   return (
     <Fragment>
       <Helmet>
@@ -16,7 +22,8 @@ export default function PageLayout({ seoTitle, children }: PageLayoutProps) {
         </title>
       </Helmet>
       <PageContent>
-        { children}
+        {!hidePageTitle && <PageHeading title={seoTitle} /> }
+        {children}
       </PageContent>
     </Fragment>
   );
