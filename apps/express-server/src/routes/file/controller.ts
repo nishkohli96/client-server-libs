@@ -1,9 +1,17 @@
 import { Router, Response } from 'express';
-import { createUploadFolder, fileUploader } from './middleware';
+import fs from 'fs';
+import path from 'path';
 import { RouteList } from 'app-constants';
 import { FileRouteConfig } from './config';
+import { createUploadFolder, fileUploader } from './middleware';
 import fileService from './service';
 import * as FileTypeDefs from './types';
+
+/**
+ * TODO: fileUploader created uploads/Mth-year dir,
+ * which fails to work for large file upload as dir
+ * not created, also need to create chunks dir
+ */
 
 const fileRouter = Router();
 const subRoutes = RouteList.files.subRoutes;
@@ -31,7 +39,6 @@ fileRouter.post(
  */
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
-  createUploadFolder,
   mediaUploader.single('chunk'),
   function uploadLargeFile(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
     const { chunkNumber, fileName } = req.body;

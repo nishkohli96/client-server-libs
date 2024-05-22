@@ -22,7 +22,7 @@ class FileService {
     chunkNumber: number
   ) {
     try {
-      const chunkDir = path.join(FileRouteConfig.uploadFolder, fileName);
+      const chunkDir = path.join(FileRouteConfig.uploadFolder, 'chunks', fileName);
 
       /* Ensure the directory exists */
       if (!fs.existsSync(chunkDir)) {
@@ -40,7 +40,7 @@ class FileService {
   }
 
   combineFileChunks(res: Response, fileName: string) {
-    const chunkDir = path.join(FileRouteConfig.uploadFolder, fileName);
+    const chunkDir = path.join(FileRouteConfig.uploadFolder, 'chunks', fileName);
     const outputFilePath = path.join(FileRouteConfig.uploadFolder, `${fileName}`);
 
     const chunkFiles = fs.readdirSync(chunkDir).sort((a, b) => {

@@ -39,11 +39,11 @@ const fileFilter = function (allowedFileTypes?: string[]) {
 const fileStorage = (dirPath: string) =>
   multer.diskStorage({
     /* Destination folder for uploaded files */
-    destination(req, file, cb) {
-	  const subFolderName = moment().format('YYYY-MMM');
-	  const directoryPath = path.join(dirPath, subFolderName);
-      cb(null, directoryPath);
-    },
+    // destination(req, file, cb) {
+	  // const subFolderName = moment().format('YYYY-MMM');
+	  // const directoryPath = path.join(dirPath, subFolderName);
+    //   cb(null, directoryPath);
+    // },
     /* Can modify file name based on req params */
     filename(req, file, cb) {
       cb(null, file.originalname);
