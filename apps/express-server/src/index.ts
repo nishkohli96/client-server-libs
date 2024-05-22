@@ -43,7 +43,7 @@ function bootstrap() {
    */
 
   /* generate a custom session ID (the sid query parameter) */
-  io.engine.generateId = req => uuid.v4();
+  // io.engine.generateId = req => uuid.v4();
 
   /**
    * initial_headers: will be emitted just before writing the

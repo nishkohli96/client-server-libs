@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { PageContent } from '@csl/shared-fe';
 import theme from '@/assets/styles/theme';
+import useSocketConnection from './socket';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
+  useSocketConnection();
   return (
     <html lang="en">
       <body className={inter.className}>
