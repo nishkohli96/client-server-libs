@@ -13,13 +13,11 @@ const subRoutes = ServerEndpoints.file.subRoutes;
 export default function FilesUploadPage() {
 
   const handleFileUpload = async (file: File) => {
+    console.log('file: ', file);
     const formData = new FormData();
     formData.append('media', file);
     try {
-      await serverApi.post(
-        `${rootPath}/${subRoutes.upload}`,
-        formData
-      );
+      await serverApi.post(`${rootPath}/${subRoutes.upload}`, formData);
       toast.success('File Uploaded');
     } catch (err) {
       toast.error(JSON.stringify(err));
@@ -41,7 +39,7 @@ export default function FilesUploadPage() {
       formData.append('fileName', file.name);
 
       try {
-        await serverApi.post(`${rootPath}/${subRoutes.largeUpload}`, formData);
+        await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
         start = end;
         end = start + chunkSize;
         chunkNumber++;
@@ -49,6 +47,8 @@ export default function FilesUploadPage() {
         toast.error(JSON.stringify(err));
       }
     }
+
+    await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
     toast.success('File uploaded');
   };
 

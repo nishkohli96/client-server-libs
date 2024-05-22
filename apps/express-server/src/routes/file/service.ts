@@ -38,6 +38,35 @@ class FileService {
       console.log('Error in uploading file ', err);
     }
   }
+
+  combineFileChunks(res: Response, fileName: string) {
+    const chunkDir = path.join(FileRouteConfig.uploadFolder, fileName);
+    const outputFilePath = path.join(FileRouteConfig.uploadFolder, `${fileName}`);
+
+    const chunkFiles = fs.readdirSync(chunkDir).sort((a, b) => {
+      const aNum = parseInt(a.split('_')[1]);
+      const bNum = parseInt(b.split('_')[1]);
+      return aNum - bNum;
+    });
+
+    const writeStream = fs.createWriteStream(outputFilePath);
+
+    chunkFiles.forEach(chunkFile => {
+      const chunkPath = path.join(chunkDir, chunkFile);
+      const data = fs.readFileSync(chunkPath);
+      writeStream.write(data);
+      /* Optionally delete chunk file after merging */
+      // fs.unlinkSync(chunkPath);
+    });
+
+    writeStream.end(() => {
+      res.sendFile(outputFilePath, { root: '.' });
+      /* Optionally delete chunk directory after merging */
+      // fs.rmdirSync(chunkDir);
+    });
+
+    res.send('File retrieved');
+  }
 }
 
 export default new FileService();

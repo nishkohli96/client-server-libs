@@ -3,7 +3,8 @@ export const ServerEndpoints = Object.freeze({
     rootPath: '/file',
     subRoutes: {
       upload: 'upload',
-      largeUpload: 'large-upload'
+      uploadChunk: 'upload-chunk',
+      combineFile: 'combine-file'
     }
   }
 });

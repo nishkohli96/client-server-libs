@@ -3,7 +3,8 @@ export const RouteList = Object.freeze({
     rootpath: '/file',
     subRoutes: {
       upload: 'upload',
-      largeUpload: 'large-upload'
+      uploadChunk: 'upload-chunk',
+      combineFile: 'combine-file'
     }
   }
 });
