@@ -1,6 +1,4 @@
 import { Router, Response } from 'express';
-import fs from 'fs';
-import path from 'path';
 import { RouteList } from 'app-constants';
 import { FileRouteConfig } from './config';
 import { createUploadFolder, fileUploader } from './middleware';
@@ -40,10 +38,18 @@ fileRouter.post(
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
   mediaUploader.single('chunk'),
-  function uploadLargeFile(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
+  function uploadLargeFile(
+    req: FileTypeDefs.UploadLargeFileReq,
+    res: Response
+  ) {
     const { chunkNumber, fileName } = req.body;
     const chunkPath = req.file?.path ?? '';
-    return fileService.uploadLargeFile(res, fileName, chunkPath, Number(`${chunkNumber}`));
+    return fileService.uploadLargeFile(
+      res,
+      fileName,
+      chunkPath,
+      Number(`${chunkNumber}`)
+    );
   }
 );
 
@@ -54,7 +60,10 @@ fileRouter.post(
  */
 fileRouter.get(
   `/${subRoutes.combineFile}/:fileName`,
-  function combineFileChunks(req: FileTypeDefs.CombineChunksReq, res: Response) {
+  function combineFileChunks(
+    req: FileTypeDefs.CombineChunksReq,
+    res: Response
+  ) {
     const fileName = req.params.fileName;
     return fileService.combineFileChunks(res, fileName);
   }
