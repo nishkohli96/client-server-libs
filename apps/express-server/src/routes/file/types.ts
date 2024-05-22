@@ -5,3 +5,11 @@ export interface UploadMediaBody {
 }
 
 export type UploadMediaRequest = Request<object, object, UploadMediaBody>
+
+export type LargeFileBody = {
+  chunk: Blob;
+  chunkNumber: number;
+  fileName: string;
+}
+
+export type UploadLargeFileReq = Request<object, object, LargeFileBody>

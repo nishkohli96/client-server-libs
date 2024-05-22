@@ -7,6 +7,8 @@ import { useDatoCMSQuery } from 'hooks';
 import { PageLayout } from 'components';
 import { StoreLocationsQuery } from './queries';
 
+const pageTitle = 'DatoCMS Querying';
+
 type Store = {
   storeName: string;
   storeImage: {
@@ -23,7 +25,6 @@ type Store = {
 };
 
 export default function DatoCMSPage() {
-  const pageTitle = 'DatoCMS Querying';
   const { data: storesList, isLoading } = useDatoCMSQuery<{
     allStores: Store[];
   }>(StoreLocationsQuery(5, 1));

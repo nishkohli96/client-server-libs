@@ -20,7 +20,7 @@ type FileUploaderProps = {
   allowedFileTypes?: string;
   errorMessage?: string;
   height?: string;
-  border?: string;
+  anyFileType?: boolean
 };
 
 export default function FileUploader({
@@ -32,7 +32,7 @@ export default function FileUploader({
   allowedFileTypes,
   errorMessage,
   height,
-  border
+  anyFileType
 }: FileUploaderProps) {
   const [errorMsg, setErrorMsg] = useState<string>('');
 
@@ -85,7 +85,7 @@ export default function FileUploader({
         }}
       >
         <input
-          accept={allowedFileTypes ?? '.jpg, .jpeg'}
+          accept={anyFileType ? undefined : allowedFileTypes ?? '.jpg, .jpeg'}
           id="drag_and_drop_input"
           multiple={multiple}
           type="file"
