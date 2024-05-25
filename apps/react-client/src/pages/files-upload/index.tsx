@@ -11,9 +11,7 @@ const rootPath = ServerEndpoints.file.rootPath;
 const subRoutes = ServerEndpoints.file.subRoutes;
 
 export default function FilesUploadPage() {
-
   const handleFileUpload = async (file: File) => {
-    console.log('file: ', file);
     const formData = new FormData();
     formData.append('media', file);
     try {
@@ -52,6 +50,51 @@ export default function FilesUploadPage() {
     toast.success('File uploaded');
   };
 
+  function convertToBase64(file: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result.split(',')[1]);
+        } else {
+          reject(new Error('FileReader result is not a string'));
+        }
+      };
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const onLargeFileUploadAsBase64 = async (file: File) => {
+    /* Splitting file into 20MB */
+    const chunkSize = 20 * 1024 * 1024;
+    let start = 0;
+    let end = chunkSize;
+    let chunkNumber = 0;
+
+    while (start < file.size) {
+      const chunk = file.slice(start, end);
+      const base64Chunk = await convertToBase64(chunk);
+
+      const formData = new FormData();
+      formData.append('chunk', base64Chunk);
+      formData.append('chunkNumber', `${chunkNumber}`);
+      formData.append('fileName', file.name);
+
+      try {
+        await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
+        start = end;
+        end = start + chunkSize;
+        chunkNumber++;
+      } catch (err) {
+        toast.error(JSON.stringify(err));
+      }
+    }
+
+    await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
+    toast.success('File uploaded');
+  };
+
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container>
@@ -65,7 +108,7 @@ export default function FilesUploadPage() {
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography>Large File Upload as base64</Typography>
-          <FileUploader onFileUpload={onLargeFileUpload} anyFileType />
+          <FileUploader onFileUpload={onLargeFileUploadAsBase64} anyFileType />
         </Grid>
       </Grid>
     </PageLayout>
