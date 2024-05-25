@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { ENV_VARS, RouteList } from 'app-constants';
+import { ExpressServerEndpoints } from '@csl/react-express';
+import { ENV_VARS } from 'app-constants';
 import { requestLogger } from 'middleware';
 import * as Routes from 'routes';
 
@@ -20,7 +21,7 @@ app.get('/', (_: Request, response: Response) => {
   response.status(200).send(`ENV: ${ENV_VARS.env} - Api is up & running!!!`);
 });
 
-app.use(generatePath(RouteList.files.rootpath), Routes.fileRouter);
+app.use(generatePath(ExpressServerEndpoints.files.rootPath), Routes.fileRouter);
 
 /* 404 Handler - To be written at last */
 app.get('*', (req: Request, response: Response) => {

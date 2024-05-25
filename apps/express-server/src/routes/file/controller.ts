@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { RouteList } from 'app-constants';
+import { ExpressServerEndpoints } from '@csl/react-express';
 import { FileRouteConfig } from './config';
 import { createUploadFolder, fileUploader } from './middleware';
 import fileService from './service';
@@ -12,7 +12,7 @@ import * as FileTypeDefs from './types';
  */
 
 const fileRouter = Router();
-const subRoutes = RouteList.files.subRoutes;
+const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const mediaUploader = fileUploader(FileRouteConfig.uploadFolder);
 
 /**

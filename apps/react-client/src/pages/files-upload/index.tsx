@@ -1,14 +1,14 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
+import { ExpressServerEndpoints } from '@csl/react-express';
 import { serverApi } from 'api';
-import { ServerEndpoints } from 'app-constants';
 import { PageLayout } from 'components';
 import { FileUploader } from './components';
 
 const pageTitle = 'File Uploads';
-const rootPath = ServerEndpoints.file.rootPath;
-const subRoutes = ServerEndpoints.file.subRoutes;
+const rootPath = ExpressServerEndpoints.files.rootPath;
+const subRoutes = ExpressServerEndpoints.files.subRoutes;
 
 export default function FilesUploadPage() {
   const handleFileUpload = async (file: File) => {
@@ -40,7 +40,7 @@ export default function FilesUploadPage() {
         await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
         start = end;
         end = start + chunkSize;
-        chunkNumber++;
+        chunkNumber += 1;
       } catch (err) {
         toast.error(JSON.stringify(err));
       }
@@ -85,7 +85,7 @@ export default function FilesUploadPage() {
         await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
         start = end;
         end = start + chunkSize;
-        chunkNumber++;
+        chunkNumber += 1;
       } catch (err) {
         toast.error(JSON.stringify(err));
       }
@@ -97,7 +97,7 @@ export default function FilesUploadPage() {
 
   return (
     <PageLayout seoTitle={pageTitle}>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography>File Uploads</Typography>
           <FileUploader onFileUpload={handleFileUpload} />

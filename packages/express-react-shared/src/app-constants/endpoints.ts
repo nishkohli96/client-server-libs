@@ -1,6 +1,6 @@
 export const ExpressServerEndpoints = Object.freeze({
   files: {
-    rootpath: '/file',
+    rootPath: '/file',
     subRoutes: {
       upload: 'upload',
       uploadChunk: 'upload-chunk',
