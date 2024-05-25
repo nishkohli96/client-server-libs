@@ -4,7 +4,9 @@ export const RouteList = Object.freeze({
     subRoutes: {
       upload: 'upload',
       uploadChunk: 'upload-chunk',
-      combineFile: 'combine-file'
+      combineFile: 'combine-file',
+      uploadBase64: 'upload-base64',
+      combineBase64: 'combine-base64'
     }
   }
 });

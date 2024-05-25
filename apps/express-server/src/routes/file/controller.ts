@@ -38,13 +38,13 @@ fileRouter.post(
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
   mediaUploader.single('chunk'),
-  function uploadLargeFile(
+  function uploadChunks(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response
   ) {
     const { chunkNumber, fileName } = req.body;
     const chunkPath = req.file?.path ?? '';
-    return fileService.uploadLargeFile(
+    return fileService.uploadChunks(
       res,
       fileName,
       chunkPath,
@@ -66,6 +66,45 @@ fileRouter.get(
   ) {
     const fileName = req.params.fileName;
     return fileService.combineFileChunks(res, fileName);
+  }
+);
+
+/**
+ * Uploading large file by splitting into chunks and encoding
+ * as base64, and then hitting the combine-file api to get the
+ * full file on the server.
+ */
+fileRouter.post(
+  `/${subRoutes.uploadBase64}`,
+  mediaUploader.single('chunk'),
+  function uploadBase64(
+    req: FileTypeDefs.UploadLargeFileReq,
+    res: Response
+  ) {
+    const { chunkNumber, fileName } = req.body;
+    const chunkPath = req.file?.path ?? '';
+    return fileService.uploadBase64(
+      res,
+      fileName,
+      chunkPath,
+      Number(`${chunkNumber}`)
+    );
+  }
+);
+
+/**
+ * Get filename along with the extension in params, combine
+ * all the chunks stored from the above endpoint into the
+ * resultant file and delete these chunks.
+ */
+fileRouter.get(
+  `/${subRoutes.combineBase64}/:fileName`,
+  function combineBase64Files(
+    req: FileTypeDefs.CombineChunksReq,
+    res: Response
+  ) {
+    const fileName = req.params.fileName;
+    return fileService.combineBase64Files(res, fileName);
   }
 );
 

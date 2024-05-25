@@ -60,7 +60,11 @@ export default function FilesUploadPage() {
           <FileUploader onFileUpload={handleFileUpload} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography>Large File Upload</Typography>
+          <Typography>Large File Upload as Chunks</Typography>
+          <FileUploader onFileUpload={onLargeFileUpload} anyFileType />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>Large File Upload as base64</Typography>
           <FileUploader onFileUpload={onLargeFileUpload} anyFileType />
         </Grid>
       </Grid>

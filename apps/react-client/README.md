@@ -21,3 +21,9 @@ $ yarn run start:prod
 - [dato-cms](https://www.datocms.com/)
 - [mui](https://mui.com/)
 - [react-helmet-async](https://www.npmjs.com/package/react-helmet-async)
+
+## PoC
+
+- File Upload on `express-server`
+	- convert large video file in chunks
+	- convert file as base64 and upload in parts

@@ -15,7 +15,7 @@ class FileService {
     }
   }
 
-  uploadLargeFile(
+  uploadChunks(
     res: Response,
     fileName: string,
     chunkPath: string,
@@ -53,6 +53,59 @@ class FileService {
 
     chunkFiles.forEach(chunkFile => {
       const chunkPath = path.join(chunkDir, chunkFile);
+      const data = fs.readFileSync(chunkPath);
+      writeStream.write(data);
+      /* Optionally delete chunk file after merging */
+      // fs.unlinkSync(chunkPath);
+    });
+
+    writeStream.end(() => {
+      res.sendFile(outputFilePath, { root: '.' });
+      /* Optionally delete chunk directory after merging */
+      // fs.rmdirSync(chunkDir);
+    });
+
+    res.send('File retrieved');
+  }
+
+  uploadBase64(
+    res: Response,
+    fileName: string,
+    chunkPath: string,
+    chunkNumber: number
+  ) {
+    try {
+      const chunkDir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
+
+      /* Ensure the directory exists */
+      if (!fs.existsSync(chunkDir)) {
+        fs.mkdirSync(chunkDir);
+      }
+
+      /* Move chunk to the appropriate directory */
+      const chunkDestination = path.join(chunkDir, `base64_${chunkNumber}.txt`);
+      fs.renameSync(chunkPath, chunkDestination);
+
+      res.send(`Base64 file no ${chunkNumber} uploaded`);
+    } catch (err) {
+      console.log('Error in uploading file ', err);
+    }
+  }
+
+  combineBase64Files(res: Response, fileName: string) {
+    const base64Dir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
+    const outputFilePath = path.join(FileRouteConfig.uploadFolder, `${fileName}`);
+
+    const base64Files = fs.readdirSync(base64Dir).sort((a, b) => {
+      const aNum = parseInt(a.split('_')[1]);
+      const bNum = parseInt(b.split('_')[1]);
+      return aNum - bNum;
+    });
+
+    const writeStream = fs.createWriteStream(outputFilePath);
+
+    base64Files.forEach(base64File => {
+      const chunkPath = path.join(base64Dir, base64File);
       const data = fs.readFileSync(chunkPath);
       writeStream.write(data);
       /* Optionally delete chunk file after merging */
