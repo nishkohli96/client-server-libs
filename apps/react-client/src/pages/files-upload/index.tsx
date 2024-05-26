@@ -28,28 +28,47 @@ export default function FilesUploadPage() {
     let start = 0;
     let end = chunkSize;
     let chunkNumber = 0;
+    /**
+     * In case, there is some error on the server side, say
+     * "uploads/chunks" dir doesn't exist, stop sending further
+     * requests on the upload of 1st chunk, and also deny
+     * sending the combine-file api request.
+     */
+    let success = true;
 
     while (start < file.size) {
-      const chunk = file.slice(start, end);
-      const formData = new FormData();
-      formData.append('chunk', chunk);
-      formData.append('chunkNumber', `${chunkNumber}`);
-      formData.append('fileName', file.name);
+      if (success) {
+        const chunk = file.slice(start, end);
+        const formData = new FormData();
+        formData.append('chunk', chunk);
+        formData.append('chunkNumber', `${chunkNumber}`);
+        formData.append('fileName', file.name);
 
+        try {
+          await serverApi.post(
+            `${rootPath}/${subRoutes.uploadChunk}`,
+            formData
+          );
+          start = end;
+          end = start + chunkSize;
+          chunkNumber += 1;
+        } catch (err) {
+          success = false;
+          handleApiError(err);
+        }
+      } else {
+        break;
+      }
+    }
+    if (success) {
       try {
-        await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
-        start = end;
-        end = start + chunkSize;
-        chunkNumber += 1;
+        await serverApi.get(
+          `${rootPath}/${subRoutes.combineFile}/${file.name}`
+        );
+        toast.success('File uploaded');
       } catch (err) {
         handleApiError(err);
       }
-    }
-    try {
-      await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
-      toast.success('File uploaded');
-    } catch (err) {
-      handleApiError(err);
     }
   };
 
@@ -78,31 +97,43 @@ export default function FilesUploadPage() {
     let start = 0;
     let end = chunkSize;
     let chunkNumber = 0;
+    const success = true;
 
     while (start < file.size) {
-      const chunk = file.slice(start, end);
-      const base64Chunk = await convertToBase64(chunk);
+      if (success) {
+        const chunk = file.slice(start, end);
+        const base64Chunk = await convertToBase64(chunk);
 
-      const formData = new FormData();
-      formData.append('chunk', base64Chunk);
-      formData.append('chunkNumber', `${chunkNumber}`);
-      formData.append('fileName', file.name);
+        const formData = new FormData();
+        formData.append('chunk', base64Chunk);
+        formData.append('chunkNumber', `${chunkNumber}`);
+        formData.append('fileName', file.name);
 
-      try {
-        await serverApi.post(`${rootPath}/${subRoutes.uploadBase64}`, formData);
-        start = end;
-        end = start + chunkSize;
-        chunkNumber += 1;
-      } catch (err) {
-        handleApiError(err);
+        try {
+          await serverApi.post(
+            `${rootPath}/${subRoutes.uploadBase64}`,
+            formData
+          );
+          start = end;
+          end = start + chunkSize;
+          chunkNumber += 1;
+        } catch (err) {
+          handleApiError(err);
+        }
+      } else {
+        break;
       }
     }
 
-    try {
-      await serverApi.get(`${rootPath}/${subRoutes.combineBase64}/${file.name}`);
-      toast.success('File uploaded');
-    } catch (err) {
-      handleApiError(err);
+    if (success) {
+      try {
+        await serverApi.get(
+          `${rootPath}/${subRoutes.combineBase64}/${file.name}`
+        );
+        toast.success('File uploaded');
+      } catch (err) {
+        handleApiError(err);
+      }
     }
   };
 
