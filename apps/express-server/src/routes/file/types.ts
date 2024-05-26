@@ -19,3 +19,8 @@ export type CombineChunksParam = {
   fileName: string;
 }
 export type CombineChunksReq = Request<CombineChunksParam>
+
+export type MultiFieldFiles = {
+  image: Express.Multer.File[];
+  document: Express.Multer.File[]
+}

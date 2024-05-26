@@ -32,6 +32,8 @@ const fileStorage = (dirPath?: string) =>
       let folderPath = path.join(ServerConfig.multer.uploadFolder);
       if(dirPath) {
         folderPath = path.join(folderPath, dirPath);
+      } else {
+        folderPath = path.join(folderPath, file.fieldname);
       }
       if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });

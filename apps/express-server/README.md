@@ -17,6 +17,7 @@ $ yarn run start:prod
 - Files uploading using multer
 	- create dynamic folder & filter file(s)
 	- upload single & multiple files for same field
+	- upload file(s) in different fields
 	- upload videos as chunk and combine
 	- upload video as base64 files and combine
 	- reading from and writing to a file 

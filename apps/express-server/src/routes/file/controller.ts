@@ -28,9 +28,33 @@ fileRouter.post(
 /* Uploading multiple files in the same field */
 fileRouter.post(
   `/${subRoutes.uploadMany}`,
-  mediaUploader.array('files', ServerConfig.multer.maxFiles),
+  uploader.array('files', ServerConfig.multer.maxFiles),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     const files = req.files;
+    console.log('files: ', files);
+    return res.send('Files uploaded successfully');
+  }
+);
+
+/**
+ * Uploading files in two differnt fields, say an image
+ * and a document. maxCount is the max number of files
+ * you expect for each field. Both of these fields will
+ * contain an array of files.
+ *
+ * Use postman for testing this request.
+ */
+fileRouter.post(
+  `/${subRoutes.uploadSeparate}`,
+  uploader.fields([
+    { name: 'image' },
+    {
+      name: 'document',
+      maxCount: 2
+    }
+  ]),
+  function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
+    const files = req.files as FileTypeDefs.MultiFieldFiles;
     console.log('files: ', files);
     return res.send('Files uploaded successfully');
   }
