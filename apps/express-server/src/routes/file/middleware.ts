@@ -52,5 +52,17 @@ const fileStorage = (dirPath?: string) =>
 export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
   multer({
     storage: fileStorage(dirPath),
-    fileFilter: fileFilter(allowedFileTypes)
+    fileFilter: fileFilter(allowedFileTypes),
+    limits: {
+      /* 50 MB for file size */
+      fileSize: 50 * 1024 * 1024,
+      /* 10 MB for non-file fields */
+      fieldSize: 10 * 1024 * 1024,
+      /* Maximum number of non-file fields */
+      fields: 10,
+      /* Maximum number of files */
+      files: 1,
+      /* Total number of parts (fields + files) */
+      parts: 11
+    }
   });

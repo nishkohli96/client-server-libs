@@ -82,9 +82,12 @@ class FileService {
     chunkNumber: number
   ) {
     try {
-      const base64Dir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
+      const base64Root = path.join(FileRouteConfig.uploadFolder, 'base64');
+      if (!fs.existsSync(base64Root)) {
+        fs.mkdirSync(base64Root);
+      }
 
-      /* Ensure the directory exists */
+      const base64Dir = path.join(base64Root, fileName);
       if (!fs.existsSync(base64Dir)) {
         fs.mkdirSync(base64Dir);
       }

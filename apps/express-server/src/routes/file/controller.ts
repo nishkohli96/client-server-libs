@@ -8,7 +8,7 @@ const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const mediaUploader = fileUploader('test-folder/some-dir');
 const chunkUploader = fileUploader('chunks');
-const base64Uploader = fileUploader('base64');
+const uploader = fileUploader();
 
 /**
  * Uploading a single file, here "media" in
@@ -67,10 +67,15 @@ fileRouter.get(
  * Uploading large file by splitting into chunks and encoding
  * as base64, and then hitting the combine-file api to get the
  * full file on the server.
+ *
+ * Base64 are sent as strings, somehow no folder is created, even
+ * if provided as an argument. If no file is sent in the form data,
+ * the destination function inside multer.diskStorage won't be
+ * executed, and therefore the folder won't be created
  */
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
-  base64Uploader.single('chunk'),
+  uploader.single('chunk'),
   function uploadBase64(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response
