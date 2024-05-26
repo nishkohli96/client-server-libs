@@ -15,5 +15,6 @@ $ yarn run start:prod
 ### Features
 
 - Files uploading using multer
+	- create dynamic folder & filter file(s)
 	- upload videos as chunk and combine
 	- upload video as base64 files and combine

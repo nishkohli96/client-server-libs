@@ -1,19 +1,13 @@
 import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { FileRouteConfig } from './config';
-import { createUploadFolder, fileUploader } from './middleware';
+import { fileUploader } from './middleware';
 import fileService from './service';
 import * as FileTypeDefs from './types';
 
-/**
- * TODO: fileUploader created uploads/Mth-year dir,
- * which fails to work for large file upload as dir
- * not created, also need to create chunks dir
- */
-
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
-const mediaUploader = fileUploader(FileRouteConfig.uploadFolder);
+const mediaUploader = fileUploader('test-folder/some-dir');
+// const chunkUploader = fileUploader('test-folder/some-dir');
 
 /**
  * Uploading a single file, here "media" in
@@ -22,7 +16,6 @@ const mediaUploader = fileUploader(FileRouteConfig.uploadFolder);
  */
 fileRouter.post(
   `/${subRoutes.upload}`,
-  createUploadFolder,
   mediaUploader.single('media'),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     const file = req.file;

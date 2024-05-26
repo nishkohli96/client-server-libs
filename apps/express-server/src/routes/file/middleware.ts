@@ -5,20 +5,6 @@ import moment from 'moment';
 import multer, { FileFilterCallback } from 'multer';
 import { FileRouteConfig } from './config';
 
-export function createUploadFolder(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const subFolder = moment().format('YYYY-MMM');
-  const folderPath = path.join(FileRouteConfig.uploadFolder, subFolder);
-
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath, { recursive: true });
-  }
-  next();
-}
-
 const fileFilter = function (allowedFileTypes?: string[]) {
   return function applyFileFilter(
     _: Request,
@@ -36,21 +22,34 @@ const fileFilter = function (allowedFileTypes?: string[]) {
   };
 };
 
-const fileStorage = (dirPath: string) =>
+const fileStorage = (dirPath?: string) =>
   multer.diskStorage({
-    /* Destination folder for uploaded files */
-    // destination(req, file, cb) {
-	  // const subFolderName = moment().format('YYYY-MMM');
-	  // const directoryPath = path.join(dirPath, subFolderName);
-    //   cb(null, directoryPath);
-    // },
+    /**
+     * Destination folder for uploaded files. Create
+     * directory if it doesn't exist. Else everything
+     * will be directly uploaded to the "uploads" folder.
+     */
+    destination(req, file, cb) {
+      let folderPath = path.join(FileRouteConfig.uploadFolder);
+      if(dirPath) {
+        folderPath = path.join(folderPath, dirPath);
+      }
+      if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+      }
+      cb(null, folderPath);
+    },
     /* Can modify file name based on req params */
     filename(req, file, cb) {
       cb(null, file.originalname);
     }
   });
 
-export const fileUploader = (dirPath: string, allowedFileTypes?: string[]) =>
+/**
+ * A dynamic fileUploader function that will create a directory,
+ * if it doesn't exist and then upload file to that folder.
+ */
+export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
   multer({
     storage: fileStorage(dirPath),
     fileFilter: fileFilter(allowedFileTypes)
