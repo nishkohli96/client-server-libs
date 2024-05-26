@@ -25,5 +25,6 @@ $ yarn run start:prod
 ## PoC
 
 - File Upload on `express-server`
+	- upload single & multiple files for same field
 	- convert large video file in chunks
 	- convert file as base64 and upload in parts

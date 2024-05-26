@@ -53,15 +53,19 @@ export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
     storage: fileStorage(dirPath),
     fileFilter: fileFilter(allowedFileTypes),
     limits: {
-      /* 50 MB for file size */
-      fileSize: 50 * 1024 * 1024,
+      /**
+       * 50 MB for file size, can easily change the
+       * value to say 250mb here itself, no need to
+       * change in express config.
+       */
+      fileSize: ServerConfig.multer.maxFileSize,
       /* 10 MB for non-file fields */
-      fieldSize: ServerConfig.maxFieldLimit,
+      fieldSize: ServerConfig.multer.maxFieldLimit,
       /* Maximum number of non-file fields */
-      fields: 10,
+      fields: ServerConfig.multer.maxNonFileFields,
       /* Maximum number of files */
-      files: 1,
+      files: ServerConfig.multer.maxFiles,
       /* Total number of parts (fields + files) */
-      parts: 11
+      parts: ServerConfig.multer.maxParts
     }
   });

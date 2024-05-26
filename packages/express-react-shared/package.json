@@ -7,5 +7,6 @@
 	"scripts": {
 		"lib:build": "tsc --build",
 		"lint": "eslint --fix ."
-	}
+	},
+	"license":"ISC"
 }

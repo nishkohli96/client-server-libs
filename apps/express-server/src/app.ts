@@ -18,10 +18,10 @@ function generatePath(routeName: string): string {
  */
 app.use(express.json({
   /* Can also write as "10mb" */
-  limit: ServerConfig.maxFieldLimit
+  limit: ServerConfig.multer.maxFieldLimit
 }));
 app.use(express.urlencoded({
-  limit: ServerConfig.maxFieldLimit,
+  limit: ServerConfig.multer.maxFieldLimit,
   extended: true
 }));
 

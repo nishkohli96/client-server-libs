@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 /** https://react-dropzone.js.org/  */
 
 type FileUploaderProps = {
-  onFileUpload: (file: File) => void;
+  onFileUpload: (file: File | FileList) => void;
   maxFileSizeMb?: number;
   multiple?: boolean;
   disabled?: boolean;
@@ -59,8 +59,12 @@ export default function FileUploader({
         );
         event.target.files = null;
         return;
-      } else if (event.target.files && event.target.files[0]) {
-        onFileUpload(event.target.files[0]);
+      } else if (event.target.files) {
+        if(multiple) {
+          onFileUpload(event.target.files);
+        } else {
+          onFileUpload(event.target.files[0]);
+        }
       }
     },
     [onFileUpload, maxFileSizeMb]

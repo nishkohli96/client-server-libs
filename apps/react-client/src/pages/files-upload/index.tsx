@@ -11,63 +11,82 @@ const rootPath = ExpressServerEndpoints.files.rootPath;
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 
 export default function FilesUploadPage() {
-  const handleFileUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append('media', file);
-    try {
-      await serverApi.post(`${rootPath}/${subRoutes.upload}`, formData);
-      toast.success('File Uploaded');
-    } catch (err) {
-      handleApiError(err);
+  const handleFileUpload = async (file: File | FileList) => {
+    if (file instanceof File) {
+      const formData = new FormData();
+      formData.append('media', file);
+      try {
+        await serverApi.post(`${rootPath}/${subRoutes.upload}`, formData);
+        toast.success('File Uploaded');
+      } catch (err) {
+        handleApiError(err);
+      }
     }
   };
 
-  const onLargeFileUpload = async (file: File) => {
-    /* Splitting file into 20MB */
-    const chunkSize = 20 * 1024 * 1024;
-    let start = 0;
-    let end = chunkSize;
-    let chunkNumber = 0;
-    /**
-     * In case, there is some error on the server side, say
-     * "uploads/chunks" dir doesn't exist, stop sending further
-     * requests on the upload of 1st chunk, and also deny
-     * sending the combine-file api request.
-     */
-    let success = true;
-
-    while (start < file.size) {
-      if (success) {
-        const chunk = file.slice(start, end);
-        const formData = new FormData();
-        formData.append('chunk', chunk);
-        formData.append('chunkNumber', `${chunkNumber}`);
-        formData.append('fileName', file.name);
-
-        try {
-          await serverApi.post(
-            `${rootPath}/${subRoutes.uploadChunk}`,
-            formData
-          );
-          start = end;
-          end = start + chunkSize;
-          chunkNumber += 1;
-        } catch (err) {
-          success = false;
-          handleApiError(err);
-        }
-      } else {
-        break;
+  const handleMultipleFileUpload = async (files: File | FileList) => {
+    if (files instanceof FileList) {
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append('files', file);
       }
-    }
-    if (success) {
       try {
-        await serverApi.get(
-          `${rootPath}/${subRoutes.combineFile}/${file.name}`
-        );
-        toast.success('File uploaded');
+        await serverApi.post(`${rootPath}/${subRoutes.uploadMany}`, formData);
+        toast.success('File Uploaded');
       } catch (err) {
         handleApiError(err);
+      }
+    }
+  };
+
+  const onLargeFileUpload = async (file: File | FileList) => {
+    if (file instanceof File) {
+      /* Splitting file into 20MB */
+      const chunkSize = 20 * 1024 * 1024;
+      let start = 0;
+      let end = chunkSize;
+      let chunkNumber = 0;
+      /**
+       * In case, there is some error on the server side, say
+       * "uploads/chunks" dir doesn't exist, stop sending further
+       * requests on the upload of 1st chunk, and also deny
+       * sending the combine-file api request.
+       */
+      let success = true;
+
+      while (start < file.size) {
+        if (success) {
+          const chunk = file.slice(start, end);
+          const formData = new FormData();
+          formData.append('chunk', chunk);
+          formData.append('chunkNumber', `${chunkNumber}`);
+          formData.append('fileName', file.name);
+
+          try {
+            await serverApi.post(
+              `${rootPath}/${subRoutes.uploadChunk}`,
+              formData
+            );
+            start = end;
+            end = start + chunkSize;
+            chunkNumber += 1;
+          } catch (err) {
+            success = false;
+            handleApiError(err);
+          }
+        } else {
+          break;
+        }
+      }
+      if (success) {
+        try {
+          await serverApi.get(
+            `${rootPath}/${subRoutes.combineFile}/${file.name}`
+          );
+          toast.success('File uploaded');
+        } catch (err) {
+          handleApiError(err);
+        }
       }
     }
   };
@@ -87,52 +106,54 @@ export default function FilesUploadPage() {
     });
   }
 
-  const onLargeFileUploadAsBase64 = async (file: File) => {
-    /**
-     * Splitting file into 7MB chunks. Even after adjusting
-     * max fieldSize for multer in express-server, I can't
-     * upload a bigger chunk than this limit.
-     */
-    const chunkSize = 7 * 1024 * 1024;
-    let start = 0;
-    let end = chunkSize;
-    let chunkNumber = 0;
-    const success = true;
+  const onLargeFileUploadAsBase64 = async (file: File | FileList) => {
+    if (file instanceof File) {
+      /**
+       * Splitting file into 7MB chunks. Even after adjusting
+       * max fieldSize for multer in express-server, I can't
+       * upload a bigger chunk than this limit.
+       */
+      const chunkSize = 7 * 1024 * 1024;
+      let start = 0;
+      let end = chunkSize;
+      let chunkNumber = 0;
+      const success = true;
 
-    while (start < file.size) {
+      while (start < file.size) {
+        if (success) {
+          const chunk = file.slice(start, end);
+          const base64Chunk = await convertToBase64(chunk);
+
+          const formData = new FormData();
+          formData.append('chunk', base64Chunk);
+          formData.append('chunkNumber', `${chunkNumber}`);
+          formData.append('fileName', file.name);
+
+          try {
+            await serverApi.post(
+              `${rootPath}/${subRoutes.uploadBase64}`,
+              formData
+            );
+            start = end;
+            end = start + chunkSize;
+            chunkNumber += 1;
+          } catch (err) {
+            handleApiError(err);
+          }
+        } else {
+          break;
+        }
+      }
+
       if (success) {
-        const chunk = file.slice(start, end);
-        const base64Chunk = await convertToBase64(chunk);
-
-        const formData = new FormData();
-        formData.append('chunk', base64Chunk);
-        formData.append('chunkNumber', `${chunkNumber}`);
-        formData.append('fileName', file.name);
-
         try {
-          await serverApi.post(
-            `${rootPath}/${subRoutes.uploadBase64}`,
-            formData
+          await serverApi.get(
+            `${rootPath}/${subRoutes.combineBase64}/${file.name}`
           );
-          start = end;
-          end = start + chunkSize;
-          chunkNumber += 1;
+          toast.success('File uploaded');
         } catch (err) {
           handleApiError(err);
         }
-      } else {
-        break;
-      }
-    }
-
-    if (success) {
-      try {
-        await serverApi.get(
-          `${rootPath}/${subRoutes.combineBase64}/${file.name}`
-        );
-        toast.success('File uploaded');
-      } catch (err) {
-        handleApiError(err);
       }
     }
   };
@@ -141,8 +162,12 @@ export default function FilesUploadPage() {
     <PageLayout seoTitle={pageTitle}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Typography>File Uploads</Typography>
+          <Typography>Single File Upload</Typography>
           <FileUploader onFileUpload={handleFileUpload} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>Multiple Files Upload</Typography>
+          <FileUploader onFileUpload={handleMultipleFileUpload} multiple />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography>Large File Upload as Chunks</Typography>

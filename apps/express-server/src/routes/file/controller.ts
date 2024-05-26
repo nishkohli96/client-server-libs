@@ -24,6 +24,16 @@ fileRouter.post(
   }
 );
 
+fileRouter.post(
+  `/${subRoutes.uploadMany}`,
+  mediaUploader.array('files', 3),
+  function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
+    const files = req.files;
+    console.log('files: ', files);
+    return res.send('Files uploaded successfully');
+  }
+);
+
 /**
  * Uploading large file by splitting into chunks, and then
  * hitting the combine-file api to get the full file on the
