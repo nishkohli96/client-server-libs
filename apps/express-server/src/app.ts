@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ENV_VARS } from 'app-constants';
+import { ENV_VARS, ServerConfig } from 'app-constants';
 import { requestLogger } from 'middleware';
 import * as Routes from 'routes';
 
@@ -11,9 +11,17 @@ function generatePath(routeName: string): string {
   return `/api${routeName}`;
 }
 
-app.use(express.json({ limit: '10mb' }));
+/**
+ * To increase the limit of fieldSize in multer,
+ * ensure that Express can handle large JSON and
+ * URL-encoded payloads.
+ */
+app.use(express.json({
+  /* Can also write as "10mb" */
+  limit: ServerConfig.maxFieldLimit
+}));
 app.use(express.urlencoded({
-  limit: '10mb',
+  limit: ServerConfig.maxFieldLimit,
   extended: true
 }));
 

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { FileRouteConfig } from './config';
+import { ServerConfig } from 'app-constants';
 
 class FileService {
   uploadFile(res: Response, file?: Express.Multer.File) {
@@ -22,7 +22,7 @@ class FileService {
     chunkNumber: number
   ) {
     try {
-      const chunkDir = path.join(FileRouteConfig.uploadFolder, 'chunks', fileName);
+      const chunkDir = path.join(ServerConfig.uploadFolder, 'chunks', fileName);
 
       /**
        * Create dir if it doesn't exist. if creating
@@ -47,8 +47,8 @@ class FileService {
   }
 
   combineFileChunks(res: Response, fileName: string) {
-    const chunkDir = path.join(FileRouteConfig.uploadFolder, 'chunks', fileName);
-    const outputFilePath = path.join(FileRouteConfig.uploadFolder, `${fileName}`);
+    const chunkDir = path.join(ServerConfig.uploadFolder, 'chunks', fileName);
+    const outputFilePath = path.join(ServerConfig.uploadFolder, `${fileName}`);
 
     const chunkFiles = fs.readdirSync(chunkDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
@@ -82,11 +82,23 @@ class FileService {
     chunkNumber: number
   ) {
     try {
-      const base64Root = path.join(FileRouteConfig.uploadFolder, 'base64');
+      /* create "uploads" folder if not exist */
+      const rootDir = path.join(ServerConfig.uploadFolder);
+      if (!fs.existsSync(rootDir)) {
+        fs.mkdirSync(rootDir);
+      }
+
+      /* create "base64" folder if not exist */
+      const base64Root = path.join(rootDir, 'base64');
       if (!fs.existsSync(base64Root)) {
         fs.mkdirSync(base64Root);
       }
 
+      /**
+       * create folder of the same name as the file and
+       * store base64 chunks in text files in this
+       * directory
+       */
       const base64Dir = path.join(base64Root, fileName);
       if (!fs.existsSync(base64Dir)) {
         fs.mkdirSync(base64Dir);
@@ -105,8 +117,8 @@ class FileService {
   }
 
   combineBase64Files(res: Response, fileName: string) {
-    const base64Dir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
-    const outputFilePath = path.join(FileRouteConfig.uploadFolder, `${fileName}`);
+    const base64Dir = path.join(ServerConfig.uploadFolder, 'base64', fileName);
+    const outputFilePath = path.join(ServerConfig.uploadFolder, `${fileName}`);
 
     const base64Files = fs.readdirSync(base64Dir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);

@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from 'express';
 import fs from 'fs';
 import path from 'path';
-import moment from 'moment';
 import multer, { FileFilterCallback } from 'multer';
-import { FileRouteConfig } from './config';
+import { ServerConfig } from 'app-constants';
 
 const fileFilter = function (allowedFileTypes?: string[]) {
   return function applyFileFilter(
@@ -30,7 +29,7 @@ const fileStorage = (dirPath?: string) =>
      * will be directly uploaded to the "uploads" folder.
      */
     destination(req, file, cb) {
-      let folderPath = path.join(FileRouteConfig.uploadFolder);
+      let folderPath = path.join(ServerConfig.uploadFolder);
       if(dirPath) {
         folderPath = path.join(folderPath, dirPath);
       }
@@ -57,7 +56,7 @@ export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
       /* 50 MB for file size */
       fileSize: 50 * 1024 * 1024,
       /* 10 MB for non-file fields */
-      fieldSize: 10 * 1024 * 1024,
+      fieldSize: ServerConfig.maxFieldLimit,
       /* Maximum number of non-file fields */
       fields: 10,
       /* Maximum number of files */

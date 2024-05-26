@@ -66,8 +66,12 @@ export default function FilesUploadPage() {
   }
 
   const onLargeFileUploadAsBase64 = async (file: File) => {
-    /* Splitting file into 20MB */
-    const chunkSize = 9 * 1024 * 1024;
+    /**
+     * Splitting file into 7MB chunks. Even after adjusting
+     * max fieldSize for multer in express-server, I can't
+     * upload a bigger chunk than this limit.
+     */
+    const chunkSize = 7 * 1024 * 1024;
     let start = 0;
     let end = chunkSize;
     let chunkNumber = 0;
