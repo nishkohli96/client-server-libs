@@ -6,7 +6,7 @@ import * as FileTypeDefs from './types';
 
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
-const mediaUploader = fileUploader('test-folder/some-dir');
+const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg']);
 const chunkUploader = fileUploader('chunks');
 const uploader = fileUploader();
 

@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { serverApi } from 'api';
+import { serverApi, handleApiError } from 'api';
 import { PageLayout } from 'components';
 import { FileUploader } from './components';
 
@@ -18,7 +18,7 @@ export default function FilesUploadPage() {
       await serverApi.post(`${rootPath}/${subRoutes.upload}`, formData);
       toast.success('File Uploaded');
     } catch (err) {
-      toast.error(JSON.stringify(err));
+      handleApiError(err);
     }
   };
 
@@ -42,12 +42,15 @@ export default function FilesUploadPage() {
         end = start + chunkSize;
         chunkNumber += 1;
       } catch (err) {
-        toast.error(JSON.stringify(err));
+        handleApiError(err);
       }
     }
-
-    await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
-    toast.success('File uploaded');
+    try {
+      await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
+      toast.success('File uploaded');
+    } catch (err) {
+      handleApiError(err);
+    }
   };
 
   function convertToBase64(file: Blob): Promise<string> {
@@ -91,12 +94,16 @@ export default function FilesUploadPage() {
         end = start + chunkSize;
         chunkNumber += 1;
       } catch (err) {
-        toast.error(JSON.stringify(err));
+        handleApiError(err);
       }
     }
 
-    await serverApi.get(`${rootPath}/${subRoutes.combineBase64}/${file.name}`);
-    toast.success('File uploaded');
+    try {
+      await serverApi.get(`${rootPath}/${subRoutes.combineBase64}/${file.name}`);
+      toast.success('File uploaded');
+    } catch (err) {
+      handleApiError(err);
+    }
   };
 
   return (
