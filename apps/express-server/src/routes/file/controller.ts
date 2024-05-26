@@ -7,7 +7,8 @@ import * as FileTypeDefs from './types';
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const mediaUploader = fileUploader('test-folder/some-dir');
-const chunkUploader = fileUploader();
+const chunkUploader = fileUploader('chunks');
+const base64Uploader = fileUploader('base64');
 
 /**
  * Uploading a single file, here "media" in
@@ -69,7 +70,7 @@ fileRouter.get(
  */
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
-  chunkUploader.single('chunk'),
+  base64Uploader.single('chunk'),
   function uploadBase64(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response

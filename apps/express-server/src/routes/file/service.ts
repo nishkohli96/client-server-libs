@@ -24,7 +24,13 @@ class FileService {
     try {
       const chunkDir = path.join(FileRouteConfig.uploadFolder, 'chunks', fileName);
 
-      /* Ensure the directory exists */
+      /**
+       * Create dir if it doesn't exist. if creating
+       * "uploads/chunks/abc.mp4", I need to create
+       * "uploads/chunks" first, which is done by providing
+       * "chunks" as arg in fileUploader('chunks')
+       * middleware, otherwise this will fail to create the dir.
+       */
       if (!fs.existsSync(chunkDir)) {
         fs.mkdirSync(chunkDir);
       }
@@ -56,13 +62,13 @@ class FileService {
       const data = fs.readFileSync(chunkPath);
       writeStream.write(data);
       /* Optionally delete chunk file after merging */
-      // fs.unlinkSync(chunkPath);
+      fs.unlinkSync(chunkPath);
     });
 
     writeStream.end(() => {
       res.sendFile(outputFilePath, { root: '.' });
       /* Optionally delete chunk directory after merging */
-      // fs.rmdirSync(chunkDir);
+      fs.rmdirSync(chunkDir);
     });
 
     res.send('File retrieved');
