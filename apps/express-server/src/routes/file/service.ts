@@ -39,7 +39,7 @@ class FileService {
       const chunkDestination = path.join(chunkDir, `chunk_${chunkNumber}`);
       fs.renameSync(chunkPath, chunkDestination);
 
-      res.send(`Chunk ${chunkNumber} uploaded`);
+      return res.send(`Chunk ${chunkNumber} uploaded`);
     } catch (err) {
       console.log('Error in uploading file ', err);
       res.status(500).send(err);
@@ -62,17 +62,17 @@ class FileService {
       const chunkPath = path.join(chunkDir, chunkFile);
       const data = fs.readFileSync(chunkPath);
       writeStream.write(data);
-      /* Optionally delete chunk file after merging */
+      /* Delete chunk file(s) after merging */
       fs.unlinkSync(chunkPath);
     });
 
     writeStream.end(() => {
       res.sendFile(outputFilePath, { root: '.' });
-      /* Optionally delete chunk directory after merging */
+      /* Delete chunk directory after merging */
       fs.rmdirSync(chunkDir);
     });
 
-    res.send('File retrieved');
+    return res.send('File retrieved');
   }
 
   uploadBase64(
@@ -109,7 +109,7 @@ class FileService {
       const writeStream = fs.createWriteStream(chunkDestination);
       writeStream.write(chunk);
       writeStream.end();
-      res.send(`Base64 file no ${chunkNumber} uploaded`);
+      return res.send(`Base64 file no ${chunkNumber} uploaded`);
     } catch (err) {
       console.log('Error in uploading file ', err);
       res.status(500).send(err);
@@ -129,17 +129,16 @@ class FileService {
     const writeStream = fs.createWriteStream(outputFilePath);
 
     base64Files.forEach(base64File => {
-      const chunkPath = path.join(base64Dir, base64File);
-      const data = fs.readFileSync(chunkPath);
+      const base64Path = path.join(base64Dir, base64File);
+      const data = fs.readFileSync(base64Path);
       writeStream.write(data);
-      /* Optionally delete chunk file after merging */
-      // fs.unlinkSync(chunkPath);
+      /* Delete file(s) after merging */
+      fs.unlinkSync(base64Path);
     });
 
     writeStream.end(() => {
-      res.sendFile(outputFilePath, { root: '.' });
-      /* Optionally delete chunk directory after merging */
-      // fs.rmdirSync(chunkDir);
+      /* Delete filename directory after merging */
+      fs.rmdirSync(base64Dir);
     });
 
     res.send('File retrieved');
