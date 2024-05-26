@@ -42,6 +42,7 @@ class FileService {
       res.send(`Chunk ${chunkNumber} uploaded`);
     } catch (err) {
       console.log('Error in uploading file ', err);
+      res.status(500).send(err);
     }
   }
 
@@ -77,24 +78,26 @@ class FileService {
   uploadBase64(
     res: Response,
     fileName: string,
-    chunkPath: string,
+    chunk: Blob,
     chunkNumber: number
   ) {
     try {
-      const chunkDir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
+      const base64Dir = path.join(FileRouteConfig.uploadFolder, 'base64', fileName);
 
       /* Ensure the directory exists */
-      if (!fs.existsSync(chunkDir)) {
-        fs.mkdirSync(chunkDir);
+      if (!fs.existsSync(base64Dir)) {
+        fs.mkdirSync(base64Dir);
       }
 
       /* Move chunk to the appropriate directory */
-      const chunkDestination = path.join(chunkDir, `base64_${chunkNumber}.txt`);
-      fs.renameSync(chunkPath, chunkDestination);
-
+      const chunkDestination = path.join(base64Dir, `base64_${chunkNumber}.txt`);
+      const writeStream = fs.createWriteStream(chunkDestination);
+      writeStream.write(chunk);
+      writeStream.end();
       res.send(`Base64 file no ${chunkNumber} uploaded`);
     } catch (err) {
       console.log('Error in uploading file ', err);
+      res.status(500).send(err);
     }
   }
 

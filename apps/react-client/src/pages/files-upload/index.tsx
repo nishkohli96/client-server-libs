@@ -67,7 +67,7 @@ export default function FilesUploadPage() {
 
   const onLargeFileUploadAsBase64 = async (file: File) => {
     /* Splitting file into 20MB */
-    const chunkSize = 20 * 1024 * 1024;
+    const chunkSize = 0.5 * 1024 * 1024;
     let start = 0;
     let end = chunkSize;
     let chunkNumber = 0;
@@ -82,7 +82,7 @@ export default function FilesUploadPage() {
       formData.append('fileName', file.name);
 
       try {
-        await serverApi.post(`${rootPath}/${subRoutes.uploadChunk}`, formData);
+        await serverApi.post(`${rootPath}/${subRoutes.uploadBase64}`, formData);
         start = end;
         end = start + chunkSize;
         chunkNumber += 1;
@@ -91,7 +91,7 @@ export default function FilesUploadPage() {
       }
     }
 
-    await serverApi.get(`${rootPath}/${subRoutes.combineFile}/${file.name}`);
+    await serverApi.get(`${rootPath}/${subRoutes.combineBase64}/${file.name}`);
     toast.success('File uploaded');
   };
 

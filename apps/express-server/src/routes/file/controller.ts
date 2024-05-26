@@ -75,12 +75,11 @@ fileRouter.post(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response
   ) {
-    const { chunkNumber, fileName } = req.body;
-    const chunkPath = req.file?.path ?? '';
+    const { chunkNumber, fileName, chunk } = req.body;
     return fileService.uploadBase64(
       res,
       fileName,
-      chunkPath,
+      chunk,
       Number(`${chunkNumber}`)
     );
   }
