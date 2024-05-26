@@ -1,5 +1,6 @@
 import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
+import { ServerConfig } from 'app-constants';
 import { fileUploader } from './middleware';
 import fileService from './service';
 import * as FileTypeDefs from './types';
@@ -24,9 +25,10 @@ fileRouter.post(
   }
 );
 
+/* Uploading multiple files in the same field */
 fileRouter.post(
   `/${subRoutes.uploadMany}`,
-  mediaUploader.array('files', 3),
+  mediaUploader.array('files', ServerConfig.multer.maxFiles),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     const files = req.files;
     console.log('files: ', files);
@@ -42,10 +44,7 @@ fileRouter.post(
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
   chunkUploader.single('chunk'),
-  function uploadChunks(
-    req: FileTypeDefs.UploadLargeFileReq,
-    res: Response
-  ) {
+  function uploadChunks(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
     const { chunkNumber, fileName } = req.body;
     const chunkPath = req.file?.path ?? '';
     return fileService.uploadChunks(
@@ -86,10 +85,7 @@ fileRouter.get(
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
   uploader.single('chunk'),
-  function uploadBase64(
-    req: FileTypeDefs.UploadLargeFileReq,
-    res: Response
-  ) {
+  function uploadBase64(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
     const { chunkNumber, fileName, chunk } = req.body;
     return fileService.uploadBase64(
       res,

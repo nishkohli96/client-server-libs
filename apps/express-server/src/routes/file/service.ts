@@ -22,7 +22,7 @@ class FileService {
     chunkNumber: number
   ) {
     try {
-      const chunkDir = path.join(ServerConfig.uploadFolder, 'chunks', fileName);
+      const chunkDir = path.join(ServerConfig.multer.uploadFolder, 'chunks', fileName);
 
       /**
        * Create dir if it doesn't exist. if creating
@@ -47,8 +47,8 @@ class FileService {
   }
 
   combineFileChunks(res: Response, fileName: string) {
-    const chunkDir = path.join(ServerConfig.uploadFolder, 'chunks', fileName);
-    const outputFilePath = path.join(ServerConfig.uploadFolder, `${fileName}`);
+    const chunkDir = path.join(ServerConfig.multer.uploadFolder, 'chunks', fileName);
+    const outputFilePath = path.join(ServerConfig.multer.uploadFolder, `${fileName}`);
 
     const chunkFiles = fs.readdirSync(chunkDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
@@ -83,7 +83,7 @@ class FileService {
   ) {
     try {
       /* create "uploads" folder if not exist */
-      const rootDir = path.join(ServerConfig.uploadFolder);
+      const rootDir = path.join(ServerConfig.multer.uploadFolder);
       if (!fs.existsSync(rootDir)) {
         fs.mkdirSync(rootDir);
       }
@@ -117,8 +117,8 @@ class FileService {
   }
 
   combineBase64Files(res: Response, fileName: string) {
-    const base64Dir = path.join(ServerConfig.uploadFolder, 'base64', fileName);
-    const outputFilePath = path.join(ServerConfig.uploadFolder, `${fileName}`);
+    const base64Dir = path.join(ServerConfig.multer.uploadFolder, 'base64', fileName);
+    const outputFilePath = path.join(ServerConfig.multer.uploadFolder, `${fileName}`);
 
     const base64Files = fs.readdirSync(base64Dir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
