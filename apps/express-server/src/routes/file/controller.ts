@@ -7,7 +7,7 @@ import * as FileTypeDefs from './types';
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const mediaUploader = fileUploader('test-folder/some-dir');
-// const chunkUploader = fileUploader('test-folder/some-dir');
+const chunkUploader = fileUploader();
 
 /**
  * Uploading a single file, here "media" in
@@ -30,7 +30,7 @@ fileRouter.post(
  */
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
-  mediaUploader.single('chunk'),
+  chunkUploader.single('chunk'),
   function uploadChunks(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response
@@ -69,7 +69,7 @@ fileRouter.get(
  */
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
-  mediaUploader.single('chunk'),
+  chunkUploader.single('chunk'),
   function uploadBase64(
     req: FileTypeDefs.UploadLargeFileReq,
     res: Response
