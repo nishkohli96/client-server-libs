@@ -29,7 +29,7 @@ const fileStorage = (dirPath?: string) =>
      * will be directly uploaded to the "uploads" folder.
      */
     destination(req, file, cb) {
-      let folderPath = path.join(ServerConfig.multer.uploadFolder);
+      let folderPath = path.join(ServerConfig.multer.dirs.upload);
       if(dirPath) {
         folderPath = path.join(folderPath, dirPath);
       } else {

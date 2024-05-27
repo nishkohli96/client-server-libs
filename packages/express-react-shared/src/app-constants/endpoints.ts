@@ -8,7 +8,8 @@ export const ExpressServerEndpoints = Object.freeze({
       uploadChunk: 'upload-chunk',
       combineFile: 'combine-file',
       uploadBase64: 'upload-base64',
-      combineBase64: 'combine-base64'
+      combineBase64: 'combine-base64',
+      combineWithffmpeg: 'combine-with-ffmpeg'
     }
   }
 });

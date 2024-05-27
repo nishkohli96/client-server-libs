@@ -12,6 +12,10 @@ $ yarn run dev
 $ yarn run start:prod
 ```
 
+# npm packages used
+
+- [fluent-ffmpeg](https://www.npmjs.com/package/fluent-ffmpeg) - 2.1.3
+
 ### PoC
 
 - Files uploading using multer
@@ -20,4 +24,5 @@ $ yarn run start:prod
 	- upload file(s) in different fields
 	- upload videos as chunk and combine
 	- upload video as base64 files and combine
-	- reading from and writing to a file 
+	- combine video using ***fluent-ffmpeg***
+	- reading from and writing to a file

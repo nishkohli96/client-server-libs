@@ -7,8 +7,10 @@ import * as FileTypeDefs from './types';
 
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
+const multerDirs = ServerConfig.multer.dirs;
+
 const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg']);
-const chunkUploader = fileUploader('chunks');
+const chunkUploader = fileUploader(multerDirs.chunk);
 const uploader = fileUploader();
 
 /**
@@ -135,5 +137,29 @@ fileRouter.get(
     return fileService.combineBase64Files(res, fileName);
   }
 );
+
+/**
+ * combine videoes using ffmpeg. Install ffmpeg by running -
+ *
+ * git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+ */
+fileRouter.post(
+  `/${subRoutes.combineWithffmpeg}`,
+  function combineVideosWithFfmpeg(
+    req,
+    res: Response
+  ) {
+    return fileService.combineVideosWithFfmpeg(res);
+  }
+);
+
+/**
+ * TODO:
+ * 1. read content of files from dir and append their content in a single file.
+ * 2. handle gettig static assets.
+ * 3. put a check to throw err, if say some header not present while fetching these assets.
+ * 4. make api to read data from a csv file and send for pagination across react & next apps
+ * 5. csv download above data.
+ */
 
 export { fileRouter };
