@@ -38,9 +38,13 @@ class FileService {
        * "uploads/chunks" first, which is done by providing
        * "chunks" as arg in fileUploader('chunks')
        * middleware, otherwise this will fail to create the dir.
+       *
+       * That's why always use "recursive: true", which creates
+       * all directories from start to finish if any of the dirs
+       * in between does not exist.
        */
       if (!fs.existsSync(chunkDir)) {
-        fs.mkdirSync(chunkDir);
+        fs.mkdirSync(chunkDir, { recursive: true });
       }
 
       /* Move chunk to the appropriate directory */
@@ -57,15 +61,15 @@ class FileService {
   combineFileChunks(res: Response, fileName: string) {
     const chunkDir = path.join(
       this.multerDirs.upload,
-      this.multerDirs.chunk,
-      fileName
+      this.multerDirs.chunk
     );
+    const chunkFilesDir = path.join(chunkDir, fileName);
     const outputFilePath = path.join(
       this.multerDirs.upload,
       `${fileName}`
     );
 
-    const chunkFiles = fs.readdirSync(chunkDir).sort((a, b) => {
+    const chunkFiles = fs.readdirSync(chunkFilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
       const bNum = parseInt(b.split('_')[1]);
       return aNum - bNum;
@@ -74,7 +78,7 @@ class FileService {
     const writeStream = fs.createWriteStream(outputFilePath);
 
     chunkFiles.forEach(chunkFile => {
-      const chunkPath = path.join(chunkDir, chunkFile);
+      const chunkPath = path.join(chunkFilesDir, chunkFile);
       const data = fs.readFileSync(chunkPath);
       writeStream.write(data);
       /* Delete chunk file(s) after merging */
@@ -84,6 +88,7 @@ class FileService {
     writeStream.end(() => {
       res.sendFile(outputFilePath, { root: '.' });
       /* Delete chunk directory after merging */
+      fs.rmdirSync(chunkFilesDir);
       fs.rmdirSync(chunkDir);
     });
 
@@ -93,40 +98,33 @@ class FileService {
   uploadBase64(
     res: Response,
     fileName: string,
-    chunk: Blob,
+    chunk: string,
     chunkNumber: number
   ) {
     try {
-      /* create "uploads" folder if not exist */
-      const rootDir = path.join(this.multerDirs.upload);
-      if (!fs.existsSync(rootDir)) {
-        fs.mkdirSync(rootDir);
-      }
-
-      /* create "base64" folder if not exist */
-      const base64Root = path.join(rootDir, this.multerDirs.base64);
-      if (!fs.existsSync(base64Root)) {
-        fs.mkdirSync(base64Root);
-      }
-
       /**
        * create folder of the same name as the file and
        * store base64 chunks in text files in this
-       * directory
+       * directory as "uploads/base64/filename".
        */
-      const base64Dir = path.join(base64Root, fileName);
+      const base64Dir = path.join(
+        this.multerDirs.upload,
+        this.multerDirs.base64,
+        fileName
+      );
       if (!fs.existsSync(base64Dir)) {
-        fs.mkdirSync(base64Dir);
+        fs.mkdirSync(base64Dir, { recursive: true });
       }
+
+      /* Decode base64 data */
+      const buffer = Buffer.from(chunk, 'base64');
 
       /* Move chunk to the appropriate directory */
       const chunkDestination = path.join(
         base64Dir,
         `base64_${chunkNumber}.txt`
       );
-      const writeStream = fs.createWriteStream(chunkDestination);
-      writeStream.write(chunk);
-      writeStream.end();
+      fs.writeFileSync(chunkDestination, buffer);
       return res.send(`Base64 file no ${chunkNumber} uploaded`);
     } catch (err) {
       console.log('Error in uploading file ', err);
@@ -137,15 +135,15 @@ class FileService {
   combineBase64Files(res: Response, fileName: string) {
     const base64Dir = path.join(
       this.multerDirs.upload,
-      this.multerDirs.base64,
-      fileName
+      this.multerDirs.base64
     );
+    const base64FilesDir = path.join(base64Dir, fileName);
     const outputFilePath = path.join(
       this.multerDirs.upload,
       `${fileName}`
     );
 
-    const base64Files = fs.readdirSync(base64Dir).sort((a, b) => {
+    const base64Files = fs.readdirSync(base64FilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
       const bNum = parseInt(b.split('_')[1]);
       return aNum - bNum;
@@ -154,7 +152,7 @@ class FileService {
     const writeStream = fs.createWriteStream(outputFilePath);
 
     base64Files.forEach(base64File => {
-      const base64Path = path.join(base64Dir, base64File);
+      const base64Path = path.join(base64FilesDir, base64File);
       const data = fs.readFileSync(base64Path);
       writeStream.write(data);
       /* Delete file(s) after merging */
@@ -162,7 +160,12 @@ class FileService {
     });
 
     writeStream.end(() => {
-      /* Delete filename directory after merging */
+      /**
+       * Delete filename directory after merging. To delete
+       * a dir, make sure it is completely empty before
+       * deletion, otherwise it will fail.
+       */
+      fs.rmdirSync(base64FilesDir);
       fs.rmdirSync(base64Dir);
     });
 

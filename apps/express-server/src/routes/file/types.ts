@@ -6,13 +6,21 @@ export interface UploadMediaBody {
 }
 export type UploadMediaRequest = Request<object, object, UploadMediaBody>
 
-/* Upload chunks */
-export type LargeFileBody = {
+/* Upload video by splitting into chunks */
+export type ChunkUploadBody = {
   chunk: Blob;
   chunkNumber: number;
   fileName: string;
 }
-export type UploadLargeFileReq = Request<object, object, LargeFileBody>
+export type ChunkUploadReq = Request<object, object, ChunkUploadBody>
+
+/* Upload video as base64 encoded */
+export type Base64UploadBody = {
+  chunk: string;
+  chunkNumber: number;
+  fileName: string;
+}
+export type Base64UploadReq = Request<object, object, Base64UploadBody>
 
 /* Combine Chunks */
 export type CombineChunksParam = {

@@ -26,3 +26,4 @@ $ yarn run start:prod
 	- upload video as base64 files and combine
 	- combine video using ***fluent-ffmpeg***
 	- reading from and writing to a file
+	- delete file and folder

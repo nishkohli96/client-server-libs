@@ -117,7 +117,7 @@ export default function FilesUploadPage() {
       let start = 0;
       let end = chunkSize;
       let chunkNumber = 0;
-      const success = true;
+      let success = true;
 
       while (start < file.size) {
         if (success) {
@@ -138,6 +138,7 @@ export default function FilesUploadPage() {
             end = start + chunkSize;
             chunkNumber += 1;
           } catch (err) {
+            success = false;
             handleApiError(err);
           }
         } else {

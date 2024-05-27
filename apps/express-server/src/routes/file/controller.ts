@@ -70,7 +70,7 @@ fileRouter.post(
 fileRouter.post(
   `/${subRoutes.uploadChunk}`,
   chunkUploader.single('chunk'),
-  function uploadChunks(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
+  function uploadChunks(req: FileTypeDefs.ChunkUploadReq, res: Response) {
     const { chunkNumber, fileName } = req.body;
     const chunkPath = req.file?.path ?? '';
     return fileService.uploadChunks(
@@ -111,7 +111,7 @@ fileRouter.get(
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
   uploader.single('chunk'),
-  function uploadBase64(req: FileTypeDefs.UploadLargeFileReq, res: Response) {
+  function uploadBase64(req: FileTypeDefs.Base64UploadReq, res: Response) {
     const { chunkNumber, fileName, chunk } = req.body;
     return fileService.uploadBase64(
       res,
