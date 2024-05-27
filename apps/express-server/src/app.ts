@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
+import path from 'path';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS, ServerConfig } from 'app-constants';
 import { requestLogger } from 'middleware';
@@ -27,6 +28,17 @@ app.use(express.urlencoded({
 
 app.use(cors());
 app.use(requestLogger);
+
+/**
+ * This will server static assets from uploads folder.
+ * So a file at "uploads/files/hi.jpeg" can be accessed at
+ * http://localhost:5000/files/hi.jpeg
+ *
+ * If you want assets to be protected, use a middleware just
+ * before using express.static. Remember, the order of
+ * middleware MATTERS!
+ */
+app.use(express.static(path.join(__dirname, '../uploads')));
 
 app.get('/', (_: Request, response: Response) => {
   response.status(200).send(`ENV: ${ENV_VARS.env} - Api is up & running!!!`);

@@ -155,8 +155,6 @@ fileRouter.post(
 
 /**
  * TODO:
- * 1. read content of files from dir and append their content in a single file.
- * 2. handle gettig static assets.
  * 3. put a check to throw err, if say some header not present while fetching these assets.
  * 4. make api to read data from a csv file and send for pagination across react & next apps
  * 5. csv download above data.
