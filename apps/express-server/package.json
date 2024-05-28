@@ -8,6 +8,7 @@
     "build": "rimraf dist && tsc",
     "start": "ts-node dist/index.js",
     "start:prod": "yarn build && yarn start",
+    "seed:db": "node scripts/seed.mjs",
     "lint": "eslint --fix ."
   },
   "dependencies": {
