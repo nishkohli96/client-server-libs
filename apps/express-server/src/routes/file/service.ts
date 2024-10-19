@@ -190,7 +190,10 @@ class FileService {
      * of the videos, and keep a check to ensure that all the files are
      * found.
      */
-    const videosArr = ['/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov', '/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov'];
+    const videosArr = [
+      '/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov',
+      '/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov'
+    ];
 
     try {
       videosArr.forEach((video, idx) => {
