@@ -71,6 +71,7 @@ export default function FilesUploadPage() {
           formData.append('fileName', file.name);
 
           try {
+            /* eslint-disable no-await-in-loop */
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadChunk}`,
               formData,
@@ -136,6 +137,7 @@ export default function FilesUploadPage() {
 
       while (start < file.size) {
         if (success) {
+          /* eslint-disable no-await-in-loop */
           const chunk = file.slice(start, end);
           const base64Chunk = await convertToBase64(chunk);
 
@@ -145,6 +147,7 @@ export default function FilesUploadPage() {
           formData.append('fileName', file.name);
 
           try {
+            /* eslint-disable no-await-in-loop */
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadBase64}`,
               formData

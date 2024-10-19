@@ -211,7 +211,8 @@ class FileService {
         .on('start', commandLine => {
           console.log('FFmpeg command: ' + commandLine);
         })
-        .on('error', (err, stdout, stderr) => {
+        // .on('error', (err, stdout, stderr) => {
+        .on('error', err => {
           console.log('err: ', err);
           return res.status(500).send(err);
         })
