@@ -2,7 +2,7 @@ import { Request } from 'express';
 import fs from 'fs';
 import path from 'path';
 import multer, { FileFilterCallback } from 'multer';
-import { ServerConfig } from 'app-constants';
+import { ServerConfig } from '@/app-constants';
 
 const fileFilter = function (allowedFileTypes?: string[]) {
   return function applyFileFilter(

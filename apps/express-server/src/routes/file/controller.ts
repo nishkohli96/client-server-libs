@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ServerConfig } from 'app-constants';
+import { ServerConfig } from '@/app-constants';
 import { fileUploader } from './middleware';
 import fileService from './service';
 import * as FileTypeDefs from './types';

@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import os from 'os';
 import { createServer } from 'node:http';
-import { ENV_VARS } from 'app-constants';
-import { winstonLogger } from 'middleware';
+import { ENV_VARS } from '@/app-constants';
+import { winstonLogger } from '@/middleware';
 import app from './app';
 
 const hostName = os.hostname();

@@ -1,5 +1,5 @@
 services:
-  # run react-client-prod build on Port 5000
+  # run react-client-prod build on Port 8000
   react-client:
     image: docker_username/react-client
     build:
@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: ./apps/express-server/Dockerfile
     ports:
-      - '5000:5000'
+      - '8000:8000'
 
   # somehow port mapping not working for this
   nestjs-server:
