@@ -1,7 +1,7 @@
 {
-  "name": "react-nestjs-monorepo",
+  "name": "client-server-libs",
   "author": "Nishant Kohli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -23,7 +23,7 @@
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "turbo": "^1.12.3"
+    "turbo": "^2.0.6"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -32,5 +32,6 @@
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

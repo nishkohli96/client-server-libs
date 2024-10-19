@@ -106,6 +106,7 @@ export default function FilesUploadPage() {
     });
   }
 
+
   const onLargeFileUploadAsBase64 = async (file: File | FileList) => {
     if (file instanceof File) {
       /**

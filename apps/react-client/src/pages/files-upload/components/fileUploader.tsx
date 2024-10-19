@@ -67,7 +67,7 @@ export default function FileUploader({
         }
       }
     },
-    [onFileUpload, maxFileSizeMb]
+    [onFileUpload, maxFileSizeMb, multiple]
   );
 
   return (
