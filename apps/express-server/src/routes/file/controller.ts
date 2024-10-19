@@ -143,6 +143,13 @@ fileRouter.post(
  * Get filename along with the extension in params, combine
  * all the chunks stored from the above endpoint into the
  * resultant file and delete these chunks.
+ *
+ * FYI - Ideally the state of the file should be stored somewhere,
+ * ie how many chunks received out of the total chunks that should
+ * have been sent, once all chunks receive, then the combining file
+ * process should take place instead of manually hit an api, since
+ * there can be a network interruption on the clients end when uploading
+ * to the server.
  */
 fileRouter.get(
   `/${subRoutes.combineBase64}/:fileName`,
