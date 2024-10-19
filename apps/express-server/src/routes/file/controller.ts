@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ServerConfig } from '@/app-constants';
-import { fileUploader } from './middleware';
+import { fileUploader } from '@/middleware';
 import fileService from './service';
 import * as FileTypeDefs from './types';
 
@@ -9,11 +9,13 @@ const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const multerDirs = ServerConfig.multer.dirs;
 
-const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg']);
+const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg', '.png']);
 const chunkUploader = fileUploader(multerDirs.chunk);
 const uploader = fileUploader();
 
 /**
+ * POST /files/upload
+ *
  * Uploading a single file, here "media" in
  * mediaUploader.single is the fieldName of the
  * formData in which the blob is appended.
@@ -27,24 +29,27 @@ fileRouter.post(
   }
 );
 
-/* Uploading multiple files in the same field */
+/**
+ * POST /files/upload-many
+ *
+ * Uploading multiple files in the same field
+ */
 fileRouter.post(
   `/${subRoutes.uploadMany}`,
   uploader.array('files', ServerConfig.multer.maxFiles),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
-    const files = req.files;
-    console.log('files: ', files);
     return res.send('Files uploaded successfully');
   }
 );
 
 /**
+ * POST /files/upload-separate
+ *
  * Uploading files in two differnt fields, say an image
  * and a document. maxCount is the max number of files
  * you expect for each field. Both of these fields will
  * contain an array of files.
  *
- * Use postman for testing this request.
  */
 fileRouter.post(
   `/${subRoutes.uploadSeparate}`,

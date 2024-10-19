@@ -4,7 +4,7 @@ import path from 'path';
 import multer, { FileFilterCallback } from 'multer';
 import { ServerConfig } from '@/app-constants';
 
-const fileFilter = function (allowedFileTypes?: string[]) {
+const fileFilter = (allowedFileTypes?: string[]) => {
   return function applyFileFilter(
     _: Request,
     file: Express.Multer.File,
@@ -26,7 +26,7 @@ const fileStorage = (dirPath?: string) =>
     /**
      * Destination folder for uploaded files. Create
      * directory if it doesn't exist. Else everything
-     * will be directly uploaded to the "uploads" folder.
+     * will be directly uploaded to the "public" folder.
      */
     destination(req, file, cb) {
       let folderPath = path.join(ServerConfig.multer.dirs.upload);

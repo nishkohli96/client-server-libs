@@ -1,4 +1,5 @@
 export const ExpressServerEndpoints = Object.freeze({
+  apiPrefix: '/api',
   files: {
     rootPath: '/file',
     subRoutes: {

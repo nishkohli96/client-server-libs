@@ -11,7 +11,7 @@ class FileService {
   uploadFile(res: Response, file?: Express.Multer.File) {
     try {
       if (!file) {
-        return res.status(400).send('Incorrect file');
+        return res.status(400).send('Incorrect file extension');
       }
       return res.send('File Uploaded');
     } catch (err) {

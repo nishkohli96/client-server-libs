@@ -44,4 +44,5 @@ next-env.d.ts
 !.vscode/extensions.json
 
 # misc
-uploads/
+apps/express-server/public
+apps/express-server/uploads

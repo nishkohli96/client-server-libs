@@ -9,7 +9,7 @@ import * as Routes from '@/routes';
 const app: Express = express();
 
 function generatePath(routeName: string): string {
-  return `/api${routeName}`;
+  return `${ExpressServerEndpoints.apiPrefix}${routeName}`;
 }
 
 /**
@@ -30,18 +30,21 @@ app.use(cors());
 app.use(requestLogger);
 
 /**
- * This will server static assets from uploads folder.
- * So a file at "uploads/files/hi.jpeg" can be accessed at
+ * This will server static assets from public folder.
+ * So a file at "public/files/hi.jpeg" can be accessed at
  * http://localhost:8000/files/hi.jpeg
  *
  * If you want assets to be protected, use a middleware just
  * before using express.static. Remember, the order of
  * middleware MATTERS!
  */
-app.use(express.static(path.join(__dirname, '../uploads')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (_: Request, response: Response) => {
-  response.status(200).send(`ENV: ${ENV_VARS.env} - Api is up & running!!!`);
+  response.status(200).json({
+    env: ENV_VARS.env,
+    message: 'Api is up & running!!!'
+  });
 });
 
 app.use(generatePath(ExpressServerEndpoints.files.rootPath), Routes.fileRouter);

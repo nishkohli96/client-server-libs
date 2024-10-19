@@ -21,7 +21,7 @@ export const ServerConfig = Object.freeze({
        * This folder will be outside the src directory, so that
        * the build can also access the media at this path.
        */
-      upload: 'uploads'
+      upload: 'public'
     }
   }
 });
