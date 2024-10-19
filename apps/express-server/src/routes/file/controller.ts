@@ -45,11 +45,10 @@ fileRouter.post(
 /**
  * POST /files/upload-separate
  *
- * Uploading files in two differnt fields, say an image
+ * Uploading files in two different fields, say an image
  * and a document. maxCount is the max number of files
  * you expect for each field. Both of these fields will
  * contain an array of files.
- *
  */
 fileRouter.post(
   `/${subRoutes.uploadSeparate}`,
@@ -68,6 +67,13 @@ fileRouter.post(
 );
 
 /**
+ * Uploading files as chunks
+ * Test using react-client on http://localhost:3000/file-uploads route
+ */
+
+/**
+ * POST /file/upload-chunk
+ *
  * Uploading large file by splitting into chunks, and then
  * hitting the combine-file api to get the full file on the
  * server.
@@ -88,6 +94,8 @@ fileRouter.post(
 );
 
 /**
+ * POST /file/combine-file
+ *
  * Get filename along with the extension in params, combine
  * all the chunks stored from the above endpoint into the
  * resultant file and delete these chunks.
@@ -104,6 +112,8 @@ fileRouter.get(
 );
 
 /**
+ * POST /files/upload-base64
+ *
  * Uploading large file by splitting into chunks and encoding
  * as base64, and then hitting the combine-file api to get the
  * full file on the server.
@@ -128,6 +138,8 @@ fileRouter.post(
 );
 
 /**
+ * POST /files/combine-base64
+ *
  * Get filename along with the extension in params, combine
  * all the chunks stored from the above endpoint into the
  * resultant file and delete these chunks.
@@ -144,8 +156,9 @@ fileRouter.get(
 );
 
 /**
- * combine videoes using ffmpeg. Install ffmpeg by running -
+ * POST /files/combine-with-ffmpeg
  *
+ * Combine videos using ffmpeg. Install ffmpeg by running -
  * git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
  */
 fileRouter.post(

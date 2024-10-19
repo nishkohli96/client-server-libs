@@ -191,8 +191,8 @@ class FileService {
      * found.
      */
     const videosArr = [
-      '/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov',
-      '/home/nishant.kohli/Personal/client-server-libs/apps/express-server/uploads/fireworks.mov'
+      '/home/nishant.kohli/client-server-libs/apps/express-server/uploads/fireworks.mov',
+      '/home/nishant.kohli/client-server-libs/apps/express-server/uploads/fireworks.mov'
     ];
 
     try {

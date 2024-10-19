@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
     "build": "rimraf dist && tsc && tsc-alias",
-    "start": "node dist/index.js",
+    "start": "env-cmd -f .env.prod node dist/index.js",
     "start:prod": "yarn build && yarn start",
     "seed:db": "node scripts/seed.mjs",
     "lint": "eslint --fix ."
@@ -28,6 +28,7 @@
     "@types/fluent-ffmpeg": "^2.1.24",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.17",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.57.0",
     "nodemon": "^3.0.3",
     "rimraf": "^5.0.5",
