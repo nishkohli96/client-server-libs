@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "lib:build": "tsc --build",
+		"lib:build": "tsc && tsc-alias",
     "lint": "eslint --fix ."
   },
   "dependencies": {
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@nish1896/eslint-config": "^2.0.5",
     "eslint": "^8.57.0",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.3.3"
   }
 }

@@ -4,8 +4,11 @@
     "lint": {
       "dependsOn": []
     },
-    "build": {
+    "lib:build": {
       "dependsOn": []
+    },
+    "build": {
+      "dependsOn": ["lib:build"]
     }
   }
 }
