@@ -6,6 +6,7 @@
     "module": "commonjs",
     "resolveJsonModule": false,
     "outDir": "dist",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "incremental": false,
     "paths": {

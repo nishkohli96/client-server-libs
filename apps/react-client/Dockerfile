@@ -3,7 +3,7 @@ FROM node:20-alpine3.18 AS phase1
 
 WORKDIR /app
 
-# first create these directories, else the copying won't work.
+# Create directories to copy application code
 RUN mkdir -p packages/express-react-shared
 RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/react-client
@@ -13,7 +13,7 @@ COPY --chown=node:node turbo.json .
 COPY --chown=node:node tsconfig.json .
 COPY --chown=node:node package.json .
 
-# Copy Required App and Packages
+# Copy required app and packages
 COPY --chown=node:node ./packages/express-react-shared packages/express-react-shared
 COPY --chown=node:node ./packages/shared-fe packages/shared-fe
 COPY --chown=node:node ./apps/react-client apps/react-client
