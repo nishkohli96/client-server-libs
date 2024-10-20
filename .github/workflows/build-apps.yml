@@ -26,7 +26,7 @@ jobs:
         run: yarn re:build
 
       - name: Build @csl/shared-fe
-        run: yarn lib:build
+        run: yarn fe:build
 
       - name: Build express-server
         run: yarn workspace express-server build

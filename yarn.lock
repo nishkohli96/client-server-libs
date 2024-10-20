@@ -2346,18 +2346,18 @@
   dependencies:
     eslint-scope "5.1.1"
 
-"@nish1896/eslint-config@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@nish1896/eslint-config/-/eslint-config-2.0.5.tgz#8d7cf22671b5fc7a740173df46d89585f5905e92"
-  integrity sha512-eP+In5yr0yDJlG3CuOKfa5pBBy8efsOqQwJnWrbcIY3X6D8iQVVmaCKV7UQ7SusW+7HDebrI8pHpbZqIeyw+LA==
+"@nish1896/eslint-config@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@nish1896/eslint-config/-/eslint-config-2.1.0.tgz#f1f78cc152304fbfe51c367362251a6593e26d7a"
+  integrity sha512-j1pHN5zhR4kiv4Z+triOot6aq5BNwGXm64I9OWZIeIBQsgXgmo5oZOEXqDUyNF5f6o2LA9MsPkOXlc3s16Fsow==
   dependencies:
-    "@stylistic/eslint-plugin" "^2.6.1"
-    "@typescript-eslint/eslint-plugin" "^8.0.1"
-    "@typescript-eslint/parser" "^8.0.1"
-    eslint-plugin-jsx-a11y "^6.9.0"
-    eslint-plugin-react "^7.35.0"
-    eslint-plugin-react-hooks "^4.6.2"
-    typescript-eslint "^8.0.1"
+    "@stylistic/eslint-plugin" "^2.9.0"
+    "@typescript-eslint/eslint-plugin" "^8.10.0"
+    "@typescript-eslint/parser" "^8.10.0"
+    eslint-plugin-jsx-a11y "^6.10.0"
+    eslint-plugin-react "^7.37.1"
+    eslint-plugin-react-hooks "^5.0.0"
+    typescript-eslint "^8.10.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -2547,7 +2547,7 @@
     "@smithy/util-buffer-from" "^2.2.0"
     tslib "^2.6.2"
 
-"@stylistic/eslint-plugin@^2.6.1":
+"@stylistic/eslint-plugin@^2.9.0":
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin/-/eslint-plugin-2.9.0.tgz#5ab3326303915e020ddaf39154290e2800a84bcd"
   integrity sha512-OrDyFAYjBT61122MIY1a3SfEgy3YCMgt2vL4eoPmvTwDBwyQhAXurxNQznlRD/jESNfYWfID8Ej+31LljvF7Xg==
@@ -3197,7 +3197,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@8.10.0", "@typescript-eslint/eslint-plugin@^8.0.1":
+"@typescript-eslint/eslint-plugin@8.10.0", "@typescript-eslint/eslint-plugin@^8.10.0":
   version "8.10.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.10.0.tgz#9c8218ed62f9a322df10ded7c34990f014df44f2"
   integrity sha512-phuB3hoP7FFKbRXxjl+DRlQDuJqhpOnm5MmtROXyWi3uS/Xg2ZXqiQfcG2BJHiN4QKyzdOJi3NEn/qTnjUlkmQ==
@@ -3235,7 +3235,7 @@
   dependencies:
     "@typescript-eslint/utils" "5.62.0"
 
-"@typescript-eslint/parser@8.10.0", "@typescript-eslint/parser@^8.0.1":
+"@typescript-eslint/parser@8.10.0", "@typescript-eslint/parser@^8.10.0":
   version "8.10.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-8.10.0.tgz#3cbe7206f5e42835878a74a76da533549f977662"
   integrity sha512-E24l90SxuJhytWJ0pTQydFT46Nk0Z+bsLKo/L8rtQSL93rQ6byd1V/QbDpHUTdLPOMsBCcYXZweADNCfOCmOAg==
@@ -5903,7 +5903,7 @@ eslint-plugin-jest@^25.3.0:
   dependencies:
     "@typescript-eslint/experimental-utils" "^5.0.0"
 
-eslint-plugin-jsx-a11y@^6.5.1, eslint-plugin-jsx-a11y@^6.7.1, eslint-plugin-jsx-a11y@^6.9.0:
+eslint-plugin-jsx-a11y@^6.10.0, eslint-plugin-jsx-a11y@^6.5.1, eslint-plugin-jsx-a11y@^6.7.1:
   version "6.10.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.10.0.tgz#36fb9dead91cafd085ddbe3829602fb10ef28339"
   integrity sha512-ySOHvXX8eSN6zz8Bywacm7CvGNhUtdjvqfQDVe6020TUK34Cywkw7m0KsCCk1Qtm9G1FayfTN1/7mMYnYO2Bhg==
@@ -5925,7 +5925,7 @@ eslint-plugin-jsx-a11y@^6.5.1, eslint-plugin-jsx-a11y@^6.7.1, eslint-plugin-jsx-
     safe-regex-test "^1.0.3"
     string.prototype.includes "^2.0.0"
 
-eslint-plugin-react-hooks@^4.3.0, eslint-plugin-react-hooks@^4.6.2:
+eslint-plugin-react-hooks@^4.3.0:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.6.2.tgz#c829eb06c0e6f484b3fbb85a97e57784f328c596"
   integrity sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==
@@ -5935,7 +5935,12 @@ eslint-plugin-react-hooks@^4.3.0, eslint-plugin-react-hooks@^4.6.2:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-5.0.0-canary-7118f5dd7-20230705.tgz#4d55c50e186f1a2b0636433d2b0b2f592ddbccfd"
   integrity sha512-AZYbMo/NW9chdL7vk6HQzQhT+PvTAEVqWk9ziruUoW2kAOcN5qNyelv70e0F1VNQAbvutOC9oc+xfWycI9FxDw==
 
-eslint-plugin-react@^7.27.1, eslint-plugin-react@^7.33.2, eslint-plugin-react@^7.35.0:
+eslint-plugin-react-hooks@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-5.0.0.tgz#72e2eefbac4b694f5324154619fee44f5f60f101"
+  integrity sha512-hIOwI+5hYGpJEc4uPRmz2ulCjAGD/N13Lukkh8cLV0i2IRk/bdZDYjgLVHj+U9Z704kLIdIO6iueGvxNur0sgw==
+
+eslint-plugin-react@^7.27.1, eslint-plugin-react@^7.33.2, eslint-plugin-react@^7.37.1:
   version "7.37.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.37.1.tgz#56493d7d69174d0d828bc83afeffe96903fdadbd"
   integrity sha512-xwTnwDqzbDRA8uJ7BMxPs/EXRB3i8ZfnOIp8BsxEQkT0nHPp+WWceqGgo6rKb9ctNi8GJLDT4Go5HAWELa/WMg==
@@ -12360,47 +12365,47 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-turbo-darwin-64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.2.0.tgz#72baad78eaeeb3378386abd59f4de8c1e25f45fd"
-  integrity sha512-mJK+7hpvGsxyXfx2UTdewisXGIikRORoj25OKagsNw7dE7D1j0HnfWrjguIshlmFoQu18E5ipbdUAzjHdQGPkg==
+turbo-darwin-64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.2.1.tgz#6341720f463c955a54715ac52fec54bf44330a4a"
+  integrity sha512-jltMdSQ+7rQDVaorjW729PCw6fwAn1MgZSdoa0Gil7GZCOF3SnR/ok0uJw6G5mdm6F5XM8ZTlz+mdGzBLuBRaA==
 
-turbo-darwin-arm64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.2.0.tgz#8a867e8baadd11833e16c5ef2d91f88241f7a293"
-  integrity sha512-uStU2I1aMSj8/ord3gNXdr/k1Xk+pflfMPS4d/oQUAPld8L9plbQ8JSgoXsFoJYyU9vhTeXkjLkpnQxXoGnb9w==
+turbo-darwin-arm64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.2.1.tgz#9f9c493541d2cc651d4b51b06f1f308c3b1535ab"
+  integrity sha512-RHW0c1NonsJXXlutlZeunmhLanf0/WbeizFfYgWuTEaJE4MbbhyD/RG4Fm/7iob5kxQ4Es2TzfDPqyMqpIO0GA==
 
-turbo-linux-64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.2.0.tgz#b6604d2804dd8c0ddd4faa8848680439a00d0af0"
-  integrity sha512-dVy/hquEDBy7trsSb5TynDGeS2iqcI9QTfC2kLZnsgPo6WWURXESN+AFChGxgZ2yp2CKrj5eZhnHdtRbP0a5EQ==
+turbo-linux-64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.2.1.tgz#b89c22c7c502d919032197d8b09d7279f64412cb"
+  integrity sha512-RasrjV+i2B90hoR8r6B2Btf2/ebNT5MJbhkpY0G1EN06E1IkjCKfAXj/1Dwmjy9+Zo0NC2r69L3HxRrtpar8jQ==
 
-turbo-linux-arm64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.2.0.tgz#ce666ef15da9e859c944cf525fe1492a93cdf81f"
-  integrity sha512-YuCmCBQsvH8RZGDBqFXOm49UY3mJFRahQ7J8IT4KQX3O8zIPTu84715ILUTznElhlYY7IKoqfenovVzYFzEbMQ==
+turbo-linux-arm64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.2.1.tgz#c18a21b086f1966ac0fda37b6c97dfdb6bfd6f1d"
+  integrity sha512-LNkUUJuu1gNkhlo7Ky/zilXEiajLoGlWLiKT1XV5neEf+x1s+aU9Hzd/+HhSVMiyI8l7z6zLbrM1a6+v4co/SQ==
 
-turbo-windows-64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.2.0.tgz#42da6e444be289e63ec7c03289ed0d0335e40c4b"
-  integrity sha512-6WegPi7hEbKuQXR/VGJXGO0jV9tm+dyRNH6e3Edb3DMaa8ThnzfjxMmrvQwLbGgMNvjBRBEKAHhOAnE6FXdPew==
+turbo-windows-64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.2.1.tgz#27cd73eb91844092747069a6146be0360db2ca7d"
+  integrity sha512-Mn5tlFrLzlQ6tW6wTWNlyT1osXuDUg0VT1VAjRpmRXlK2Zi3oKVVG0rs0nkkq4rmuheryD1xyuGPN9nFKbAn/A==
 
-turbo-windows-arm64@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.2.0.tgz#6ae1ae7bef23336744749b60ec167718122c44a3"
-  integrity sha512-kmk+A3aUy4dWhTVzW1itrWRtIilv4dFNRThfucBNYRL4Huyug+8qdX51iJjKyHMi0x51rcND62lukWWtFZhCSA==
+turbo-windows-arm64@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.2.1.tgz#7da48f2394b67a7650720f9a41acdc7cd969dc3a"
+  integrity sha512-bvYOJ3SMN00yiem+uAqwRMbUMau/KiMzJYxnD0YkFo6INc08z8gZi5g0GLZAR7g/L3JegktX3UQW2cJvryjvLg==
 
 turbo@^2.0.6:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.2.0.tgz#49be598337679451ff04ec2ba8442a5cb94c3ab7"
-  integrity sha512-uyr+tFAKDKWIpihuUVYpEvuzQ3Pc+kICf0fbRzzc/86ram74azvwTXplzRQ+BUv8zTjwIRKNhrH5L4q0rgJyMw==
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.2.1.tgz#65e7d433a10a8e28901bac76dcd0b0f7ae315103"
+  integrity sha512-clZFkh6U6NpsLKBVZYRjlZjRTfju1Z5STqvFVaOGu5443uM75alJe1nCYH9pQ9YJoiOvXAqA2rDHWN5kLS9JMg==
   optionalDependencies:
-    turbo-darwin-64 "2.2.0"
-    turbo-darwin-arm64 "2.2.0"
-    turbo-linux-64 "2.2.0"
-    turbo-linux-arm64 "2.2.0"
-    turbo-windows-64 "2.2.0"
-    turbo-windows-arm64 "2.2.0"
+    turbo-darwin-64 "2.2.1"
+    turbo-darwin-arm64 "2.2.1"
+    turbo-linux-64 "2.2.1"
+    turbo-linux-arm64 "2.2.1"
+    turbo-windows-64 "2.2.1"
+    turbo-windows-arm64 "2.2.1"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
@@ -12500,7 +12505,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript-eslint@^8.0.1:
+typescript-eslint@^8.10.0:
   version "8.10.0"
   resolved "https://registry.yarnpkg.com/typescript-eslint/-/typescript-eslint-8.10.0.tgz#7f7d51577e9b93538cc8801f2cbfdd66098a00e7"
   integrity sha512-YIu230PeN7z9zpu/EtqCIuRVHPs4iSlqW6TEvjbyDAE3MZsSl2RXBo+5ag+lbABCG8sFM1WVKEXhlQ8Ml8A3Fw==
