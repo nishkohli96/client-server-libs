@@ -12,7 +12,7 @@ const pageTitle = 'File Uploads';
 const rootPath = ExpressServerEndpoints.files.rootPath;
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 
-export default function FilesUploadPage() {
+const FilesUploadPage = () => {
   const [showProgress, setShowProgress] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -202,4 +202,6 @@ export default function FilesUploadPage() {
       </Grid>
     </PageLayout>
   );
-}
+};
+
+export default FilesUploadPage;

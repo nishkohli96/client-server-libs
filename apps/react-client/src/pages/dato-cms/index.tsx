@@ -24,7 +24,7 @@ type Store = {
   };
 };
 
-export default function DatoCMSPage() {
+const DatoCMSPage = () => {
   const { data: storesList, isLoading } = useDatoCMSQuery<{
     allStores: Store[];
   }>(StoreLocationsQuery(5, 1));
@@ -53,4 +53,6 @@ export default function DatoCMSPage() {
       </Grid>
     </PageLayout>
   );
-}
+};
+
+export default DatoCMSPage;

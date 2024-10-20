@@ -8,7 +8,7 @@ import AppTheme from 'assets/styles/theme';
 import Routing from 'routes';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-function App() {
+const App = () => {
   const mode = useAppSelector(ThemeSelector);
   const theme = useMemo(() => createTheme(AppTheme(mode)), [mode]);
 
@@ -26,6 +26,6 @@ function App() {
       </Suspense>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

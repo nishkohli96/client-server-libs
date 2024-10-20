@@ -5,7 +5,7 @@ import { RouteList } from './route-list';
 import HomePage from 'pages/Home';
 import Page404 from 'pages/Page404';
 
-export default function Routing() {
+const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -21,4 +21,7 @@ export default function Routing() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
+
+export default Routing;
+
