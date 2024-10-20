@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ApiEndpoints, ENV_VARS } from 'app-constants';
+import { ThirdPartyEndpoints, ENV_VARS } from 'app-constants';
 
 const datoCMSApi = axios.create({
-  baseURL: ApiEndpoints.datoCMS,
+  baseURL: ThirdPartyEndpoints.datoCMS,
   headers: { Authorization: `Bearer ${ENV_VARS.dataCMS_apiKey}` }
 });
 

@@ -1,46 +1,36 @@
+# Run Production Builds of all apps.
 services:
-  # run react-client-prod build on Port 5000
+  express-server:
+    image: docker_username/csl-express-server
+    build:
+      context: .
+      dockerfile: ./apps/express-server/Dockerfile
+    ports:
+      - '8000:8000'
+
+  # somehow port mapping not working for this
+  nestjs-server:
+    image: docker_username/csl-nestjs-server
+    build:
+      context: .
+      dockerfile: ./apps/nestjs-server/Dockerfile
+    ports:
+      - '4000:4000'
+
+  next-client:
+    image: docker_username/csl-next-client
+    build:
+      context: .
+      dockerfile: ./apps/next-client/Dockerfile
+    ports:
+      - '3001:3000'
+
   react-client:
-    image: docker_username/react-client
+    image: docker_username/csl-react-client
     build:
       context: .
       dockerfile: ./apps/react-client/Dockerfile
     ports:
       - '3000:80'
 
-  # run react-client in dev mode on Port 3000, with hot reloading
-  react-client-dev:
-    image: docker_username/react-client-dev
-    build:
-      context: .
-      dockerfile: ./apps/react-client/Dockerfile.dev
-    ports:
-      - '3001:3000'
-    volumes:
-      - '/app/node_modules'
-      - './apps/react-client:/app/apps/react-client'
 
-  next-client:
-    image: docker_username/next-client
-    build:
-      context: .
-      dockerfile: ./apps/next-client/Dockerfile
-    ports:
-      - '3002:3000'
-
-  express-server:
-    image: docker_username/express-server
-    build:
-      context: .
-      dockerfile: ./apps/express-server/Dockerfile
-    ports:
-      - '5000:5000'
-
-  # somehow port mapping not working for this
-  nestjs-server:
-    image: docker_username/nestjs-server
-    build:
-      context: .
-      dockerfile: ./apps/nestjs-server/Dockerfile
-    ports:
-      - '4000:4000'

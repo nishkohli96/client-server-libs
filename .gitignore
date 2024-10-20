@@ -42,3 +42,7 @@ next-env.d.ts
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# misc
+apps/express-server/public
+apps/express-server/uploads
