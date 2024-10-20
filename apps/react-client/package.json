@@ -13,8 +13,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@csl/shared-fe": "*",
     "@csl/react-express": "*",
+    "@csl/shared-fe": "*",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.10",

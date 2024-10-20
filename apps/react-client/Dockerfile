@@ -1,31 +1,28 @@
 # Base Image
-FROM node:20-alpine3.18 as phase1
+FROM node:20-alpine3.18 AS phase1
 
 WORKDIR /app
 
 # first create these directories, else the copying won't work.
-RUN mkdir -p packages/core-lib
+RUN mkdir -p packages/express-react-shared
+RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/react-client
 
-# Run yarn only if package.json changes
-# copied tsconfig as core-lib's tsconfig extends rootDir's tsconfig
+# Copy essential files in project root
 COPY --chown=node:node turbo.json .
 COPY --chown=node:node tsconfig.json .
 COPY --chown=node:node package.json .
 
-
-# copying only the required packages
-COPY --chown=node:node ./packages/core-lib/package.json packages/core-lib
-COPY --chown=node:node ./packages/core-lib packages/core-lib
-
-COPY --chown=node:node ./apps/react-client/package.json apps/react-client
+# Copy Required App and Packages
+COPY --chown=node:node ./packages/express-react-shared packages/express-react-shared
+COPY --chown=node:node ./packages/shared-fe packages/shared-fe
 COPY --chown=node:node ./apps/react-client apps/react-client
 
 # install node_modules
-RUN npm install
-RUN yarn lib:build
+RUN yarn install --frozen-lockfile
 
-# build react-client
+# Using Turbo pipeline build -
+# @csl/react-express, @csl/shared-fe & react-client
 RUN yarn build
 
 # Phase 2 - Get the Build and host on nginx

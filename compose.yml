@@ -1,21 +1,5 @@
+# Run Production Builds of all apps.
 services:
-  # run react-client-prod build on Port 80
-  react-client:
-    image: docker_username/csl-react-client
-    build:
-      context: .
-      dockerfile: ./apps/react-client/Dockerfile
-    ports:
-      - '3000:80'
-
-  next-client:
-    image: docker_username/csl-next-client
-    build:
-      context: .
-      dockerfile: ./apps/next-client/Dockerfile
-    ports:
-      - '3000:3000'
-
   express-server:
     image: docker_username/csl-express-server
     build:
@@ -32,3 +16,21 @@ services:
       dockerfile: ./apps/nestjs-server/Dockerfile
     ports:
       - '4000:4000'
+
+  next-client:
+    image: docker_username/csl-next-client
+    build:
+      context: .
+      dockerfile: ./apps/next-client/Dockerfile
+    ports:
+      - '3000:3000'
+
+  react-client:
+    image: docker_username/csl-react-client
+    build:
+      context: .
+      dockerfile: ./apps/react-client/Dockerfile
+    ports:
+      - '3000:80'
+
+
