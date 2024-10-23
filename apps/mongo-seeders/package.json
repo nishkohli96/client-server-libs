@@ -1,0 +1,23 @@
+{
+  "name": "mongo-seeders",
+  "author": "Nishant Kohli",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed:db": "node scripts/seed.mjs",
+    "lint": "eslint --fix ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.4",
+		"mongoose": "^8.7.2"
+  },
+  "devDependencies": {
+    "@nish1896/eslint-config": "^2.1.1",
+    "@types/node": "^20.11.17",
+    "eslint": "^8.57.0",
+    "tsc-alias": "^1.8.10",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
+  }
+}
