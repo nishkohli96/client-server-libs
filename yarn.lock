@@ -2346,10 +2346,10 @@
   dependencies:
     eslint-scope "5.1.1"
 
-"@nish1896/eslint-config@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@nish1896/eslint-config/-/eslint-config-2.1.0.tgz#f1f78cc152304fbfe51c367362251a6593e26d7a"
-  integrity sha512-j1pHN5zhR4kiv4Z+triOot6aq5BNwGXm64I9OWZIeIBQsgXgmo5oZOEXqDUyNF5f6o2LA9MsPkOXlc3s16Fsow==
+"@nish1896/eslint-config@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@nish1896/eslint-config/-/eslint-config-2.1.1.tgz#245064d80b100b67752fc5dae607aa2968f56a6e"
+  integrity sha512-A8bIyooE0OAtOGwVCRumvXmRusQ3sMPJ+lGwBGa8fK4cXtWPs6BEO/7Avi3iGtrqtxuKuhnXhFspqHahSkhBHg==
   dependencies:
     "@stylistic/eslint-plugin" "^2.9.0"
     "@typescript-eslint/eslint-plugin" "^8.10.0"
