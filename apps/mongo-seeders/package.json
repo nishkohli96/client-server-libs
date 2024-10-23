@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "seed:db": "node scripts/seed.mjs",
+    "seed": "ts-node -r tsconfig-paths/register src/index.ts",
     "lint": "eslint --fix ."
   },
   "dependencies": {

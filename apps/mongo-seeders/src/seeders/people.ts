@@ -1,3 +1,5 @@
+import { PersonModel } from '@/models/Person';
+
 const peopleList = [
   {
     id: 1,
@@ -5,7 +7,7 @@ const peopleList = [
     email: 'rsnelling0@unicef.org',
     gender: 'MALE',
     weight: 58,
-    city: 'Shuanghe',
+    city: 'Shuanghe'
   },
   {
     id: 2,
@@ -13,7 +15,7 @@ const peopleList = [
     email: 'ofidler1@theglobeandmail.com',
     gender: 'MALE',
     weight: 88,
-    city: 'Kungälv',
+    city: 'Kungälv'
   },
   {
     id: 3,
@@ -21,7 +23,7 @@ const peopleList = [
     email: 'cmooney2@yelp.com',
     gender: 'MALE',
     weight: 42,
-    city: 'Kaiaf',
+    city: 'Kaiaf'
   },
   {
     id: 4,
@@ -29,7 +31,7 @@ const peopleList = [
     email: 'bfosdyke3@nyu.edu',
     gender: 'MALE',
     weight: 64,
-    city: 'Loshnitsa',
+    city: 'Loshnitsa'
   },
   {
     id: 5,
@@ -37,7 +39,7 @@ const peopleList = [
     email: 'bspensly4@edublogs.org',
     gender: 'MALE',
     weight: 57,
-    city: 'Inyati',
+    city: 'Inyati'
   },
   {
     id: 6,
@@ -45,7 +47,7 @@ const peopleList = [
     email: 'lhugnot5@histats.com',
     gender: 'MALE',
     weight: 40,
-    city: 'Kokaj',
+    city: 'Kokaj'
   },
   {
     id: 7,
@@ -53,7 +55,7 @@ const peopleList = [
     email: 'tmccrostie6@skyrock.com',
     gender: 'MALE',
     weight: 91,
-    city: 'San Javier',
+    city: 'San Javier'
   },
   {
     id: 8,
@@ -61,7 +63,7 @@ const peopleList = [
     email: 'jjahns7@shareasale.com',
     gender: 'MALE',
     weight: 74,
-    city: 'Võhma',
+    city: 'Võhma'
   },
   {
     id: 9,
@@ -69,7 +71,7 @@ const peopleList = [
     email: 'bsenogles8@desdev.cn',
     gender: 'MALE',
     weight: 74,
-    city: 'Wulan Haye',
+    city: 'Wulan Haye'
   },
   {
     id: 10,
@@ -77,7 +79,7 @@ const peopleList = [
     email: 'vgerald9@cloudflare.com',
     gender: 'FEMALE',
     weight: 88,
-    city: 'Tomarovka',
+    city: 'Tomarovka'
   },
   {
     id: 11,
@@ -85,7 +87,7 @@ const peopleList = [
     email: 'sscardefielda@cpanel.net',
     gender: 'FEMALE',
     weight: 45,
-    city: 'Carvalhal',
+    city: 'Carvalhal'
   },
   {
     id: 12,
@@ -93,7 +95,7 @@ const peopleList = [
     email: 'dchasteaub@marriott.com',
     gender: 'FEMALE',
     weight: 46,
-    city: 'Uzyn',
+    city: 'Uzyn'
   },
   {
     id: 13,
@@ -101,7 +103,7 @@ const peopleList = [
     email: 'mmelac@archive.org',
     gender: 'FEMALE',
     weight: 51,
-    city: 'Parys',
+    city: 'Parys'
   },
   {
     id: 14,
@@ -109,7 +111,7 @@ const peopleList = [
     email: 'wpieraccid@google.co.uk',
     gender: 'FEMALE',
     weight: 44,
-    city: 'Mentougou',
+    city: 'Mentougou'
   },
   {
     id: 15,
@@ -117,6 +119,13 @@ const peopleList = [
     email: 'cbearcocke@wordpress.org',
     gender: 'FEMALE',
     weight: 100,
-    city: 'Richmond',
-  },
+    city: 'Richmond'
+  }
 ];
+
+export const seedPeople = async () => {
+  console.log('Truncating People Collection...');
+  await PersonModel.deleteMany({});
+  await PersonModel.insertMany(peopleList);
+  console.log('Added data in People collection!');
+};
