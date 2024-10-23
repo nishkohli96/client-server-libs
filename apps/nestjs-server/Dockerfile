@@ -7,8 +7,7 @@ WORKDIR /app
 RUN mkdir -p apps/nestjs-server
 
 # Copy essential files in project root
-COPY --chown=node:node turbo.json .
-COPY --chown=node:node package.json .
+COPY --chown=node:node package.json turbo.json yarn.lock ./
 
 # Copy application source code
 COPY --chown=node:node ./apps/nestjs-server apps/nestjs-server

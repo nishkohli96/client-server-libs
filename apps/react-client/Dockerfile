@@ -9,9 +9,7 @@ RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/react-client
 
 # Copy essential files in project root
-COPY --chown=node:node turbo.json .
-COPY --chown=node:node tsconfig.json .
-COPY --chown=node:node package.json .
+COPY --chown=node:node package.json tsconfig.json turbo.json yarn.lock ./
 
 # Copy required app and packages
 COPY --chown=node:node ./packages/express-react-shared packages/express-react-shared

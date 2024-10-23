@@ -1,5 +1,5 @@
 # Base Image
-FROM node:20-alpine3.18 AS phase1
+FROM node:20-alpine3.18 AS builder
 
 WORKDIR /app
 
@@ -8,9 +8,7 @@ RUN mkdir -p packages/express-react-shared
 RUN mkdir -p apps/express-server
 
 # Copy essential files in project root
-COPY --chown=node:node turbo.json .
-COPY --chown=node:node tsconfig.json .
-COPY --chown=node:node package.json .
+COPY --chown=node:node package.json tsconfig.json turbo.json yarn.lock ./
 
 # Copy required app and packages
 COPY --chown=node:node ./packages/express-react-shared packages/express-react-shared
@@ -22,6 +20,26 @@ RUN yarn install --frozen-lockfile
 # Using Turbo pipeline build -
 # @csl/react-express & express-server
 RUN yarn build
+
+
+# ----- Prepare production image -----
+FROM node:20-alpine3.18 AS production
+
+WORKDIR /app
+
+# Copy built files from the previous stage
+# COPY --from=builder /app/apps/express-server/dist ./dist
+# COPY --from=builder /app/apps/express-server/package.json .
+# COPY --from=builder /app/node_modules ./node_modules
+# COPY --from=builder /app/yarn.lock .
+
+COPY --from=builder /app/apps/express-server/dist .
+COPY --from=builder /app/apps/express-server/package.json .
+COPY --from=builder /app/yarn.lock .
+COPY --from=builder /app/node_modules/@csl/react-express ./node_modules
+
+# Install only production dependencies
+RUN yarn install --force --production --frozen-lockfile
 
 # Run express-server build
 CMD ["yarn", "workspace", "express-server", "start"]

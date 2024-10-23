@@ -10,9 +10,7 @@ WORKDIR /app
 RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/next-client
 
-COPY --chown=node:node turbo.json .
-COPY --chown=node:node package.json .
-COPY --chown=node:node yarn.lock .
+COPY --chown=node:node package.json turbo.json yarn.lock ./
 
 # Copy required app and packages
 COPY --chown=node:node ./packages/shared-fe packages/shared-fe
