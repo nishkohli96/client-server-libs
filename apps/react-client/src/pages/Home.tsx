@@ -5,7 +5,7 @@ import { RouteList } from 'routes/route-list';
 
 export default function HomePage() {
   return (
-    <PageLayout seoTitle="Home Page">
+    <PageLayout seoTitle="Home Page" hidePageTitle>
       <Typography variant="h5" color="error">
         Hello from the Home Page of CRA !
       </Typography>

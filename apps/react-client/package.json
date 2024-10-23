@@ -7,12 +7,13 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "start": "serve -s build",
-    "start:prod": "yarn build && yarn start",
+    "prod": "yarn build && yarn start",
     "test": "react-scripts test",
     "lint": "eslint --fix .",
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@csl/react-express": "*",
     "@csl/shared-fe": "*",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -27,11 +28,12 @@
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
-    "@nish1896/eslint-config": "^2.0.2",
+    "@nish1896/eslint-config": "^2.1.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -41,7 +43,7 @@
     "@types/react-dom": "^18.2.19",
     "@types/react-redux": "^7.1.33",
     "@types/react-router-dom": "^5.3.3",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "typescript": "^5.3.3"
   },
   "browserslist": {

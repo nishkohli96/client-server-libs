@@ -7,10 +7,12 @@ export default function Home() {
   return (
     <main>
       <PageHeading title="Hello from the Home Page of Next App !" />
-      <Typography variant="body2" sx={{
-        mb: '20px',
-        mt: '30px'
-      }}
+      <Typography
+        variant="body2"
+        sx={{
+          mb: '20px',
+          mt: '30px'
+        }}
       >
         Click on any of the links below to see their demo
       </Typography>

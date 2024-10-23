@@ -2,10 +2,12 @@ import { Fragment } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Image } from 'react-datocms';
-import { Loading, PageHeading } from '@csl/shared-fe';
+import { Loading } from '@csl/shared-fe';
 import { useDatoCMSQuery } from 'hooks';
 import { PageLayout } from 'components';
 import { StoreLocationsQuery } from './queries';
+
+const pageTitle = 'DatoCMS Querying';
 
 type Store = {
   storeName: string;
@@ -22,8 +24,7 @@ type Store = {
   };
 };
 
-export default function DatoCMSPage() {
-  const pageTitle = 'DatoCMS Querying';
+const DatoCMSPage = () => {
   const { data: storesList, isLoading } = useDatoCMSQuery<{
     allStores: Store[];
   }>(StoreLocationsQuery(5, 1));
@@ -31,9 +32,6 @@ export default function DatoCMSPage() {
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <PageHeading title={pageTitle} />
-        </Grid>
         {isLoading ? (
           <Loading />
         ) : (
@@ -55,4 +53,6 @@ export default function DatoCMSPage() {
       </Grid>
     </PageLayout>
   );
-}
+};
+
+export default DatoCMSPage;

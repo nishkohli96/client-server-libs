@@ -1,0 +1,18 @@
+{
+	"name": "@csl/react-express",
+	"version": "1.0.0",
+  "author": "Nishant Kohli",
+  "main": "./dist/index.js",
+	"description": "Common code and config shared between react-client and express-server",
+	"scripts": {
+		"lib:build": "tsc && tsc-alias",
+		"lint": "eslint --fix ."
+	},
+	"devDependencies": {
+    "@nish1896/eslint-config": "^2.1.1",
+		"eslint": "^8.57.0",
+		"tsc-alias": "^1.8.10",
+		"typescript": "^5.3.3"
+	},
+	"license":"ISC"
+}
