@@ -16,7 +16,6 @@ const AirportSchema = new Schema(
     country_code: {
       type: String,
       required: true,
-      unique: true,
     },
   },
   { timestamps: true }

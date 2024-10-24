@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose';
 enum Gender {
   Male = 'MALE',
   Female = 'FEMALE',
+  Others = 'OTHERS'
 }
 
 const PersonSchema = new Schema(
@@ -37,4 +38,4 @@ const PersonSchema = new Schema(
   { timestamps: true }
 );
 
-export const PersonModel = model('People', PersonSchema, 'Person');
+export const PersonModel = model('People', PersonSchema, 'People');
