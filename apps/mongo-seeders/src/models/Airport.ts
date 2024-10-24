@@ -22,4 +22,4 @@ const AirportSchema = new Schema(
   { timestamps: true }
 );
 
-export const AirportModel = model('Airports', AirportSchema);
+export const AirportModel = model('Airports', AirportSchema, 'Airports');

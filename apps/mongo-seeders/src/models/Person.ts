@@ -37,4 +37,4 @@ const PersonSchema = new Schema(
   { timestamps: true }
 );
 
-export const PersonModel = model('People', PersonSchema);
+export const PersonModel = model('People', PersonSchema, 'Person');
