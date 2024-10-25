@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
+    "csv-parse": "^5.5.6",
     "dotenv": "^16.4.4",
     "migrate-mongo": "^11.0.0",
 		"mongoose": "^8.7.2"

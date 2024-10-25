@@ -14,7 +14,7 @@ async function populateData() {
     console.log('Inserting Records...');
     await seedAirports();
     await seedPeople();
-    console.log('Records Inserted');
+    console.log('Seeding Completed!');
 
     await disconnect();
     console.log('Disconnected from DB');

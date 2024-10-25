@@ -1,2 +1,2 @@
 export { seedAirports } from './airport';
-export { seedPeople } from './people';
+export { seedPeople } from './person';

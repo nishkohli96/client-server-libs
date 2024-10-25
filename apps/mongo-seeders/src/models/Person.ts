@@ -1,39 +1,55 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 
-enum Gender {
+export enum Gender {
   Male = 'MALE',
   Female = 'FEMALE',
   Others = 'OTHERS'
 }
 
-const PersonSchema = new Schema(
+export type Address = {
+  houseNo?: number;
+  street?: string;
+  city?: string;
+  zipCode?: string;
+  country?: string;
+};
+
+export type Person = {
+  _id: Types.ObjectId;
+  first_name: string;
+  last_name?: string;
+  date_of_birth: string | Date;
+  gender: Gender;
+  email: string;
+  avatar: string;
+  website?: string;
+  address?: Address;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+};
+
+const AddressSchema = new Schema({
+  houseNo: Number,
+  street: String,
+  city: String,
+  zipCode: String,
+  country: String
+});
+
+const PersonSchema = new Schema<Person>(
   {
-    id: {
-      type: Number,
-      required: true,
-    },
-    fullName: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    first_name: { type: String, required: true },
+    last_name: String,
+    date_of_birth: { type: Date, default: Date.now },
+    email: { type: String, required: true, unique: true },
     gender: {
       type: String,
       required: true,
-      enum: Object.values(Gender),
+      enum: Object.values(Gender)
     },
-    weight: {
-      type: Number,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
+    avatar: { type: String, required: true },
+    website: String,
+    address: AddressSchema
   },
   { timestamps: true }
 );
