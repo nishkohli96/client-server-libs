@@ -1,5 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
-import { collectionName } from '@/constants';
+import { collectionName } from '@/constants/index.mjs';
 
 export enum Gender {
   Male = 'MALE',

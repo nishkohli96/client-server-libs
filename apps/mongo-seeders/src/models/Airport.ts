@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { collectionName } from '@/constants';
+import { collectionName } from '@/constants/index.mjs';
 
 const AirportSchema = new Schema(
   {

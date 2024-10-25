@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import collectionName from '../constants/collectionName';
+import { collectionName } from '../constants/index.mjs';
 
 const getPersonJob = () => faker.person.jobTitle();
 const peopleCollection = collectionName.people;

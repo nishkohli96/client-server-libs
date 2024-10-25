@@ -1,15 +1,15 @@
 /**
- * Remove address and website fields from documents with value '' 
+ * Remove avatar and website fields from documents with value '' 
  * when inserted after running seeders.
  */
-import { collectionName } from '../constants';
+import { collectionName } from '../constants/index.mjs';
 
 const peopleCollection = collectionName.people;
 
 export const up = async (db, client) => {
   await db
     .collection(peopleCollection)
-    .updateMany({ address: '' }, { $unset: { address: '' } });
+    .updateMany({ avatar: '' }, { $unset: { avatar: '' } });
   await db
     .collection(peopleCollection)
     .updateMany({ website: '' }, { $unset: { website: '' } });
@@ -18,7 +18,7 @@ export const up = async (db, client) => {
 export const down = async (db, client) => {
   await db
     .collection(peopleCollection)
-    .updateMany({ address: '' }, { $set: { address: '' } });
+    .updateMany({ avatar: '' }, { $set: { avatar: '' } });
   await db
     .collection(peopleCollection)
     .updateMany({ website: '' }, { $set: { website: '' } });
