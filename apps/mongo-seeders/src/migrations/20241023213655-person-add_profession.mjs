@@ -1,12 +1,14 @@
 import { faker } from '@faker-js/faker';
+import collectionName from '../constants/collectionName';
 
 const getPersonJob = () => faker.person.jobTitle();
+const peopleCollection = collectionName.people;
 
 export const up = async (db, client) => {
   const session = client.startSession();
   try {
     await session.withTransaction(async () => {
-      const persons = await db.collection('People').find({}).toArray();
+      const persons = await db.collection(peopleCollection).find({}).toArray();
 
       const operations = persons.map(person => ({
         updateOne: {
@@ -16,7 +18,7 @@ export const up = async (db, client) => {
       }));
 
       if (operations.length > 0) {
-        await db.collection('People').bulkWrite(operations);
+        await db.collection(peopleCollection).bulkWrite(operations);
       }
     });
   } finally {

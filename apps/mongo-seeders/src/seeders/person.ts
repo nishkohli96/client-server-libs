@@ -10,22 +10,32 @@ export const seedPeople = async () => {
   const peopleList: Person[] = [];
   try {
     const filePath = path.join(__dirname, '../data/people.csv');
-    console.log('filePath: ', filePath);
-    fs.createReadStream(filePath)
-      .pipe(parse({ delimiter: ',', columns: true, relax_quotes: true }))
-      .on('data', function (row: Person) {
-        peopleList.push(row);
-      })
-      .on('error', function (error: unknown) {
-        console.log('err ', error);
-      })
-      .on('end', async function () {
-        console.log('peopleList: ', peopleList);
-        await PersonModel.insertMany(peopleList);
-        console.log(
-          `People collection - Inserted ${peopleList.length} records!`
-        );
-      });
+    await new Promise<void>((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(parse({ delimiter: ',', columns: true, relax_quotes: true }))
+        .on('data', (row: Person) => {
+          peopleList.push(row);
+        })
+        .on('error', (error: unknown) => {
+          console.error('Error reading CSV:', error);
+          reject(error);
+        })
+        .on('end', async () => {
+          console.log(
+            `Finished reading CSV. Found ${peopleList.length} records.`
+          );
+          try {
+            await PersonModel.insertMany(peopleList);
+            console.log(
+              `Inserted ${peopleList.length} records into People collection!`
+            );
+            resolve();
+          } catch (insertErr) {
+            console.error('Error inserting records:', insertErr);
+            reject(insertErr);
+          }
+        });
+    });
   } catch (err) {
     console.log(err);
   }

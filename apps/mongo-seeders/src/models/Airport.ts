@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { collectionName } from '@/constants';
 
 const AirportSchema = new Schema(
   {
@@ -6,19 +7,23 @@ const AirportSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      index: true,
+      index: true
     },
     airport_name: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     country_code: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   { timestamps: true }
 );
 
-export const AirportModel = model('Airports', AirportSchema, 'Airports');
+export const AirportModel = model(
+  'Airports',
+  AirportSchema,
+  collectionName.airport
+);

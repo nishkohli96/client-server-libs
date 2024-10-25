@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "seed": "ts-node -r tsconfig-paths/register src/index.ts",
-    "lint": "eslint --fix ."
+    "seed:up": "npx migrate-mongo up",
+    "seed:down": "npx migrate-mongo down"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",

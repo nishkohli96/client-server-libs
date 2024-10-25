@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
+import { collectionName } from '@/constants';
 
 export enum Gender {
   Male = 'MALE',
@@ -7,6 +8,7 @@ export enum Gender {
 }
 
 export type Address = {
+  _id: Types.ObjectId;
   houseNo?: number;
   street?: string;
   city?: string;
@@ -21,7 +23,7 @@ export type Person = {
   date_of_birth: string | Date;
   gender: Gender;
   email: string;
-  avatar: string;
+  avatar?: string;
   website?: string;
   address?: Address;
   createdAt: string | Date;
@@ -47,11 +49,15 @@ const PersonSchema = new Schema<Person>(
       required: true,
       enum: Object.values(Gender)
     },
-    avatar: { type: String, required: true },
+    avatar: String,
     website: String,
     address: AddressSchema
   },
   { timestamps: true }
 );
 
-export const PersonModel = model('People', PersonSchema, 'People');
+export const PersonModel = model(
+  'People',
+  PersonSchema,
+  collectionName.people
+);
