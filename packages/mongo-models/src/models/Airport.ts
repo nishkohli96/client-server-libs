@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { collectionName } from '@/constants/index.mjs';
+import { collectionNames } from '@/constants';
 
 const AirportSchema = new Schema(
   {
@@ -25,5 +25,5 @@ const AirportSchema = new Schema(
 export const AirportModel = model(
   'Airports',
   AirportSchema,
-  collectionName.airport
+  collectionNames.airport
 );

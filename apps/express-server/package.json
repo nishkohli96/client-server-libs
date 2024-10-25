@@ -12,6 +12,7 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
+    "@csl/mongo-models": "*",
     "@csl/react-express": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.4.4",

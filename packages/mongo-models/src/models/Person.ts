@@ -1,5 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
-import { collectionName } from '@/constants/index.mjs';
+import { collectionNames } from '@/constants';
 
 export enum Gender {
   Male = 'MALE',
@@ -26,6 +26,7 @@ export type Person = {
   avatar?: string;
   website?: string;
   address?: Address;
+  profession?: string;
   createdAt: string | Date;
   updatedAt: string | Date;
 };
@@ -51,7 +52,8 @@ const PersonSchema = new Schema<Person>(
     },
     avatar: String,
     website: String,
-    address: AddressSchema
+    address: AddressSchema,
+    profession: String
   },
   { timestamps: true }
 );
@@ -59,5 +61,5 @@ const PersonSchema = new Schema<Person>(
 export const PersonModel = model(
   'People',
   PersonSchema,
-  collectionName.people
+  collectionNames.people
 );

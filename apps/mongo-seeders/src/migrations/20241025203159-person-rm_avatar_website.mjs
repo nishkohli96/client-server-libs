@@ -2,9 +2,9 @@
  * Remove avatar and website fields from documents with value '' 
  * when inserted after running seeders.
  */
-import { collectionName } from '../constants/index.mjs';
+import { collectionNames } from '@csl/mongo-models';
 
-const peopleCollection = collectionName.people;
+const peopleCollection = collectionNames.people;
 
 export const up = async (db, client) => {
   await db

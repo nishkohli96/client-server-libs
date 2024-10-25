@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { parse } from 'csv-parse';
-import { PersonModel, Person } from '@/models/Person';
+import { PersonModel, Person } from '@csl/mongo-models';
 
 export const seedPeople = async () => {
   console.log('Truncating People Collection...');

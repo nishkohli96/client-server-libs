@@ -1,1 +1,0 @@
-export { default as collectionName } from './collectionName.mjs';

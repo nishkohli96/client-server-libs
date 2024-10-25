@@ -1,5 +1,5 @@
+import { AirportModel } from '@csl/mongo-models';
 import airportsList from '@/data/airport.json';
-import { AirportModel } from '@/models/Airport';
 
 export const seedAirports = async () => {
   console.log('Truncating Aiports Collection...');
