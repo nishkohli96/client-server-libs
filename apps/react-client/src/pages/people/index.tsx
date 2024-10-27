@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { GridSortItem } from '@mui/x-data-grid';
 import { fetchPeopleList } from 'api/services';
+import { dataTableConfig } from 'app-constants';
 import { PersonDetails } from 'types';
 import { PageLayout } from 'components';
 import { PeopleDataGrid } from './components';
 
 function PeopleListingPage() {
   const navigate = useNavigate();
-  const recordsPerPage = 10;
+  const [recordsPerPage, setRecordsPerPage] = useState<number>(dataTableConfig.defaultPageSize);
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<number>(1);
   const [sortColumn, setSortColumn] = useState<GridSortItem | undefined>(
@@ -69,8 +70,8 @@ function PeopleListingPage() {
 
   return (
     <PageLayout seoTitle="People">
-      <Box pl="42px" pr="68px" pt="1rem">
-        {/* <Box
+      {/* <Box pl="42px" pr="68px" pt="1rem"> */}
+      {/* <Box
           mb="30px"
           height="60px"
           display="flex"
@@ -88,19 +89,19 @@ function PeopleListingPage() {
               navigate(`${RoutesConfig.waterMark.subRoutes.create}`)}
           />
         </Box> */}
-        <PeopleDataGrid
-          people={peopleList ?? []}
-          currentPage={activePage}
-          nbPages={nbPages}
-          recordsPerPage={recordsPerPage}
-          nbRecords={nbRecords}
-          onPageChange={onPageChange}
-          sortColumn={sortColumn}
-          onSortChange={handleSortChange}
-          isFetchingData={isFetchingData}
-          refetchData={fetchPeople}
-        />
-      </Box>
+      <PeopleDataGrid
+        people={peopleList ?? []}
+        currentPage={activePage}
+        nbPages={nbPages}
+        recordsPerPage={recordsPerPage}
+        nbRecords={nbRecords}
+        onPageChange={onPageChange}
+        sortColumn={sortColumn}
+        onSortChange={handleSortChange}
+        isFetchingData={isFetchingData}
+        refetchData={fetchPeople}
+      />
+      {/* </Box> */}
     </PageLayout>
   );
 }

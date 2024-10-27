@@ -6,12 +6,14 @@ import {
   GridSortItem,
   GridSortModel
 } from '@mui/x-data-grid';
+import { dataTableConfig } from 'app-constants';
 import { Pagination } from './components';
 
 type DataTableProps = {
   tableColumns: GridColDef[];
   tableRows: GridRowsProp;
   currentPage: number;
+  recordsPerPage: number;
   nbPages: number;
   nbRecords: number;
   itemsPerPage?: number;
@@ -26,6 +28,7 @@ export default function DataTable({
   tableColumns,
   tableRows,
   currentPage,
+  recordsPerPage,
   nbPages,
   nbRecords,
   itemsPerPage,
@@ -57,8 +60,15 @@ export default function DataTable({
         loading={isFetchingData}
         sortModel={sortModel}
         onSortModelChange={handleSortChange}
-        hideFooter
         disableRowSelectionOnClick
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: recordsPerPage,
+            },
+          },
+        }}
+        pageSizeOptions={dataTableConfig.paginationOptions}
         getRowHeight={() =>
           rowHeight
             ? typeof rowHeight === 'string'
