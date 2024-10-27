@@ -29,6 +29,8 @@ export type Person = {
   profession?: string;
   createdAt: string | Date;
   updatedAt: string | Date;
+  fullName?: string;
+  fullAddress?: string;
 };
 
 const AddressSchema = new Schema({
@@ -57,6 +59,23 @@ const PersonSchema = new Schema<Person>(
   },
   { timestamps: true }
 );
+
+// Virtual for fullName
+PersonSchema.virtual('fullName').get(function getFullName(this: Person) {
+  return `${this.first_name} ${this.last_name || ''}`.trim();
+});
+
+// Virtual for fullAddress
+PersonSchema.virtual('fullAddress').get(function getFullAddress(this: Person) {
+  if (!this.address) {
+    return '';
+  }
+  const { houseNo, street, city, zipCode, country } = this.address;
+  return `${houseNo || ''} ${street || ''}, ${city || ''} ${zipCode || ''}, ${country || ''}`.trim();
+});
+
+PersonSchema.set('toJSON', { virtuals: true });
+PersonSchema.set('toObject', { virtuals: true });
 
 export const PersonModel = model(
   'People',

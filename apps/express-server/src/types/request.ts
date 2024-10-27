@@ -11,7 +11,7 @@ export type SortConfig<T> = {
 }
 
 export type RequestQueryParams<SortKeys> = {
-  num_records?: number;
+  records_per_page?: number;
   page?: number;
   sort_key?: SortKeys;
   sort_direction?: SortDirection;
@@ -20,6 +20,6 @@ export type RequestQueryParams<SortKeys> = {
 }
 
 export type PaginationConfig = {
-  num_records: number;
+  records_per_page: number;
   page: number;
 }

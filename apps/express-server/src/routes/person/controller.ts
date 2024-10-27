@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Response, Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { GetPersonsListRequest } from './types';
 import personService from './service';
@@ -11,3 +11,5 @@ personRouter.get(`/${subRoutes.list}`, async(req: GetPersonsListRequest, res: Re
   const queryParams = req.query;
   return personService.getPersonsList(res, queryParams);
 });
+
+export { personRouter };

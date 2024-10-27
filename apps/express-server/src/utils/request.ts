@@ -1,18 +1,18 @@
 import { PaginationConfig } from '@/types';
 
 export const DefaultPaginationOptions: PaginationConfig = {
-  num_records: 10,
+  records_per_page: 10,
   page: 1
 };
 
 export function getPaginationParams(
-  num_records?: number,
+  records_per_page?: number,
   page?: number
 ): PaginationConfig {
   return {
-    num_records: num_records
-      ? Number(num_records)
-      : DefaultPaginationOptions.num_records,
+    records_per_page: records_per_page
+      ? Number(records_per_page)
+      : DefaultPaginationOptions.records_per_page,
     page: page ? Number(page) : DefaultPaginationOptions.page
   };
 }

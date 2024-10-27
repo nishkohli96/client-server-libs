@@ -6,32 +6,42 @@ import { GetPersonsListQuery, PersonSortingColumns } from './types';
 
 class PersonService {
   searchPeople = async (queryParams: GetPersonsListQuery) => {
-    const { page, num_records } = getPaginationParams(
+    const { page, records_per_page } = getPaginationParams(
       queryParams.page,
-      queryParams.num_records
+      queryParams.records_per_page
     );
     const sortKey = queryParams.sort_key ?? PersonSortingColumns.Id;
     const sortDirection = queryParams.sort_direction ?? SortDirection.Asc;
-    const pipeline = [];
+
     const records = await PersonModel.find({})
-      .skip(num_records * (page - 1))
-      .limit(num_records)
+      .skip(records_per_page * (page - 1))
+      .limit(records_per_page)
       .sort({ [sortKey]: sortDirection });
+      // .lean({ virtuals: true });
+    const formattedRecords = records.map(record => record.toJSON({ virtuals: true })); // Convert to JSON with virtuals
+    console.log('formattedRecords: ', formattedRecords);
+    const nbRecords = await PersonModel.countDocuments({});
+
+    const nbPages = Math.ceil(nbRecords / records_per_page);
     return {
-      count: 0,
-      records
+      nbRecords,
+      nbPages,
+      recorsPerPage: records_per_page,
+      records: formattedRecords
     };
   };
 
   getPersonsList = async (res: Response, queryParams: GetPersonsListQuery) => {
     try {
       const peopleRecords = await this.searchPeople(queryParams);
+      console.log('peopleRecords: ', peopleRecords);
       return res.status(200).json({
         success: true,
         message: 'Persons list fetched',
         data: peopleRecords
       });
     } catch (err) {
+      console.log('err: ', err);
       return res.status(500).json({
         success: false,
         message: 'Unable to fetch person list',

@@ -12,3 +12,10 @@ export type PersonDetails = Omit<
 export type PersonDetailsRow = Omit<PersonDetails, 'createdAt' | 'updatedAt' | '_id'> & {
   actions: string;
 }
+
+export type PersonListApiData = {
+  nbPages: number;
+  nbRecords: number;
+  records: PersonDetails[];
+  recorsPerPage: number;
+}

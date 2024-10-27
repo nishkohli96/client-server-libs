@@ -1,20 +1,28 @@
 import 'dotenv/config';
 import os from 'os';
 import { createServer } from 'node:http';
+import { connect } from 'mongoose';
 import { ENV_VARS } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 import app from './app';
 
 const hostName = os.hostname();
 const port = ENV_VARS.port;
+const dbConnectionString = `${ENV_VARS.mongoDB.url}/${ENV_VARS.mongoDB.dbName}`;
 
-function bootstrap() {
-  const server = createServer(app);
-  server.listen(port, () => {
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Server running on port ${port}`
-    );
-  });
+async function bootstrap() {
+  try {
+    await connect(dbConnectionString);
+    const server = createServer(app);
+    server.listen(port, () => {
+      winstonLogger.info(
+        `[ ⚡️ ${hostName} ⚡️ ] - Server running on port ${port}`
+      );
+    });
+  } catch (err) {
+    console.log('err: ', err);
+    process.exit(1);
+  }
 }
 
 bootstrap();

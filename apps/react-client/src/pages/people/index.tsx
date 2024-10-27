@@ -5,6 +5,7 @@ import { GridSortItem } from '@mui/x-data-grid';
 // import { getWatermarksList, num_watermarks_per_page } from 'api/services';
 // import { AddRowButton, PageContent, SEO, SearchInput } from 'components';
 // import RoutesConfig from 'routes/config';
+import { fetchPeopleList } from 'api/services';
 import { PersonDetails } from 'types';
 import { PageLayout } from 'components';
 import { PeopleDataGrid } from './components';
@@ -30,27 +31,29 @@ function PeopleListingPage() {
       const queryParams = {
         search: searchValue,
         page: activePage,
-        num_records: 10, // num_watermarks_per_page,
+        records_per_page: 10, // num_watermarks_per_page,
         ...(sortColumn && {
           sort_key: sortColumn.field,
           sort_direction: sortColumn.sort
         })
       };
-      // try {
-      //   const watermarksInfo = await getWatermarksList(queryParams);
-      //   if (activePage > 1 && watermarksInfo.records.length === 0) {
-      //     setActivePage(page => page - 1);
-      //   }
-      //   setPeopleList(watermarksInfo.records);
-      //   setNbPages(watermarksInfo.nbPages);
-      //   setNbRecords(watermarksInfo.nbCount);
-      // } catch {
-      //   setPeopleList([]);
-      //   setNbPages(1);
-      //   setNbRecords(0);
-      // } finally {
-      //   setIsFetchingData(false);
-      // }
+      try {
+        const fetchDetails = await fetchPeopleList();
+        console.log('fetchDetails: ', fetchDetails);
+        // const watermarksInfo = await getWatermarksList(queryParams);
+        // if (activePage > 1 && watermarksInfo.records.length === 0) {
+        //   setActivePage(page => page - 1);
+        // }
+        // setPeopleList(watermarksInfo.records);
+        // setNbPages(watermarksInfo.nbPages);
+        // setNbRecords(watermarksInfo.nbCount);
+      } catch {
+        // setPeopleList([]);
+        // setNbPages(1);
+        // setNbRecords(0);
+      } finally {
+        setIsFetchingData(false);
+      }
     }
     getWatermarkList();
   }, [activePage, searchValue, sortColumn]);
