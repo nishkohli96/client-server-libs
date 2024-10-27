@@ -11,8 +11,8 @@ export type SortConfig<T> = {
 }
 
 export type RequestQueryParams<SortKeys> = {
-  records_per_page?: number;
-  page?: number;
+  records_per_page?: string;
+  page?: string;
   sort_key?: SortKeys;
   sort_direction?: SortDirection;
   start_date?: string | Date | moment.Moment;

@@ -2,9 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { GridSortItem } from '@mui/x-data-grid';
-// import { getWatermarksList, num_watermarks_per_page } from 'api/services';
-// import { AddRowButton, PageContent, SEO, SearchInput } from 'components';
-// import RoutesConfig from 'routes/config';
 import { fetchPeopleList } from 'api/services';
 import { PersonDetails } from 'types';
 import { PageLayout } from 'components';
@@ -12,81 +9,62 @@ import { PeopleDataGrid } from './components';
 
 function PeopleListingPage() {
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<number>(1);
   const [sortColumn, setSortColumn] = useState<GridSortItem | undefined>(
     undefined
   );
 
-  // const [peopleList, setPeopleList] = useState<PersonDetails[]>();
+  const [peopleList, setPeopleList] = useState<PersonDetails[]>();
   const [nbPages, setNbPages] = useState<number>(1);
   const [nbRecords, setNbRecords] = useState<number>(10);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
   const onPageChange = (newPageNum: number) => setActivePage(newPageNum);
 
-  const fetchWatermarks = useCallback(() => {
-    async function getWatermarkList() {
+  const fetchPeople = useCallback(() => {
+    async function getPeopleList() {
       setIsFetchingData(true);
       const queryParams = {
-        search: searchValue,
         page: activePage,
-        records_per_page: 10, // num_watermarks_per_page,
+        records_per_page: 10,
+        ...(searchValue && { search: searchValue }),
         ...(sortColumn && {
           sort_key: sortColumn.field,
-          sort_direction: sortColumn.sort
+          sort_direction: sortColumn.sort!
         })
       };
       try {
-        const fetchDetails = await fetchPeopleList();
-        console.log('fetchDetails: ', fetchDetails);
-        // const watermarksInfo = await getWatermarksList(queryParams);
-        // if (activePage > 1 && watermarksInfo.records.length === 0) {
-        //   setActivePage(page => page - 1);
-        // }
-        // setPeopleList(watermarksInfo.records);
-        // setNbPages(watermarksInfo.nbPages);
-        // setNbRecords(watermarksInfo.nbCount);
+        const fetchDetails = await fetchPeopleList(queryParams);
+        if (activePage > 1 && fetchDetails.records.length === 0) {
+          setActivePage(page => page - 1);
+        }
+        setPeopleList(fetchDetails.records);
+        setNbPages(fetchDetails.nbPages);
+        setNbRecords(fetchDetails.nbRecords);
       } catch {
-        // setPeopleList([]);
-        // setNbPages(1);
-        // setNbRecords(0);
+        setPeopleList([]);
+        setNbPages(1);
+        setNbRecords(0);
       } finally {
         setIsFetchingData(false);
       }
     }
-    getWatermarkList();
+    getPeopleList();
   }, [activePage, searchValue, sortColumn]);
 
   useEffect(() => {
-    fetchWatermarks();
-  }, [fetchWatermarks]);
+    fetchPeople();
+  }, [fetchPeople]);
 
   function handleSortChange(sortItem: GridSortItem | undefined) {
     setSortColumn(sortItem);
-    fetchWatermarks();
+    fetchPeople();
   }
 
   function handlechangeSearchValue(value: string) {
     setSearchValue(value);
   }
-
-  const peopleList: PersonDetails[] = [
-    {
-      '_id': '671bf91ee10537dc6fdd35e9',
-      'fullName': 'Chic Hellings',
-      'date_of_birth': '2007-05-10T09:44:26.000Z',
-      'email': 'chellings1@rediff.com',
-      // @ts-ignore
-      'gender': 'MALE',
-      'avatar': 'http://dummyimage.com/147x100.png/ff4444/ffffff',
-      'website': 'webnode.com',
-      'address': '184 Debs, Changjiang, China',
-      'createdAt': '2024-10-25T20:25:05.453Z',
-      'updatedAt': '2024-10-25T20:25:05.453Z',
-      'profession': 'Regional Division Architect'
-    }
-  ];
 
   return (
     <PageLayout seoTitle="People">
@@ -118,7 +96,7 @@ function PeopleListingPage() {
           sortColumn={sortColumn}
           onSortChange={handleSortChange}
           isFetchingData={isFetchingData}
-          refetchData={fetchWatermarks}
+          refetchData={fetchPeople}
         />
       </Box>
     </PageLayout>

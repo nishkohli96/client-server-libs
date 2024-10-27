@@ -57,7 +57,9 @@ const PersonSchema = new Schema<Person>(
     address: AddressSchema,
     profession: String
   },
-  { timestamps: true }
+  {
+    timestamps: true
+  }
 );
 
 // Virtual for fullName
@@ -71,7 +73,9 @@ PersonSchema.virtual('fullAddress').get(function getFullAddress(this: Person) {
     return '';
   }
   const { houseNo, street, city, zipCode, country } = this.address;
-  return `${houseNo || ''} ${street || ''}, ${city || ''} ${zipCode || ''}, ${country || ''}`.trim();
+  return `${houseNo ?? ''} ${street ?? ''},${city ?? ''},${country ?? ''} ${zipCode ? `- ${zipCode}` : ''}`
+    .replaceAll(',,', ',')
+    .trim();
 });
 
 PersonSchema.set('toJSON', { virtuals: true });
@@ -82,3 +86,4 @@ export const PersonModel = model(
   PersonSchema,
   collectionNames.people
 );
+

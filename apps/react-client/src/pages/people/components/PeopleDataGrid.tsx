@@ -88,6 +88,10 @@ const PeopleDataGrid = ({
       // )
     },
     {
+      field: 'avatar',
+      headerName: 'Avatar',
+    },
+    {
       field: 'fullName',
       headerName: 'Full Name',
       // renderHeader: params => (
@@ -121,15 +125,11 @@ const PeopleDataGrid = ({
       headerName: 'Gender',
     },
     {
-      field: 'avatar',
-      headerName: 'Avatar',
-    },
-    {
       field: 'website',
       headerName: 'Website',
     },
     {
-      field: 'address',
+      field: 'fullAddress',
       headerName: 'Address',
     },
     {
@@ -228,7 +228,7 @@ const PeopleDataGrid = ({
     gender: person.gender,
     avatar: person.avatar,
     website: person.website,
-    address: person.address,
+    fullAddress: person.fullAddress,
     profession: person.profession,
     actions: person._id
   }));

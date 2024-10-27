@@ -9,13 +9,17 @@ export type PersonDetails = Omit<
   address: string;
 };
 
-export type PersonDetailsRow = Omit<PersonDetails, 'createdAt' | 'updatedAt' | '_id'> & {
+export type PersonDetailsRow = Omit<
+  PersonDetails,
+  'createdAt' | 'updatedAt' | '_id' | 'address'
+> & {
+  fullAddress?: string;
   actions: string;
-}
+};
 
 export type PersonListApiData = {
   nbPages: number;
   nbRecords: number;
   records: PersonDetails[];
   recorsPerPage: number;
-}
+};

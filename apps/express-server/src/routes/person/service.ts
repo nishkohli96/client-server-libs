@@ -10,18 +10,16 @@ class PersonService {
       queryParams.page,
       queryParams.records_per_page
     );
-    const sortKey = queryParams.sort_key ?? PersonSortingColumns.Id;
-    const sortDirection = queryParams.sort_direction ?? SortDirection.Asc;
+    const sortKey = queryParams.sort_key ?? PersonSortingColumns.CreatedAt;
+    const sortDirection = queryParams.sort_direction ?? SortDirection.Desc;
 
     const records = await PersonModel.find({})
       .skip(records_per_page * (page - 1))
       .limit(records_per_page)
       .sort({ [sortKey]: sortDirection });
-      // .lean({ virtuals: true });
     const formattedRecords = records.map(record => record.toJSON({ virtuals: true })); // Convert to JSON with virtuals
-    console.log('formattedRecords: ', formattedRecords);
-    const nbRecords = await PersonModel.countDocuments({});
 
+    const nbRecords = await PersonModel.countDocuments({});
     const nbPages = Math.ceil(nbRecords / records_per_page);
     return {
       nbRecords,
@@ -34,7 +32,6 @@ class PersonService {
   getPersonsList = async (res: Response, queryParams: GetPersonsListQuery) => {
     try {
       const peopleRecords = await this.searchPeople(queryParams);
-      console.log('peopleRecords: ', peopleRecords);
       return res.status(200).json({
         success: true,
         message: 'Persons list fetched',

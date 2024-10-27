@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { collectionNames } from '@csl/mongo-models';
+import mongoModels from '@csl/mongo-models';
 
 const getPersonJob = () => faker.person.jobTitle();
-const peopleCollection = collectionNames.people;
+const peopleCollection = mongoModels.collectionNames.people;
 
 export const up = async (db, client) => {
   const session = client.startSession();

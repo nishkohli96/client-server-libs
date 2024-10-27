@@ -1,4 +1,5 @@
 export default {
   airport: 'Airports',
-  people: 'People'
+  people: 'People',
+  migrationChangelog: 'Migration-Changelog'
 };

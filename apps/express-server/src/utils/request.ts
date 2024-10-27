@@ -6,8 +6,8 @@ export const DefaultPaginationOptions: PaginationConfig = {
 };
 
 export function getPaginationParams(
-  records_per_page?: number,
-  page?: number
+  page?: string,
+  records_per_page?: string
 ): PaginationConfig {
   return {
     records_per_page: records_per_page

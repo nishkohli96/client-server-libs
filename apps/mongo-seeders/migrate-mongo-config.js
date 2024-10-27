@@ -1,5 +1,7 @@
 // In this file you can configure migrate-mongo
 
+const { collectionNames } = require('@csl/mongo-models');
+
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
@@ -18,7 +20,7 @@ const config = {
   migrationsDir: "./src/migrations",
 
   // The mongodb collection where the applied changes are stored. Only edit this when really necessary.
-  changelogCollectionName: "Migration-Changelog",
+  changelogCollectionName: collectionNames.migrationChangelog,
 
   // The file extension to create migrations and search for in migration dir 
   migrationFileExtension: ".mjs",

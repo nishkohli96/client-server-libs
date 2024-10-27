@@ -1,2 +1,2 @@
 export * from './person';
-export * from './response';
+export * from './request-response';

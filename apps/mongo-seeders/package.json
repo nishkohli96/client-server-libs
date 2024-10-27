@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "seed": "ts-node -r tsconfig-paths/register src/index.ts",
+    "seed:db": "ts-node -r tsconfig-paths/register src/index.ts",
     "seed:up": "npx migrate-mongo up",
+    "seed": "yarn seed:db && yarn seed:up",
     "seed:down": "npx migrate-mongo down"
   },
   "dependencies": {
