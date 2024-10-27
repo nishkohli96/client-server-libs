@@ -1,6 +1,5 @@
 import { Gender } from '@csl/mongo-models';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
@@ -35,32 +34,8 @@ export const GenderIcon = ({ gender }: GenderIconProps) => {
   }
 };
 
-export const ViewIcon = ({ ...iconBtnProps }: IconButtonProps) => {
-  return (
-    <Tooltip title="View">
-      <IconButton {...iconBtnProps}>
-        <VisibilityIcon />
-      </IconButton>
-    </Tooltip>
-  );
-};
+export const ViewIcon = () => <VisibilityIcon fontSize="small" />;
 
-export const EditIcon = ({ ...iconBtnProps }: IconButtonProps) => {
-  return (
-    <Tooltip title="Edit">
-      <IconButton {...iconBtnProps}>
-        <MuiEditIcon />
-      </IconButton>
-    </Tooltip>
-  );
-};
+export const EditIcon = () => <MuiEditIcon fontSize="small" />;
 
-export const DeleteIcon = ({ ...iconBtnProps }: IconButtonProps) => {
-  return (
-    <Tooltip title="Delete">
-      <IconButton {...iconBtnProps} sx={{ color: 'red' }}>
-        <MuiDeleteIcon />
-      </IconButton>
-    </Tooltip>
-  );
-};
+export const DeleteIcon = () => <MuiDeleteIcon fontSize="small" />;

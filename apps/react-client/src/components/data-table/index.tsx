@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   DataGrid,
+  GridToolbar,
   GridColDef,
   GridRowsProp,
   GridSortItem,
@@ -54,9 +55,11 @@ export default function DataTable({
   return (
     <>
       <DataGrid
-        autoHeight
-        rows={!isFetchingData ? tableRows : []}
         columns={tableColumns}
+        rows={!isFetchingData ? tableRows : []}
+        slots={{
+          toolbar: GridToolbar
+        }}
         loading={isFetchingData}
         sortModel={sortModel}
         onSortModelChange={handleSortChange}

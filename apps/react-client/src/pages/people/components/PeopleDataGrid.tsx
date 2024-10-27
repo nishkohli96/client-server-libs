@@ -4,7 +4,13 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { GridColDef, GridRowsProp, GridSortItem } from '@mui/x-data-grid';
+import {
+  GridActionsCellItem,
+  GridColDef,
+  GridRowParams,
+  GridRowsProp,
+  GridSortItem
+} from '@mui/x-data-grid';
 import { DataTable } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
@@ -84,20 +90,23 @@ const PeopleDataGrid = ({
     handleCloseDeletePopUp();
   };
 
+  /**
+   * By default, the columns have a width of 100px which can be changed
+   * using the width property available in GridColDef.
+   */
   const peopleTableColumns: GridColDef[] = [
     {
       field: 'id',
       headerName: 'S. No.',
+      type: 'number',
       sortable: false,
-      renderCell: params => (
-        <Fragment>
-          {getPersonRecordIndex(currentPage, recordsPerPage, params.row.id)}
-        </Fragment>
-      )
+      resizable: false,
+      maxWidth: 60,
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
+      maxWidth: 80,
       renderCell: params => (
         <Avatar url={params.value} fullName={params.row.fullName} />
       )
@@ -105,28 +114,32 @@ const PeopleDataGrid = ({
     {
       field: 'firstName',
       headerName: 'Full Name',
-      renderCell: params => (
-        <Fragment>
-          {params.row.fullName}
-        </Fragment>
-      )
+      minWidth: 150,
+      valueFormatter: (_, row) => row.fullName,
     },
     {
       field: 'date_of_birth',
-      headerName: 'Date of Birth',
-      renderCell: params => (
-        <Fragment>
-          {moment(params.value).format('DD MMM YYYY HH:mm:ss')}
-        </Fragment>
-      )
+      type: 'dateTime',
+      width: 150,
+      valueFormatter: value => moment(value).format('DD MMM YYYY HH:mm'),
+      renderHeader: () => (
+        <strong>
+          {'Date of Birth '}
+          <span role="img" aria-label="enjoy">
+            🎂
+          </span>
+        </strong>
+      ),
     },
     {
       field: 'email',
-      headerName: 'Email'
+      headerName: 'Email',
+      minWidth: 150,
     },
     {
       field: 'gender',
       headerName: 'Gender',
+      maxWidth: 80,
       renderCell: params => <GenderIcon gender={params.value} />
     },
     {
@@ -140,7 +153,8 @@ const PeopleDataGrid = ({
     },
     {
       field: 'fullAddress',
-      headerName: 'Address'
+      headerName: 'Address',
+      description: 'Full address of the person.'
     },
     {
       field: 'profession',
@@ -148,27 +162,34 @@ const PeopleDataGrid = ({
     },
     {
       field: 'actions',
-      headerName: 'Actions',
-      sortable: false,
-      renderCell: params => {
-        const status = params.row.status;
-        const scope = params.row.scope;
-        const id = params.row.action;
-
-        return (
-          <Box display="flex" alignItems="center" gap={'5px'}>
-            <ViewIcon />
-            <EditIcon />
-            <DeleteIcon />
-          </Box>
-        );
-      }
+      type: 'actions',
+      maxWidth: 50,
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          key="view"
+          icon={<ViewIcon />}
+          label="View"
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key="edit"
+          icon={<EditIcon />}
+          label="Edit"
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key="delete"
+          icon={<DeleteIcon />}
+          label="Delete"
+          showInMenu
+        />
+      ]
     }
   ];
 
   const peopleTableRows: GridRowsProp<PersonDetailsRow> = people.map(
     (person, idx) => ({
-      id: idx, // displayItemSerialNumber(idx, currentPage, num_watermarks_per_page),
+      id: getPersonRecordIndex(currentPage, recordsPerPage, idx),
       fullName: person.fullName,
       date_of_birth: person.date_of_birth,
       email: person.email,
@@ -187,10 +208,9 @@ const PeopleDataGrid = ({
         tableColumns={peopleTableColumns.map(col => ({
           ...col,
           flex: 1,
-          disableColumnMenu: true
-          // hideSortIcons: true,
-          // headerClassName: classes.columnHeader,
-          // cellClassName: classes.cell
+          // // hideSortIcons: true,
+          // // headerClassName: classes.columnHeader,
+          // // cellClassName: classes.cell
         }))}
         tableRows={peopleTableRows}
         currentPage={currentPage}

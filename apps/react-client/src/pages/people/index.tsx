@@ -89,18 +89,20 @@ function PeopleListingPage() {
               navigate(`${RoutesConfig.waterMark.subRoutes.create}`)}
           />
         </Box> */}
-      <PeopleDataGrid
-        people={peopleList ?? []}
-        currentPage={activePage}
-        nbPages={nbPages}
-        recordsPerPage={recordsPerPage}
-        nbRecords={nbRecords}
-        onPageChange={onPageChange}
-        sortColumn={sortColumn}
-        onSortChange={handleSortChange}
-        isFetchingData={isFetchingData}
-        refetchData={fetchPeople}
-      />
+      <Box sx={{ width: '100%' }}>
+        <PeopleDataGrid
+          people={peopleList ?? []}
+          currentPage={activePage}
+          nbPages={nbPages}
+          recordsPerPage={recordsPerPage}
+          nbRecords={nbRecords}
+          onPageChange={onPageChange}
+          sortColumn={sortColumn}
+          onSortChange={handleSortChange}
+          isFetchingData={isFetchingData}
+          refetchData={fetchPeople}
+        />
+      </Box>
       {/* </Box> */}
     </PageLayout>
   );
