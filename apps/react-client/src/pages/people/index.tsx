@@ -9,6 +9,7 @@ import { PeopleDataGrid } from './components';
 
 function PeopleListingPage() {
   const navigate = useNavigate();
+  const recordsPerPage = 10;
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<number>(1);
   const [sortColumn, setSortColumn] = useState<GridSortItem | undefined>(
@@ -27,7 +28,7 @@ function PeopleListingPage() {
       setIsFetchingData(true);
       const queryParams = {
         page: activePage,
-        records_per_page: 10,
+        records_per_page: recordsPerPage,
         ...(searchValue && { search: searchValue }),
         ...(sortColumn && {
           sort_key: sortColumn.field,
@@ -91,6 +92,7 @@ function PeopleListingPage() {
           people={peopleList ?? []}
           currentPage={activePage}
           nbPages={nbPages}
+          recordsPerPage={recordsPerPage}
           nbRecords={nbRecords}
           onPageChange={onPageChange}
           sortColumn={sortColumn}

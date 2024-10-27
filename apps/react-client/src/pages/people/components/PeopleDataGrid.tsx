@@ -1,12 +1,15 @@
 import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { GridColDef, GridRowsProp, GridSortItem } from '@mui/x-data-grid';
 import { DataTable } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
-import Avatar from './Avatar';
+import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
+import { getPersonRecordIndex } from 'utils';
+import Link from '@mui/material/Link';
 // import { makeStyles } from '@mui/styles';
 // import {
 //   StatusText,
@@ -32,6 +35,7 @@ type PeopleDataGridProps = {
   people: PersonDetails[];
   currentPage: number;
   nbPages: number;
+  recordsPerPage: number;
   nbRecords: number;
   onPageChange: (newPageNum: number) => void;
   sortColumn: GridSortItem | undefined;
@@ -44,6 +48,7 @@ const PeopleDataGrid = ({
   people,
   currentPage,
   nbPages,
+  recordsPerPage,
   nbRecords,
   onPageChange,
   sortColumn,
@@ -55,12 +60,16 @@ const PeopleDataGrid = ({
   // const classes = useStyles();
 
   const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<null>(null);
 
   const handleCloseDeletePopUp = () => {
     setDisplayDeletePopUp(false);
+  };
+
+  const ensureHttp = (url: string) => {
+    return url.startsWith('http://') || url.startsWith('https://')
+      ? url
+      : `https://${url}`;
   };
 
   const handleDeleteWatermark = async () => {
@@ -75,167 +84,102 @@ const PeopleDataGrid = ({
     handleCloseDeletePopUp();
   };
 
-  /* Watermarks can be sorted by 'SCOPE' or 'STATUS' */
   const peopleTableColumns: GridColDef[] = [
     {
       field: 'id',
       headerName: 'S. No.',
       sortable: false,
-      // renderHeader: params => (
-      //   <TableHeaderCell
-      //     headerText={params.colDef.headerName}
-      //     fieldName={params.field}
-      //   />
-      // )
+      renderCell: params => (
+        <Fragment>
+          {getPersonRecordIndex(currentPage, recordsPerPage, params.row.id)}
+        </Fragment>
+      )
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
       renderCell: params => (
-        <Avatar url={params.value} fullName={params.row.fullName}/>
+        <Avatar url={params.value} fullName={params.row.fullName} />
       )
     },
     {
-      field: 'fullName',
+      field: 'firstName',
       headerName: 'Full Name',
-      // renderHeader: params => (
-      //   <TableHeaderCell
-      //     headerText={params.colDef.headerName}
-      //     fieldName={params.field}
-      //     sortable
-      //   />
-      // )
+      renderCell: params => (
+        <Fragment>
+          {params.row.fullName}
+        </Fragment>
+      )
     },
     {
       field: 'date_of_birth',
       headerName: 'Date of Birth',
-      // renderHeader: params => (
-      //   <TableHeaderCell
-      //     headerText={params.colDef.headerName}
-      //     fieldName={params.field}
-      //     sortable
-      //   />
-      // ),
-      // renderCell: params => (
-      //   <StatusText text={params.value} successText={WatermarkStatus.Draft} />
-      // )
+      renderCell: params => (
+        <Fragment>
+          {moment(params.value).format('DD MMM YYYY HH:mm:ss')}
+        </Fragment>
+      )
     },
     {
       field: 'email',
-      headerName: 'Email',
+      headerName: 'Email'
     },
     {
       field: 'gender',
       headerName: 'Gender',
+      renderCell: params => <GenderIcon gender={params.value} />
     },
     {
       field: 'website',
       headerName: 'Website',
+      renderCell: params => (
+        <Link href={ensureHttp(params.value)} target="_blank" rel="noreferrer">
+          {params.value}
+        </Link>
+      )
     },
     {
       field: 'fullAddress',
-      headerName: 'Address',
+      headerName: 'Address'
     },
     {
       field: 'profession',
-      headerName: 'Profession',
+      headerName: 'Profession'
     },
     {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
-      // renderHeader: params => (
-      //   <TableHeaderCell
-      //     headerText={params.colDef.headerName}
-      //     fieldName={params.field}
-      //   />
-      // ),
-      // renderCell: params => {
-      //   const status = params.row.status;
-      //   const scope = params.row.scope;
-      //   const id = params.row.action;
+      renderCell: params => {
+        const status = params.row.status;
+        const scope = params.row.scope;
+        const id = params.row.action;
 
-      //   return (
-      //     <Box display="flex" alignItems="center" gap={'15px'}>
-      //       <div
-      //         role="button"
-      //         tabIndex={0}
-      //         aria-hidden="true"
-      //         onClick={() =>
-      //           navigate(`${RoutesConfig.waterMark.subRoutes.detail}/${id}`, { state: id })}
-      //         style={{ cursor: 'pointer' }}
-      //       >
-      //         <Typography
-      //           sx={{
-      //             fontSize: '1rem',
-      //             color: theme => theme.palette.primary.main
-      //           }}
-      //         >
-      //           View
-      //         </Typography>
-      //       </div>
-
-      //       <div
-      //         style={{ cursor: 'pointer' }}
-      //         aria-hidden="true"
-      //         onClick={() =>
-      //           navigate(`${RoutesConfig.waterMark.subRoutes.update}/${id}`, { state: id })}
-      //       >
-      //         <Typography
-      //           sx={{
-      //             fontSize: '1rem',
-      //             color: theme => theme.palette.primary.main
-      //           }}
-      //         >
-      //           Edit
-      //         </Typography>
-      //       </div>
-
-      //       {/* Don't show delete icon corresponding to DEFAULT watermark */}
-      //       {status === WatermarkStatus.Draft
-      //       && scope !== WatermarkScope.Default && (
-      //         <div
-      //           role="button"
-      //           tabIndex={0}
-      //           aria-hidden="true"
-      //           onClick={() => {
-      //             setSelectedItem({
-      //               id,
-      //               scope,
-      //               status
-      //             });
-      //             setDisplayDeletePopUp(true);
-      //           }}
-      //           style={{ cursor: 'pointer' }}
-      //         >
-      //           <Typography
-      //             sx={{
-      //               fontSize: '1rem',
-      //               color: theme => theme.palette.primary.main
-      //             }}
-      //           >
-      //             Delete
-      //           </Typography>
-      //         </div>
-      //       )}
-      //     </Box>
-      //   );
-      // }
+        return (
+          <Box display="flex" alignItems="center" gap={'5px'}>
+            <ViewIcon />
+            <EditIcon />
+            <DeleteIcon />
+          </Box>
+        );
+      }
     }
   ];
 
-  const peopleTableRows: GridRowsProp<PersonDetailsRow> = people.map((person, idx) => ({
-    id: idx, // displayItemSerialNumber(idx, currentPage, num_watermarks_per_page),
-    fullName: person.fullName,
-    date_of_birth: person.date_of_birth,
-    email: person.email,
-    gender: person.gender,
-    avatar: person.avatar,
-    website: person.website,
-    fullAddress: person.fullAddress,
-    profession: person.profession,
-    actions: person._id
-  }));
+  const peopleTableRows: GridRowsProp<PersonDetailsRow> = people.map(
+    (person, idx) => ({
+      id: idx, // displayItemSerialNumber(idx, currentPage, num_watermarks_per_page),
+      fullName: person.fullName,
+      date_of_birth: person.date_of_birth,
+      email: person.email,
+      gender: person.gender,
+      avatar: person.avatar,
+      website: person.website,
+      fullAddress: person.fullAddress,
+      profession: person.profession,
+      actions: person._id
+    })
+  );
 
   return (
     <Fragment>
@@ -243,7 +187,7 @@ const PeopleDataGrid = ({
         tableColumns={peopleTableColumns.map(col => ({
           ...col,
           flex: 1,
-          disableColumnMenu: true,
+          disableColumnMenu: true
           // hideSortIcons: true,
           // headerClassName: classes.columnHeader,
           // cellClassName: classes.cell

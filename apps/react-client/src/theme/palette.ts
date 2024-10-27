@@ -12,7 +12,7 @@ export const LightThemePalette = {
   warning: { main: '#ffb74d' },
   error: { main: '#ef5350' },
   info: { main: '#03a9f4' },
-  divider: '#9e9e9e',
+  divider: '#3c3b3b',
   background: {
     default: '#FFFFFF',
     paper: '#e0dfdc'
@@ -30,7 +30,7 @@ export const DarkThemePalette = {
   warning: { main: '#ffa726' },
   error: { main: '#c62828' },
   info: { main: '#80d8ff' },
-  divider: '#4c4c4c',
+  divider: '#a7a8a7',
   background: {
     default: '#1a1919',
     paper: '#2b2b2b'
