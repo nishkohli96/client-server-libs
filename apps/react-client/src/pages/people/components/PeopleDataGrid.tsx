@@ -89,14 +89,11 @@ const PeopleDataGrid = ({
       field: 'id',
       headerName: 'S. No.',
       sortable: false,
-      // valueGetter: (value, row) => {
-      //   return `${row.firstName || ''} ${row.lastName || ''}`;
-      // },
-      // renderCell: params => (
-      //   <Fragment>
-      //     {getPersonRecordIndex(currentPage, recordsPerPage, params.row.id)}
-      //   </Fragment>
-      // )
+      renderCell: params => (
+        <Fragment>
+          {getPersonRecordIndex(currentPage, recordsPerPage, params.row.id)}
+        </Fragment>
+      )
     },
     {
       field: 'avatar',
