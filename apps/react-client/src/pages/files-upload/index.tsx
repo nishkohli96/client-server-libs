@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import { toast } from 'react-toastify';
@@ -180,22 +180,22 @@ const FilesUploadPage = () => {
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Single File Upload</Typography>
           <FileUploader onFileUpload={handleFileUpload} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Multiple Files Upload</Typography>
           <FileUploader onFileUpload={handleMultipleFileUpload} multiple />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Large File Upload as Chunks</Typography>
           <FileUploader onFileUpload={onLargeFileUpload} anyFileType />
           {showProgress && (
             <LinearProgress variant="determinate" value={progress} sx={{ mt: '20px' }} />
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Large File Upload as base64</Typography>
           <FileUploader onFileUpload={onLargeFileUploadAsBase64} anyFileType />
         </Grid>

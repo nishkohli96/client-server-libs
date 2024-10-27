@@ -3,7 +3,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ToastContainer } from 'react-toastify';
 import { Loading } from '@csl/shared-fe';
 import { AppThemeProvider } from 'theme';
-import { AppBar } from 'components';
 import Routing from 'routes';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -17,7 +16,6 @@ const App = () => {
         closeButton
         style={{ fontSize: '1rem' }}
       />
-      <AppBar />
       <Suspense fallback={<Loading />}>
         <Routing />
       </Suspense>

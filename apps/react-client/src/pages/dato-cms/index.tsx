@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { Image } from 'react-datocms';
 import { Loading } from '@csl/shared-fe';
@@ -38,7 +38,7 @@ const DatoCMSPage = () => {
           <Fragment>
             {storesList
             && storesList.allStores.map((store, idx) => (
-              <Grid item xs={12} md={6} key={idx}>
+              <Grid size={{ xs: 12, md: 6 }} key={idx}>
                 <Typography>
                   {store.storeName}
                 </Typography>

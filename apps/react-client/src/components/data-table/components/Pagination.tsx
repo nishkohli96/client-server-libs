@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import MuiPagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
 
@@ -44,7 +44,7 @@ const Pagination = ({
 }: PaginationProps) => {
   return (
     <Grid container sx={{ mt: '20px' }}>
-      <Grid item xs={6}>
+      <Grid size={{ xs: 6 }}>
         <Typography color={'#747678'} fontSize={'14px'}>
           Showing
           <span style={{ color: '#424344' }}>
@@ -57,8 +57,7 @@ const Pagination = ({
         </Typography>
       </Grid>
       <Grid
-        item
-        xs={6}
+        size={{ xs: 6 }}
         sx={{
           display: 'flex',
           justifyContent: 'flex-end'

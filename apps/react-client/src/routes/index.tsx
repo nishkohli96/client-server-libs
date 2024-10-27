@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppBar } from 'components';
 import RouteNames from './route-names';
 import { RouteList } from './route-list';
 
@@ -8,6 +9,7 @@ import Page404 from 'pages/Page404';
 const Routing = () => {
   return (
     <BrowserRouter>
+      <AppBar />
       <Routes>
         <Route path={RouteNames.home} element={<HomePage />} />
         {RouteList.map(route => (
