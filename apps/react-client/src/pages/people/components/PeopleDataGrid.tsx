@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { GridColDef, GridRowsProp, GridSortItem } from '@mui/x-data-grid';
 import { DataTable } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
+import Avatar from './Avatar';
 // import { makeStyles } from '@mui/styles';
 // import {
 //   StatusText,
@@ -90,6 +91,9 @@ const PeopleDataGrid = ({
     {
       field: 'avatar',
       headerName: 'Avatar',
+      renderCell: params => (
+        <Avatar url={params.value} fullName={params.row.fullName}/>
+      )
     },
     {
       field: 'fullName',

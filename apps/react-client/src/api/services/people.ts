@@ -8,7 +8,6 @@ const subRoutes = ExpressServerEndpoints.people.subRoutes;
 
 export async function fetchPeopleList(params: RequestQueryParams) {
   const queryString = generateQueryString(params);
-  console.log('queryString: ', queryString);
   const response = await serverApi.get<ServerResponse<PersonListApiData>>(
     `${rootPath}/${subRoutes.list}?${queryString}`
   );
