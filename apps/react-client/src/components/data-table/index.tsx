@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   DataGrid,
+  DataGridProps,
   GridToolbar,
   GridColDef,
   GridRowsProp,
@@ -72,14 +73,6 @@ export default function DataTable({
           },
         }}
         pageSizeOptions={dataTableConfig.paginationOptions}
-        getRowHeight={() =>
-          rowHeight
-            ? typeof rowHeight === 'string'
-              ? rowHeight === 'auto'
-                ? 'auto'
-                : null
-              : rowHeight
-            : null}
       />
       {nbRecords > 0 && (
         <Pagination

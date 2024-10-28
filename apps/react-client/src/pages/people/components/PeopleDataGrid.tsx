@@ -102,11 +102,13 @@ const PeopleDataGrid = ({
       sortable: false,
       resizable: false,
       maxWidth: 60,
+      disableColumnMenu: true
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
       maxWidth: 80,
+      disableColumnMenu: true,
       renderCell: params => (
         <Avatar url={params.value} fullName={params.row.fullName} />
       )
@@ -115,6 +117,7 @@ const PeopleDataGrid = ({
       field: 'firstName',
       headerName: 'Full Name',
       minWidth: 150,
+      hideable: false,
       valueFormatter: (_, row) => row.fullName,
     },
     {
@@ -195,7 +198,7 @@ const PeopleDataGrid = ({
       email: person.email,
       gender: person.gender,
       avatar: person.avatar,
-      website: person.website,
+      website: person.website ?? '',
       fullAddress: person.fullAddress,
       profession: person.profession,
       actions: person._id
