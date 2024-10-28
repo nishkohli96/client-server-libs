@@ -55,12 +55,22 @@ export default function DataTable({
   }
 
   return (
-    <Box sx={{ display: 'flex', width: '100%', overflow: 'auto' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        overflow: 'auto',
+        '& .MuiDataGrid-root': {
+          minWidth: '500px' // Prevent squeezing below this width
+        }
+      }}
+    >
       <DataGrid
         columns={tableColumns}
         rows={!isFetchingData ? tableRows : []}
         slots={{ toolbar: GridToolbar }}
         sx={{ flexGrow: 1 }}
+        getRowHeight={() => 'auto'}
         loading={isFetchingData}
         sortModel={sortModel}
         onSortModelChange={handleSortChange}
@@ -68,9 +78,9 @@ export default function DataTable({
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: recordsPerPage,
-            },
-          },
+              pageSize: recordsPerPage
+            }
+          }
         }}
         pageSizeOptions={dataTableConfig.paginationOptions}
       />

@@ -73,9 +73,14 @@ PersonSchema.virtual('fullAddress').get(function getFullAddress(this: Person) {
     return '';
   }
   const { houseNo, street, city, zipCode, country } = this.address;
-  return `${houseNo ?? ''} ${street ?? ''},${city ?? ''},${country ?? ''} ${zipCode ? `- ${zipCode}` : ''}`
-    .replaceAll(',,', ',')
-    .trim();
+  const parts = [
+    houseNo ? `${houseNo} ${street ?? ''}`.trim() : street,
+    city,
+    country
+  ].filter(Boolean);
+
+  const addressString = parts.join(', ').trim();
+  return zipCode ? `${addressString} - ${zipCode}` : addressString;
 });
 
 PersonSchema.set('toJSON', { virtuals: true });

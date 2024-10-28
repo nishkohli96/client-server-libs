@@ -101,14 +101,14 @@ const PeopleDataGrid = ({
       type: 'number',
       sortable: false,
       resizable: false,
-      maxWidth: 60,
+      minWidth: 60,
       align: 'center',
       disableColumnMenu: true
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
-      maxWidth: 80,
+      minWidth: 80,
       disableColumnMenu: true,
       align: 'center',
       renderCell: params => (
@@ -121,15 +121,13 @@ const PeopleDataGrid = ({
       field: 'firstName',
       headerName: 'Full Name',
       minWidth: 150,
-      flex: 1,
       hideable: false,
       valueFormatter: (_, row) => row.fullName
     },
     {
       field: 'date_of_birth',
       type: 'dateTime',
-      width: 150,
-      // flex: 1,
+      minWidth: 150,
       valueFormatter: value => moment(value).format('DD MMM YYYY HH:mm'),
       renderHeader: () => (
         <strong>
@@ -144,12 +142,11 @@ const PeopleDataGrid = ({
       field: 'email',
       headerName: 'Email',
       minWidth: 150,
-      flex: 1,
     },
     {
       field: 'gender',
       headerName: 'Gender',
-      maxWidth: 80,
+      minWidth: 80,
       align: 'center',
       renderCell: params => (
         <CenterContainer>
@@ -160,6 +157,7 @@ const PeopleDataGrid = ({
     {
       field: 'website',
       headerName: 'Website',
+      minWidth: 150,
       renderCell: params => (
         <Link href={ensureHttp(params.value)} target="_blank" rel="noreferrer">
           {params.value}
@@ -176,7 +174,7 @@ const PeopleDataGrid = ({
     {
       field: 'profession',
       headerName: 'Profession',
-      minWidth: 150
+      minWidth: 200
     },
     {
       field: 'actions',
