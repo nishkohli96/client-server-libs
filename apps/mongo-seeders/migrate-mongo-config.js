@@ -1,18 +1,18 @@
 // In this file you can configure migrate-mongo
-
+require('dotenv').config()
 const { collectionNames } = require('@csl/mongo-models');
 
 const config = {
   mongodb: {
-    // TODO Change (or review) the url to your MongoDB:
-    url: "mongodb://localhost:27017",
+    url: process.env.DB_URL,
 
-    // TODO Change this to your database name:
-    databaseName: "SeederDB",
+    databaseName: process.env.DB_NAME,
 
     options: {
-      //   connectTimeoutMS: 3600000, // increase connection timeout to 1 hour
-      //   socketTimeoutMS: 3600000, // increase socket timeout to 1 hour
+      retryWrites: true,
+      minPoolSize: 5,
+      // connectTimeoutMS: 3600000, // increase connection timeout to 1 hour
+      // socketTimeoutMS: 3600000, // increase socket timeout to 1 hour
     }
   },
 
@@ -34,3 +34,4 @@ const config = {
 };
 
 module.exports = config;
+
