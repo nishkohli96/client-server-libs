@@ -54,6 +54,16 @@ export default function DataTable({
     onPageChange(page);
   }
 
+  /**
+   * Default cell height being set is 52px. For overflowing text to
+   * adjust height, provide the following prop in DataGrid component -
+   * getRowHeight={() => 'auto'}
+   *
+   * This will however affect all cells and set their text at top left.
+   * To keep some texts in center, assign a custom class by passing
+   * "cellClassName" prop for col definition.
+   */
+
   return (
     <Box
       sx={{
@@ -61,7 +71,8 @@ export default function DataTable({
         width: '100%',
         overflow: 'auto',
         '& .MuiDataGrid-root': {
-          minWidth: '500px' // Prevent squeezing below this width
+          // Prevent squeezing below this width
+          minWidth: '500px'
         }
       }}
     >
@@ -70,7 +81,6 @@ export default function DataTable({
         rows={!isFetchingData ? tableRows : []}
         slots={{ toolbar: GridToolbar }}
         sx={{ flexGrow: 1 }}
-        getRowHeight={() => 'auto'}
         loading={isFetchingData}
         sortModel={sortModel}
         onSortModelChange={handleSortChange}

@@ -141,7 +141,7 @@ const PeopleDataGrid = ({
     {
       field: 'email',
       headerName: 'Email',
-      minWidth: 150,
+      minWidth: 200
     },
     {
       field: 'gender',
