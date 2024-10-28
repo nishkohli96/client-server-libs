@@ -11,7 +11,7 @@ import {
   GridRowsProp,
   GridSortItem
 } from '@mui/x-data-grid';
-import { DataTable } from 'components';
+import { DataTable, CenterContainer } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
 import { getPersonRecordIndex } from 'utils';
@@ -102,6 +102,7 @@ const PeopleDataGrid = ({
       sortable: false,
       resizable: false,
       maxWidth: 60,
+      align: 'center',
       disableColumnMenu: true
     },
     {
@@ -109,21 +110,26 @@ const PeopleDataGrid = ({
       headerName: 'Avatar',
       maxWidth: 80,
       disableColumnMenu: true,
+      align: 'center',
       renderCell: params => (
-        <Avatar url={params.value} fullName={params.row.fullName} />
+        <CenterContainer>
+          <Avatar url={params.value} fullName={params.row.fullName} />
+        </CenterContainer>
       )
     },
     {
       field: 'firstName',
       headerName: 'Full Name',
       minWidth: 150,
+      flex: 1,
       hideable: false,
-      valueFormatter: (_, row) => row.fullName,
+      valueFormatter: (_, row) => row.fullName
     },
     {
       field: 'date_of_birth',
       type: 'dateTime',
       width: 150,
+      // flex: 1,
       valueFormatter: value => moment(value).format('DD MMM YYYY HH:mm'),
       renderHeader: () => (
         <strong>
@@ -132,18 +138,24 @@ const PeopleDataGrid = ({
             🎂
           </span>
         </strong>
-      ),
+      )
     },
     {
       field: 'email',
       headerName: 'Email',
       minWidth: 150,
+      flex: 1,
     },
     {
       field: 'gender',
       headerName: 'Gender',
       maxWidth: 80,
-      renderCell: params => <GenderIcon gender={params.value} />
+      align: 'center',
+      renderCell: params => (
+        <CenterContainer>
+          <GenderIcon gender={params.value} />
+        </CenterContainer>
+      )
     },
     {
       field: 'website',
@@ -157,11 +169,14 @@ const PeopleDataGrid = ({
     {
       field: 'fullAddress',
       headerName: 'Address',
-      description: 'Full address of the person.'
+      minWidth: 250,
+      description: 'Full address of the person.',
+      flex: 1,
     },
     {
       field: 'profession',
-      headerName: 'Profession'
+      headerName: 'Profession',
+      minWidth: 150
     },
     {
       field: 'actions',
@@ -210,7 +225,7 @@ const PeopleDataGrid = ({
       <DataTable
         tableColumns={peopleTableColumns.map(col => ({
           ...col,
-          flex: 1,
+          flex: 1
           // // hideSortIcons: true,
           // // headerClassName: classes.columnHeader,
           // // cellClassName: classes.cell

@@ -8,6 +8,7 @@ import {
   GridSortItem,
   GridSortModel
 } from '@mui/x-data-grid';
+import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
 import { Pagination } from './components';
 
@@ -54,13 +55,12 @@ export default function DataTable({
   }
 
   return (
-    <>
+    <Box sx={{ display: 'flex', width: '100%', overflow: 'auto' }}>
       <DataGrid
         columns={tableColumns}
         rows={!isFetchingData ? tableRows : []}
-        slots={{
-          toolbar: GridToolbar
-        }}
+        slots={{ toolbar: GridToolbar }}
+        sx={{ flexGrow: 1 }}
         loading={isFetchingData}
         sortModel={sortModel}
         onSortModelChange={handleSortChange}
@@ -74,7 +74,7 @@ export default function DataTable({
         }}
         pageSizeOptions={dataTableConfig.paginationOptions}
       />
-      {nbRecords > 0 && (
+      {/* {nbRecords > 0 && (
         <Pagination
           selectedPageNumber={currentPage}
           totalPageNumber={nbPages}
@@ -82,7 +82,7 @@ export default function DataTable({
           itemsPerPage={itemsPerPage}
           onChange={handlePageChange}
         />
-      )}
-    </>
+      )} */}
+    </Box>
   );
 }
