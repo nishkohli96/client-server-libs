@@ -15,7 +15,7 @@ import {
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
-import { CustomPagination } from './components';
+import { CustomNoRowsOverlay, CustomPagination } from './components';
 
 type DataTableProps = {
   columns: GridColDef[];
@@ -61,7 +61,14 @@ export default function DataTable({
           rows={!isFetchingData ? rows : []}
           slots={{
             toolbar: GridToolbar,
+            noRowsOverlay: CustomNoRowsOverlay,
             pagination: CustomPagination
+          }}
+          slotProps={{
+            loadingOverlay: {
+              variant: 'linear-progress',
+              noRowsVariant: 'skeleton'
+            }
           }}
           sx={{ flexGrow: 1 }}
           loading={isFetchingData}

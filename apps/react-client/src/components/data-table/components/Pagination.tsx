@@ -7,6 +7,8 @@
  *
  * The logic for this component might need to be updated, else appropriate
  * props must be passed accordingly for expected functionality.
+ *
+ * Refer https://mui.com/x/react-data-grid/components/
  */
 
 import Grid from '@mui/material/Grid2';
