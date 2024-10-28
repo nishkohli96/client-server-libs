@@ -101,14 +101,14 @@ const PeopleDataGrid = ({
       type: 'number',
       sortable: false,
       resizable: false,
-      minWidth: 60,
+      width: 40,
       align: 'center',
       disableColumnMenu: true
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
-      minWidth: 80,
+      width: 70,
       disableColumnMenu: true,
       align: 'center',
       renderCell: params => (
@@ -146,7 +146,7 @@ const PeopleDataGrid = ({
     {
       field: 'gender',
       headerName: 'Gender',
-      minWidth: 80,
+      width: 70,
       align: 'center',
       renderCell: params => (
         <CenterContainer>
@@ -221,14 +221,8 @@ const PeopleDataGrid = ({
   return (
     <Fragment>
       <DataTable
-        tableColumns={peopleTableColumns.map(col => ({
-          ...col,
-          flex: 1
-          // // hideSortIcons: true,
-          // // headerClassName: classes.columnHeader,
-          // // cellClassName: classes.cell
-        }))}
-        tableRows={peopleTableRows}
+        columns={peopleTableColumns}
+        rows={peopleTableRows}
         currentPage={currentPage}
         recordsPerPage={recordsPerPage}
         nbPages={nbPages}

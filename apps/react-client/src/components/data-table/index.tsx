@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   DataGrid,
-  DataGridProps,
   GridToolbar,
   GridColDef,
   GridRowsProp,
@@ -13,8 +12,8 @@ import { dataTableConfig } from 'app-constants';
 import { Pagination } from './components';
 
 type DataTableProps = {
-  tableColumns: GridColDef[];
-  tableRows: GridRowsProp;
+  columns: GridColDef[];
+  rows: GridRowsProp;
   currentPage: number;
   recordsPerPage: number;
   nbPages: number;
@@ -28,8 +27,8 @@ type DataTableProps = {
 };
 
 export default function DataTable({
-  tableColumns,
-  tableRows,
+  columns,
+  rows,
   currentPage,
   recordsPerPage,
   nbPages,
@@ -45,14 +44,25 @@ export default function DataTable({
     sortColumn ? [sortColumn] : []
   );
 
-  function handleSortChange(newSortModel: GridSortModel) {
+  /**
+   * For Pro Versions, multiple sorting is allowed. While using
+   * the standard version, we just need to get the first element
+   * of the newSortModel to apply sorting through the API.
+   */
+  const handleSortChange = (newSortModel: GridSortModel) => {
     setSortModel(newSortModel);
     onSortChange(newSortModel[0]);
-  }
+  };
 
-  function handlePageChange(_: React.ChangeEvent<unknown>, page: number) {
+  /**
+   * pageSizeOptions is an array of number like 10 or a combination of
+   * number and object.
+   * Eg: [10, 100, { value: 1000, label: '1,000' }, { value: -1, label: 'All' }]
+   * Define value as -1 to display all results.
+   */
+  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     onPageChange(page);
-  }
+  };
 
   /**
    * Default cell height being set is 52px. For overflowing text to
@@ -77,8 +87,8 @@ export default function DataTable({
       }}
     >
       <DataGrid
-        columns={tableColumns}
-        rows={!isFetchingData ? tableRows : []}
+        columns={columns}
+        rows={!isFetchingData ? rows : []}
         slots={{ toolbar: GridToolbar }}
         sx={{ flexGrow: 1 }}
         loading={isFetchingData}
