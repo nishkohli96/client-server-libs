@@ -15,6 +15,7 @@ import {
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
+import { CustomPagination } from './components';
 
 type DataTableProps = {
   columns: GridColDef[];
@@ -43,32 +44,37 @@ export default function DataTable({
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        overflow: 'auto',
-        '& .MuiDataGrid-root': {
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          overflow: 'auto',
+          '& .MuiDataGrid-root': {
           // Prevent squeezing below this width
-          minWidth: '500px'
-        }
-      }}
-    >
-      <DataGrid
-        columns={columns}
-        rows={!isFetchingData ? rows : []}
-        slots={{ toolbar: GridToolbar }}
-        sx={{ flexGrow: 1 }}
-        loading={isFetchingData}
-        rowCount={rowCount}
-        sortModel={sortColumn ? [sortColumn] : undefined}
-        onSortModelChange={handleSortChange}
-        paginationModel={paginationModel}
-        paginationMode="server"
-        pageSizeOptions={dataTableConfig.paginationOptions}
-        onPaginationModelChange={onPageChange}
-        disableRowSelectionOnClick
-      />
+            minWidth: '500px'
+          }
+        }}
+      >
+        <DataGrid
+          columns={columns}
+          rows={!isFetchingData ? rows : []}
+          slots={{
+            toolbar: GridToolbar,
+            pagination: CustomPagination
+          }}
+          sx={{ flexGrow: 1 }}
+          loading={isFetchingData}
+          rowCount={rowCount}
+          sortModel={sortColumn ? [sortColumn] : undefined}
+          onSortModelChange={handleSortChange}
+          paginationModel={paginationModel}
+          paginationMode="server"
+          pageSizeOptions={dataTableConfig.paginationOptions}
+          onPaginationModelChange={onPageChange}
+          disableRowSelectionOnClick
+        />
+      </Box>
     </Box>
   );
 }

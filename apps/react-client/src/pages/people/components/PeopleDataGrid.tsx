@@ -89,10 +89,6 @@ const PeopleDataGrid = ({
     handleCloseDeletePopUp();
   };
 
-  /**
-   * By default, the columns have a width of 100px which can be changed
-   * using the width property available in GridColDef.
-   */
   const peopleTableColumns: GridColDef[] = [
     {
       field: 'id',
@@ -100,7 +96,7 @@ const PeopleDataGrid = ({
       type: 'number',
       sortable: false,
       resizable: false,
-      width: 40,
+      width: 60,
       align: 'center',
       disableColumnMenu: true
     },

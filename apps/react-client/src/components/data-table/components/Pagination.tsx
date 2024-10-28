@@ -1,3 +1,14 @@
+/**
+ * This component was being used earlier, prior to using DataGrid's
+ * own pagination or the in current use CustomPagination.
+ *
+ * As such the pagination integrated with datagrid cannot be disabled,
+ * but can be hidden by passing "hideFooter" prop as true.
+ *
+ * The logic for this component might need to be updated, else appropriate
+ * props must be passed accordingly for expected functionality.
+ */
+
 import Grid from '@mui/material/Grid2';
 import MuiPagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
