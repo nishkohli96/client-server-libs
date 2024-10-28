@@ -5,7 +5,8 @@ import {
   GridColDef,
   GridRowsProp,
   GridSortItem,
-  GridSortModel
+  GridSortModel,
+  GridPaginationModel,
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
@@ -14,23 +15,20 @@ import { Pagination } from './components';
 type DataTableProps = {
   columns: GridColDef[];
   rows: GridRowsProp;
-  currentPage: number;
-  recordsPerPage: number;
+  paginationModel: GridPaginationModel;
   nbPages: number;
   nbRecords: number;
   itemsPerPage?: number;
-  onPageChange: (newPageNum: number) => void;
+  onPageChange: (model: GridPaginationModel) => void;
   sortColumn?: GridSortItem;
   onSortChange: (newSortCol: GridSortItem) => void;
   isFetchingData: boolean;
-  rowHeight?: string | number;
 };
 
 export default function DataTable({
   columns,
   rows,
-  currentPage,
-  recordsPerPage,
+  paginationModel,
   nbPages,
   nbRecords,
   itemsPerPage,
@@ -38,11 +36,7 @@ export default function DataTable({
   sortColumn,
   onSortChange,
   isFetchingData,
-  rowHeight
 }: DataTableProps) {
-  const [sortModel, setSortModel] = useState<GridSortModel>(
-    sortColumn ? [sortColumn] : []
-  );
 
   /**
    * For Pro Versions, multiple sorting is allowed. While using
@@ -50,7 +44,6 @@ export default function DataTable({
    * of the newSortModel to apply sorting through the API.
    */
   const handleSortChange = (newSortModel: GridSortModel) => {
-    setSortModel(newSortModel);
     onSortChange(newSortModel[0]);
   };
 
@@ -60,8 +53,8 @@ export default function DataTable({
    * Eg: [10, 100, { value: 1000, label: '1,000' }, { value: -1, label: 'All' }]
    * Define value as -1 to display all results.
    */
-  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-    onPageChange(page);
+  const handlePageChange = (model: GridPaginationModel) => {
+    onPageChange(model);
   };
 
   /**
@@ -92,16 +85,11 @@ export default function DataTable({
         slots={{ toolbar: GridToolbar }}
         sx={{ flexGrow: 1 }}
         loading={isFetchingData}
-        sortModel={sortModel}
+        sortModel={sortColumn ? [sortColumn] : undefined}
         onSortModelChange={handleSortChange}
+        paginationModel={paginationModel}
+        onPaginationModelChange={handlePageChange}
         disableRowSelectionOnClick
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: recordsPerPage
-            }
-          }
-        }}
         pageSizeOptions={dataTableConfig.paginationOptions}
       />
       {/* {nbRecords > 0 && (

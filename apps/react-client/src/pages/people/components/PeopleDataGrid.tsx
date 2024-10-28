@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import {
   GridActionsCellItem,
   GridColDef,
+  GridPaginationModel,
   GridRowParams,
   GridRowsProp,
   GridSortItem
@@ -39,26 +40,24 @@ import Link from '@mui/material/Link';
 
 type PeopleDataGridProps = {
   people: PersonDetails[];
-  currentPage: number;
   nbPages: number;
-  recordsPerPage: number;
   nbRecords: number;
-  onPageChange: (newPageNum: number) => void;
   sortColumn: GridSortItem | undefined;
+  paginationModel: GridPaginationModel;
   onSortChange: (newSort: GridSortItem) => void;
+  onPageChange: (newPageModel: GridPaginationModel) => void;
   isFetchingData: boolean;
   refetchData: () => void;
 };
 
 const PeopleDataGrid = ({
   people,
-  currentPage,
   nbPages,
-  recordsPerPage,
   nbRecords,
-  onPageChange,
   sortColumn,
   onSortChange,
+  paginationModel,
+  onPageChange,
   isFetchingData,
   refetchData
 }: PeopleDataGridProps) => {
@@ -205,7 +204,7 @@ const PeopleDataGrid = ({
 
   const peopleTableRows: GridRowsProp<PersonDetailsRow> = people.map(
     (person, idx) => ({
-      id: getPersonRecordIndex(currentPage, recordsPerPage, idx),
+      id: getPersonRecordIndex(paginationModel.page, paginationModel.pageSize, idx),
       fullName: person.fullName,
       date_of_birth: person.date_of_birth,
       email: person.email,
@@ -223,8 +222,7 @@ const PeopleDataGrid = ({
       <DataTable
         columns={peopleTableColumns}
         rows={peopleTableRows}
-        currentPage={currentPage}
-        recordsPerPage={recordsPerPage}
+        paginationModel={paginationModel}
         nbPages={nbPages}
         nbRecords={nbRecords}
         itemsPerPage={10}

@@ -3,5 +3,5 @@ export function getPersonRecordIndex(
   perPage: number,
   index: number
 ) {
-  return (page - 1) * perPage + index + 1;
+  return (page * perPage) + index + 1;
 }

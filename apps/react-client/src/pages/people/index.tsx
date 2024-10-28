@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { GridSortItem } from '@mui/x-data-grid';
+import { GridSortItem, GridPaginationModel } from '@mui/x-data-grid';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
 import { PersonDetails } from 'types';
@@ -10,9 +10,12 @@ import { PeopleDataGrid } from './components';
 
 function PeopleListingPage() {
   const navigate = useNavigate();
-  const [recordsPerPage, setRecordsPerPage] = useState<number>(dataTableConfig.defaultPageSize);
+  const initialPage = {
+    page: 0,
+    pageSize: dataTableConfig.defaultPageSize
+  };
   const [searchValue, setSearchValue] = useState<string | null>(null);
-  const [activePage, setActivePage] = useState<number>(1);
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>(initialPage);
   const [sortColumn, setSortColumn] = useState<GridSortItem | undefined>(
     undefined
   );
@@ -22,14 +25,12 @@ function PeopleListingPage() {
   const [nbRecords, setNbRecords] = useState<number>(10);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
-  const onPageChange = (newPageNum: number) => setActivePage(newPageNum);
-
   const fetchPeople = useCallback(() => {
     async function getPeopleList() {
       setIsFetchingData(true);
       const queryParams = {
-        page: activePage,
-        records_per_page: recordsPerPage,
+        page: paginationModel.page + 1,
+        records_per_page: paginationModel.pageSize,
         ...(searchValue && { search: searchValue }),
         ...(sortColumn && {
           sort_key: sortColumn.field,
@@ -38,8 +39,8 @@ function PeopleListingPage() {
       };
       try {
         const fetchDetails = await fetchPeopleList(queryParams);
-        if (activePage > 1 && fetchDetails.records.length === 0) {
-          setActivePage(page => page - 1);
+        if (paginationModel.page > 0 && fetchDetails.records.length === 0) {
+          setPaginationModel(initialPage);
         }
         setPeopleList(fetchDetails.records);
         setNbPages(fetchDetails.nbPages);
@@ -53,7 +54,7 @@ function PeopleListingPage() {
       }
     }
     getPeopleList();
-  }, [activePage, searchValue, sortColumn]);
+  }, [sortColumn, paginationModel, searchValue]);
 
   useEffect(() => {
     fetchPeople();
@@ -62,6 +63,10 @@ function PeopleListingPage() {
   function handleSortChange(sortItem: GridSortItem | undefined) {
     setSortColumn(sortItem);
     fetchPeople();
+  }
+
+  function handlePageChange(pageModel: GridPaginationModel) {
+    setPaginationModel(pageModel);
   }
 
   function handlechangeSearchValue(value: string) {
@@ -92,13 +97,12 @@ function PeopleListingPage() {
       <Box sx={{ width: '100%' }}>
         <PeopleDataGrid
           people={peopleList ?? []}
-          currentPage={activePage}
           nbPages={nbPages}
-          recordsPerPage={recordsPerPage}
           nbRecords={nbRecords}
-          onPageChange={onPageChange}
           sortColumn={sortColumn}
           onSortChange={handleSortChange}
+          paginationModel={paginationModel}
+          onPageChange={handlePageChange}
           isFetchingData={isFetchingData}
           refetchData={fetchPeople}
         />
