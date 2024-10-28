@@ -60,18 +60,13 @@ function PeopleListingPage() {
     fetchPeople();
   }, [fetchPeople]);
 
-  function handleSortChange(sortItem: GridSortItem | undefined) {
+  const handleSortChange = (sortItem: GridSortItem | undefined) => {
     setSortColumn(sortItem);
-    fetchPeople();
-  }
+  };
 
-  function handlePageChange(pageModel: GridPaginationModel) {
+  const handlePageChange = (pageModel: GridPaginationModel) => {
     setPaginationModel(pageModel);
-  }
-
-  function handlechangeSearchValue(value: string) {
-    setSearchValue(value);
-  }
+  };
 
   return (
     <PageLayout seoTitle="People">
