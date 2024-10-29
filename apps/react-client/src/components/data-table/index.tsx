@@ -67,9 +67,6 @@ export default function DataTable({
           pagination: CustomPagination
         }}
         slotProps={{
-          toolbar: {
-            showQuickFilter: true
-          },
           loadingOverlay: {
             variant: 'linear-progress',
             noRowsVariant: 'skeleton'

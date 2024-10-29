@@ -27,6 +27,7 @@ export type Person = {
   website?: string;
   address?: Address;
   profession?: string;
+  salary?: number;
   createdAt: string | Date;
   updatedAt: string | Date;
   fullName?: string;
@@ -46,7 +47,12 @@ const PersonSchema = new Schema<Person>(
     first_name: { type: String, required: true },
     last_name: String,
     date_of_birth: { type: Date, default: Date.now },
-    email: { type: String, required: true, unique: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true
+    },
     gender: {
       type: String,
       required: true,
@@ -55,7 +61,11 @@ const PersonSchema = new Schema<Person>(
     avatar: String,
     website: String,
     address: AddressSchema,
-    profession: String
+    profession: String,
+    salary: {
+      type: Number,
+      min: 0
+    }
   },
   {
     timestamps: true
@@ -91,4 +101,3 @@ export const PersonModel = model(
   PersonSchema,
   collectionNames.people
 );
-

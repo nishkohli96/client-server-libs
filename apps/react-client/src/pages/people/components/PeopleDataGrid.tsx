@@ -151,6 +151,7 @@ const PeopleDataGrid = ({
       headerName: 'Gender',
       width: 120,
       align: 'center',
+      headerAlign: 'center',
       type: 'singleSelect',
       valueOptions: Object.values(Gender),
       renderCell: params => (
@@ -174,12 +175,20 @@ const PeopleDataGrid = ({
       headerName: 'Address',
       minWidth: 250,
       description: 'Full address of the person.',
-      flex: 1,
     },
     {
       field: 'profession',
       headerName: 'Profession',
       minWidth: 200
+    },
+    {
+      field: 'salary',
+      headerName: 'Salary',
+      type: 'number',
+      headerAlign: 'left',
+      align: 'left',
+      minWidth: 120,
+      valueFormatter: value => value ? `₹ ${value}` : null
     },
     {
       field: 'actions',
@@ -219,6 +228,7 @@ const PeopleDataGrid = ({
       website: person.website ?? '',
       fullAddress: person.fullAddress,
       profession: person.profession,
+      salary: person.salary,
       actions: person._id
     })
   );

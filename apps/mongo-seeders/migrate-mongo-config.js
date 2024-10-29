@@ -11,7 +11,7 @@ const config = {
     options: {
       retryWrites: true,
       minPoolSize: 5,
-      // connectTimeoutMS: 3600000, // increase connection timeout to 1 hour
+      connectTimeoutMS: 30000,
       // socketTimeoutMS: 3600000, // increase socket timeout to 1 hour
     }
   },
