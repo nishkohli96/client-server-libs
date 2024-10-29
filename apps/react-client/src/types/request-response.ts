@@ -4,6 +4,9 @@ export type RequestQueryParams = {
   search?: string;
   sort_key?: string;
   sort_direction?: string;
+  field?: string;
+  operator?: string;
+  value?: string;
 }
 
 export type ServerResponse<T> = {

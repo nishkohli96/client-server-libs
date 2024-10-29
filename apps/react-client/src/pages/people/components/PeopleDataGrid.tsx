@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import {
   GridActionsCellItem,
   GridColDef,
+  GridFilterModel,
   GridPaginationModel,
   GridRowParams,
   GridRowsProp,
@@ -42,9 +43,11 @@ import Link from '@mui/material/Link';
 type PeopleDataGridProps = {
   people: PersonDetails[];
   nbRecords: number;
-  sortColumn: GridSortItem | undefined;
-  paginationModel: GridPaginationModel;
+  sortColumn?: GridSortItem;
   onSortChange: (newSort: GridSortItem) => void;
+  filterModel?: GridFilterModel,
+  onFilterChange: (newFilter: GridFilterModel) => void;
+  paginationModel: GridPaginationModel;
   onPageChange: (newPageModel: GridPaginationModel) => void;
   isFetchingData: boolean;
   refetchData: () => void;
@@ -55,6 +58,8 @@ const PeopleDataGrid = ({
   nbRecords,
   sortColumn,
   onSortChange,
+  filterModel,
+  onFilterChange,
   paginationModel,
   onPageChange,
   isFetchingData,
@@ -97,7 +102,7 @@ const PeopleDataGrid = ({
       resizable: false,
       width: 60,
       align: 'center',
-      disableColumnMenu: true
+      // disableColumnMenu: true
     },
     {
       field: 'avatar',
@@ -220,12 +225,14 @@ const PeopleDataGrid = ({
       <DataTable
         columns={peopleTableColumns}
         rows={peopleTableRows}
-        paginationModel={paginationModel}
+        isFetchingData={isFetchingData}
         rowCount={nbRecords}
-        onPageChange={onPageChange}
         sortColumn={sortColumn}
         onSortChange={onSortChange}
-        isFetchingData={isFetchingData}
+        filterModel={filterModel}
+        onFilterChange={onFilterChange}
+        paginationModel={paginationModel}
+        onPageChange={onPageChange}
       />
       {/* {displayDeletePopUp && (
         <ConfirmationDialog
