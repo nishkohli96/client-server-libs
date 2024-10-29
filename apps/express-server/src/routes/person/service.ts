@@ -17,7 +17,8 @@ class PersonService {
       .skip(records_per_page * (page - 1))
       .limit(records_per_page)
       .sort({ [sortKey]: sortDirection });
-    const formattedRecords = records.map(record => record.toJSON({ virtuals: true })); // Convert to JSON with virtuals
+    const formattedRecords = records.map(record =>
+      record.toJSON({ virtuals: true })); // Convert to JSON with virtuals
 
     const nbRecords = await PersonModel.countDocuments({});
     const nbPages = Math.ceil(nbRecords / records_per_page);
@@ -29,8 +30,24 @@ class PersonService {
     };
   };
 
+  isSortKeyValid(sortKey?: string): sortKey is PersonSortingColumns {
+    if (!sortKey) {
+      return true;
+    }
+    return [...Object.values(PersonSortingColumns)].includes(
+      sortKey as PersonSortingColumns
+    );
+  }
+
   getPersonsList = async (res: Response, queryParams: GetPersonsListQuery) => {
     try {
+      if (!this.isSortKeyValid(queryParams.sort_key)) {
+        return res.status(422).json({
+          success: false,
+          message: `Invalid sort key provided. The available options are - ${Object.values(PersonSortingColumns).join(', ')}`,
+          data: null
+        });
+      }
       const peopleRecords = await this.searchPeople(queryParams);
       return res.status(200).json({
         success: true,

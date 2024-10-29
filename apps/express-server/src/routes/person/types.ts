@@ -1,12 +1,12 @@
 import { Request } from 'express';
-import { Person } from '@csl/mongo-models';
 import { RequestQueryParams } from '@/types';
 
 export enum PersonSortingColumns {
-  DOB = 'date_of_birth',
   FirstName = 'first_name',
+  DOB = 'date_of_birth',
   Email = 'email',
   Gender = 'gender',
+  Website = 'website',
   Profession = 'profession',
   Salary = 'salary',
   CreatedAt = 'createdAt'
