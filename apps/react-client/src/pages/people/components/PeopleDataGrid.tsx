@@ -102,13 +102,15 @@ const PeopleDataGrid = ({
       resizable: false,
       width: 60,
       align: 'center',
-      // disableColumnMenu: true
+      disableColumnMenu: true,
+      filterable: false
     },
     {
       field: 'avatar',
       headerName: 'Avatar',
       width: 100,
       disableColumnMenu: true,
+      filterable: false,
       align: 'center',
       renderCell: params => (
         <CenterContainer>
@@ -127,6 +129,7 @@ const PeopleDataGrid = ({
     {
       field: 'date_of_birth',
       type: 'dateTime',
+      headerName: 'Date of Birth',
       minWidth: 150,
       valueFormatter: value => moment(value).format('DD MMM YYYY HH:mm'),
       renderHeader: () => (

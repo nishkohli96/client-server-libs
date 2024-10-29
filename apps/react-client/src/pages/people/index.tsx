@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from 'lodash';
 import Box from '@mui/material/Box';
 import {
   GridSortItem,
   GridFilterModel,
   GridPaginationModel
 } from '@mui/x-data-grid';
+import { StringFilters } from '@csl/react-express';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
 import { PersonDetails } from 'types';
@@ -36,7 +38,6 @@ function PeopleListingPage() {
     async function getPeopleList() {
       setIsFetchingData(true);
       const { items } = filterModel ?? {};
-      console.log('items: ', items);
       const field = items?.[0]?.field;
       const operator = items?.[0]?.operator;
       const filterValue = items?.[0]?.value;
@@ -55,7 +56,7 @@ function PeopleListingPage() {
         ...(items && {
           field,
           operator,
-          value
+          ...(value && { value })
         })
       };
       try {
@@ -82,6 +83,27 @@ function PeopleListingPage() {
   const handleSortChange = (sortItem: GridSortItem | undefined) => {
     setSortColumn(sortItem);
   };
+
+  /**
+   * When value of filter operator is "isEmpty" or "isNotEmpty", then
+   * the setFilterModel can be triggered else wait for input value of
+   * filter. For date fields, casting value to ISO string for easier
+   * querying on the database.
+   */
+  const handleFilterChange = debounce((newFilterModel: GridFilterModel) => {
+    const { items } = newFilterModel;
+    const field = items?.[0]?.field;
+    const operator = items?.[0]?.operator;
+    const newValue = items?.[0]?.value;
+
+    const checkExistanceFieldFilter = (operator === StringFilters.isEmpty) || (operator === StringFilters.isNotEmpty);
+    if (newValue || checkExistanceFieldFilter) {
+      if(field === 'date_of_birth') {
+        newFilterModel.items[0].value = new Date(newValue).toISOString();
+      }
+      setFilterModel(newFilterModel);
+    }
+  }, dataTableConfig.debounceTimeMillis);
 
   const handlePageChange = (pageModel: GridPaginationModel) => {
     setPaginationModel(pageModel);
@@ -114,7 +136,7 @@ function PeopleListingPage() {
         sortColumn={sortColumn}
         onSortChange={handleSortChange}
         filterModel={filterModel}
-        onFilterChange={setFilterModel}
+        onFilterChange={handleFilterChange}
         paginationModel={paginationModel}
         onPageChange={handlePageChange}
         isFetchingData={isFetchingData}
