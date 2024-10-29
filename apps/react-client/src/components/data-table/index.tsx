@@ -38,50 +38,49 @@ export default function DataTable({
   paginationModel,
   onPageChange
 }: DataTableProps) {
-
   const handleSortChange = (newSortModel: GridSortModel) => {
     onSortChange(newSortModel[0]);
   };
-
   return (
-    <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          overflow: 'auto',
-          '& .MuiDataGrid-root': {
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        overflow: 'auto',
+        '& .MuiDataGrid-root': {
           // Prevent squeezing below this width
-            minWidth: '500px'
+          minWidth: '500px'
+        }
+      }}
+    >
+      <DataGrid
+        columns={columns}
+        rows={!isFetchingData ? rows : []}
+        slots={{
+          toolbar: GridToolbar,
+          noRowsOverlay: CustomNoRowsOverlay,
+          pagination: CustomPagination
+        }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true
+          },
+          loadingOverlay: {
+            variant: 'linear-progress',
+            noRowsVariant: 'skeleton'
           }
         }}
-      >
-        <DataGrid
-          columns={columns}
-          rows={!isFetchingData ? rows : []}
-          slots={{
-            toolbar: GridToolbar,
-            noRowsOverlay: CustomNoRowsOverlay,
-            pagination: CustomPagination
-          }}
-          slotProps={{
-            loadingOverlay: {
-              variant: 'linear-progress',
-              noRowsVariant: 'skeleton'
-            }
-          }}
-          sx={{ flexGrow: 1 }}
-          loading={isFetchingData}
-          rowCount={rowCount}
-          sortModel={sortColumn ? [sortColumn] : undefined}
-          onSortModelChange={handleSortChange}
-          paginationModel={paginationModel}
-          paginationMode="server"
-          pageSizeOptions={dataTableConfig.paginationOptions}
-          onPaginationModelChange={onPageChange}
-          disableRowSelectionOnClick
-        />
-      </Box>
+        sx={{ flexGrow: 1 }}
+        loading={isFetchingData}
+        rowCount={rowCount}
+        sortModel={sortColumn ? [sortColumn] : undefined}
+        onSortModelChange={handleSortChange}
+        paginationModel={paginationModel}
+        paginationMode="server"
+        pageSizeOptions={dataTableConfig.paginationOptions}
+        onPaginationModelChange={onPageChange}
+        disableRowSelectionOnClick
+      />
     </Box>
   );
 }

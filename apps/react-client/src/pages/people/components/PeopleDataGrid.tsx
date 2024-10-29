@@ -12,6 +12,7 @@ import {
   GridRowsProp,
   GridSortItem
 } from '@mui/x-data-grid';
+import { Gender } from '@csl/mongo-models';
 import { DataTable, CenterContainer } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
@@ -40,7 +41,6 @@ import Link from '@mui/material/Link';
 
 type PeopleDataGridProps = {
   people: PersonDetails[];
-  nbPages: number;
   nbRecords: number;
   sortColumn: GridSortItem | undefined;
   paginationModel: GridPaginationModel;
@@ -52,7 +52,6 @@ type PeopleDataGridProps = {
 
 const PeopleDataGrid = ({
   people,
-  nbPages,
   nbRecords,
   sortColumn,
   onSortChange,
@@ -103,7 +102,7 @@ const PeopleDataGrid = ({
     {
       field: 'avatar',
       headerName: 'Avatar',
-      width: 70,
+      width: 100,
       disableColumnMenu: true,
       align: 'center',
       renderCell: params => (
@@ -117,6 +116,7 @@ const PeopleDataGrid = ({
       headerName: 'Full Name',
       minWidth: 150,
       hideable: false,
+      type: 'string',
       valueFormatter: (_, row) => row.fullName
     },
     {
@@ -141,8 +141,10 @@ const PeopleDataGrid = ({
     {
       field: 'gender',
       headerName: 'Gender',
-      width: 70,
+      width: 120,
       align: 'center',
+      type: 'singleSelect',
+      valueOptions: Object.values(Gender),
       renderCell: params => (
         <CenterContainer>
           <GenderIcon gender={params.value} />
@@ -223,7 +225,7 @@ const PeopleDataGrid = ({
         onPageChange={onPageChange}
         sortColumn={sortColumn}
         onSortChange={onSortChange}
-        isFetchingData={false}
+        isFetchingData={isFetchingData}
       />
       {/* {displayDeletePopUp && (
         <ConfirmationDialog

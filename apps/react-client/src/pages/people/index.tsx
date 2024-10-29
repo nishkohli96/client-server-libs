@@ -21,7 +21,6 @@ function PeopleListingPage() {
   );
 
   const [peopleList, setPeopleList] = useState<PersonDetails[]>();
-  const [nbPages, setNbPages] = useState<number>(1);
   const [nbRecords, setNbRecords] = useState<number>(10);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
@@ -43,11 +42,9 @@ function PeopleListingPage() {
           setPaginationModel(initialPage);
         }
         setPeopleList(fetchDetails.records);
-        setNbPages(fetchDetails.nbPages);
         setNbRecords(fetchDetails.nbRecords);
       } catch {
         setPeopleList([]);
-        setNbPages(1);
         setNbRecords(0);
       } finally {
         setIsFetchingData(false);
@@ -92,7 +89,6 @@ function PeopleListingPage() {
       <Box sx={{ width: '100%' }}>
         <PeopleDataGrid
           people={peopleList ?? []}
-          nbPages={nbPages}
           nbRecords={nbRecords}
           sortColumn={sortColumn}
           onSortChange={handleSortChange}
