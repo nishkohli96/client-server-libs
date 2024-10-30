@@ -1,3 +1,11 @@
+/**
+ * Helper class to generate query condition for MongoDB document
+ * based on the filter applied from MUI Grid. The applied filter
+ * consists of the following parameters:
+ * - field: Which key to apply filter on for that model
+ * - operator: logical operator for filter condition
+ * - value: value to compare against
+ */
 import moment from 'moment';
 import {
   GenericFilters,
@@ -47,24 +55,27 @@ class Filter {
     return parsedValue;
   }
 
-	isValidDate(value?: FilterValue, throwError?: boolean): boolean {
-	  if(!value && throwError) {
-	    throw new Error(`Invalid Date value: ${value}`);
-	  }
-	  return value ? moment.isDate(value) : false;
-	}
+  isValidDate(value?: FilterValue, throwError?: boolean): boolean {
+    if (!value && throwError) {
+      throw new Error(`Invalid Date value: ${value}`);
+    }
+    return value ? moment.isDate(value) : false;
+  }
 
-	/**
-	 * Date comparisons, especially strict equals can fail on milliseconds,
-	 * if even minutes or seconds to compare are same. Hence I have considered
-	 * a grace period of one second for equality comparison.
-	 */
-	getDateIntervals(value: FilterValue) {
-	  const date = moment(value);
-	  const date1SecAhead = date.clone().add(1, 'second').milliseconds(0);
-	  const date1SecBefore = date.clone().subtract(1, 'second').milliseconds(0);
-	  return { date, date1SecAhead, date1SecBefore };
-	}
+  /**
+   * Date comparisons, especially strict equals can fail on seconds,
+   * if even hours or minutes to compare are same. Hence I have
+   * considered a grace period of one minute for equality comparison.
+   */
+  getDateIntervals(value: FilterValue) {
+    const date = moment(value);
+    const date1MinAhead = date
+      .clone()
+      .add(1, 'minute')
+      .seconds(0)
+      .milliseconds(0);
+    return { date, date1MinAhead };
+  }
 
   getFilterCondition() {
     switch (this.operator) {
@@ -72,11 +83,11 @@ class Filter {
       case GenericFilters.Is: {
         const isValidDate = this.isValidDate(this.value);
         if (isValidDate) {
-          const { date, date1SecAhead } = this.getDateIntervals(this.value!);
+          const { date, date1MinAhead } = this.getDateIntervals(this.value!);
           return {
             [this.field]: {
               $gte: date.toDate(),
-              $lt: date1SecAhead.toDate()
+              $lt: date1MinAhead.toDate()
             }
           };
         }
@@ -88,12 +99,12 @@ class Filter {
       case GenericFilters.Not: {
         const isValidDate = this.isValidDate(this.value);
         if (isValidDate) {
-          const { date, date1SecAhead } = this.getDateIntervals(this.value!);
+          const { date, date1MinAhead } = this.getDateIntervals(this.value!);
           return {
             [this.field]: {
               $not: {
                 $lt: date.toDate(),
-                $gt: date1SecAhead.toDate()
+                $gt: date1MinAhead.toDate()
               }
             }
           };
@@ -200,20 +211,24 @@ class Filter {
 
       case DateFilters.OnOrBefore: {
         this.isValidDate(this.value, true);
-        const { date1SecAhead } = this.getDateIntervals(this.value as FilterValue);
-        return { [this.field]: { $lt: date1SecAhead.toDate() } };
+        const { date1MinAhead } = this.getDateIntervals(
+          this.value as FilterValue
+        );
+        return { [this.field]: { $lt: date1MinAhead.toDate() } };
       }
 
       case DateFilters.After: {
         this.isValidDate(this.value, true);
-        const { date } = this.getDateIntervals(this.value as FilterValue);
-        return { [this.field]: { $gt: date.toDate() } };
+        const { date1MinAhead } = this.getDateIntervals(
+          this.value as FilterValue
+        );
+        return { [this.field]: { $gt: date1MinAhead.toDate() } };
       }
 
       case DateFilters.OnOrAfter: {
         this.isValidDate(this.value, true);
-        const { date1SecBefore } = this.getDateIntervals(this.value as FilterValue);
-        return { [this.field]: { $gte: date1SecBefore.toDate() } };
+        const { date } = this.getDateIntervals(this.value as FilterValue);
+        return { [this.field]: { $gte: date.toDate() } };
       }
 
       /* --- Array Filters --- */
