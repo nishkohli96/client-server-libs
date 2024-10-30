@@ -16,6 +16,9 @@ This will however affect all cells and set their text at top left. To keep some 
 ### [Sorting](https://mui.com/x/react-data-grid/sorting/)
 For Pro Versions, multiple sorting is allowed. While using the standard version, we just need to get the first element of the newSortModel to apply sorting through the API.
 
+### [Filtering](https://mui.com/x/react-data-grid/filtering/)
+The `filterModel` continuously changes when selecting filter which can lead to multiple api calls. Its better to save the latest filter state in a variable and call the API with the filters passed only after a "Apply Filter" button is clicked.
+
 ### [Pagination](https://mui.com/x/react-data-grid/pagination/)
 `pageSizeOptions` is an array of number like 10 or a combination of number and object, for example,
 
