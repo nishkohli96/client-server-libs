@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   GenericFilters,
   StringFilters,
@@ -46,9 +47,64 @@ class Filter {
     return parsedValue;
   }
 
+	isValidDate(value?: FilterValue, throwError?: boolean): boolean {
+	  if(!value && throwError) {
+	    throw new Error(`Invalid Date value: ${value}`);
+	  }
+	  return value ? moment.isDate(value) : false;
+	}
+
+	/**
+	 * Date comparisons, especially strict equals can fail on milliseconds,
+	 * if even minutes or seconds to compare are same. Hence I have considered
+	 * a grace period of one second for equality comparison.
+	 */
+	getDateIntervals(value: FilterValue) {
+	  const date = moment(value);
+	  const date1SecAhead = date.clone().add(1, 'second').milliseconds(0);
+	  const date1SecBefore = date.clone().subtract(1, 'second').milliseconds(0);
+	  return { date, date1SecAhead, date1SecBefore };
+	}
+
   getFilterCondition() {
     switch (this.operator) {
       /* --- Generic Filters --- */
+      case GenericFilters.Is: {
+        const isValidDate = this.isValidDate(this.value);
+        if (isValidDate) {
+          const { date, date1SecAhead } = this.getDateIntervals(this.value!);
+          return {
+            [this.field]: {
+              $gte: date.toDate(),
+              $lt: date1SecAhead.toDate()
+            }
+          };
+        }
+        return {
+          [this.field]: this.value
+        };
+      }
+
+      case GenericFilters.Not: {
+        const isValidDate = this.isValidDate(this.value);
+        if (isValidDate) {
+          const { date, date1SecAhead } = this.getDateIntervals(this.value!);
+          return {
+            [this.field]: {
+              $not: {
+                $lt: date.toDate(),
+                $gt: date1SecAhead.toDate()
+              }
+            }
+          };
+        }
+        return {
+          [this.field]: {
+            $ne: this.value
+          }
+        };
+      }
+
       case GenericFilters.isEmpty:
         return {
           $or: [{ [this.field]: { $exists: false } }, { [this.field]: null }]
@@ -61,12 +117,6 @@ class Filter {
             $ne: null
           }
         };
-
-        // case GenericFilters.Is: {
-        // }
-
-        // case GenericFilters.Not: {
-        // }
 
       /* --- String Filters --- */
       // $options: 'i' option is used to perform case-insensitive matching
@@ -142,11 +192,29 @@ class Filter {
       }
 
       /* --- Date Filters --- */
-      case DateFilters.Before:
-        return { [this.field]: { $lt: new Date(this.value as Date) } };
+      case DateFilters.Before: {
+        this.isValidDate(this.value, true);
+        const { date } = this.getDateIntervals(this.value as FilterValue);
+        return { [this.field]: { $lt: date.toDate() } };
+      }
 
-      case DateFilters.After:
-        return { [this.field]: { $gt: new Date(this.value as Date) } };
+      case DateFilters.OnOrBefore: {
+        this.isValidDate(this.value, true);
+        const { date1SecAhead } = this.getDateIntervals(this.value as FilterValue);
+        return { [this.field]: { $lt: date1SecAhead.toDate() } };
+      }
+
+      case DateFilters.After: {
+        this.isValidDate(this.value, true);
+        const { date } = this.getDateIntervals(this.value as FilterValue);
+        return { [this.field]: { $gt: date.toDate() } };
+      }
+
+      case DateFilters.OnOrAfter: {
+        this.isValidDate(this.value, true);
+        const { date1SecBefore } = this.getDateIntervals(this.value as FilterValue);
+        return { [this.field]: { $gte: date1SecBefore.toDate() } };
+      }
 
       /* --- Array Filters --- */
       // handle cases for both string and number arrays

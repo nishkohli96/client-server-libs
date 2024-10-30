@@ -7,7 +7,7 @@ import {
   GridFilterModel,
   GridPaginationModel
 } from '@mui/x-data-grid';
-import { StringFilters } from '@csl/react-express';
+import { GenericFilters, StringFilters } from '@csl/react-express';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
 import { PersonDetails } from 'types';
@@ -96,9 +96,11 @@ function PeopleListingPage() {
     const operator = items?.[0]?.operator;
     const newValue = items?.[0]?.value;
 
-    const checkExistanceFieldFilter = (operator === StringFilters.isEmpty) || (operator === StringFilters.isNotEmpty);
+    const checkExistanceFieldFilter
+      = operator === GenericFilters.isEmpty
+      || operator === GenericFilters.isNotEmpty;
     if (newValue || checkExistanceFieldFilter) {
-      if(field === 'date_of_birth') {
+      if (field === 'date_of_birth') {
         newFilterModel.items[0].value = new Date(newValue).toISOString();
       }
       setFilterModel(newFilterModel);
