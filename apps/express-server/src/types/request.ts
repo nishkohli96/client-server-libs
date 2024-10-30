@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { FilterOperator } from '@csl/react-express';
 
 export enum SortDirection {
   Asc = 1,
@@ -15,8 +15,11 @@ export type RequestQueryParams<SortKeys> = {
   page?: string;
   sort_key?: SortKeys;
   sort_direction?: SortDirection;
-  start_date?: string | Date | moment.Moment;
-  end_date?: string | Date | moment.Moment;
+  start_date?: string;
+  end_date?: string;
+  field?: string;
+  value?: string | number | Date;
+  operator?: FilterOperator;
 }
 
 export type PaginationConfig = {

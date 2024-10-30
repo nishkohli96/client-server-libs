@@ -12,26 +12,21 @@ import {
   StringFilters,
   DateFilters,
   NumberFilters,
-  ArrayFilters
+  ArrayFilters,
+  FilterOperator
 } from '@csl/react-express';
 
-type FilterOperator =
-  | GenericFilters
-  | StringFilters
-  | DateFilters
-  | NumberFilters
-  | ArrayFilters;
 type FilterValue = string | number | Date;
 
 type FilterProps = {
-  field: string;
-  operator: FilterOperator;
+  field?: string;
+  operator?: FilterOperator;
   value?: FilterValue;
 };
 
-class Filter {
-  private field: string;
-  private operator: FilterOperator;
+class QueryFilter {
+  private field?: string;
+  private operator?: FilterOperator;
   private value?: FilterValue;
 
   constructor({ field, operator, value }: FilterProps) {
@@ -40,7 +35,7 @@ class Filter {
     this.value = value;
   }
 
-  valueToNumber(value?: FilterValue): number {
+  private valueToNumber(value?: FilterValue): number {
     if (
       value === undefined
       || value === null
@@ -55,7 +50,7 @@ class Filter {
     return parsedValue;
   }
 
-  isValidDate(value?: FilterValue, throwError?: boolean): boolean {
+  private isValidDate(value?: FilterValue, throwError?: boolean): boolean {
     if (!value && throwError) {
       throw new Error(`Invalid Date value: ${value}`);
     }
@@ -67,7 +62,7 @@ class Filter {
    * if even hours or minutes to compare are same. Hence I have
    * considered a grace period of one minute for equality comparison.
    */
-  getDateIntervals(value: FilterValue) {
+  private getDateIntervals(value: FilterValue) {
     const date = moment(value);
     const date1MinAhead = date
       .clone()
@@ -78,6 +73,10 @@ class Filter {
   }
 
   getFilterCondition() {
+    if(!this.field || !this.operator) {
+      return {};
+    }
+
     switch (this.operator) {
       /* --- Generic Filters --- */
       case GenericFilters.Is: {
@@ -118,7 +117,10 @@ class Filter {
 
       case GenericFilters.isEmpty:
         return {
-          $or: [{ [this.field]: { $exists: false } }, { [this.field]: null }]
+          $or: [
+            { [this.field]: { $exists: false } },
+            { [this.field]: null }
+          ]
         };
 
       case GenericFilters.isNotEmpty:
@@ -254,4 +256,4 @@ class Filter {
   }
 }
 
-export default Filter;
+export default QueryFilter;

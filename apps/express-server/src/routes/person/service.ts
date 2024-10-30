@@ -3,6 +3,7 @@ import { PersonModel } from '@csl/mongo-models';
 import { SortDirection } from '@/types';
 import { getPaginationParams } from '@/utils';
 import { GetPersonsListQuery, PersonSortingColumns } from './types';
+import QueryFilter from './queryFilter';
 
 class PersonService {
   searchPeople = async (queryParams: GetPersonsListQuery) => {
@@ -12,15 +13,21 @@ class PersonService {
     );
     const sortKey = queryParams.sort_key ?? PersonSortingColumns.CreatedAt;
     const sortDirection = queryParams.sort_direction ?? SortDirection.Desc;
+    const queryFilter = new QueryFilter({
+      field: queryParams.field,
+      operator: queryParams.operator,
+      value: queryParams.value
+    }).getFilterCondition();
+    console.log('queryFilter: ', queryFilter);
 
-    const records = await PersonModel.find({})
+    const records = await PersonModel.find(queryFilter)
       .skip(records_per_page * (page - 1))
       .limit(records_per_page)
       .sort({ [sortKey]: sortDirection });
     const formattedRecords = records.map(record =>
-      record.toJSON({ virtuals: true })); // Convert to JSON with virtuals
+      record.toJSON({ virtuals: true }));
 
-    const nbRecords = await PersonModel.countDocuments({});
+    const nbRecords = await PersonModel.countDocuments(queryFilter);
     const nbPages = Math.ceil(nbRecords / records_per_page);
     return {
       nbRecords,

@@ -108,9 +108,11 @@ const PeopleDataGrid = ({
     {
       field: 'avatar',
       headerName: 'Avatar',
-      width: 100,
+      width: 80,
       disableColumnMenu: true,
       filterable: false,
+      sortable: false,
+      headerAlign: 'center',
       align: 'center',
       renderCell: params => (
         <CenterContainer>
