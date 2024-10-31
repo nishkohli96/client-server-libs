@@ -2,7 +2,7 @@
  * Helper class to generate query condition for MongoDB document
  * based on the filter applied from MUI Grid. The applied filter
  * consists of the following parameters:
- * - field: Which key to apply filter on for that model
+ * - field: Which key to apply filter on for a model
  * - operator: logical operator for filter condition
  * - value: value to compare against
  */
@@ -75,7 +75,7 @@ class QueryFilter {
   }
 
   getFilterCondition(): FilterQuery<typeof PersonModel> {
-    if(!this.field || !this.operator) {
+    if (!this.field || !this.operator) {
       return {};
     }
 
@@ -249,6 +249,7 @@ class QueryFilter {
 
       /* --- Array Filters --- */
       // handle cases for both string and number arrays
+      // for strings, taking care of case-insensitivity
       case ArrayFilters.isAnyOf: {
         const values
           = this.value && typeof this.value === 'string'
@@ -258,10 +259,18 @@ class QueryFilter {
           value => !isNaN(Number(value))
         );
         const finalValues = allAreValuesNumeric ? values.map(Number) : values;
-
-        return {
-          [this.field]: { $in: finalValues }
-        };
+        if (allAreValuesNumeric) {
+          return {
+            [this.field]: { $in: finalValues }
+          };
+        } else {
+          const orConditions = finalValues.map(value => ({
+            [`${this.field}`]: { $regex: `^${value}$`, $options: 'i' }
+          }));
+          return {
+            $or: orConditions
+          };
+        }
       }
 
       default:

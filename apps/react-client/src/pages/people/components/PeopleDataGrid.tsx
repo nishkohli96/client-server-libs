@@ -15,7 +15,7 @@ import {
   getGridStringOperators
 } from '@mui/x-data-grid';
 import { Gender } from '@csl/mongo-models';
-import { StringFilters } from '@csl/react-express';
+import { ArrayFilters, StringFilters } from '@csl/react-express';
 import { DataTable, CenterContainer } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
@@ -103,6 +103,7 @@ const PeopleDataGrid = ({
     operator => (
       operator.value !== StringFilters.Equals
       && operator.value !== StringFilters.NotEquals
+      && operator.value !== ArrayFilters.isAnyOf
     )
   );
 
