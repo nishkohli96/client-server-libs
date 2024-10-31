@@ -7,6 +7,7 @@
  * - value: value to compare against
  */
 import moment from 'moment';
+import { FilterQuery } from 'mongoose';
 import {
   GenericFilters,
   StringFilters,
@@ -15,6 +16,7 @@ import {
   ArrayFilters,
   FilterOperator
 } from '@csl/react-express';
+import { PersonModel } from '@csl/mongo-models';
 
 type FilterValue = string | number | Date;
 
@@ -72,7 +74,7 @@ class QueryFilter {
     return { date, date1MinAhead };
   }
 
-  getFilterCondition() {
+  getFilterCondition(): FilterQuery<typeof PersonModel> {
     if(!this.field || !this.operator) {
       return {};
     }

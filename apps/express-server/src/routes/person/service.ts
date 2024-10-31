@@ -13,12 +13,57 @@ class PersonService {
     );
     const sortKey = queryParams.sort_key ?? PersonSortingColumns.CreatedAt;
     const sortDirection = queryParams.sort_direction ?? SortDirection.Desc;
-    const queryFilter = new QueryFilter({
+    let queryFilter = new QueryFilter({
       field: queryParams.field,
       operator: queryParams.operator,
       value: queryParams.value
     }).getFilterCondition();
-    console.log('queryFilter: ', queryFilter);
+
+    if(queryParams.field === 'first_name') {
+      const lastNameQuery = new QueryFilter({
+        field: 'last_name',
+        operator: queryParams.operator,
+        value: queryParams.value
+      }).getFilterCondition();
+      queryFilter = {
+        $or: [
+          queryFilter,
+          lastNameQuery
+        ]
+      };
+    }
+
+    if(queryParams.field === 'fullAddress') {
+      queryFilter = {
+        $or: [
+          new QueryFilter({
+            field: 'address.houseNo',
+            operator: queryParams.operator,
+            value: queryParams.value
+          }).getFilterCondition(),
+          new QueryFilter({
+            field: 'address.street',
+            operator: queryParams.operator,
+            value: queryParams.value
+          }).getFilterCondition(),
+          new QueryFilter({
+            field: 'address.city',
+            operator: queryParams.operator,
+            value: queryParams.value
+          }).getFilterCondition(),
+          new QueryFilter({
+            field: 'address.zipCode',
+            operator: queryParams.operator,
+            value: queryParams.value
+          }).getFilterCondition(),
+          new QueryFilter({
+            field: 'address.country',
+            operator: queryParams.operator,
+            value: queryParams.value
+          }).getFilterCondition(),
+        ]
+      };
+    }
 
     const records = await PersonModel.find(queryFilter)
       .skip(records_per_page * (page - 1))
