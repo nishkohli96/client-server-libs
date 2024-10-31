@@ -28,3 +28,6 @@ $ yarn run start:prod
   - upload single & multiple files for same field
   - convert large video file in chunks
   - convert file as base64 and upload in parts
+- Fetching and rendering dynamic data in [Mui Datagrid](https://mui.com/x/react-data-grid/).
+  - Supporting sorting, filtering and pagination
+  - Complete funxctionality for CRUD operations for list of people

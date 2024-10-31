@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { debounce, isEmpty } from 'lodash';
 import Box from '@mui/material/Box';
@@ -7,7 +7,7 @@ import {
   GridFilterModel,
   GridPaginationModel
 } from '@mui/x-data-grid';
-import { GenericFilters, StringFilters } from '@csl/react-express';
+import { GenericFilters } from '@csl/react-express';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
 import { PersonDetails } from 'types';
@@ -24,9 +24,24 @@ function PeopleListingPage() {
     []
   );
 
-  const [searchValue, setSearchValue] = useState<string | null>(null);
-  const [sortColumn, setSortColumn] = useState<GridSortItem>();
+  /**
+   * filterModel will always contain the latest set of filter being
+   * selected by the user. filterModelRef will contain the filter that
+   * is currently applied. Based on the conditions applied in the
+   * handleFilterChange function, once the filter to be applied is valid,
+   * filterModelRef.current will automatically be updated with the current
+   * filter selected which will trigger an api call to fetch results in
+   * accordance with the search criteria.
+   *
+   * Using ref instead of a state variable will prevent unnecessary renders
+   * and will trigger the api only once a valid filter is applied, say after
+   * entering a value in anyOf operator. While switching filters back and forth,
+   * this wont trigger the API.
+   */
   const [filterModel, setFilterModel] = useState<GridFilterModel>();
+  const filterModelRef = useRef<GridFilterModel>();
+
+  const [sortColumn, setSortColumn] = useState<GridSortItem>();
   const [paginationModel, setPaginationModel]
     = useState<GridPaginationModel>(initialPage);
 
@@ -37,7 +52,7 @@ function PeopleListingPage() {
   const fetchPeople = useCallback(() => {
     async function getPeopleList() {
       setIsFetchingData(true);
-      const { items } = filterModel ?? {};
+      const { items } = filterModelRef.current ?? {};
       const field = items?.[0]?.field;
       const operator = items?.[0]?.operator;
       const filterValue = items?.[0]?.value;
@@ -48,7 +63,6 @@ function PeopleListingPage() {
       const queryParams = {
         page: paginationModel.page + 1,
         records_per_page: paginationModel.pageSize,
-        ...(searchValue && { search: searchValue }),
         ...(sortColumn && {
           sort_key: sortColumn.field,
           sort_direction: sortColumn.sort!
@@ -74,7 +88,7 @@ function PeopleListingPage() {
       }
     }
     getPeopleList();
-  }, [initialPage, sortColumn, paginationModel, filterModel, searchValue]);
+  }, [initialPage, sortColumn, paginationModel, filterModelRef.current]);
 
   useEffect(() => {
     fetchPeople();
@@ -95,6 +109,8 @@ function PeopleListingPage() {
    * condition for this case.
    */
   const handleFilterChange = debounce((newFilterModel: GridFilterModel) => {
+    setFilterModel(newFilterModel);
+
     const { items } = newFilterModel;
     const filterItem = items?.[0] || {};
     const { field, operator, value } = filterItem;
@@ -109,7 +125,7 @@ function PeopleListingPage() {
         const dateValue = new Date(value);
         filterItem.value = !isNaN(dateValue.getTime()) ? dateValue.toISOString() : value;
       }
-      setFilterModel(newFilterModel);
+      filterModelRef.current = newFilterModel;
     }
   }, dataTableConfig.debounceTimeMillis);
 

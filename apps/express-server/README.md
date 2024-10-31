@@ -27,3 +27,6 @@ $ yarn run start:prod
   - combine video using ***fluent-ffmpeg***
   - reading from and writing to a file
   - delete file and folder
+- People API
+  - CRUD operations
+  - Advanced filtering using operators from [Mui Datagrid](https://mui.com/x/react-data-grid/)
