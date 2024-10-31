@@ -11,9 +11,11 @@ import {
   GridPaginationModel,
   GridRowParams,
   GridRowsProp,
-  GridSortItem
+  GridSortItem,
+  getGridStringOperators
 } from '@mui/x-data-grid';
 import { Gender } from '@csl/mongo-models';
+import { StringFilters } from '@csl/react-express';
 import { DataTable, CenterContainer } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
@@ -45,7 +47,7 @@ type PeopleDataGridProps = {
   nbRecords: number;
   sortColumn?: GridSortItem;
   onSortChange: (newSort: GridSortItem) => void;
-  filterModel?: GridFilterModel,
+  filterModel?: GridFilterModel;
   onFilterChange: (newFilter: GridFilterModel) => void;
   paginationModel: GridPaginationModel;
   onPageChange: (newPageModel: GridPaginationModel) => void;
@@ -93,6 +95,17 @@ const PeopleDataGrid = ({
     handleCloseDeletePopUp();
   };
 
+  /**
+   * FullName and FullAddress are virtual fields in database. Hence equality
+   * filters won't be applicable for this case.
+   */
+  const virtualsFieldFilters = getGridStringOperators().filter(
+    operator => (
+      operator.value !== StringFilters.Equals
+      && operator.value !== StringFilters.NotEquals
+    )
+  );
+
   const peopleTableColumns: GridColDef[] = [
     {
       field: 'id',
@@ -126,6 +139,7 @@ const PeopleDataGrid = ({
       minWidth: 150,
       hideable: false,
       type: 'string',
+      filterOperators: virtualsFieldFilters,
       valueFormatter: (_, row) => row.fullName
     },
     {
@@ -177,6 +191,7 @@ const PeopleDataGrid = ({
       headerName: 'Address',
       minWidth: 250,
       description: 'Full address of the person.',
+      filterOperators: virtualsFieldFilters
     },
     {
       field: 'profession',
@@ -221,7 +236,11 @@ const PeopleDataGrid = ({
 
   const peopleTableRows: GridRowsProp<PersonDetailsRow> = people.map(
     (person, idx) => ({
-      id: getPersonRecordIndex(paginationModel.page, paginationModel.pageSize, idx),
+      id: getPersonRecordIndex(
+        paginationModel.page,
+        paginationModel.pageSize,
+        idx
+      ),
       fullName: person.fullName,
       date_of_birth: person.date_of_birth,
       email: person.email,

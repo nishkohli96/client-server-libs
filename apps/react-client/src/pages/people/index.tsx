@@ -89,26 +89,25 @@ function PeopleListingPage() {
    * the setFilterModel can be triggered else wait for input value of
    * filter. For date fields, casting value to ISO string for easier
    * querying on the database.
+   *
+   * isEmpty is used for checking empty object, array, string etc.
+   * For numbers, it returns true, so need to handle add a separate
+   * condition for this case.
    */
   const handleFilterChange = debounce((newFilterModel: GridFilterModel) => {
     const { items } = newFilterModel;
-    const field = items?.[0]?.field;
-    const operator = items?.[0]?.operator;
-    const newValue = items?.[0]?.value;
+    const filterItem = items?.[0] || {};
+    const { field, operator, value } = filterItem;
 
-    const checkExistanceFieldFilter
-      = operator === GenericFilters.isEmpty
-      || operator === GenericFilters.isNotEmpty;
-    const isValueNumber = newValue && typeof newValue === 'number';
+    const isFilterCleared = !items.length;
+    const isExistentialFilter = operator === GenericFilters.isEmpty || operator === GenericFilters.isNotEmpty;
+    const isValidNumber = typeof value === 'number';
+    const isNonEmptyValue = !isEmpty(value) || isValidNumber;
 
-    /**
-     * isEmpty is used for checking empty object, array, string etc.
-     * For numbers, it returns true, so need to handle add a separate
-     * condition for this case.
-     */
-    if (isValueNumber || !isEmpty(newValue) || checkExistanceFieldFilter) {
-      if (field === 'date_of_birth') {
-        newFilterModel.items[0].value = new Date(newValue).toISOString();
+    if (isFilterCleared || isNonEmptyValue || isExistentialFilter) {
+      if (field === 'date_of_birth' && value) {
+        const dateValue = new Date(value);
+        filterItem.value = !isNaN(dateValue.getTime()) ? dateValue.toISOString() : value;
       }
       setFilterModel(newFilterModel);
     }
