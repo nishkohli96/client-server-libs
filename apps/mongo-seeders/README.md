@@ -17,6 +17,8 @@ This will perform the following tasks -
 	- Remove `avatar` and `website` fields from records with blank values.
 	- Change person avatar src from random images at [https://dummyimage.com/](https://dummyimage.com/) to [https://randomuser.me/](https://randomuser.me/).
 
+It is highly recommended to run seeders, else the integration part with dataTable in `react-client` app will not work and can break.
+
 To only insert data in DB without running any migrations,
 ```
 yarn seed:db

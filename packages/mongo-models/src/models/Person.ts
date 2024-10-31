@@ -7,9 +7,13 @@ export enum Gender {
   Others = 'OTHERS'
 }
 
+/**
+ * Prefer keeping houseNo as string to handle cases
+ * like "101-A", "22B" etc.
+ */
 export type Address = {
   _id: Types.ObjectId;
-  houseNo?: number;
+  houseNo?: string;
   street?: string;
   city?: string;
   zipCode?: string;
@@ -35,7 +39,7 @@ export type Person = {
 };
 
 const AddressSchema = new Schema({
-  houseNo: Number,
+  houseNo: String,
   street: String,
   city: String,
   zipCode: String,

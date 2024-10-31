@@ -1,6 +1,6 @@
 /**
  * Seeder to set the salary as a random 5 digit number for X % of the
- * total number of records in the database, in this case X=80. 
+ * total number of records in the database, in this case X=80.
  */
 import mongoModels from '@csl/mongo-models';
 
@@ -11,7 +11,7 @@ const generateRandomSalary = () => {
   return Math.round(Math.random() * 100000);
 };
 
-export const up = async (db, client) => {
+export const up = async (db) => {
   const totalRecords = await db.collection(peopleCollection).countDocuments();
   const recordsToUpdate = Math.floor(totalRecords * percentOfPeopleToSetSalary);
 
@@ -21,7 +21,6 @@ export const up = async (db, client) => {
     .aggregate([{ $sample: { size: recordsToUpdate } }])
     .toArray();
 
-  // Prepare bulk update operations
   const bulkOps = randomPeople.map(person => ({
     updateOne: {
       filter: { _id: person._id },
@@ -29,13 +28,12 @@ export const up = async (db, client) => {
     }
   }));
 
-  // Execute bulk write operations
   if (bulkOps.length > 0) {
     await db.collection(peopleCollection).bulkWrite(bulkOps);
   }
 };
 
-export const down = async (db, client) => {
+export const down = async (db) => {
   await db
     .collection(peopleCollection)
     .updateMany({ salary: { $exists: true } }, { $unset: { salary: '' } });

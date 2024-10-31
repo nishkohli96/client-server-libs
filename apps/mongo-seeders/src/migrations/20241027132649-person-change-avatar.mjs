@@ -25,7 +25,7 @@ const getAvatarUrl = (gender, index) => {
   return `https://randomuser.me/api/portraits/${genderPath}/${index}.jpg`;
 };
 
-export const up = async db => {
+export const up = async (db) => {
   const peopleWithAvatar = await db
     .collection(peopleCollection)
     .find({ avatar: { $exists: true, $ne: '' } })
@@ -41,7 +41,9 @@ export const up = async db => {
       }
     };
   });
-  await db.collection(peopleCollection).bulkWrite(bulkOps);
+  if (bulkOps.length > 0) {
+    await db.collection(peopleCollection).bulkWrite(bulkOps);
+  }
 };
 
 /**
@@ -51,7 +53,7 @@ export const up = async db => {
  * Previous images were of the form -
  * http://dummyimage.com/147x100.png/ff4444/ffffff
  */
-export const down = async db => {
+export const down = async (db) => {
   await db
     .collection(peopleCollection)
     .updateMany(
