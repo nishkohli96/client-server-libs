@@ -121,7 +121,7 @@ const PeopleDataGrid = ({
       )
     },
     {
-      field: 'firstName',
+      field: 'first_name',
       headerName: 'Full Name',
       minWidth: 150,
       hideable: false,

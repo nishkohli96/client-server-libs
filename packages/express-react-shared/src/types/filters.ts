@@ -13,7 +13,7 @@ export enum StringFilters {
   Contains = 'contains',
   DoesNotContain = 'doesNotContain',
   Equals = 'equals',
-  NotEquals = 'notEquals',
+  NotEquals = 'doesNotEqual',
   StartsWith = 'startsWith',
   EndsWith = 'endsWith'
 }

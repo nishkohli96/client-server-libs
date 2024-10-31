@@ -136,7 +136,7 @@ class QueryFilter {
       case StringFilters.Contains:
         return {
           [this.field]: {
-            $regex: `^${this.value}$`,
+            $regex: `${this.value}`,
             $options: 'i'
           }
         };
@@ -145,17 +145,29 @@ class QueryFilter {
         return {
           [this.field]: {
             $not: {
-              $regex: this.value as string,
+              $regex: `${this.value}`,
               $options: 'i'
             }
           }
         };
 
       case StringFilters.Equals:
-        return { [this.field]: this.value };
+        return {
+          [this.field]: {
+            $regex: `^${this.value}$`,
+            $options: 'i'
+          }
+        };
 
       case StringFilters.NotEquals:
-        return { [this.field]: { $ne: this.value } };
+        return {
+          [this.field]: {
+            $not: {
+              $regex: `^${this.value}$`,
+              $options: 'i'
+            }
+          }
+        };
 
       case StringFilters.StartsWith:
         return {

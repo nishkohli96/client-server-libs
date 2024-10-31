@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import Box from '@mui/material/Box';
 import {
   GridSortItem,
@@ -99,7 +99,14 @@ function PeopleListingPage() {
     const checkExistanceFieldFilter
       = operator === GenericFilters.isEmpty
       || operator === GenericFilters.isNotEmpty;
-    if (newValue || checkExistanceFieldFilter) {
+    const isValueNumber = newValue && typeof newValue === 'number';
+
+    /**
+     * isEmpty is used for checking empty object, array, string etc.
+     * For numbers, it returns true, so need to handle add a separate
+     * condition for this case.
+     */
+    if (isValueNumber || !isEmpty(newValue) || checkExistanceFieldFilter) {
       if (field === 'date_of_birth') {
         newFilterModel.items[0].value = new Date(newValue).toISOString();
       }
