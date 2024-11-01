@@ -10,11 +10,14 @@ import {
 import { GenericFilters } from '@csl/react-express';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
+import RouteNames from 'routes/route-names';
 import { PersonDetails } from 'types';
 import { PageLayout } from 'components';
 import { PeopleDataGrid } from './components';
+import Button from '@mui/material/Button';
 
 function PeopleListingPage() {
+  const peopleRoute = RouteNames.people;
   const navigate = useNavigate();
   const initialPage = useMemo(
     () => ({
@@ -116,14 +119,18 @@ function PeopleListingPage() {
     const { field, operator, value } = filterItem;
 
     const isFilterCleared = !items.length;
-    const isExistentialFilter = operator === GenericFilters.isEmpty || operator === GenericFilters.isNotEmpty;
+    const isExistentialFilter
+      = operator === GenericFilters.isEmpty
+      || operator === GenericFilters.isNotEmpty;
     const isValidNumber = typeof value === 'number';
     const isNonEmptyValue = !isEmpty(value) || isValidNumber;
 
     if (isFilterCleared || isNonEmptyValue || isExistentialFilter) {
       if (field === 'date_of_birth' && value) {
         const dateValue = new Date(value);
-        filterItem.value = !isNaN(dateValue.getTime()) ? dateValue.toISOString() : value;
+        filterItem.value = !isNaN(dateValue.getTime())
+          ? dateValue.toISOString()
+          : value;
       }
       filterModelRef.current = newFilterModel;
     }
@@ -136,24 +143,25 @@ function PeopleListingPage() {
   return (
     <PageLayout seoTitle="People">
       {/* <Box pl="42px" pr="68px" pt="1rem"> */}
-      {/* <Box
-          mb="30px"
-          height="60px"
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
+      <Box
+        mb="30px"
+        height="60px"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        {/* <SearchInput onSearch={handlechangeSearchValue} /> */}
+        <Button
+          sx={{
+            height: '3rem',
+            py: '12px'
+          }}
+          onClick={() =>
+            navigate(`${peopleRoute.rootPath}/${peopleRoute.subRoutes.add}`)}
         >
-          <SearchInput onSearch={handlechangeSearchValue} />
-          <AddRowButton
-            text="Add Watermark"
-            sx={{
-              height: '3rem',
-              py: '12px'
-            }}
-            onClick={() =>
-              navigate(`${RoutesConfig.waterMark.subRoutes.create}`)}
-          />
-        </Box> */}
+          Add Person
+        </Button>
+      </Box>
       <PeopleDataGrid
         people={peopleList ?? []}
         nbRecords={nbRecords}
@@ -172,3 +180,4 @@ function PeopleListingPage() {
 }
 
 export default PeopleListingPage;
+

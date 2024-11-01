@@ -1,4 +1,5 @@
 import { serverApi } from 'api/server';
+import { toast } from 'react-toastify';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { RequestQueryParams, ServerResponse, PersonListApiData } from 'types';
 import { generateQueryString } from 'utils';
@@ -11,5 +12,13 @@ export async function fetchPeopleList(params: RequestQueryParams) {
   const response = await serverApi.get<ServerResponse<PersonListApiData>>(
     `${rootPath}/${subRoutes.list}?${queryString}`
   );
-  return response.data.data;
+
+  // Check if the response status is 200
+  if (response.status === 200) {
+    return response.data.data;
+  } else {
+    // Handle non-200 response status
+    toast.error(`Error: ${response.status} - Unable to fetch data.`);
+    throw new Error(`Error: ${response.status}`);
+  }
 }
