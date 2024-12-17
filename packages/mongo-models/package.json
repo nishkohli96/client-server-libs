@@ -12,7 +12,7 @@
 		"mongoose": "^8.7.2"
   },
   "devDependencies": {
-    "@nish1896/eslint-config": "^2.1.1",
+    "@nish1896/eslint-config": "^2.1.2",
     "@types/node": "^20.11.17",
     "eslint": "^8.57.0",
     "rimraf": "^5.0.5",
