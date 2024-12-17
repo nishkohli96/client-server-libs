@@ -9,11 +9,11 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@mui/icons-material": "^5.15.10",
-    "@mui/material": "^5.15.10"
+    "@mui/icons-material": "^6.2.1",
+    "@mui/material": "^6.2.1"
   },
   "devDependencies": {
-    "@nish1896/eslint-config": "^2.1.1",
+    "@nish1896/eslint-config": "^2.1.2",
     "eslint": "^8.57.0",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.3.3"

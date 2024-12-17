@@ -19,7 +19,7 @@ export default function HomePage() {
         Click on any of the links below to see their demo
       </Typography>
       <Fragment>
-        {RouteList.map(route => (
+        {RouteList.filter(route => !route.hideFromHomePage).map(route => (
           <NavPill
             text={route.text}
             pathName={route.path}

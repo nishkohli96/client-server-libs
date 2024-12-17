@@ -9,12 +9,12 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "fe:build": "yarn workspace @csl/shared-fe lib:build",
-    "re:build": "yarn workspace @csl/react-express lib:build",
+    "lib": "turbo run lib:build",
     "react-client": "yarn workspace react-client dev",
     "next-client": "yarn workspace next-client dev",
     "express-server": "yarn workspace express-server dev",
     "nestjs-server": "yarn workspace nestjs-server dev",
+    "seed": "yarn workspace mongo-seeders seed",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "prettier": "prettier \"{apps,packages}/**/*.{json,html,css,sass,scss}\" --write --ignore-unknown"
@@ -23,11 +23,11 @@
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "turbo": "^2.0.6"
+    "turbo": "^2.3.3"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix --ignore-pattern mongo-seeders"
     ],
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"

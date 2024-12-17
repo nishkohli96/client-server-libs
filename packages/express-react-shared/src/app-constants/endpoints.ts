@@ -12,5 +12,15 @@ export const ExpressServerEndpoints = Object.freeze({
       combineBase64: 'combine-base64',
       combineWithffmpeg: 'combine-with-ffmpeg'
     }
+  },
+  people: {
+    rootPath: '/people',
+    subRoutes: {
+      list: 'list',
+      add: 'add',
+      edit: 'edit',
+      delete: 'delete',
+      downloadList: 'download-list'
+    }
   }
 });

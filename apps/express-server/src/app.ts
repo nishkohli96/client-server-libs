@@ -48,11 +48,13 @@ app.get('/', (_: Request, response: Response) => {
 });
 
 app.use(generatePath(ExpressServerEndpoints.files.rootPath), Routes.fileRouter);
+app.use(generatePath(ExpressServerEndpoints.people.rootPath), Routes.personRouter);
 
-/* 404 Handler - To be written at last */
+/* 404 Handler */
 app.get('*', (req: Request, response: Response) => {
   const notFoundMsg = `Not Found - "${req.originalUrl}"`;
   response.status(404).send(notFoundMsg);
 });
 
 export default app;
+

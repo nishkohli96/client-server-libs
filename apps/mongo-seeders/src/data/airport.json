@@ -1,0 +1,502 @@
+[
+  {
+    "country_code": "RS",
+    "airport_code": "BEG",
+    "airport_name": "Belgrade Nikola Tesla Airport"
+  },
+  {
+    "country_code": "SN",
+    "airport_code": "BXE",
+    "airport_name": "Bakel Airport"
+  },
+  {
+    "country_code": "JP",
+    "airport_code": "TRA",
+    "airport_name": "Tarama Airport"
+  },
+  {
+    "country_code": "GB",
+    "airport_code": "ENK",
+    "airport_name": "St Angelo Airport"
+  },
+  {
+    "country_code": "NZ",
+    "airport_code": "MHB",
+    "airport_name": "Mechanics Bay Heliport"
+  },
+  {
+    "country_code": "KR",
+    "airport_code": "SWU",
+    "airport_name": "Suwon Airport"
+  },
+  {
+    "country_code": "EG",
+    "airport_code": "SEW",
+    "airport_name": "Siwa Oasis North Airport"
+  },
+  {
+    "country_code": "NG",
+    "airport_code": "AKR",
+    "airport_name": "Akure Airport"
+  },
+  {
+    "country_code": "KI",
+    "airport_code": "AAK",
+    "airport_name": "Buariki Airport"
+  },
+  {
+    "country_code": "PM",
+    "airport_code": "MQC",
+    "airport_name": "Miquelon Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "BTR",
+    "airport_name": "Baton Rouge Metropolitan Airport"
+  },
+  {
+    "country_code": "VN",
+    "airport_code": "VII",
+    "airport_name": "Vinh Airport"
+  },
+  {
+    "country_code": "CA",
+    "airport_code": "YAD",
+    "airport_name": "Moose Lake Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "KPB",
+    "airport_name": "Point Baker Seaplane Base"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "ESP",
+    "airport_name": "Stroudsburg Pocono Airport"
+  },
+  {
+    "country_code": "BF",
+    "airport_code": "TUQ",
+    "airport_name": "Tougan Airport"
+  },
+  {
+    "country_code": "CO",
+    "airport_code": "URR",
+    "airport_name": "Urrao Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "BSF",
+    "airport_name": "Bradshaw Army Airfield"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "0",
+    "airport_name": "Laguna Airport"
+  },
+  {
+    "country_code": "CO",
+    "airport_code": "SJR",
+    "airport_name": "San Juan De Uraba Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "HPN",
+    "airport_name": "Westchester County Airport"
+  },
+  {
+    "country_code": "GB",
+    "airport_code": "BQH",
+    "airport_name": "London Biggin Hill Airport"
+  },
+  {
+    "country_code": "CA",
+    "airport_code": "YGQ",
+    "airport_name": "Geraldton Greenstone Regional Airport"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "OTT",
+    "airport_name": "Andre Maggi Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "HUD",
+    "airport_name": "Humboldt Municipal Airport"
+  },
+  {
+    "country_code": "PL",
+    "airport_code": "QEO",
+    "airport_name": "Bielsko-Bialo Kaniow Airfield"
+  },
+  {
+    "country_code": "IR",
+    "airport_code": "LVP",
+    "airport_name": "Lavan Island Airport"
+  },
+  {
+    "country_code": "PF",
+    "airport_code": "FAV",
+    "airport_name": "Fakarava Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "GCN",
+    "airport_name": "Grand Canyon National Park Airport"
+  },
+  {
+    "country_code": "PG",
+    "airport_code": "BAJ",
+    "airport_name": "Bali Airport"
+  },
+  {
+    "country_code": "IN",
+    "airport_code": "SLV",
+    "airport_name": "Shimla Airport"
+  },
+  {
+    "country_code": "CA",
+    "airport_code": "YLC",
+    "airport_name": "Kimmirut Airport"
+  },
+  {
+    "country_code": "NO",
+    "airport_code": "NVK",
+    "airport_name": "Narvik Framnes Airport"
+  },
+  {
+    "country_code": "RU",
+    "airport_code": "ONK",
+    "airport_name": "Olenyok Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "FAT",
+    "airport_name": "Fresno Yosemite International Airport"
+  },
+  {
+    "country_code": "BF",
+    "airport_code": "XKA",
+    "airport_name": "Kantchari Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "MNZ",
+    "airport_name": "Manassas Regional Airport/Harry P. Davis Field"
+  },
+  {
+    "country_code": "PG",
+    "airport_code": "OGE",
+    "airport_name": "Ogeranang Airport"
+  },
+  {
+    "country_code": "CD",
+    "airport_code": "GOM",
+    "airport_name": "Goma International Airport"
+  },
+  {
+    "country_code": "FJ",
+    "airport_code": "ICI",
+    "airport_name": "Cicia Airport"
+  },
+  {
+    "country_code": "RU",
+    "airport_code": "BQJ",
+    "airport_name": "Batagay Airport"
+  },
+  {
+    "country_code": "AU",
+    "airport_code": "LHG",
+    "airport_name": "Lightning Ridge Airport"
+  },
+  {
+    "country_code": "GR",
+    "airport_code": "JSI",
+    "airport_name": "Skiathos Island National Airport"
+  },
+  {
+    "country_code": "PY",
+    "airport_code": "PCJ",
+    "airport_name": "Puerto La Victoria Airport"
+  },
+  {
+    "country_code": "CA",
+    "airport_code": "YXK",
+    "airport_name": "Rimouski Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "WBB",
+    "airport_name": "Stebbins Airport"
+  },
+  {
+    "country_code": "PY",
+    "airport_code": "CIO",
+    "airport_name": "Teniente Col Carmelo Peralta Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "KCQ",
+    "airport_name": "Chignik Lake Airport"
+  },
+  {
+    "country_code": "AU",
+    "airport_code": "RBS",
+    "airport_name": "Orbost Airport"
+  },
+  {
+    "country_code": "CA",
+    "airport_code": "YRB",
+    "airport_name": "Resolute Bay Airport"
+  },
+  {
+    "country_code": "VE",
+    "airport_code": "SNF",
+    "airport_name": "Sub Teniente Nestor Arias Airport"
+  },
+  {
+    "country_code": "IN",
+    "airport_code": "LDA",
+    "airport_name": "Malda Airport"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "JDF",
+    "airport_name": "Francisco de Assis Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "PIP",
+    "airport_name": "Pilot Point Airport"
+  },
+  {
+    "country_code": "PG",
+    "airport_code": "GUG",
+    "airport_name": "Guari Airport"
+  },
+  {
+    "country_code": "TZ",
+    "airport_code": "TBO",
+    "airport_name": "Tabora Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "AOO",
+    "airport_name": "Altoona Blair County Airport"
+  },
+  {
+    "country_code": "PA",
+    "airport_code": "AML",
+    "airport_name": "Puerto Armuelles Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "CGE",
+    "airport_name": "Cambridge Dorchester Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "RTN",
+    "airport_name": "Raton Municipal-Crews Field"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "MGF",
+    "airport_name": "Regional de Maringá - Sílvio Nane Junior Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "QNY",
+    "airport_name": "New York Skyports Inc Seaplane Base"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "ARX",
+    "airport_name": "Asbury Park Neptune Air Terminal"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "SSU",
+    "airport_name": "Greenbrier Airport"
+  },
+  {
+    "country_code": "RU",
+    "airport_code": "ASF",
+    "airport_name": "Astrakhan Airport"
+  },
+  {
+    "country_code": "ET",
+    "airport_code": "AXU",
+    "airport_name": "Axum Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "MTH",
+    "airport_name": "The Florida Keys Marathon Airport"
+  },
+  {
+    "country_code": "FR",
+    "airport_code": "LDV",
+    "airport_name": "Landivisiau Air Base"
+  },
+  {
+    "country_code": "DE",
+    "airport_code": "HAM",
+    "airport_name": "Hamburg Airport"
+  },
+  {
+    "country_code": "CN",
+    "airport_code": "YKH",
+    "airport_name": "Yingkou Lanqi Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "BEH",
+    "airport_name": "Southwest Michigan Regional Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "PSK",
+    "airport_name": "New River Valley Airport"
+  },
+  {
+    "country_code": "CN",
+    "airport_code": "YUA",
+    "airport_name": "Yuanmou Air Base"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "OLD",
+    "airport_name": "Dewitt Field,Old Town Municipal Airport"
+  },
+  {
+    "country_code": "KH",
+    "airport_code": "OMY",
+    "airport_name": "Preah Vinhear Airport"
+  },
+  {
+    "country_code": "KE",
+    "airport_code": "MRE",
+    "airport_name": "Mara Serena Lodge Airstrip"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "SJK",
+    "airport_name": "Professor Urbano Ernesto Stumpf Airport"
+  },
+  {
+    "country_code": "OM",
+    "airport_code": "OHS",
+    "airport_name": "Sohar Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "ADK",
+    "airport_name": "Adak Airport"
+  },
+  {
+    "country_code": "MY",
+    "airport_code": "GTK",
+    "airport_name": "Sungei Tekai Airport"
+  },
+  {
+    "country_code": "ET",
+    "airport_code": "BEI",
+    "airport_name": "Beica Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "SAF",
+    "airport_name": "Santa Fe Municipal Airport"
+  },
+  {
+    "country_code": "ZM",
+    "airport_code": "LVI",
+    "airport_name": "Livingstone Airport"
+  },
+  {
+    "country_code": "MM",
+    "airport_code": "PRU",
+    "airport_name": "Pyay Airport"
+  },
+  {
+    "country_code": "PG",
+    "airport_code": "ATP",
+    "airport_name": "Aitape Airport"
+  },
+  {
+    "country_code": "CH",
+    "airport_code": "ZHI",
+    "airport_name": "Grenchen Airport"
+  },
+  {
+    "country_code": "NO",
+    "airport_code": "BVG",
+    "airport_name": "Berlevåg Airport"
+  },
+  {
+    "country_code": "BR",
+    "airport_code": "CFC",
+    "airport_name": "Caçador Airport"
+  },
+  {
+    "country_code": "MZ",
+    "airport_code": "TET",
+    "airport_name": "Chingozi Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "PWD",
+    "airport_name": "Sher-Wood Airport"
+  },
+  {
+    "country_code": "KM",
+    "airport_code": "YVA",
+    "airport_name": "Iconi Airport"
+  },
+  {
+    "country_code": "VE",
+    "airport_code": "KTV",
+    "airport_name": "Kamarata Airport"
+  },
+  {
+    "country_code": "IN",
+    "airport_code": "RRK",
+    "airport_name": "Rourkela Airport"
+  },
+  {
+    "country_code": "NC",
+    "airport_code": "HLU",
+    "airport_name": "Nesson Airport"
+  },
+  {
+    "country_code": "UM",
+    "airport_code": "MDY",
+    "airport_name": "Henderson Field"
+  },
+  {
+    "country_code": "PL",
+    "airport_code": "KTW",
+    "airport_name": "Katowice International Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "HUA",
+    "airport_name": "Redstone Army Air Field"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "LCQ",
+    "airport_name": "Lake City Gateway Airport"
+  },
+  {
+    "country_code": "AU",
+    "airport_code": "ROH",
+    "airport_name": "Robinhood Airport"
+  },
+  {
+    "country_code": "US",
+    "airport_code": "BVX",
+    "airport_name": "Batesville Regional Airport"
+  }
+]
