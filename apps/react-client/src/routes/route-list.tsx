@@ -6,6 +6,8 @@ const FileUploadsPage = lazy(() => import('pages/files-upload'));
 
 const PeoplePage = lazy(() => import('pages/people'));
 const AddPersonPage = lazy(() => import('pages/people/add'));
+const ViewPersonPage = lazy(() => import('pages/people/view'));
+const EditPersonPage = lazy(() => import('pages/people/edit'));
 
 export const RouteList = [
   {
@@ -18,6 +20,7 @@ export const RouteList = [
     text: 'File Uploads',
     element: <FileUploadsPage />
   },
+  /* Person Routes */
   {
     path: RouteNames.people.rootPath,
     text: 'People List',
@@ -27,5 +30,15 @@ export const RouteList = [
     path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.add}`,
     text: 'Add Person',
     element: <AddPersonPage />
-  }
+  },
+  {
+    path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.view}`,
+    text: 'View Person',
+    element: <ViewPersonPage />
+  },
+  {
+    path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.edit}`,
+    text: 'Edit Person',
+    element: <EditPersonPage />
+  },
 ];

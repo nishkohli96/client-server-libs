@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import {
   GridActionsCellItem,
@@ -19,8 +20,8 @@ import { ArrayFilters, StringFilters } from '@csl/react-express';
 import { DataTable, CenterContainer } from 'components';
 import { PersonDetails, PersonDetailsRow } from 'types';
 import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
+import RouteNames from 'routes/route-names';
 import { getPersonRecordIndex } from 'utils';
-import Link from '@mui/material/Link';
 // import { makeStyles } from '@mui/styles';
 // import {
 //   StatusText,
@@ -54,6 +55,8 @@ type PeopleDataGridProps = {
   isFetchingData: boolean;
   refetchData: () => void;
 };
+
+const personRoute = RouteNames.people;
 
 const PeopleDataGrid = ({
   people,
@@ -211,13 +214,17 @@ const PeopleDataGrid = ({
     {
       field: 'actions',
       type: 'actions',
-      maxWidth: 50,
+      maxWidth: 70,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
           key="view"
           icon={<ViewIcon />}
           label="View"
-          showInMenu
+          onClick={() => {
+            navigate(`${personRoute.rootPath}/${personRoute.subRoutes.view}`, {
+              state: params.row
+            });
+          }}
         />,
         <GridActionsCellItem
           key="edit"

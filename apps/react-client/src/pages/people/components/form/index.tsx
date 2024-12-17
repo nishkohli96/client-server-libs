@@ -15,18 +15,22 @@ import { PageLayout } from 'components';
 import { reqdErrorMsg, minLengthErrMsg } from './helpers';
 
 type PersonFormProps = {
-  initialValues: Person;
+  title?: string
+  initialValues?: Person;
   disabled?: boolean;
 }
 
-const PersonForm = () => {
+const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
   const {
     control,
     setError,
     clearErrors,
     handleSubmit,
     formState: { errors }
-  } = useForm<Person>();
+  } = useForm<Person>({
+    defaultValues: initialValues
+  });
+  console.log('initialValues: ', initialValues);
 
   const validateAvatar = async(url: string) => {
     if(!url) {
@@ -50,7 +54,7 @@ const PersonForm = () => {
   };
 
   return (
-    <PageLayout seoTitle="People">
+    <PageLayout seoTitle={title ?? 'Person Form'}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <ConfigProvider dateAdapter={AdapterMoment} allLabelsAboveFields>
           <Grid container spacing={2}>
@@ -69,6 +73,7 @@ const PersonForm = () => {
                   }
                 }}
                 required
+                disabled={disabled}
                 errorMessage={errors?.first_name?.message}
               />
             </Grid>
@@ -76,6 +81,7 @@ const PersonForm = () => {
               <RHFTextField
                 fieldName="last_name"
                 control={control}
+                disabled={disabled}
                 errorMessage={errors?.last_name?.message}
               />
             </Grid>
@@ -94,11 +100,12 @@ const PersonForm = () => {
                   }
                 }}
                 required
+                disabled={disabled}
                 errorMessage={errors?.email?.message}
               />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <RHFDatePicker
+              {/* <RHFDatePicker
                 fieldName="date_of_birth"
                 control={control}
                 registerOptions={{
@@ -110,8 +117,9 @@ const PersonForm = () => {
                 }}
                 disableFuture
                 required
+                disabled={disabled}
                 errorMessage={errors?.date_of_birth?.message}
-              />
+              /> */}
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <RHFRadioGroup
@@ -126,6 +134,7 @@ const PersonForm = () => {
                 options={Object.values(Gender)}
                 row
                 required
+                disabled={disabled}
                 errorMessage={errors?.gender?.message}
               />
             </Grid>
@@ -135,6 +144,7 @@ const PersonForm = () => {
                 control={control}
                 onValueChange={value => validateAvatar(value)}
                 helperText="Enter a valid image URL"
+                disabled={disabled}
                 errorMessage={errors?.avatar?.message}
               />
             </Grid>
@@ -142,6 +152,7 @@ const PersonForm = () => {
               <RHFTextField
                 fieldName="website"
                 control={control}
+                disabled={disabled}
                 errorMessage={errors?.website?.message}
               />
             </Grid>
@@ -150,6 +161,7 @@ const PersonForm = () => {
                 fieldName="profession"
                 control={control}
                 required
+                disabled={disabled}
                 errorMessage={errors?.profession?.message}
               />
             </Grid>
@@ -162,6 +174,7 @@ const PersonForm = () => {
                 }}
                 type="number"
                 label="Salary earned per year"
+                disabled={disabled}
                 errorMessage={errors?.salary?.message}
               />
             </Grid>
@@ -189,6 +202,7 @@ const PersonForm = () => {
                       fieldName="address.houseNo"
                       control={control}
                       label="House Number"
+                      disabled={disabled}
                       errorMessage={errors?.address?.houseNo?.message}
                     />
                   </Grid>
@@ -197,6 +211,7 @@ const PersonForm = () => {
                       fieldName="address.street"
                       control={control}
                       label="Street"
+                      disabled={disabled}
                       errorMessage={errors?.address?.street?.message}
                     />
                   </Grid>
@@ -205,6 +220,7 @@ const PersonForm = () => {
                       fieldName="address.city"
                       control={control}
                       label="City"
+                      disabled={disabled}
                       errorMessage={errors?.address?.city?.message}
                     />
                   </Grid>
@@ -215,6 +231,7 @@ const PersonForm = () => {
                       label="Country"
                       valueKey="name"
                       preferredCountries={['IN']}
+                      disabled={disabled}
                       errorMessage={errors?.address?.country?.message}
                     />
                   </Grid>
@@ -223,6 +240,7 @@ const PersonForm = () => {
                       fieldName="address.zipCode"
                       control={control}
                       label="Zip Code"
+                      disabled={disabled}
                       errorMessage={errors?.address?.zipCode?.message}
                     />
                   </Grid>
@@ -230,7 +248,11 @@ const PersonForm = () => {
               </Box>
             </Grid>
             <Grid size={12}>
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={disabled}
+              >
                 Submit
               </Button>
             </Grid>

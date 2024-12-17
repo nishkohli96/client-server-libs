@@ -142,7 +142,6 @@ function PeopleListingPage() {
 
   return (
     <PageLayout seoTitle="People">
-      {/* <Box pl="42px" pr="68px" pt="1rem"> */}
       <Box
         mb="30px"
         height="60px"
@@ -150,7 +149,6 @@ function PeopleListingPage() {
         alignItems="center"
         justifyContent="space-between"
       >
-        {/* <SearchInput onSearch={handlechangeSearchValue} /> */}
         <Button
           sx={{
             height: '3rem',
@@ -174,7 +172,6 @@ function PeopleListingPage() {
         isFetchingData={isFetchingData}
         refetchData={fetchPeople}
       />
-      {/* </Box> */}
     </PageLayout>
   );
 }

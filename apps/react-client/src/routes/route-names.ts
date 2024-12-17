@@ -11,7 +11,9 @@ const RouteNames = {
   people: {
     rootPath: '/people',
     subRoutes: {
-      add: 'add'
+      add: 'add',
+      view: 'view',
+      edit: 'edit'
     }
   }
 };
