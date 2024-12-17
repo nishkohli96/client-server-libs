@@ -225,11 +225,17 @@ const PeopleDataGrid = ({
               state: params.row
             });
           }}
+          showInMenu
         />,
         <GridActionsCellItem
           key="edit"
           icon={<EditIcon />}
           label="Edit"
+          onClick={() => {
+            navigate(`${personRoute.rootPath}/${personRoute.subRoutes.edit}`, {
+              state: params.row
+            });
+          }}
           showInMenu
         />,
         <GridActionsCellItem
@@ -249,6 +255,9 @@ const PeopleDataGrid = ({
         paginationModel.pageSize,
         idx
       ),
+      first_name: person.first_name,
+      last_name: person.last_name,
+      address: person.address,
       fullName: person.fullName,
       date_of_birth: person.date_of_birth,
       email: person.email,

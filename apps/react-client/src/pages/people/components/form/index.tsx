@@ -3,6 +3,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { ConfigProvider } from '@nish1896/rhf-mui-components/config';
@@ -15,12 +16,18 @@ import { PageLayout } from 'components';
 import { reqdErrorMsg, minLengthErrMsg } from './helpers';
 
 type PersonFormProps = {
-  title?: string
+  title: string
   initialValues?: Person;
   disabled?: boolean;
+  onFormSubmit?: (fieldValues: Person) => void;
 }
 
-const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
+const PersonForm = ({
+  title,
+  initialValues,
+  disabled,
+  onFormSubmit
+}: PersonFormProps) => {
   const {
     control,
     setError,
@@ -30,7 +37,6 @@ const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
   } = useForm<Person>({
     defaultValues: initialValues
   });
-  console.log('initialValues: ', initialValues);
 
   const validateAvatar = async(url: string) => {
     if(!url) {
@@ -51,6 +57,7 @@ const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
 
   const handleFormSubmit = (formValues: Person) => {
     console.log('formValues: ', formValues);
+    onFormSubmit?.(formValues);
   };
 
   return (
@@ -105,7 +112,7 @@ const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
               />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              {/* <RHFDatePicker
+              <RHFDatePicker
                 fieldName="date_of_birth"
                 control={control}
                 registerOptions={{
@@ -115,11 +122,12 @@ const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
                   },
                   valueAsDate: true
                 }}
+                format="DD MMM YYYY"
                 disableFuture
                 required
                 disabled={disabled}
                 errorMessage={errors?.date_of_birth?.message}
-              /> */}
+              />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <RHFRadioGroup
@@ -174,6 +182,15 @@ const PersonForm = ({ title, initialValues, disabled }: PersonFormProps) => {
                 }}
                 type="number"
                 label="Salary earned per year"
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        ₹
+                      </InputAdornment>
+                    )
+                  }
+                }}
                 disabled={disabled}
                 errorMessage={errors?.salary?.message}
               />

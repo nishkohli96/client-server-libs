@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 import { Person } from '@csl/mongo-models';
 import { PersonForm } from '../components';
 
@@ -9,7 +10,10 @@ const ViewPersonPage = () => {
   return (
     <PersonForm
       title="View Person"
-      initialValues={personDetails}
+      initialValues={{
+        ...personDetails,
+        date_of_birth: moment(personDetails.date_of_birth)
+      }}
       disabled
     />
   );

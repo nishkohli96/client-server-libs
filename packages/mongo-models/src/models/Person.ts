@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
+import moment from 'moment';
 import { collectionNames } from '@/constants';
 
 export enum Gender {
@@ -24,7 +25,7 @@ export type Person = {
   _id: Types.ObjectId;
   first_name: string;
   last_name?: string;
-  date_of_birth: string | Date;
+  date_of_birth: string | Date | moment.Moment;
   gender: Gender;
   email: string;
   avatar?: string;
