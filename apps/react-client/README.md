@@ -26,6 +26,7 @@ $ yarn run start:prod
 
 ## PoC
 
+- Implement [Error Boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
 - File Upload on `express-server`
   - upload single & multiple files for same field
   - convert large video file in chunks
