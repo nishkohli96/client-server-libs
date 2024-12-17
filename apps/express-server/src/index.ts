@@ -3,6 +3,7 @@ import os from 'os';
 import { createServer } from 'node:http';
 import { connect } from 'mongoose';
 import { ENV_VARS } from '@/app-constants';
+import { connectToDB } from '@/db/config';
 import { winstonLogger } from '@/middleware';
 import app from './app';
 
@@ -12,6 +13,7 @@ const dbConnectionString = `${ENV_VARS.mongoDB.url}/${ENV_VARS.mongoDB.dbName}`;
 
 async function bootstrap() {
   try {
+    await connectToDB();
     await connect(dbConnectionString);
     const server = createServer(app);
     server.listen(port, () => {
