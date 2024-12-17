@@ -1,3 +1,7 @@
+/**
+ * Reference -
+ * https://mui.com/x/react-data-grid/components/#pagination
+ */
 import {
   gridPageCountSelector,
   GridPagination,
@@ -23,6 +27,7 @@ const Pagination = ({
       count={pageCount}
       page={page + 1}
       onChange={(event, newPage) => {
+        /* eslint-disable  @typescript-eslint/no-explicit-any */
         onPageChange(event as any, newPage - 1);
       }}
     />
