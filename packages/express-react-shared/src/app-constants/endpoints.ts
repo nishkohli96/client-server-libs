@@ -17,6 +17,9 @@ export const ExpressServerEndpoints = Object.freeze({
     rootPath: '/people',
     subRoutes: {
       list: 'list',
+      add: 'add',
+      edit: 'edit',
+      delete: 'delete',
       downloadList: 'download-list'
     }
   }

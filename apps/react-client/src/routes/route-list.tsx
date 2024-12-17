@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { RouteItem } from 'types';
 import RouteNames from './route-names';
 
 const DatoCMSPage = lazy(() => import('pages/dato-cms'));
@@ -9,7 +10,7 @@ const AddPersonPage = lazy(() => import('pages/people/add'));
 const ViewPersonPage = lazy(() => import('pages/people/view'));
 const EditPersonPage = lazy(() => import('pages/people/edit'));
 
-export const RouteList = [
+export const RouteList: RouteItem[] = [
   {
     path: RouteNames.datoCMS,
     text: 'Dato CMS',
@@ -29,16 +30,19 @@ export const RouteList = [
   {
     path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.add}`,
     text: 'Add Person',
-    element: <AddPersonPage />
+    element: <AddPersonPage />,
+    hideFromHomePage: true
   },
   {
     path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.view}`,
     text: 'View Person',
-    element: <ViewPersonPage />
+    element: <ViewPersonPage />,
+    hideFromHomePage: true
   },
   {
     path: `${RouteNames.people.rootPath}/${RouteNames.people.subRoutes.edit}`,
     text: 'Edit Person',
-    element: <EditPersonPage />
+    element: <EditPersonPage />,
+    hideFromHomePage: true
   },
 ];

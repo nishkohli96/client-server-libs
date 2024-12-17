@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "private": true,
   "scripts": {
-    "lib:build": "rimraf dist && tsc && tsc-alias",
+    "lib:build": "tsc && tsc-alias",
     "lint": "eslint --fix ."
   },
   "dependencies": {
@@ -15,7 +15,6 @@
     "@nish1896/eslint-config": "^2.1.2",
     "@types/node": "^20.11.17",
     "eslint": "^8.57.0",
-    "rimraf": "^5.0.5",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.3.3"
   }

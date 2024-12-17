@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
-    "build": "rimraf dist && tsc && tsc-alias",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
     "start:local": "env-cmd -f .env.prod node dist/index.js",
     "prod": "yarn build && yarn start",
@@ -33,7 +33,6 @@
     "env-cmd": "^10.1.0",
     "eslint": "^8.57.0",
     "nodemon": "^3.0.3",
-    "rimraf": "^5.0.5",
     "tsc-alias": "^1.8.10",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
