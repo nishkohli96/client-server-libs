@@ -15,11 +15,31 @@ personRouter.get(
   }
 );
 
+/* POST: /people/add */
 personRouter.post(
   `/${subRoutes.add}`,
   async (req: PersonTypes.AddPersonRequest, res: Response) => {
     const reqBody = req.body;
     return personService.addPerson(res, reqBody);
+  }
+);
+
+/* PUT: /people/edit/{_id} */
+personRouter.put(
+  `/${subRoutes.edit}/:_id`,
+  async (req: PersonTypes.EditPersonRequest, res: Response) => {
+    const personId = req.params._id;
+    const reqBody = req.body;
+    return personService.updatePersonDetails(res, personId, reqBody);
+  }
+);
+
+/* DELETE: /people/delete/{_id} */
+personRouter.delete(
+  `/${subRoutes.delete}/:_id`,
+  async (req: PersonTypes.DeletePersonRequest, res: Response) => {
+    const personId = req.params._id;
+    return personService.deletePerson(res, personId);
   }
 );
 

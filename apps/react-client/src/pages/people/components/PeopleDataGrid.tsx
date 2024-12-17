@@ -2,9 +2,7 @@ import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import {
   GridActionsCellItem,
   GridColDef,
@@ -17,31 +15,12 @@ import {
 } from '@mui/x-data-grid';
 import { Gender } from '@csl/mongo-models';
 import { ArrayFilters, StringFilters } from '@csl/react-express';
-import { DataTable, CenterContainer } from 'components';
-import { PersonDetails, PersonDetailsRow } from 'types';
-import { Avatar, GenderIcon, ViewIcon, EditIcon, DeleteIcon } from '.';
+import { deletePerson } from 'api/services';
+import { DataTable, CenterContainer, ConfirmationDialog } from 'components';
 import RouteNames from 'routes/route-names';
+import { PersonDetails, PersonDetailsRow } from 'types';
 import { getPersonRecordIndex } from 'utils';
-// import { makeStyles } from '@mui/styles';
-// import {
-//   StatusText,
-//   DataTable,
-//   TableHeaderCell,
-//   ConfirmationDialog
-// } from 'components';
-// import { deleteWatermark, num_watermarks_per_page } from 'api/services';
-// import RoutesConfig from 'routes/config';
-// import { WatermarkApiListItem, WatermarkScope, WatermarkStatus } from 'types';
-// import { displayItemSerialNumber } from 'utils';
-
-// const useStyles = makeStyles(() => ({
-//   cell: { '&:focus': { outline: 'none !important' } },
-//   columnHeader: {
-//     background: '#F9FAFB',
-//     '&:focus': { outline: 'none !important' },
-//     '&:focus-within': { outline: 'none !important' }
-//   }
-// }));
+import { Avatar, GenderIcon, EditIcon, DeleteIcon } from '.';
 
 type PeopleDataGridProps = {
   people: PersonDetails[];
@@ -71,10 +50,8 @@ const PeopleDataGrid = ({
   refetchData
 }: PeopleDataGridProps) => {
   const navigate = useNavigate();
-  // const classes = useStyles();
-
   const [displayDeletePopUp, setDisplayDeletePopUp] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
   const handleCloseDeletePopUp = () => {
     setDisplayDeletePopUp(false);
@@ -86,15 +63,12 @@ const PeopleDataGrid = ({
       : `https://${url}`;
   };
 
-  const handleDeleteWatermark = async () => {
-    // if (selectedItem) {
-    //   const deleteSuccess = await deleteWatermark(selectedItem.id);
-    //   if (deleteSuccess) {
-    //     toast.success('Watermark Deleted');
-    //     setSelectedItem(null);
-    //     refetchData();
-    //   }
-    // }
+  const handlePersonDelete = async () => {
+    const isDeleted = await deletePerson(selectedItemId ?? '');
+    if(isDeleted) {
+      toast.success('Person record deleted!');
+      refetchData();
+    }
     handleCloseDeletePopUp();
   };
 
@@ -217,17 +191,6 @@ const PeopleDataGrid = ({
       maxWidth: 70,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
-          key="view"
-          icon={<ViewIcon />}
-          label="View"
-          onClick={() => {
-            navigate(`${personRoute.rootPath}/${personRoute.subRoutes.view}`, {
-              state: params.row
-            });
-          }}
-          showInMenu
-        />,
-        <GridActionsCellItem
           key="edit"
           icon={<EditIcon />}
           label="Edit"
@@ -243,6 +206,10 @@ const PeopleDataGrid = ({
           icon={<DeleteIcon />}
           label="Delete"
           showInMenu
+          onClick={() => {
+            setSelectedItemId(params.row._id);
+            setDisplayDeletePopUp(true);
+          }}
         />
       ]
     }
@@ -255,6 +222,7 @@ const PeopleDataGrid = ({
         paginationModel.pageSize,
         idx
       ),
+      _id: person._id,
       first_name: person.first_name,
       last_name: person.last_name,
       address: person.address,
@@ -271,6 +239,12 @@ const PeopleDataGrid = ({
     })
   );
 
+  const handleRowClick = (params: GridRowParams) => {
+    navigate(`${personRoute.rootPath}/${personRoute.subRoutes.view}`, {
+      state: params.row
+    });
+  };
+
   return (
     <Fragment>
       <DataTable
@@ -282,30 +256,20 @@ const PeopleDataGrid = ({
         onSortChange={onSortChange}
         filterModel={filterModel}
         onFilterChange={onFilterChange}
+        handleRowClick={handleRowClick}
         paginationModel={paginationModel}
         onPageChange={onPageChange}
       />
-      {/* {displayDeletePopUp && (
+      {displayDeletePopUp && (
         <ConfirmationDialog
-          title={
-            <Typography variant="body1">
-              Delete Watermark with scope
-              {' '}
-              <b>
-                {selectedItem?.scope}
-              </b>
-              ?
-            </Typography>
-          }
+          title={`Delete Person with Id ${selectedItemId} ?`}
+          contentText="This will soft-delete the record..."
           open={displayDeletePopUp}
           onClose={handleCloseDeletePopUp}
-          closeBtnText="No"
-          okBtnText="Yes"
-          onOkBtnClick={handleDeleteWatermark}
-        >
-          <Typography variant="body1">This action cannot be undone.</Typography>
-        </ConfirmationDialog>
-      )} */}
+          onConfirm={handlePersonDelete}
+          confirmBtnText="Confirm"
+        />
+      )}
     </Fragment>
   );
 };

@@ -1,6 +1,6 @@
 import { serverApi } from 'api/server';
 import { toast } from 'react-toastify';
-import { NewPerson, Person } from '@csl/mongo-models';
+import { Person, NewPerson, PersonInfo } from '@csl/mongo-models';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { RequestQueryParams, ServerResponse, PersonListApiData } from 'types';
 import { generateQueryString, isValidResponseCode, handleApiError } from 'utils';
@@ -43,7 +43,45 @@ export async function createPerson(body: NewPerson): Promise<boolean> {
       return response.data.success;
     }
 
-    toast.error(`Error: ${response.status} - Unable to fetch data.`);
+    toast.error(`Error: ${response.status} - Unable to add person.`);
+    return false;
+  } catch (error) {
+    handleApiError(error);
+    return false;
+  }
+}
+
+export async function editPersonDetails(
+  id: string,
+  body: PersonInfo
+): Promise<boolean> {
+  try {
+    const response = await serverApi.put<ServerResponse<Person>>(
+      `${rootPath}/${subRoutes.edit}/${id}`,
+      body
+    );
+    if (isValidResponseCode(response.status)) {
+      return response.data.success;
+    }
+
+    toast.error(`Error: ${response.status} - Unable to edit person details.`);
+    return false;
+  } catch (error) {
+    handleApiError(error);
+    return false;
+  }
+}
+
+export async function deletePerson(id: string): Promise<boolean> {
+  try {
+    const response = await serverApi.delete<ServerResponse<Person>>(
+      `${rootPath}/${subRoutes.delete}/${id}`
+    );
+    if (isValidResponseCode(response.status)) {
+      return response.data.success;
+    }
+
+    toast.error(`Error: ${response.status} - Unable to delete person details.`);
     return false;
   } catch (error) {
     handleApiError(error);

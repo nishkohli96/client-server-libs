@@ -12,7 +12,8 @@ import {
   GridSortItem,
   GridSortModel,
   GridPaginationModel,
-  GridFilterModel
+  GridFilterModel,
+  GridRowParams
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
@@ -27,6 +28,7 @@ type DataTableProps = {
   onSortChange: (newSortCol: GridSortItem) => void;
   filterModel?: GridFilterModel,
   onFilterChange: (newFilter: GridFilterModel) => void;
+  handleRowClick: (params: GridRowParams) => void;
   paginationModel: GridPaginationModel;
   onPageChange: (model: GridPaginationModel) => void;
 };
@@ -40,6 +42,7 @@ export default function DataTable({
   onSortChange,
   filterModel,
   onFilterChange,
+  handleRowClick,
   paginationModel,
   onPageChange
 }: DataTableProps) {
@@ -80,6 +83,7 @@ export default function DataTable({
         filterMode="server"
         filterModel={filterModel}
         onFilterModelChange={onFilterChange}
+        onRowClick={handleRowClick}
         paginationMode="server"
         paginationModel={paginationModel}
         pageSizeOptions={dataTableConfig.paginationOptions}

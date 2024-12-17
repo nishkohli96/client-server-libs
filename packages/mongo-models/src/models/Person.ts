@@ -37,6 +37,7 @@ export type Person = {
   updatedAt: string | Date;
   fullName?: string;
   fullAddress?: string;
+  isDeleted?: boolean;
 };
 
 const AddressSchema = new Schema({
@@ -70,7 +71,8 @@ const PersonSchema = new Schema<Person>(
     salary: {
       type: Number,
       min: 0
-    }
+    },
+    isDeleted: { type: Boolean, default: false }
   },
   {
     timestamps: true

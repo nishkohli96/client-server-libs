@@ -10,7 +10,7 @@ export type PersonDetails = Omit<
 
 export type PersonDetailsRow = Omit<
   PersonDetails,
-  'createdAt' | 'updatedAt' | '_id' | 'address'
+  'createdAt' | 'updatedAt' | 'address'
 > & {
   fullAddress?: string;
   actions: string;

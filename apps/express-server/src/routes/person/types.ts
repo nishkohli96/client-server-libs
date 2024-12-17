@@ -22,7 +22,7 @@ export type GetPersonsListRequest = Request<
   GetPersonsListQuery
 >;
 
-export type PersonById = Pick<Person, '_id'>;
+export type PersonById = { _id: string };
 
 export type AddPersonRequest = Request<object, object, NewPerson>;
 

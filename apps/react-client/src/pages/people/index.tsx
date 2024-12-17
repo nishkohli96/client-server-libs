@@ -113,7 +113,6 @@ function PeopleListingPage() {
    */
   const handleFilterChange = debounce((newFilterModel: GridFilterModel) => {
     setFilterModel(newFilterModel);
-
     const { items } = newFilterModel;
     const filterItem = items?.[0] || {};
     const { field, operator, value } = filterItem;

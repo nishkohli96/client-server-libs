@@ -11,15 +11,15 @@ import RHFTextField from '@nish1896/rhf-mui-components/mui/textfield';
 import RHFCountrySelect from '@nish1896/rhf-mui-components/mui/country-select';
 import RHFRadioGroup from '@nish1896/rhf-mui-components/mui/radio-group';
 import RHFDatePicker from '@nish1896/rhf-mui-components/mui-pickers/date';
-import { Person, Gender } from '@csl/mongo-models';
+import { PersonInfo, Gender } from '@csl/mongo-models';
 import { PageLayout } from 'components';
 import { reqdErrorMsg, minLengthErrMsg } from './helpers';
 
 type PersonFormProps = {
   title: string
-  initialValues?: Person;
+  initialValues?: PersonInfo;
   disabled?: boolean;
-  onFormSubmit?: (fieldValues: Person) => void;
+  onFormSubmit?: (fieldValues: PersonInfo) => void;
 }
 
 const PersonForm = ({
@@ -34,7 +34,7 @@ const PersonForm = ({
     clearErrors,
     handleSubmit,
     formState: { errors }
-  } = useForm<Person>({
+  } = useForm<PersonInfo>({
     defaultValues: initialValues
   });
 
@@ -55,7 +55,7 @@ const PersonForm = ({
     }
   };
 
-  const handleFormSubmit = (formValues: Person) => {
+  const handleFormSubmit = (formValues: PersonInfo) => {
     console.log('formValues: ', formValues);
     onFormSubmit?.(formValues);
   };

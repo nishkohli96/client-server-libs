@@ -6,13 +6,13 @@ import * as PersonTypes from './types';
 import QueryFilter from './queryFilter';
 
 class PersonService {
-
   searchPeople = async (queryParams: PersonTypes.GetPersonsListQuery) => {
     const { page, records_per_page } = getPaginationParams(
       queryParams.page,
       queryParams.records_per_page
     );
-    const sortKey = queryParams.sort_key ?? PersonTypes.PersonSortingColumns.CreatedAt;
+    const sortKey
+      = queryParams.sort_key ?? PersonTypes.PersonSortingColumns.CreatedAt;
     const sortDirection = queryParams.sort_direction ?? SortDirection.Desc;
     let queryFilter = new QueryFilter({
       field: queryParams.field,
@@ -20,21 +20,18 @@ class PersonService {
       value: queryParams.value
     }).getFilterCondition();
 
-    if(queryParams.field === 'first_name') {
+    if (queryParams.field === 'first_name') {
       const lastNameQuery = new QueryFilter({
         field: 'last_name',
         operator: queryParams.operator,
         value: queryParams.value
       }).getFilterCondition();
       queryFilter = {
-        $or: [
-          queryFilter,
-          lastNameQuery
-        ]
+        $or: [queryFilter, lastNameQuery]
       };
     }
 
-    if(queryParams.field === 'fullAddress') {
+    if (queryParams.field === 'fullAddress') {
       queryFilter = {
         $or: [
           new QueryFilter({
@@ -61,7 +58,7 @@ class PersonService {
             field: 'address.country',
             operator: queryParams.operator,
             value: queryParams.value
-          }).getFilterCondition(),
+          }).getFilterCondition()
         ]
       };
     }
@@ -83,7 +80,9 @@ class PersonService {
     };
   };
 
-  isSortKeyValid(sortKey?: string): sortKey is PersonTypes.PersonSortingColumns {
+  isSortKeyValid(
+    sortKey?: string
+  ): sortKey is PersonTypes.PersonSortingColumns {
     if (!sortKey) {
       return true;
     }
@@ -93,7 +92,10 @@ class PersonService {
   }
 
   /* Get list of people */
-  getPersonsList = async (res: Response, queryParams: PersonTypes.GetPersonsListQuery) => {
+  getPersonsList = async (
+    res: Response,
+    queryParams: PersonTypes.GetPersonsListQuery
+  ) => {
     try {
       if (!this.isSortKeyValid(queryParams.sort_key)) {
         return res.status(422).json({
@@ -120,7 +122,7 @@ class PersonService {
 
   /* Add Person */
   async addPerson(res: Response, personInfo: NewPerson) {
-    try{
+    try {
       const person = new PersonModel(personInfo);
       const personDetails = await person.save();
       return res.status(200).json({
@@ -132,6 +134,56 @@ class PersonService {
       return res.status(500).json({
         success: false,
         message: 'Unable to add person',
+        data: null,
+        error
+      });
+    }
+  }
+
+  /* Edit Person */
+  async updatePersonDetails(
+    res: Response,
+    personId: string,
+    personInfo: NewPerson
+  ) {
+    try {
+      const personDetails = await PersonModel.findOneAndUpdate(
+        { _id: personId },
+        personInfo,
+        { new: true }
+      );
+      return res.status(200).json({
+        success: true,
+        message: 'Person details updated',
+        data: personDetails
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Unable to update person details',
+        data: null,
+        error
+      });
+    }
+  }
+
+  /* Soft delete Person */
+  async deletePerson(res: Response, personId: string) {
+    try {
+      const personDetails = await PersonModel.findOneAndUpdate(
+        { _id: personId },
+        { isDeleted: true },
+        { new: true }
+      );
+      return res.status(200).json({
+        success: true,
+        message: 'Person record deleted!',
+        data: personDetails
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Unable to delete person record.',
         data: null,
         error
       });
