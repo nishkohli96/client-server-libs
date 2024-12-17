@@ -1,3 +1,7 @@
-import { authRouter } from './auth/controller';
+import { fileRouter } from './file/controller';
+import { personRouter } from './person/controller';
 
-export { authRouter };
+export {
+  fileRouter,
+  personRouter
+};

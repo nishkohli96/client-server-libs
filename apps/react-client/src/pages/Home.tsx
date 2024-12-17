@@ -5,7 +5,7 @@ import { RouteList } from 'routes/route-list';
 
 export default function HomePage() {
   return (
-    <PageLayout seoTitle="Home Page">
+    <PageLayout seoTitle="Home Page" hidePageTitle>
       <Typography variant="h5" color="error">
         Hello from the Home Page of CRA !
       </Typography>
@@ -19,7 +19,7 @@ export default function HomePage() {
         Click on any of the links below to see their demo
       </Typography>
       <Fragment>
-        {RouteList.map(route => (
+        {RouteList.filter(route => !route.hideFromHomePage).map(route => (
           <NavPill
             text={route.text}
             pathName={route.path}

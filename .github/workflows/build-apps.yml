@@ -1,0 +1,38 @@
+name: Build Apps
+on: [push]
+env:
+  HUSKY: 0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node env
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
+        run: yarn lib
+
+      - name: Build express-server
+        run: yarn workspace express-server build
+
+      - name: Build nestjs-server
+        run: yarn workspace nestjs-server build
+
+      - name: Build react-client
+        run: yarn workspace react-client build
+
+      - name: Build next-client
+        run: yarn workspace next-client build

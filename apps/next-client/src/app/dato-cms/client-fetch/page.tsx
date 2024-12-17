@@ -2,7 +2,7 @@
 
 import { useQuery } from 'graphql-hooks';
 import Image from 'next/image';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { PageHeading, Loading } from '@csl/shared-fe';
 import { SingleStoreLocationsQuery } from '@/graphql/queries';
@@ -39,7 +39,7 @@ export default function StoreDataPage() {
     <Grid container>
       <PageHeading title="DatoCMS" />
       {storeInfo && (
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography>
             {storeInfo.store.storeName}
           </Typography>

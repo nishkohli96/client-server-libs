@@ -1,1 +1,5 @@
-export const ApiEndpoints = Object.freeze({ datoCMS: 'https://graphql.datocms.com/' });
+const ThirdPartyEndpoints = Object.freeze({
+  datoCMS: 'https://graphql.datocms.com/'
+});
+
+export default ThirdPartyEndpoints;
