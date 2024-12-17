@@ -75,7 +75,12 @@ export default function DataTable({
             noRowsVariant: 'skeleton'
           }
         }}
-        sx={{ flexGrow: 1 }}
+        sx={{
+          flexGrow: 1,
+          '& .MuiDataGrid-row:hover': {
+            cursor: 'pointer'
+          },
+        }}
         loading={isFetchingData}
         rowCount={rowCount}
         sortModel={sortColumn ? [sortColumn] : undefined}

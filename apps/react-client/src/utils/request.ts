@@ -31,3 +31,4 @@ export const handleApiError = (error: unknown) => {
     toast.error('An unexpected error occurred while fetching the data.');
   }
 };
+

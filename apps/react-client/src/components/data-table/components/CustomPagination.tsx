@@ -32,7 +32,12 @@ const Pagination = ({
 const CustomPagination = (
   props: Partial<TablePaginationProps> & PaginationPropsOverrides
 ) => {
-  return <GridPagination ActionsComponent={Pagination} {...props} />;
+  return (
+    <GridPagination
+      ActionsComponent={Pagination}
+      {...props}
+    />
+  );
 };
 
 export default CustomPagination;

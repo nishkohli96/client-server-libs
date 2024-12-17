@@ -91,7 +91,7 @@ function PeopleListingPage() {
       }
     }
     getPeopleList();
-  }, [initialPage, sortColumn, paginationModel, filterModelRef.current]);
+  }, [initialPage, sortColumn, paginationModel]);
 
   useEffect(() => {
     fetchPeople();

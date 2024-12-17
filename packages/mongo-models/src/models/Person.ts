@@ -103,6 +103,11 @@ PersonSchema.virtual('fullAddress').get(function getFullAddress(this: Person) {
 PersonSchema.set('toJSON', { virtuals: true });
 PersonSchema.set('toObject', { virtuals: true });
 
+/**
+ * Use this plugin for soft-delete
+ * https://www.npmjs.com/package/mongoose-delete
+ */
+
 export const PersonModel = model(
   'People',
   PersonSchema,
