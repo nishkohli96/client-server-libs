@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize, shouldAlterTable } from 'db/config';
+import { sequelize, shouldAlterTable } from '@/db/config';
 import { CarBrandModel } from './car-brand';
 
 export enum CarColors {

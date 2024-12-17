@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from 'db/config';
+import { sequelize } from '@/db/config';
 
 export const CarBrandModel = sequelize.define(
   'CarBrand',

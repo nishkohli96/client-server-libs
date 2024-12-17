@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import chalk from 'chalk';
-import { ENV_VARS, isProductionEnv } from 'app-constants';
-import { winstonLogger } from 'middleware';
+import { ENV_VARS, isProductionEnv } from '@/app-constants';
+import { winstonLogger } from '@/middleware';
 
 /**
  * default logging mechanism is console.log. It can be
