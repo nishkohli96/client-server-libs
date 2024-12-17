@@ -23,7 +23,7 @@ yarn
 
 Build, run, lint or test all your apps in one command thanks to [Turborepo's Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
 
-To Build the shared packages,
+To build all the shared packages,
 
 ```
 turbo lib:build

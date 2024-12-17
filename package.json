@@ -9,8 +9,6 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "fe:build": "yarn workspace @csl/shared-fe lib:build",
-    "re:build": "yarn workspace @csl/react-express lib:build",
     "lib": "turbo run lib:build",
     "react-client": "yarn workspace react-client dev",
     "next-client": "yarn workspace next-client dev",

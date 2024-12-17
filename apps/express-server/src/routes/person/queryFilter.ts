@@ -64,8 +64,8 @@ class QueryFilter {
    * if even hours or minutes to compare are same. Hence I have
    * considered a grace period of one minute for equality comparison.
    */
-  private getDateIntervals(value: FilterValue) {
-    const date = moment(value);
+  private getDateIntervals(value?: FilterValue) {
+    const date = value ? moment(value) : moment();
     const date1MinAhead = date
       .clone()
       .add(1, 'minute')
@@ -84,7 +84,7 @@ class QueryFilter {
       case GenericFilters.Is: {
         const isValidDate = this.isValidDate(this.value);
         if (isValidDate) {
-          const { date, date1MinAhead } = this.getDateIntervals(this.value!);
+          const { date, date1MinAhead } = this.getDateIntervals(this.value);
           return {
             [this.field]: {
               $gte: date.toDate(),
@@ -100,7 +100,7 @@ class QueryFilter {
       case GenericFilters.Not: {
         const isValidDate = this.isValidDate(this.value);
         if (isValidDate) {
-          const { date, date1MinAhead } = this.getDateIntervals(this.value!);
+          const { date, date1MinAhead } = this.getDateIntervals(this.value);
           return {
             [this.field]: {
               $not: {

@@ -22,11 +22,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Build @csl/react-express
-        run: yarn re:build
-
-      - name: Build @csl/shared-fe
-        run: yarn fe:build
+      - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
+        run: yarn lib
 
       - name: Build express-server
         run: yarn workspace express-server build

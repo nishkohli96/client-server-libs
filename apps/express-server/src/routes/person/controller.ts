@@ -11,7 +11,7 @@ personRouter.get(
   `/${subRoutes.list}`,
   async (req: PersonTypes.GetPersonsListRequest, res: Response) => {
     const queryParams = req.query;
-    return personService.getPersonsList(res, queryParams);
+    return await personService.getPersonsList(res, queryParams);
   }
 );
 
@@ -20,7 +20,7 @@ personRouter.post(
   `/${subRoutes.add}`,
   async (req: PersonTypes.AddPersonRequest, res: Response) => {
     const reqBody = req.body;
-    return personService.addPerson(res, reqBody);
+    return await personService.addPerson(res, reqBody);
   }
 );
 
@@ -30,7 +30,7 @@ personRouter.put(
   async (req: PersonTypes.EditPersonRequest, res: Response) => {
     const personId = req.params._id;
     const reqBody = req.body;
-    return personService.updatePersonDetails(res, personId, reqBody);
+    return await personService.updatePersonDetails(res, personId, reqBody);
   }
 );
 
@@ -39,7 +39,7 @@ personRouter.delete(
   `/${subRoutes.delete}/:_id`,
   async (req: PersonTypes.DeletePersonRequest, res: Response) => {
     const personId = req.params._id;
-    return personService.deletePerson(res, personId);
+    return await personService.deletePerson(res, personId);
   }
 );
 

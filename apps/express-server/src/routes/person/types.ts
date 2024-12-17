@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Person, NewPerson } from '@csl/mongo-models';
+import { NewPerson } from '@csl/mongo-models';
 import { RequestQueryParams } from '@/types';
 
 export enum PersonSortingColumns {
