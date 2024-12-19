@@ -5,7 +5,9 @@ import { pokeApi } from '@/axios/pokeApi';
 /**
  * Dynamically generated metadata for the page.
  * It can also accept searchParams as a prop.
+ * The function will always be async.
  */
+/* eslint-disable require-await */
 export async function generateMetadata({
   params: { id }
 }: {
