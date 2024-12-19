@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import Typography from '@mui/material/Typography';
 import { pokeApi } from '@/axios/pokeApi';
 
-export const metadata: Metadata = { title: 'Pokemon Details' };
+export const metadata: Metadata = {
+  title: 'Pokemon Details'
+};
 
 /**
  * Here "id" is [id], the route param being provided
