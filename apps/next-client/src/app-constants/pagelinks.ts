@@ -6,5 +6,9 @@ export const PageLinks = [
   {
     title: 'Pokemons',
     href: '/pokemon'
+  },
+  {
+    title: 'Parallel Routes',
+    href: '/parallel-routes'
   }
 ];
