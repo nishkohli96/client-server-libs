@@ -2,9 +2,19 @@ import type { Metadata } from 'next';
 import Typography from '@mui/material/Typography';
 import { pokeApi } from '@/axios/pokeApi';
 
-export const metadata: Metadata = {
-  title: 'Pokemon Details'
-};
+/**
+ * Dynamically generated metadata for the page
+ */
+export async function generateMetadata({
+  params: { id }
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  return {
+    title: id.charAt(0).toUpperCase() + id.slice(1),
+    description: `Details for ${id}`,
+  };
+}
 
 /**
  * Here "id" is [id], the route param being provided
