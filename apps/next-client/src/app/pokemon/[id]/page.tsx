@@ -3,7 +3,8 @@ import Typography from '@mui/material/Typography';
 import { pokeApi } from '@/axios/pokeApi';
 
 /**
- * Dynamically generated metadata for the page
+ * Dynamically generated metadata for the page.
+ * It can also accept searchParams as a prop.
  */
 export async function generateMetadata({
   params: { id }

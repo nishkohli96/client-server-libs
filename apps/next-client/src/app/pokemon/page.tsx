@@ -11,7 +11,14 @@ type PokeApiResult = {
   results: Pokemon[];
 };
 
-export const metadata: Metadata = { title: 'Pokemon List' };
+/**
+ * By setting the title as "absolute", the template will not be used
+ */
+export const metadata: Metadata = {
+  title: {
+    absolute: 'Pokemon List'
+  }
+};
 
 async function getData() {
   const res = await fetch(
