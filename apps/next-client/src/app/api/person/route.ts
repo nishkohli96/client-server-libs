@@ -1,29 +1,40 @@
-import { NextResponse } from 'next/server';
-import { PersonModel } from '@csl/mongo-models';
-import mongoDB from '@/mongoDB';
+import { NextRequest, NextResponse } from 'next/server';
+import { MongoClient } from 'mongodb';
+import { ENV_VARS } from '@/app-constants';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  /**
+   * Get all the searchParams from the URL. However, if any
+   * key of queryParams supports multiple values, then
+   * searchParams.getAll('key') is recommended. As always,
+   * don't forget to convert the values of searchParams from
+   * string to number, if required.
+   */
+  const { searchParams } = new URL(request.url);
+  const queryParams = Object.fromEntries(searchParams.entries());
+  const { page, limit } = queryParams ?? {};
+  const pageNum = page ? Number(page) : 1;
+  const recordsPerPage = limit ? Number(limit) : 10;
+
+  const client = new MongoClient(
+    'mongodb://localhost:27017'
+    // `mongodb+srv://nish1896:dragon123Nish@cluster0.tlouv.mongodb.net`
+  );
+
   try {
-    await mongoDB.connectToDB();
-    const records = await PersonModel.find().limit(10);
-    console.log('records: ', records);
+    await client.connect();
+    const database = client.db('SeederDB'); // `e-commerce`);
+    const collection = database.collection('People'); // 'groceries');
+    const allData = await collection
+      .find()
+      .skip((pageNum - 1) * recordsPerPage)
+      .limit(recordsPerPage)
+      .toArray();
 
-    return NextResponse.json({
-      success: true,
-      data: records,
-      status: 200
-    });
+    return NextResponse.json(allData);
   } catch (error) {
-    console.error('Error fetching records:', error);
-    return NextResponse.json({
-      success: false,
-      message: JSON.stringify(error) || 'An error occurred',
-      status: 500
-    });
+    return NextResponse.json({ message: 'Something went wrong!' });
   } finally {
-    // Disconnect only in production
-    if (process.env.NODE_ENV === 'production') {
-      await mongoDB.disconnectDB();
-    }
+    await client.close();
   }
 }
