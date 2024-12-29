@@ -38,14 +38,14 @@ export function GET(
   req: NextRequest,
   { params }: { params: { name: string } }
 ) {
-  // Get the dynamic 'name' parameter from the URL
-  const name = req.nextUrl.pathname.split('/').pop();
-
   /**
-	 * Another way to get request params. For Next 15, use
-	 * await to get the value of this object.
+   * Get the dynamic 'name' parameter from the URL.
+	 * For Next 15, use await to get the value of this object.
+   *
+   * Another way to get request params -
+   * const name = req.nextUrl.pathname.split('/').pop();
 	 */
-  console.log('params: ', params);
+  const { name } = params;
 
   /**
    * queryParams.get('color') will return only the first value of the color
