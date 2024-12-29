@@ -10,5 +10,9 @@ export const PageLinks = [
   {
     title: 'Parallel Routes',
     href: '/parallel-routes'
+  },
+  {
+    title: 'Data Table',
+    href: '/datatable'
   }
 ];

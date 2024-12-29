@@ -1,6 +1,6 @@
 import Link, { LinkProps } from 'next/link';
 import Button from '@mui/material/Button';
-
+import ChevronRight from '@mui/icons-material/ChevronRight';
 type StyledLinkProps = LinkProps & { text: string; newTab?: boolean };
 
 export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
@@ -8,6 +8,9 @@ export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
     <Link {...otherProps} target={newTab ? '_blank' : '_self'}>
       <span className="text-blue-500 underline">
         {text}
+        {newTab && (
+          <ChevronRight />
+        )}
       </span>
     </Link>
   );
