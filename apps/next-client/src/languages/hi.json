@@ -1,6 +1,28 @@
 {
   "HomePage": {
     "title": "नेक्स्टजेएस ऐप के होम पेज से नमस्ते!",
-    "about": "about page"
+    "messages": {
+      "greeting": "नमस्ते {name}!"
+    },
+    "interpolation": {
+      "plural": "You have {count, plural, =0 {no followers yet} =1 {one follower} other {# followers}}.",
+      "ordinal": "It's your {year, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} birthday!",
+      "select": "{gender, select, female {She} male {He} other {They}} is online.",
+      "richText": "Visit <guidelines>Parallel Routes</guidelines> page."
+    }
+  },
+  "CompanyStats": {
+    "yearsOfService": {
+      "title": "Years of service",
+      "value": "34"
+    },
+    "happyClients": {
+      "title": "Happy clients",
+      "value": "1.000+"
+    },
+    "partners": {
+      "title": "Products",
+      "value": "5.000+"
+    }
   }
 }

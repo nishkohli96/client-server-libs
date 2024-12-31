@@ -1,6 +1,28 @@
 {
   "HomePage": {
     "title": "Hello from the Home Page of Next App !",
-    "about": "Go to the about page"
+    "messages": {
+      "greeting": "Hello {name}!"
+    },
+    "interpolation": {
+      "plural": "You have {count, plural, =0 {no followers yet} =1 {one follower} other {# followers}}.",
+      "ordinal": "It's your {year, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} birthday!",
+      "select": "{gender, select, female {She} male {He} other {They}} is online.",
+      "richText": "Visit <guidelines>Parallel Routes</guidelines> page."
+    }
+  },
+  "CompanyStats": {
+    "yearsOfService": {
+      "title": "Years of service",
+      "value": "34"
+    },
+    "happyClients": {
+      "title": "Happy clients",
+      "value": "1.000+"
+    },
+    "partners": {
+      "title": "Products",
+      "value": "5.000+"
+    }
   }
 }

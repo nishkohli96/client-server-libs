@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getLocale } from 'next-intl/server';
 import MenuItem from '@mui/material/MenuItem';
 
 type Pokemon = {
@@ -37,9 +38,14 @@ async function getData() {
 
 export default async function PokemonList() {
   const data: PokeApiResult = await getData();
+  /* Returns the currently applied locale */
+  const locale = await getLocale();
 
   return (
     <main>
+      <p>
+        {`Selected locale: ${locale}`}
+      </p>
       {data.results.map((pokemon, idx) => (
         <MenuItem key={idx}>
           <Link href={`/pokemon/${pokemon.name}`}>

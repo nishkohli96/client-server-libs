@@ -1,10 +1,11 @@
+import { ReactNode } from 'react';
 import { LinkProps } from 'next/link';
 import Button from '@mui/material/Button';
-import ChevronRight from '@mui/icons-material/ChevronRight';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from '@/i18n/routing';
 
 type StyledLinkProps = LinkProps & {
-  text: string;
+  text: ReactNode;
   newTab?: boolean;
   locale?: string
 };
@@ -24,7 +25,7 @@ export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
       <span className="text-blue-500 underline">
         {text}
         {newTab && (
-          <ChevronRight />
+          <ArrowOutwardIcon fontSize="small"/>
         )}
       </span>
     </Link>
@@ -33,8 +34,9 @@ export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
 
 export function PageLink({
   text,
+  newTab,
   ...otherProps
-}: Omit<StyledLinkProps, 'newTab'>) {
+}: StyledLinkProps) {
   return (
     <Button
       variant="outlined"
@@ -49,6 +51,9 @@ export function PageLink({
       <Link {...otherProps}>
         <span className="text-red-400">
           {text}
+          {newTab && (
+            <ArrowOutwardIcon />
+          )}
         </span>
       </Link>
     </Button>
