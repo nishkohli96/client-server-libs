@@ -1,8 +1,23 @@
-import Link, { LinkProps } from 'next/link';
+import { LinkProps } from 'next/link';
 import Button from '@mui/material/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
-type StyledLinkProps = LinkProps & { text: string; newTab?: boolean };
+import { Link } from '@/i18n/routing';
 
+type StyledLinkProps = LinkProps & {
+  text: string;
+  newTab?: boolean;
+  locale?: string
+};
+
+/**
+ * Instead of using Link from "next/Link", use the Link component
+ * from i18n/routing, as it appends the locale to the path.
+ *
+ * i18n Link href -> /{locale}/{page}
+ * Next Link href -> /{page}
+ *
+ * Thus using Link from next will in this case, cause the application to crash
+ */
 export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
   return (
     <Link {...otherProps} target={newTab ? '_blank' : '_self'}>

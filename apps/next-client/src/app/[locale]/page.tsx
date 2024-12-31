@@ -8,10 +8,7 @@ export default function Home() {
   const t = useTranslations('HomePage');
   return (
     <main>
-      <PageHeading title="" />
-      <h1>
-        {t('title')}
-      </h1>
+      <PageHeading title={t('title')} />
       <Typography
         variant="body2"
         sx={{
