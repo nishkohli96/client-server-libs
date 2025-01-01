@@ -7,6 +7,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { PageContent } from '@csl/shared-fe';
 import theme from '@/assets/styles/theme';
+import { AppBar } from '@/components';
 import { routing } from '@/i18n/routing';
 import { Locales } from '@/types';
 import './globals.css';
@@ -45,6 +46,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <AppRouterCacheProvider options={{ key: 'mui' }}>
             <ThemeProvider theme={theme}>
+              <AppBar />
               <PageContent>
                 {children}
               </PageContent>
