@@ -1,6 +1,11 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from '@/i18n/routing';
 
+/**
+ * For using next-intl along with other middlewares,
+ * https://next-intl.dev/docs/routing/middleware#composing-other-middlewares
+ */
+
 export default createMiddleware(routing);
 
 export const config = {

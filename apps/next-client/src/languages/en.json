@@ -11,6 +11,9 @@
       "richText": "Visit <guidelines>Parallel Routes</guidelines> page."
     }
   },
+  "PokemonPage": {
+    "list": "List of first 15 Pokemons from PokeAPI"
+  },
   "CompanyStats": {
     "yearsOfService": {
       "title": "Years of service",
