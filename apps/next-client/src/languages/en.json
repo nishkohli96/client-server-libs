@@ -24,5 +24,10 @@
       "title": "Products",
       "value": "5.000+"
     }
+  },
+  "404Page": {
+    "heading": "Not Found",
+    "subHeading": "Could not find requested resource",
+    "toHomePageText": "Return to HomePage"
   }
 }
