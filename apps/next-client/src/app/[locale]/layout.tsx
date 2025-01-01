@@ -10,7 +10,7 @@ import theme from '@/assets/styles/theme';
 import { AppBar } from '@/components';
 import { routing } from '@/i18n/routing';
 import { Locales } from '@/types';
-import './globals.css';
+import '../globals.css';
 
 type RootLayoutProps = {
   children: React.ReactNode;

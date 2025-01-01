@@ -1,13 +1,16 @@
-import { ReactNode } from 'react';
-import { LinkProps } from 'next/link';
+import { ReactNode, ComponentProps } from 'react';
 import Button from '@mui/material/Button';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from '@/i18n/routing';
 
-type StyledLinkProps = LinkProps & {
+/**
+ * The Link component from i18n mostly extends the same component
+ * from NextJS, but the recommended approach is to use ComponentProps,
+ * instead of importing LinkProps type from next/link.
+ */
+type StyledLinkProps = ComponentProps<typeof Link> & {
   text: ReactNode;
   newTab?: boolean;
-  locale?: string
 };
 
 /**
