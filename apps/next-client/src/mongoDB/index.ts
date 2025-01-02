@@ -1,51 +1,28 @@
-import { connect, disconnect } from 'mongoose';
+import mongoose from 'mongoose';
 import { ENV_VARS } from '@/app-constants';
 
-let connection: any = null;
+class MongoDB {
+  private connection: typeof mongoose | null = null;
 
-export async function connectToDB() {
-  try {
-    console.log('Active database:', connection?.connection?.name);
-    if(connection) {
-      console.log('connection: ', connection.models);
-      console.log('already connected to db');
+  async connect() {
+    if(this.connection) {
+      console.log('Reusing existing connection');
       return;
     }
-    connection = await connect(`${ENV_VARS.mongo.url}/${ENV_VARS.mongo.dbName}`);
-    console.log('connected to db');
-  } catch (err) {
-    console.log('err: ', err);
+    try {
+      this.connection = await mongoose.connect(`${ENV_VARS.mongo.url}/${ENV_VARS.mongo.dbName}`);
+    } catch (err) {
+      console.log('err: ', err);
+    }
+  }
+
+  async disconnect() {
+    try {
+      await mongoose.disconnect();
+    } catch (err) {
+      console.log('err: ', err);
+    }
   }
 }
 
-// class MongoServer {
-//   private url: string;
-//   private dbName: string;
-
-//   constructor() {
-//     this.url = ENV_VARS.mongo.url;
-//     this.dbName = ENV_VARS.mongo.dbName;
-//   }
-
-//   async connectToDB() {
-//     try {
-//       await connect(`${this.url}/${this.dbName}`);
-//       console.log(
-//         '`${this.url}/${this.dbName}`: ',
-//         `${this.url}/${this.dbName}`
-//       );
-//     } catch (err) {
-//       console.log('err: ', err);
-//     }
-//   }
-
-//   async disconnectDB() {
-//     try {
-//       await disconnect();
-//     } catch (err) {
-//       console.log('err: ', err);
-//     }
-//   }
-// }
-
-// export default new MongoServer();
+export default new MongoDB();

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectToDB } from '@/mongoDB';
+import mongoDB from '@/mongoDB';
 import { PersonModel } from '@csl/mongo-models';
 
 export async function GET(request: NextRequest) {
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const recordsPerPage = limit ? Number(limit) : 10;
 
   try {
-    await connectToDB();
+    await mongoDB.connect();
     const allData = await PersonModel.find()
       .skip((pageNum - 1) * recordsPerPage)
       .limit(recordsPerPage);
