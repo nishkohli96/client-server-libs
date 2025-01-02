@@ -1,5 +1,5 @@
 /**
- * Remove all migration records from the "Migration-Changelog"
+ * Remove all migration records from the "MigrationChangelog"
  * collection, so that migrations can be run again, after seeding
  * the database.
  */

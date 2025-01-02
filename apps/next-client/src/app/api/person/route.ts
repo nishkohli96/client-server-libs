@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
 import { ENV_VARS } from '@/app-constants';
-import mongoServer from '@/mongoDB';
+import { connectToDB } from '@/mongoDB';
 import { PersonModel } from '@csl/mongo-models';
 
 export async function GET(request: NextRequest) {
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     //   .skip((pageNum - 1) * recordsPerPage)
     //   .limit(recordsPerPage)
     //   .toArray();
-    await mongoServer.connectToDB();
+    await connectToDB();
     const allData = await PersonModel.find()
       .skip((pageNum - 1) * recordsPerPage)
       .limit(recordsPerPage);
@@ -47,6 +47,6 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ message: 'Something went wrong!' });
   } finally {
-    await mongoServer.disconnectDB();
+    // await mongoServer.disconnectDB();
   }
 }
