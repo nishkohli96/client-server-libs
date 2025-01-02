@@ -5,7 +5,9 @@ let connection: any = null;
 
 export async function connectToDB() {
   try {
+    console.log('Active database:', connection?.connection?.name);
     if(connection) {
+      console.log('connection: ', connection.models);
       console.log('already connected to db');
       return;
     }

@@ -12,7 +12,6 @@ type RequestParams = {
  */
 export async function GET(request: NextRequest, { params }: RequestParams) {
   const { id } = params;
-  console.log('id: ', id);
   const client = new MongoClient(
     'mongodb://localhost:27017'
   );

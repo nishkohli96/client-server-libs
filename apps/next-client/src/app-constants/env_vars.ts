@@ -5,6 +5,6 @@ export const ENV_VARS = Object.freeze({
   },
   mongo: {
     url: process.env.MONGODB_URL ?? '',
-    dbName: process.env.MONGODB_DBNAME ?? ''
+    dbName: process.env.MONGODB_NAME ?? ''
   },
 });
