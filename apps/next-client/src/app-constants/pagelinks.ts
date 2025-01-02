@@ -14,5 +14,9 @@ export const PageLinks = [
   {
     title: 'Data Table',
     href: '/datatable'
+  },
+  {
+    title: 'MDX with Translations',
+    href: '/mdx'
   }
 ];
