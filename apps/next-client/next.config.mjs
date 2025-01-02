@@ -13,7 +13,11 @@ const nextConfig = {
         hostname: 'www.datocms-assets.com'
       }
     ]
-  }
+  },
+  sassOptions: {
+    implementation: 'sass-embedded',
+    additionalData: `$var: red;`,
+  },
 };
 
 const withMDX = createMDX({
