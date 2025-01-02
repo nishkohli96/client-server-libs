@@ -14,3 +14,10 @@ export default function GlobalNotFound() {
     </BaseLayout>
   );
 }
+
+/**
+ * Also refer the below link for catching non-localized requests,
+ * ie, when the user requests a route that is not matched by the next-intl middleware.
+ *
+ * https://next-intl.dev/docs/environments/error-files#catching-non-localized-requests
+ */

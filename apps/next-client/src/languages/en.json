@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "title": "NextJS App",
+    "description": "Learning fundamentals and integrating various libraries and frameworks in  NextJS Application."
+  },
   "HomePage": {
     "title": "Hello from the Home Page of Next App !",
     "messages": {
