@@ -52,5 +52,6 @@
     "heading": "Not Found",
     "subHeading": "Could not find requested resource",
     "toHomePageText": "Return to HomePage"
-  }
+  },
+  "MDXPage": "This text is in a MUI Typography component used in MDX file."
 }

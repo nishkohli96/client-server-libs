@@ -52,5 +52,6 @@
     "heading": "नहीं मिला",
     "subHeading": "अनुरोधित संसाधन नहीं मिल सका",
     "toHomePageText": "होमपेज पर लौटें"
-  }
+  },
+  "MDXPage": "यह पाठ mdx फ़ाइल में उपयोग किए गए MUI Typography घटक में है।"
 }
