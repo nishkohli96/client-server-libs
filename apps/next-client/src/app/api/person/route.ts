@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mongoDB from '@/mongoDB';
 import { PersonModel } from '@csl/mongo-models';
+import mongoDB from '@/mongoDB';
 
 export async function GET(request: NextRequest) {
   /**
@@ -30,6 +30,11 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(allData);
   } catch (error) {
-    return NextResponse.json({ message: 'Something went wrong!' });
+    return NextResponse.json({
+      message: 'Something went wrong!',
+      error: error instanceof Error
+        ? error.message
+        : JSON.stringify(error)
+    });
   }
 }
