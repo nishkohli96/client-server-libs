@@ -1,6 +1,8 @@
-import { Schema, Types, model } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import moment from 'moment';
 import { collectionNames } from '@/constants';
+
+const personCollection = collectionNames.people;
 
 export enum Gender {
   Male = 'MALE',
@@ -40,7 +42,7 @@ export type Person = {
   isDeleted?: boolean;
 };
 
-const AddressSchema = new Schema({
+const AddressSchema = new mongoose.Schema({
   houseNo: String,
   street: String,
   city: String,
@@ -48,7 +50,7 @@ const AddressSchema = new Schema({
   country: String
 });
 
-const PersonSchema = new Schema<Person>(
+const PersonSchema = new mongoose.Schema<Person>(
   {
     first_name: { type: String, required: true },
     last_name: String,
@@ -108,8 +110,6 @@ PersonSchema.set('toObject', { virtuals: true });
  * https://www.npmjs.com/package/mongoose-delete
  */
 
-export const PersonModel = model(
-  'People',
-  PersonSchema,
-  collectionNames.people
-);
+export const PersonModel
+  = mongoose.models?.[personCollection]
+  || mongoose.model(personCollection, PersonSchema, personCollection);

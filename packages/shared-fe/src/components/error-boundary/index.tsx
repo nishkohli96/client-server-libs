@@ -7,6 +7,8 @@
  * https://github.com/bvaughn/react-error-boundary
  */
 
+'use client';
+
 import { Component, ReactNode } from 'react';
 import { styles } from './styles';
 

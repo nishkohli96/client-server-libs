@@ -1,7 +1,9 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 import { collectionNames } from '@/constants';
 
-const MigrationChangelogSchema = new Schema(
+const migrationCollection = collectionNames.migrationChangelog;
+
+const MigrationChangelogSchema = new mongoose.Schema(
   {
     fileName: {
       type: String,
@@ -16,8 +18,10 @@ const MigrationChangelogSchema = new Schema(
   }
 );
 
-export const MigrationChangelogModel = model(
-  'MigrationChangelog',
-  MigrationChangelogSchema,
-  collectionNames.migrationChangelog
-);
+export const MigrationChangelogModel
+  = mongoose.models?.[migrationCollection]
+  || mongoose.model(
+    migrationCollection,
+    MigrationChangelogSchema,
+    migrationCollection
+  );

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getLocale, getTranslations } from 'next-intl/server';
 import MenuItem from '@mui/material/MenuItem';
+import variables from './styles.module.scss';
 
 type Pokemon = {
   name: string;
@@ -11,7 +13,14 @@ type PokeApiResult = {
   results: Pokemon[];
 };
 
-export const metadata: Metadata = { title: 'Pokemon List' };
+/**
+ * By setting the title as "absolute", the template will not be used
+ */
+export const metadata: Metadata = {
+  title: {
+    absolute: 'Pokemon List'
+  }
+};
 
 async function getData() {
   const res = await fetch(
@@ -30,9 +39,18 @@ async function getData() {
 
 export default async function PokemonList() {
   const data: PokeApiResult = await getData();
+  /* Returns the currently applied locale */
+  const locale = await getLocale();
+  const t = await getTranslations('PokemonPage');
 
   return (
     <main>
+      <p style={{ color: variables.primaryColor }}>
+        {`Selected locale: ${locale}`}
+      </p>
+      <p>
+        {t('list')}
+      </p>
       {data.results.map((pokemon, idx) => (
         <MenuItem key={idx}>
           <Link href={`/pokemon/${pokemon.name}`}>
