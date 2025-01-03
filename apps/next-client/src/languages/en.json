@@ -1,0 +1,57 @@
+{
+  "Metadata": {
+    "title": "NextJS App",
+    "description": "Learning fundamentals and integrating various libraries and frameworks in  NextJS Application."
+  },
+  "HomePage": {
+    "title": "Hello from the Home Page of Next App !",
+    "messages": {
+      "greeting": "Hello {name}!"
+    },
+    "interpolation": {
+      "plural": "You have {count, plural, =0 {no followers yet} =1 {one follower} other {# followers}}.",
+      "ordinal": "It's your {year, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} birthday!",
+      "select": "{gender, select, female {She} male {He} other {They}} is online.",
+      "richText": "Visit <guidelines>Parallel Routes</guidelines> page."
+    }
+  },
+  "PokemonPage": {
+    "list": "List of first 15 Pokemons from PokeAPI"
+  },
+  "CompanyStats": {
+    "yearsOfService": {
+      "title": "Years of service",
+      "value": "34"
+    },
+    "happyClients": {
+      "title": "Happy clients",
+      "value": "1.000+"
+    },
+    "partners": {
+      "title": "Products",
+      "value": "5.000+"
+    }
+  },
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, hi {🇮🇳 हिन्दी} en {🇺🇸 English} other {Unknown}}"
+  },
+  "Navigation": {
+    "home": "Home",
+    "pathnames": "Pathnames"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "404Page": {
+    "heading": "Not Found",
+    "subHeading": "Could not find requested resource",
+    "toHomePageText": "Return to HomePage"
+  },
+  "MDXPage": "This text is in a MUI Typography component used in MDX file."
+}

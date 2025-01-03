@@ -1,24 +1,7 @@
-import Typography from '@mui/material/Typography';
-import { PageHeading } from '@csl/shared-fe';
-import { PageLinks } from '@/app-constants';
-import { PageLink } from '@/components';
+import { redirect } from 'next/navigation';
+import { Locales } from '@/types';
 
-export default function Home() {
-  return (
-    <main>
-      <PageHeading title="Hello from the Home Page of Next App !" />
-      <Typography
-        variant="body2"
-        sx={{
-          mb: '20px',
-          mt: '30px'
-        }}
-      >
-        Click on any of the links below to see their demo
-      </Typography>
-      {PageLinks.map((link, idx) => (
-        <PageLink text={link.title} href={link.href} key={idx} />
-      ))}
-    </main>
-  );
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect(`/${Locales.ENGLISH}`);
 }
