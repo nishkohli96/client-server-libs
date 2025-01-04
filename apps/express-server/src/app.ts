@@ -48,9 +48,8 @@ app.get('/', (_: Request, response: Response) => {
 });
 
 /* Require App to use all routes from the routesArray. */
-routesArray.forEach(route => 
-  app.use(generatePath(route.rootPath), route.router)
-);
+routesArray.forEach(route =>
+  app.use(generatePath(route.rootPath), route.router));
 
 /* 404 Handler */
 app.get('*', (req: Request, response: Response) => {

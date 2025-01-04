@@ -27,8 +27,10 @@ export const ExpressServerEndpoints = Object.freeze({
     rootPath: '/stytch',
     subRoutes: {
       orgSignIn: 'org-signin',
-      discoveryEmail: 'discovery-email',
-      discoveryRedirect: 'discovery-redirect'
+      magicLinkEmail: 'magic-link',
+      magicLinkRedirect: 'discovery-redirect',
+      emailOTP: 'email-otp',
+      authenticateEmailOTP: 'authenticate-email-otp',
     }
   }
 });
