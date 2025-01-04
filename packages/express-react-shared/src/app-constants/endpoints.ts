@@ -22,5 +22,13 @@ export const ExpressServerEndpoints = Object.freeze({
       delete: 'delete',
       downloadList: 'download-list'
     }
+  },
+  stytch: {
+    rootPath: '/stytch',
+    subRoutes: {
+      orgSignIn: 'org-signin',
+      discoveryEmail: 'discovery-email',
+      discoveryRedirect: 'discovery-redirect'
+    }
   }
 });
