@@ -23,6 +23,8 @@ export function sendErrorResponse(res: Response, error: unknown, message?: strin
     success: false,
     status: 500,
     message: message ?? 'An error occurred',
-    error: error instanceof Error ? error.message : error
+    error: error instanceof Error
+      ? error.message
+      : JSON.stringify(error)
   });
 }

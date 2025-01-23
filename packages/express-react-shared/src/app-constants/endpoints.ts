@@ -27,9 +27,18 @@ export const ExpressServerEndpoints = Object.freeze({
     rootPath: '/stytch',
     subRoutes: {
       orgSignIn: 'org-signin',
+      addMember: 'add-member',
+      getMember: 'get-member',
+      updateMember: 'update-member',
+      deleteMember: 'delete-member',
+      unlinkEmail: 'unlink-email',
       magicLinkEmail: 'magic-link',
       magicLinkRedirect: 'discovery-redirect',
       emailOTP: 'email-otp',
+      smsOTP: 'sms-otp',
+      resetPassword: 'reset-password',
+      authenticatePassword: 'authenticate-with-password',
+      passwordStrength: 'password-strength',
       authenticateEmailOTP: 'authenticate-email-otp',
     }
   }
