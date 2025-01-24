@@ -218,7 +218,7 @@ class StytchService {
    * After clicking on the magic link, the user will be redirected to the
    * redirect endpointURL with the following query parameters:
    *
-   * [endpointURL]?stytch_redirect_type=login&stytch_token_type=discovery&token=E3hMn4EzDqOcDfzKG-IKGULZfANc3PDYRyV9RxRMpu8v
+   * [endpointURL]?stytch_redirect_type=login&stytch_token_type=discovery&token=
    *
    * The token can be used for user authentication, check below
    * https://stytch.com/docs/b2b/api/authenticate-discovery-magic-link
