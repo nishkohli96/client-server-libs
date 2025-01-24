@@ -108,10 +108,10 @@ stytchRouter.post(
 stytchRouter.post(
   `/${subRoutes.resetPassword}`,
   async (
-		req: Request<object, object, StytchTypes.EmailPayload>,
-		res: Response
-	) => {
-		const reqBody = req.body;
+    req: Request<object, object, StytchTypes.EmailPayload>,
+    res: Response
+  ) => {
+    const reqBody = req.body;
     return await stytchService.resetPassword(res, reqBody);
   }
 );
@@ -120,10 +120,10 @@ stytchRouter.post(
 stytchRouter.post(
   `/${subRoutes.authenticatePassword}`,
   async (
-		req: Request<object, object, StytchTypes.UserLogin>,
-		res: Response
-	) => {
-		const reqBody = req.body;
+    req: Request<object, object, StytchTypes.UserLogin>,
+    res: Response
+  ) => {
+    const reqBody = req.body;
     return await stytchService.loginWithPassword(res, reqBody);
   }
 );
@@ -132,10 +132,10 @@ stytchRouter.post(
 stytchRouter.post(
   `/${subRoutes.passwordStrength}`,
   async (
-		req: Request<object, object, StytchTypes.PasswordStrengthBody>,
-		res: Response
-	) => {
-		const reqBody = req.body;
+    req: Request<object, object, StytchTypes.PasswordStrengthBody>,
+    res: Response
+  ) => {
+    const reqBody = req.body;
     return await stytchService.checkPasswordStrength(res, reqBody);
   }
 );
@@ -144,10 +144,10 @@ stytchRouter.post(
 stytchRouter.post(
   `/${subRoutes.authenticateEmailOTP}`,
   async (
-		req: Request<object, object, { code: string }>,
-		res: Response
-	) => {
-		const otpCode = req.body.code;
+    req: Request<object, object, { code: string }>,
+    res: Response
+  ) => {
+    const otpCode = req.body.code;
     return await stytchService.verifyOtp(res, otpCode);
   }
 );
@@ -156,9 +156,9 @@ stytchRouter.post(
 stytchRouter.get(
   `/${subRoutes.getRecoveryCodes}/:memberId`,
   async (
-		req: Request<StytchTypes.GetMember>,
-		res: Response
-	) => {
+    req: Request<StytchTypes.GetMember>,
+    res: Response
+  ) => {
     return await stytchService.getRecoveryCodes(res, req.params.memberId);
   }
 );

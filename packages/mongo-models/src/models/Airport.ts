@@ -31,4 +31,4 @@ const AirportSchema = new mongoose.Schema(
  */
 export const AirportModel
   = mongoose.models?.[airportsCollection]
-  || mongoose.model(airportsCollection, AirportSchema, airportsCollection);
+    || mongoose.model(airportsCollection, AirportSchema, airportsCollection);
