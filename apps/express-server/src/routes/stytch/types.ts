@@ -16,3 +16,7 @@ export type PasswordStrengthBody = Pick<UserLogin, 'password'>;
 export type GetMember = {
 	memberId: string;
 }
+
+export type VerifyCode = GetMember &{
+	code: string;
+}

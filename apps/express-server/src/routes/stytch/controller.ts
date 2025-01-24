@@ -72,11 +72,19 @@ stytchRouter.get(
   }
 );
 
-/* POST: /stytch/sms-otp */
+/* GET: /stytch/sms-otp */
+stytchRouter.get(
+  `/${subRoutes.smsOTP}/:memberId`,
+  async (req: Request<StytchTypes.GetMember>, res: Response) => {
+    return await stytchService.sendSMSOtp(res, req.params.memberId);
+  }
+);
+
+/* POST: /stytch/verify-sms-otp */
 stytchRouter.post(
-  `/${subRoutes.smsOTP}`,
-  async (req: Request, res: Response) => {
-    return await stytchService.sendSMSOtp(res);
+  `/${subRoutes.verifySMSOTP}`,
+  async (req: Request<object, object, StytchTypes.VerifyCode>, res: Response) => {
+    return await stytchService.verifySMSOtp(res, req.body);
   }
 );
 
@@ -133,6 +141,17 @@ stytchRouter.post(
 	) => {
 		const otpCode = req.body.code;
     return await stytchService.verifyOtp(res, otpCode);
+  }
+);
+
+/* GET: /stytch/get-recovery-codes */
+stytchRouter.get(
+  `/${subRoutes.getRecoveryCodes}/:memberId`,
+  async (
+		req: Request<StytchTypes.GetMember>,
+		res: Response
+	) => {
+    return await stytchService.getRecoveryCodes(res, req.params.memberId);
   }
 );
 

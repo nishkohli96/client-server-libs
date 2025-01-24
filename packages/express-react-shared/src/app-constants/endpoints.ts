@@ -36,10 +36,12 @@ export const ExpressServerEndpoints = Object.freeze({
       magicLinkRedirect: 'discovery-redirect',
       emailOTP: 'email-otp',
       smsOTP: 'sms-otp',
+      verifySMSOTP: 'verify-sms-otp',
       resetPassword: 'reset-password',
       authenticatePassword: 'authenticate-with-password',
       passwordStrength: 'password-strength',
       authenticateEmailOTP: 'authenticate-email-otp',
+      getRecoveryCodes: 'get-recovery-codes',
     }
   }
 });

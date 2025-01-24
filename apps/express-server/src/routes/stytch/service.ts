@@ -279,11 +279,11 @@ class StytchService {
    * the existing one. Sending another OTP code before the first has expired
    * will invalidate the first code.
    */
-  async sendSMSOtp(res: Response) {
+  async sendSMSOtp(res: Response, memberId: string) {
     try {
       const params = {
         organization_id: Stytch.stytchOrgId,
-        member_id: ''
+        member_id: memberId
       };
       const response = await Stytch.stytchClient.otps.sms.send(params);
 
@@ -295,6 +295,25 @@ class StytchService {
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Error sending email OTP');
+    }
+  }
+
+  async verifySMSOtp(res: Response, payload: StytchTypes.VerifyCode) {
+    try {
+      const params = {
+        organization_id: Stytch.stytchOrgId,
+        member_id: payload.memberId,
+        code: payload.code
+      };
+      const response = await Stytch.stytchClient.otps.sms.authenticate(params);
+      return res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Authenticated email OTP.',
+        data: response
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Error verifying sms OTP');
     }
   }
 
@@ -337,6 +356,26 @@ class StytchService {
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Error verifying email OTP');
+    }
+  }
+
+  async getRecoveryCodes(res: Response, memberId: string) {
+    try {
+      const params = {
+        organization_id: Stytch.stytchOrgId,
+        member_id: memberId
+      };
+      const response =
+        await Stytch.stytchClient.recoveryCodes.get(params);
+
+      return res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Recovery Codes sent.',
+        data: response
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to generate recovery codes');
     }
   }
 }
