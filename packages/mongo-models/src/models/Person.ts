@@ -112,4 +112,4 @@ PersonSchema.set('toObject', { virtuals: true });
 
 export const PersonModel
   = mongoose.models?.[personCollection]
-  || mongoose.model(personCollection, PersonSchema, personCollection);
+    || mongoose.model(personCollection, PersonSchema, personCollection);

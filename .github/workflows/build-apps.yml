@@ -25,8 +25,8 @@ jobs:
       - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
         run: yarn lib
 
-      - name: Build express-server
-        run: yarn workspace express-server build
+      # - name: Build express-server
+      #   run: yarn workspace express-server build
 
       - name: Build nestjs-server
         run: yarn workspace nestjs-server build

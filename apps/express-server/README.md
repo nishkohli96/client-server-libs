@@ -30,3 +30,4 @@ $ yarn run start:prod
 - People API
   - CRUD operations
   - Advanced filtering using operators from [Mui Datagrid](https://mui.com/x/react-data-grid/)
+- [Stytch](https://stytch.com/) authentication methods

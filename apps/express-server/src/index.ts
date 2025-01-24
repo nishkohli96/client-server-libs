@@ -13,6 +13,9 @@ const dbConnectionString = `${ENV_VARS.mongoDB.url}/${ENV_VARS.mongoDB.dbName}`;
 async function bootstrap() {
   try {
     await connect(dbConnectionString);
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`
+    );
     const server = createServer(app);
     server.listen(port, () => {
       winstonLogger.info(

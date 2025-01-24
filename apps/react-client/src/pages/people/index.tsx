@@ -120,7 +120,7 @@ function PeopleListingPage() {
     const isFilterCleared = !items.length;
     const isExistentialFilter
       = operator === GenericFilters.isEmpty
-      || operator === GenericFilters.isNotEmpty;
+        || operator === GenericFilters.isNotEmpty;
     const isValidNumber = typeof value === 'number';
     const isNonEmptyValue = !isEmpty(value) || isValidNumber;
 
