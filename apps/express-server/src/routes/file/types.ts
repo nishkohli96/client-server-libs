@@ -2,7 +2,7 @@ import { Request } from 'express';
 
 /* File Upload */
 export interface UploadMediaBody {
-  media: File
+  media: Express.Multer.File
 }
 export type UploadMediaRequest = Request<object, object, UploadMediaBody>
 
