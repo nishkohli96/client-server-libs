@@ -141,6 +141,31 @@ class StytchService {
   }
 
   /**
+   * Adds an existing password to a member's email that doesn't have
+   * a password yet.
+   */
+  async migratePassword(res: Response, reqBody: StytchTypes.SetPassword) {
+    try {
+      const params = {
+        organization_id: Stytch.stytchOrgId,
+        email_address: reqBody.email,
+        hash: reqBody.hash,
+        hash_type: reqBody.hash_type
+      };
+      const response =
+        await Stytch.stytchClient.passwords.migrate(params);
+      return res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Password migrated.',
+        data: response
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Error migrating password');
+    }
+  }
+
+  /**
    * Need to add Allowed domains in organization settings,
    * that allow invites or JIT provisioning for new Members.
    * Gmail domain is not supported, so the stytch response

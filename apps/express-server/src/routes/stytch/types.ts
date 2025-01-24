@@ -20,3 +20,9 @@ export type GetMember = {
 export type VerifyCode = GetMember &{
 	code: string;
 }
+
+export type SetPassword = {
+	email: string;
+	hash: string;
+	hash_type: string;
+}

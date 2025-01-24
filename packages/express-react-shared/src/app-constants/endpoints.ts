@@ -31,6 +31,7 @@ export const ExpressServerEndpoints = Object.freeze({
       getMember: 'get-member',
       updateMember: 'update-member',
       deleteMember: 'delete-member',
+      migratePassword: 'migrate-password',
       unlinkEmail: 'unlink-email',
       magicLinkEmail: 'magic-link',
       magicLinkRedirect: 'discovery-redirect',

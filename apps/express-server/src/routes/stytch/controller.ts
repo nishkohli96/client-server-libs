@@ -47,6 +47,14 @@ stytchRouter.delete(
   }
 );
 
+/* POST: /stytch/migrate-password */
+stytchRouter.post(
+  `/${subRoutes.migratePassword}`,
+  async (req: Request<object, object, StytchTypes.SetPassword>, res: Response) => {
+    return await stytchService.migratePassword(res, req.body);
+  }
+);
+
 /* POST: /stytch/org-signin */
 stytchRouter.post(
   `/${subRoutes.orgSignIn}`,
