@@ -8,7 +8,9 @@ import { winstonLogger } from '@/middleware';
  * turned off by passing "false" in the option below, or
  * provide a custom logger like winston.
  */
-export const sequelize = new Sequelize(ENV_VARS.postgresUrl, { logging: msg => winstonLogger.info(msg) });
+export const sequelize = new Sequelize(ENV_VARS.postgresUrl, {
+  logging: msg => winstonLogger.info(msg)
+});
 
 export async function connectToDB() {
   try {

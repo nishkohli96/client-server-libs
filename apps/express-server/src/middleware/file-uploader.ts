@@ -53,6 +53,7 @@ const fileStorage = (dirPath?: string) =>
 export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
   multer({
     storage: fileStorage(dirPath),
+    // @ts-ignore
     fileFilter: fileFilter(allowedFileTypes),
     limits: {
       /**

@@ -22,6 +22,7 @@ const uploader = fileUploader();
  */
 fileRouter.post(
   `/${subRoutes.upload}`,
+  // @ts-ignore
   mediaUploader.single('media'),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     const file = req.file;
@@ -36,6 +37,7 @@ fileRouter.post(
  */
 fileRouter.post(
   `/${subRoutes.uploadMany}`,
+  // @ts-ignore
   uploader.array('files', ServerConfig.multer.maxFiles),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     return res.send('Files uploaded successfully');
@@ -52,6 +54,7 @@ fileRouter.post(
  */
 fileRouter.post(
   `/${subRoutes.uploadSeparate}`,
+  // @ts-ignore
   uploader.fields([
     { name: 'image' },
     {
@@ -125,6 +128,7 @@ fileRouter.get(
  */
 fileRouter.post(
   `/${subRoutes.uploadBase64}`,
+  // @ts-ignore
   uploader.single('chunk'),
   function uploadBase64(req: FileTypeDefs.Base64UploadReq, res: Response) {
     const { chunkNumber, fileName, chunk } = req.body;
