@@ -22,5 +22,27 @@ export const ExpressServerEndpoints = Object.freeze({
       delete: 'delete',
       downloadList: 'download-list'
     }
+  },
+  stytch: {
+    rootPath: '/stytch',
+    subRoutes: {
+      orgSignIn: 'org-signin',
+      addMember: 'add-member',
+      getMember: 'get-member',
+      updateMember: 'update-member',
+      deleteMember: 'delete-member',
+      migratePassword: 'migrate-password',
+      unlinkEmail: 'unlink-email',
+      magicLinkEmail: 'magic-link',
+      magicLinkRedirect: 'discovery-redirect',
+      emailOTP: 'email-otp',
+      smsOTP: 'sms-otp',
+      verifySMSOTP: 'verify-sms-otp',
+      resetPassword: 'reset-password',
+      authenticatePassword: 'authenticate-with-password',
+      passwordStrength: 'password-strength',
+      authenticateEmailOTP: 'authenticate-email-otp',
+      getRecoveryCodes: 'get-recovery-codes',
+    }
   }
 });

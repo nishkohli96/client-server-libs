@@ -16,6 +16,7 @@ class FileService {
       return res.send('File Uploaded');
     } catch (err) {
       console.log('Error in uploading file ', err);
+      return res.send(err);
     }
   }
 

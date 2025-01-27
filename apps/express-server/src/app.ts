@@ -4,7 +4,7 @@ import path from 'path';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS, ServerConfig } from '@/app-constants';
 import { requestLogger } from '@/middleware';
-import * as Routes from '@/routes';
+import { routesArray } from '@/routes';
 
 const app: Express = express();
 
@@ -47,8 +47,9 @@ app.get('/', (_: Request, response: Response) => {
   });
 });
 
-app.use(generatePath(ExpressServerEndpoints.files.rootPath), Routes.fileRouter);
-app.use(generatePath(ExpressServerEndpoints.people.rootPath), Routes.personRouter);
+/* Require App to use all routes from the routesArray. */
+routesArray.forEach(route =>
+  app.use(generatePath(route.rootPath), route.router));
 
 /* 404 Handler */
 app.get('*', (req: Request, response: Response) => {

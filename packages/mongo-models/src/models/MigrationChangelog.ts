@@ -20,8 +20,8 @@ const MigrationChangelogSchema = new mongoose.Schema(
 
 export const MigrationChangelogModel
   = mongoose.models?.[migrationCollection]
-  || mongoose.model(
-    migrationCollection,
-    MigrationChangelogSchema,
-    migrationCollection
-  );
+    || mongoose.model(
+      migrationCollection,
+      MigrationChangelogSchema,
+      migrationCollection
+    );
