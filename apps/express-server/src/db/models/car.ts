@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize, shouldAlterTable } from '@/db/config';
+import { DataTypes, Model, Sequelize } from 'sequelize';
+import { postgreSequelize, shouldAlterTable } from '@/db/config';
 import { CarBrandModel } from './car-brand';
 
 export enum CarColors {
@@ -21,11 +21,11 @@ export enum CarColors {
  * sequelize.define('User', { name: DataTypes.STRING });
  */
 class CarModel extends Model {
-  declare id: number;
+  declare id: string;
   name!: string;
   brand!: number;
   colors!: CarColors[];
-
+  /** This is a class-level method */
   getFullname() {
     return [this.brand, this.name].join(' ');
   }
@@ -33,13 +33,18 @@ class CarModel extends Model {
 
 CarModel.init(
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    brand: {
-      type: DataTypes.NUMBER,
+    brand_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       /* This is a reference to another model */
       references: {
@@ -49,13 +54,20 @@ CarModel.init(
       comment: 'This column refers to the id of brand in the car_brand table'
     },
     colors: {
-      type: DataTypes.ARRAY(),
-      allowNull: false
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
     }
   },
   {
-    sequelize,
+    sequelize: postgreSequelize,
+    /**
+     * This will prevent the auto-pluralization performed by Sequelize,
+     * ie. the table name will be equal to the model name, without
+     * any modifications
+     */
     freezeTableName: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
     modelName: 'car',
     timestamps: true
   }
@@ -72,6 +84,8 @@ async function createTable() {
 }
 
 createTable();
+
+export { CarModel };
 
 /**
  * To drop a specific model,

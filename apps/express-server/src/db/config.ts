@@ -8,14 +8,22 @@ import { winstonLogger } from '@/middleware';
  * turned off by passing "false" in the option below, or
  * provide a custom logger like winston.
  */
-export const sequelize = new Sequelize(ENV_VARS.postgresUrl, {
+export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
   logging: msg => winstonLogger.info(msg)
 });
 
 export async function connectToDB() {
   try {
-    await sequelize.authenticate();
+    await postgreSequelize.authenticate();
     console.log(chalk.green('Connection has been established successfully.'));
+
+    if (ENV_VARS.env === 'production') {
+      await postgreSequelize.sync();
+      console.log('Production: Run migrations for schema updates.');
+    } else {
+      await postgreSequelize.sync({ alter: true });
+      console.log(`${ENV_VARS.env}: Database schema synchronized with alter mode.`);
+    }
 
     /**
      * sequelize.close() -> will close the connection to the DB.

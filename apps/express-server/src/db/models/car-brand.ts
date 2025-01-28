@@ -1,9 +1,15 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '@/db/config';
+import { postgreSequelize } from '@/db/config';
 
-export const CarBrandModel = sequelize.define(
-  'CarBrand',
+export const CarBrandModel = postgreSequelize.define(
+  /* Here, 'CarBrand' is the model name */
+  'carBrand',
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -12,7 +18,6 @@ export const CarBrandModel = sequelize.define(
     country: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'INDIA'
     }
     /**
      * the current date/time will be used to populate this column
@@ -27,16 +32,13 @@ export const CarBrandModel = sequelize.define(
      */
   },
   {
-    /**
-     * This will prevent the  auto-pluralization performed by Sequelize,
-     * ie. the table name will be equal to the model name, without
-     * any modifications
-     */
-    freezeTableName: true,
-    tableName: 'car_brand'
+    tableName: 'car_brands'
     /**
      * To disable timestamps, pass the below option -
      * timestamps: false
+     *
+     * Or, If you don't want createdAt
+     * createdAt: false,
      *
      * Sequelize manages the timestamps, so direct SQL queries used
      * without sequelize won't update these values.
