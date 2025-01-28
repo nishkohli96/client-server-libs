@@ -57,7 +57,7 @@ export async function editPersonDetails(
 ): Promise<boolean> {
   try {
     const response = await serverApi.put<ServerResponse<Person>>(
-      `${rootPath}/${subRoutes.edit}/${id}`,
+      `${rootPath}/${subRoutes.update}/${id}`,
       body
     );
     if (isValidResponseCode(response.status)) {

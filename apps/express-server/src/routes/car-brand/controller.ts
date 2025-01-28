@@ -6,6 +6,7 @@ import * as CarBrandTypeDefs from './types';
 const carBrandRouter = Router();
 const subRoutes = ExpressServerEndpoints.carBrand.subRoutes;
 
+/* POST /car-brand/add */
 carBrandRouter.post(
   `/${subRoutes.add}`,
   async (req: CarBrandTypeDefs.AddCarModelRequest, res: Response) => {

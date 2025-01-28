@@ -7,3 +7,11 @@ export type AddCar = {
 }
 
 export type AddCarRequest = Request<object, object, AddCar>;
+
+export type CarDetails = {
+  carId: string;
+}
+
+export type GetCarDetailsRequest = Request<CarDetails>;
+
+export type UpdateCarDetailsRequest = Request<CarDetails, object, AddCar>;

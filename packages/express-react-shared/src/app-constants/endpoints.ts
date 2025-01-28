@@ -5,7 +5,8 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       add: 'add',
-      edit: 'edit',
+      details: 'details',
+      update: 'update',
       delete: 'delete',
     }
   },
@@ -14,7 +15,7 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       add: 'add',
-      edit: 'edit',
+      update: 'update',
       delete: 'delete',
     }
   },
@@ -36,7 +37,7 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       add: 'add',
-      edit: 'edit',
+      update: 'update',
       delete: 'delete',
       downloadList: 'download-list'
     }

@@ -24,9 +24,9 @@ personRouter.post(
   }
 );
 
-/* PUT: /people/edit/{_id} */
+/* PUT: /people/update/{_id} */
 personRouter.put(
-  `/${subRoutes.edit}/:_id`,
+  `/${subRoutes.update}/:_id`,
   async (req: PersonTypes.EditPersonRequest, res: Response) => {
     const personId = req.params._id;
     const reqBody = req.body;
