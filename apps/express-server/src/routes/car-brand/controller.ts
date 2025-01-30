@@ -14,4 +14,13 @@ carBrandRouter.post(
   }
 );
 
+/* GET /car-brand/list */
+carBrandRouter.get(
+  `/${subRoutes.list}`,
+  async (req: CarBrandTypeDefs.AddCarModelRequest, res: Response) => {
+    return await carBrandService.getCarbrands(res);
+  }
+);
+
+
 export { carBrandRouter };

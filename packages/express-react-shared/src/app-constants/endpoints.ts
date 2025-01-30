@@ -4,6 +4,7 @@ export const ExpressServerEndpoints = Object.freeze({
     rootPath: '/car',
     subRoutes: {
       list: 'list',
+      groupByBrand: 'group-by-brand',
       add: 'add',
       details: 'details',
       update: 'update',
@@ -13,10 +14,8 @@ export const ExpressServerEndpoints = Object.freeze({
   carBrand: {
     rootPath: '/car-brand',
     subRoutes: {
-      list: 'list',
       add: 'add',
-      update: 'update',
-      delete: 'delete',
+      list: 'list',
     }
   },
   files: {

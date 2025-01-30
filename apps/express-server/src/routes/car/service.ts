@@ -12,12 +12,18 @@ class CarService {
   async addCar(res: Response, carData: CarTypeDefs.AddCar) {
     try {
       /**
-			 * Sequelize provides the create method, which combines the
-			 * build and save methods into a single method.
-			 *
-			 * Use console.log(carModel.toJSON()) to see the data, and
-			 * not the Sequelize instance details.
-			 */
+       * Sequelize provides the create method, which combines the
+       * build and save methods into a single method.
+       *
+       * Use console.log(carModel.toJSON()) to see the data, and
+       * not the Sequelize instance details.
+       *
+       * Model.bulkCreate(records) method inserts multiple records at once,
+       * with only one query.
+			 * Pass { validate: true } as 2nd arg in the above method to validate
+			 * each record, which the method doesnt do by default. However, passing
+			 * this arg will slow down the bulk insert operation.
+       */
       const carModel = await CarModel.create(carData);
       return res.json({
         success: true,
@@ -30,87 +36,151 @@ class CarService {
     }
   }
 
-	async listCars(res: Response) {
-	  try {
-	    const carList = await CarModel.findAll({
-	      /**
-				 * Attributes are the columns that you want to retrieve from the table.
-				 * Attributes can be renamed using a nested array: eg -> colors can be
-				 * renamed to availableColors using ['colors', 'availableColors'].
-				 *
-				 * attributes: { exclude: ['baz'] } -> exclude the column baz.
+  async listCars(res: Response) {
+    try {
+      const carList = await CarModel.findAll({
+        /**
+         * Attributes are the columns that you want to retrieve from the table.
+         * Attributes can be renamed using a nested array: eg -> colors can be
+         * renamed to availableColors using ['colors', 'availableColors'].
+         *
+         * attributes: { exclude: ['baz'] } -> exclude the column baz.
+         */
+        attributes: [
+          'name',
+          ['colors', 'availableColors'],
+          /* second parameter is the dimension (1 for a 1D array). */
+          [
+            sequelize.literal('array_length("colors", 1)'),
+            'num_available_colors'
+          ]
+        ],
+        /**
+				 * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#ordering
 				 */
+        order: [['created_at', 'DESC']],
+      });
+
+      /**
+			 * If not using grouping,
+			 * https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findandcountall
+			 */
+      const totalCount = await CarModel.count();
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'List of cars.',
+        data: {
+          nbRecords: totalCount,
+          records: carList
+        }
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to list cars');
+    }
+  }
+
+	async listCarsByBrand(res: Response) {
+	  try {
+	    /**
+			 * In this case, when using group in findAndCountAll, the count will
+			 * be an array like,
+			 * [
+       *   {
+       *     "brand_id": 1,
+       *     "count": 2
+       *   },
+		   * ]
+			 */
+	    const { count, rows } = await CarModel.findAndCountAll({
 	      attributes: [
-	        'name',
-	        ['colors', 'availableColors'],
-	        /* second parameter is the dimension (1 for a 1D array). */
-	        [sequelize.literal('array_length("colors", 1)'), 'num_available_colors']
+	        'brand_id',
+	        [sequelize.fn('COUNT', sequelize.col('id')), 'carCount'],
+	        /**
+           * This will put all the rows into cars array, with the name and colors.
+           * The field name in quotes is the key for the JSON object.
+           */
+	        [
+	          sequelize.fn(
+	            'JSON_AGG',
+	            sequelize.literal('json_build_object(\'name\', name, \'colors\', colors)')
+	          ),
+	          'cars'
+	        ],
 	      ],
+	      group: ['brand_id'],
 	    });
 	    return res.json({
 	      success: true,
 	      status: 200,
 	      message: 'List of cars.',
-	      data: carList
+	      data: {
+	        nbRecords: count,
+	        records: rows
+	      }
 	    });
 	  } catch (error) {
-	    return sendErrorResponse(res, error, 'Unable to list cars');
+	    return sendErrorResponse(res, error, 'Unable to list cars by brand');
 	  }
 	}
 
-	async getCarDetails(res: Response, carId: string) {
-	  try {
-	    const cars = await CarModel.findAll({
-	      where: {
-	        id: carId
-	      }
-	    });
-	    return res.json({
-	      success: true,
-	      status: 200,
-	      message: 'Car details fetched.',
-	      data: cars[0]
-	    });
-	  } catch (error) {
-	    return sendErrorResponse(res, error, 'Unable to fetch car details');
-	  }
-	}
+  async getCarDetails(res: Response, carId: string) {
+    try {
+      const cars = await CarModel.findOne({
+        where: {
+          id: carId
+        }
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Car details fetched.',
+        data: cars
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to fetch car details');
+    }
+  }
 
-	async updateCarDetails(res: Response, carId: string, carData: CarTypeDefs.AddCar) {
-	  try {
-	    await CarModel.update(carData, {
-	      where: {
-	        id: carId
-	      }
-	    });
-	    return res.json({
-	      success: true,
-	      status: 200,
-	      message: 'Car details updated.',
-	      data: null
-	    });
-	  } catch (error) {
-	    return sendErrorResponse(res, error, 'Unable to update car details');
-	  }
-	}
+  async updateCarDetails(
+    res: Response,
+    carId: string,
+    carData: CarTypeDefs.AddCar
+  ) {
+    try {
+      await CarModel.update(carData, {
+        where: {
+          id: carId
+        }
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Car details updated.',
+        data: null
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to update car details');
+    }
+  }
 
-	async deleteCarDetails(res: Response, carId: string) {
-	  try {
-	    await CarModel.destroy({
-	      where: {
-	        id: carId
-	      }
-	    });
-	    return res.json({
-	      success: true,
-	      status: 200,
-	      message: 'Car details deleted.',
-	      data: null
-	    });
-	  } catch (error) {
-	    return sendErrorResponse(res, error, 'Unable to delete car details');
-	  }
-	}
+  async deleteCarDetails(res: Response, carId: string) {
+    try {
+      await CarModel.destroy({
+        where: {
+          id: carId
+        }
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Car details deleted.',
+        data: null
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to delete car details');
+    }
+  }
 }
 
 export default new CarService();
