@@ -20,9 +20,9 @@ class CarService {
        *
        * Model.bulkCreate(records) method inserts multiple records at once,
        * with only one query.
-			 * Pass { validate: true } as 2nd arg in the above method to validate
-			 * each record, which the method doesnt do by default. However, passing
-			 * this arg will slow down the bulk insert operation.
+       * Pass { validate: true } as 2nd arg in the above method to validate
+       * each record, which the method doesnt do by default. However, passing
+       * this arg will slow down the bulk insert operation.
        */
       const carModel = await CarModel.create(carData);
       return res.json({
@@ -56,15 +56,15 @@ class CarService {
           ]
         ],
         /**
-				 * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#ordering
-				 */
-        order: [['created_at', 'DESC']],
+         * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#ordering
+         */
+        order: [['created_at', 'DESC']]
       });
 
       /**
-			 * If not using grouping,
-			 * https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findandcountall
-			 */
+       * If not using grouping,
+       * https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findandcountall
+       */
       const totalCount = await CarModel.count();
       return res.json({
         success: true,
@@ -80,62 +80,81 @@ class CarService {
     }
   }
 
-	async listCarsByBrand(res: Response) {
-	  try {
-	    /**
-			 * In this case, when using group in findAndCountAll, the count will
-			 * be an array like,
-			 * [
+  async listCarsByBrand(res: Response) {
+    try {
+      /**
+       * In this case, when using group in findAndCountAll, the count will
+       * be an array like,
+       * [
        *   {
        *     "brand_id": 1,
        *     "count": 2
        *   },
-		   * ]
-			 */
-	    const { count, rows } = await CarModel.findAndCountAll({
-	      attributes: [
-	        'brand_id',
-	        [sequelize.fn('COUNT', sequelize.col('id')), 'carCount'],
-	        /**
+       * ]
+       */
+      const { count, rows } = await CarModel.findAndCountAll({
+        attributes: [
+          'brand_id',
+          [sequelize.fn('COUNT', sequelize.col('id')), 'carCount'],
+          /**
            * This will put all the rows into cars array, with the name and colors.
            * The field name in quotes is the key for the JSON object.
            */
-	        [
-	          sequelize.fn(
-	            'JSON_AGG',
-	            sequelize.literal('json_build_object(\'name\', name, \'colors\', colors)')
-	          ),
-	          'cars'
-	        ],
-	      ],
-	      group: ['brand_id'],
-	    });
-	    return res.json({
-	      success: true,
-	      status: 200,
-	      message: 'List of cars.',
-	      data: {
-	        nbRecords: count,
-	        records: rows
-	      }
-	    });
-	  } catch (error) {
-	    return sendErrorResponse(res, error, 'Unable to list cars by brand');
-	  }
-	}
-
-  async getCarDetails(res: Response, carId: string) {
-    try {
-      const cars = await CarModel.findOne({
-        where: {
-          id: carId
-        }
+          [
+            sequelize.fn(
+              'JSON_AGG',
+              sequelize.literal(
+                'json_build_object(\'name\', name, \'colors\', colors)'
+              )
+            ),
+            'cars'
+          ]
+        ],
+        group: ['brand_id'],
       });
       return res.json({
         success: true,
         status: 200,
+        message: 'List of cars.',
+        data: {
+          nbRecords: count,
+          records: rows
+        }
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to list cars by brand');
+    }
+  }
+
+  async getCarDetails(res: Response, carId: string) {
+    /**
+     * const [results, metadata] = await postgreSequelize.query(
+     *   'UPDATE users SET y = 42 WHERE x = 12'
+     * );
+     * where postgreSequelize is the new Sequelize instance.
+     *
+     * Read more -
+     * https://sequelize.org/docs/v6/core-concepts/raw-queries/
+     */
+    try {
+      const car = await CarModel.findOne({
+        where: {
+          id: carId
+        }
+      });
+      if(!car) {
+        return res.status(404).json({
+          success: false,
+          status: 404,
+          message: 'Car not found.',
+          data: null
+        });
+      }
+      return res.json({
+        success: true,
+        status: 200,
         message: 'Car details fetched.',
-        data: cars
+        data: car
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Unable to fetch car details');

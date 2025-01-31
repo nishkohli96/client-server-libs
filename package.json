@@ -26,11 +26,11 @@
     "turbo": "^2.3.3"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --ignore-pattern mongo-seeders"
-    ],
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --ignore-pattern mongo-seeders"
     ]
   },
   "packageManager": "yarn@1.22.22"

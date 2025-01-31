@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { postgreSequelize, shouldAlterTable } from '@/db/config';
 import { CarBrandModel } from './car-brand';
 
@@ -23,13 +23,14 @@ export enum CarColors {
 class CarModel extends Model {
   declare id: string;
   name!: string;
-  brand!: number;
+  brand_id!: number;
   colors!: CarColors[];
-  /** This is a class-level method */
-  getFullname() {
-    return [this.brand, this.name].join(' ');
-  }
 }
+
+/**
+ * Refer complete list of validations here
+ * https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/#per-attribute-validations
+ */
 
 CarModel.init(
   {
@@ -45,6 +46,9 @@ CarModel.init(
     },
     brand_id: {
       type: DataTypes.INTEGER,
+      validate: {
+        isInt: true,
+      },
       allowNull: false,
       /* This is a reference to another model */
       references: {
@@ -56,7 +60,45 @@ CarModel.init(
     colors: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
-    }
+      validate: {
+        /**
+         * Can also be written as
+         * isIn: [Object.values(CarColors)]
+         */
+        isIn: {
+          msg: 'Each color must be a valid enum',
+          args: [Object.values(CarColors)]
+        }
+        /**
+         * Custom Validation function
+         * isEven(value) {
+         *   if (parseInt(value) % 2 !== 0) {
+         *     throw new Error('Only even values are allowed!');
+         *   }
+         * }
+         */
+      },
+      /**
+       * Getter function. All car colors are stored in uppercase in the DB, but
+       * when querying from DB, they are returned in title case. However this won't
+       * work in aggregate functions like "listCarsByBrand" function in car.service.ts.
+       *
+       * This field doesn't allow null values, but for other columns that may allow null
+       * values, do consider null handling in the getter function.
+       *
+       * Similarly, a setter function can be defined to hash the password before storing
+       * Sequelize calls the setter automatically, before even sending data to the database
+       * set(value) {
+       *   this.setDataValue('password', hash(value));
+       * },
+       */
+      get() {
+        const rawValue: string[] = this.getDataValue('colors');
+        return rawValue.map(
+          c => c.charAt(0).toUpperCase() + c.slice(1).toLowerCase()
+        );
+      },
+    },
   },
   {
     sequelize: postgreSequelize,
@@ -70,6 +112,18 @@ CarModel.init(
     updatedAt: 'updated_at',
     modelName: 'car',
     timestamps: true
+    /**
+     * Validations can also be defined to check the model after the
+     * field-specific validators. Eg -
+     *
+     * validate: {
+     *   bothCoordsOrNone() {
+     *     if ((this.latitude === null) !== (this.longitude === null)) {
+     *       throw new Error('Either both latitude and longitude, or neither!');
+     *     }
+     *   }
+     * }
+     */
   }
 );
 
