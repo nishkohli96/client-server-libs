@@ -33,7 +33,7 @@ jobs:
               ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --non-interactive
 
       - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
         run: yarn lib

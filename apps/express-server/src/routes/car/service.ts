@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { CarModel } from '@/db/models';
+import { CarBrandModel, CarModel } from '@/db/models';
 import { sendErrorResponse } from '@/utils';
 import * as CarTypeDefs from './types';
 
@@ -38,13 +38,23 @@ class CarService {
 
   async listCars(res: Response) {
     try {
+      /**
+       * CarBrandModel should have many cars and CarModel should belong to a CarBrand.
+       *
+       * If an association is aliased (using the as option), you must specify
+       * this alias when including the model.
+       */
+      CarBrandModel.hasMany(CarModel, { foreignKey: 'brand_id', as: 'cars' });
+      CarModel.belongsTo(CarBrandModel, { foreignKey: 'brand_id', as: 'brand' });
+
       const carList = await CarModel.findAll({
-        /**
-         * Somehow its not returning soft-deleted records when I pass,
-         * [Op.ne]: { deleted_at: null }
-         */
         where: {
           deleted_at: null
+        },
+        include: {
+          model: CarBrandModel,
+          as: 'brand',
+          attributes: ['name'],
         },
         /**
          * Attributes are the columns that you want to retrieve from the table.
