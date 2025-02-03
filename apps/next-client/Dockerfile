@@ -17,7 +17,7 @@ COPY --chown=node:node ./packages/shared-fe packages/shared-fe
 COPY ./apps/next-client ./apps/next-client
 
 # Install node_modules
-RUN yarn --frozen-lockfile
+RUN yarn --frozen-lockfile --non-interactive
 
 # Using Turbo pipeline build -
 # @csl/shared-fe & next-client
