@@ -28,8 +28,8 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y_%m_%d_%H_%m')"
 
-      - name: Build Express Server Image
-        run: docker build -f ./apps/express-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-express-server:${{ steps.date.outputs.date }} .
+      # - name: Build Express Server Image
+      #   run: docker build -f ./apps/express-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-express-server:${{ steps.date.outputs.date }} .
 
       - name: Build NestJS Server Image
         run: docker build -f ./apps/nestjs-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-nestjs-server:${{ steps.date.outputs.date }} .

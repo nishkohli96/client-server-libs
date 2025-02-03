@@ -23,7 +23,6 @@ RUN yarn install --frozen-lockfile --non-interactive
 # @csl/react-express & express-server
 RUN yarn build
 
-
 # ----- Prepare production image -----
 FROM node:20-alpine3.18 AS production
 
