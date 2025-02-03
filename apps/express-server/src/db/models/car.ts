@@ -139,6 +139,20 @@ CarModel.init(
   }
 );
 
+/* Define the relationship between CarModel and CarBrandModel using optional aliases */
+CarModel.belongsTo(CarBrandModel, {
+  foreignKey: 'brand_id',
+  as: 'brand',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+});
+
+CarBrandModel.hasMany(CarModel, {
+  foreignKey: 'brand_id',
+  as: 'cars',
+});
+
+
 /**
  * Sync accepts "force" or "alter" option to create or modify table
  * if it exists. The former option will drop the table while the

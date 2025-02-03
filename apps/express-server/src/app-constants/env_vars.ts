@@ -13,7 +13,7 @@ export const ENV_VARS = Object.freeze({
     url: process.env.DB_URL ?? 'mongodb://localhost:27017',
     dbName: process.env.DB_NAME ?? 'SeederDB'
   },
-  postgresUrl: env.POSTGRES_URL ?? '',
+  postgresUrl: env.POSTGRES_URL ?? 'postgres://root:password@localhost:5432/test',
   stytch: {
     projectId: env.STYTCH_PROJECT_ID ?? '',
     orgId: env.STYTCH_ORG_ID ?? '',

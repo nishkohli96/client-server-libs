@@ -18,6 +18,7 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       add: 'add',
       list: 'list',
+      delete: 'delete'
     }
   },
   files: {

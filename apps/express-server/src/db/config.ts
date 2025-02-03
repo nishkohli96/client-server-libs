@@ -9,7 +9,17 @@ import { winstonLogger } from '@/middleware';
  * provide a custom logger like winston.
  */
 export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
-  logging: msg => winstonLogger.info(msg)
+  logging: msg => winstonLogger.info(msg),
+  pool: {
+    /* Maximum number of connections in the pool */
+    max: 10,
+    /* Minimum number of connections in the pool */
+    min: 2,
+    /* Max time (in ms) to wait for a connection before throwing an error */
+    acquire: 30000,
+    /* Max time (in ms) a connection can be idle before being released */
+    idle: 10000
+  }
 });
 
 export async function connectToDB() {

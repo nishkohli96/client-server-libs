@@ -6,3 +6,9 @@ export type AddCarBrand = {
 }
 
 export type AddCarModelRequest = Request<object, object, AddCarBrand>;
+
+export type CarBrandById = {
+  brandId: string;
+}
+
+export type RequestCarBrandById = Request<CarBrandById>
