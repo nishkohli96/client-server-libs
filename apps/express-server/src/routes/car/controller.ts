@@ -54,4 +54,20 @@ carRouter.delete(
   }
 );
 
+/* GET /car/deleted-list */
+carRouter.get(
+  `/${subRoutes.deletedList}`,
+  async (req: CarTypeDefs.GetCarDetailsRequest, res: Response) => {
+    return await carService.deleteCarsList(res);
+  }
+);
+
+/* PATCH /car/restore */
+carRouter.patch(
+  `/${subRoutes.restore}/:carId`,
+  async (req: CarTypeDefs.GetCarDetailsRequest, res: Response) => {
+    return await carService.restoreCarRecord(res, req.params.carId);
+  }
+);
+
 export { carRouter };

@@ -42,7 +42,7 @@ CarModel.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     brand_id: {
       type: DataTypes.INTEGER,
@@ -53,7 +53,7 @@ CarModel.init(
       /* This is a reference to another model */
       references: {
         model: CarBrandModel,
-        key: 'id'
+        key: 'id',
       },
       comment: 'This column refers to the id of brand in the car_brand table'
     },
@@ -111,7 +111,19 @@ CarModel.init(
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     modelName: 'car',
-    timestamps: true
+    timestamps: true,
+    /**
+     * Sequelize provides paranoid tables which soft deletes a record
+     * by inserting deletedAt timestamp. Timestamps must be enabled to
+     * use this feature.
+     *
+     * await Post.destroy({
+     *   where: { id: 1 },
+     * });
+     *
+     */
+    paranoid: true,
+    deletedAt: 'deleted_at',
     /**
      * Validations can also be defined to check the model after the
      * field-specific validators. Eg -

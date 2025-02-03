@@ -27,8 +27,8 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y_%m_%d_%H_%m')"
 
-      # - name: Build Express Server Image
-      #   run: docker build -f ./apps/express-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-express-server:${{ steps.date.outputs.date }} .
+      - name: Build Express Server Image
+        run: docker build -f ./apps/express-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-express-server:${{ steps.date.outputs.date }} .
 
       - name: Build NestJS Server Image
         run: docker build -f ./apps/nestjs-server/Dockerfile -t ${{secrets.DOCKER_HUB_USERNAME}}/csl-nestjs-server:${{ steps.date.outputs.date }} .
@@ -45,8 +45,8 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      # - name: Push Express Server Image to Docker Hub
-      #   run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/csl-express-server:${{ steps.date.outputs.date }}
+      - name: Push Express Server Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/csl-express-server:${{ steps.date.outputs.date }}
 
       - name: Push NestJS Server Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/csl-nestjs-server:${{ steps.date.outputs.date }}

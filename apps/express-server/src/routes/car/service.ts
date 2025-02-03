@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import sequelize from 'sequelize';
+import sequelize, { Op } from 'sequelize';
 import { CarModel } from '@/db/models';
 import { sendErrorResponse } from '@/utils';
 import * as CarTypeDefs from './types';
@@ -40,6 +40,13 @@ class CarService {
     try {
       const carList = await CarModel.findAll({
         /**
+         * Somehow its not returning soft-deleted records when I pass,
+         * [Op.ne]: { deleted_at: null }
+         */
+        where: {
+          deleted_at: null
+        },
+        /**
          * Attributes are the columns that you want to retrieve from the table.
          * Attributes can be renamed using a nested array: eg -> colors can be
          * renamed to availableColors using ['colors', 'availableColors'].
@@ -47,13 +54,14 @@ class CarService {
          * attributes: { exclude: ['baz'] } -> exclude the column baz.
          */
         attributes: [
+          'id',
           'name',
           ['colors', 'availableColors'],
           /* second parameter is the dimension (1 for a 1D array). */
           [
             sequelize.literal('array_length("colors", 1)'),
             'num_available_colors'
-          ]
+          ],
         ],
         /**
          * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#ordering
@@ -183,8 +191,31 @@ class CarService {
     }
   }
 
+  /**
+   * Soft deletion happens here. To hard-delete record where your model
+   * is paranoid, you can force it using the force: true option.
+   *
+   * await CarModel.destroy({
+   *   where: { id: 1 },
+   *   force: true,
+   * });
+   */
+
   async deleteCarDetails(res: Response, carId: string) {
     try {
+      const car = await CarModel.findOne({
+        where: {
+          id: carId
+        }
+      });
+      if(!car) {
+        return res.status(404).json({
+          success: false,
+          status: 404,
+          message: 'Car not found.',
+          data: null
+        });
+      }
       await CarModel.destroy({
         where: {
           id: carId
@@ -198,6 +229,62 @@ class CarService {
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Unable to delete car details');
+    }
+  }
+
+  async deleteCarsList(res: Response) {
+    try {
+      const { count, rows } = await CarModel.findAndCountAll({
+        where: { deleted_at: { [Op.ne]: null } },
+        /**
+         * By Passing paranoid: false, we are including deleted
+         * records in our query
+         */
+        paranoid: false,
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'List of deleted cars.',
+        data: {
+          nbRecords: count,
+          records: rows
+        }
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to get list of deleted cars');
+    }
+  }
+
+  async restoreCarRecord(res: Response, carId: string) {
+    try {
+      const car = await CarModel.findOne({
+        where: {
+          id: carId,
+        },
+        paranoid: false,
+      });
+      if(!car) {
+        return res.status(404).json({
+          success: false,
+          status: 404,
+          message: 'Car not found.',
+          data: null
+        });
+      }
+      const result = await CarModel.restore({
+        where: {
+          id: carId
+        }
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Car row restored.',
+        data: result
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to restore car details');
     }
   }
 }

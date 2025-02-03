@@ -9,6 +9,8 @@ export const ExpressServerEndpoints = Object.freeze({
       details: 'details',
       update: 'update',
       delete: 'delete',
+      deletedList: 'deleted-list',
+      restore: 'restore',
     }
   },
   carBrand: {
