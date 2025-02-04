@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { postgreSequelize } from '@/db/config';
+import { postgreSequelize } from '@/db/postgres/config';
 
 export const CarBrandModel = postgreSequelize.define(
   /* Here, 'CarBrand' is the model name */

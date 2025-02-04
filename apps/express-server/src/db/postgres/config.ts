@@ -47,5 +47,16 @@ export async function connectToDB() {
   }
 }
 
+export async function disconnectDB() {
+  try {
+    await postgreSequelize.close();
+    console.log(chalk.green('Database connection closed successfully.'));
+  } catch (error) {
+    console.log(chalk.red('⚠ Error disconnecting from Database ⚠'));
+    console.log(error);
+    process.exit(1);
+  }
+}
+
 /* Alter tables should not be allowed in "production" env. */
 export const shouldAlterTable = !isProductionEnv;

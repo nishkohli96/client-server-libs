@@ -3,7 +3,7 @@ import os from 'os';
 import { createServer } from 'node:http';
 import { connect } from 'mongoose';
 import { ENV_VARS } from '@/app-constants';
-import { connectToDB } from '@/db/config';
+import { connectToDB } from '@/db/postgres/config';
 import { winstonLogger } from '@/middleware';
 import app from './app';
 

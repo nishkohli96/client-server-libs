@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { postgreSequelize, shouldAlterTable } from '@/db/config';
+import { postgreSequelize, shouldAlterTable } from '@/db/postgres/config';
 import { CarBrandModel } from './car-brand';
 
 export enum CarColors {

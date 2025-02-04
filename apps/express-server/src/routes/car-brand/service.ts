@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { CarBrandModel } from '@/db/models';
+import { CarBrandModel } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 import * as CarBrandTypeDefs from './types';
 

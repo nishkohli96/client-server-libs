@@ -9,7 +9,8 @@
     "start": "node dist/index.js",
     "start:local": "env-cmd -f .env.prod node dist/index.js",
     "prod": "yarn build && yarn start",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "seed:postgres": "env-cmd -f .env ts-node src/db/postgres/seeders/index.ts"
   },
   "dependencies": {
     "@csl/mongo-models": "*",

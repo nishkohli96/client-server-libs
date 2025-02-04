@@ -7,12 +7,14 @@ FROM node:20-alpine3.18 AS base
 WORKDIR /app
 
 # Create directories to copy application code
+RUN mkdir -p packages/mongo-models
 RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/next-client
 
 COPY --chown=node:node package.json turbo.json yarn.lock ./
 
 # Copy required app and packages
+COPY --chown=node:node ./packages/mongo-models packages/mongo-models
 COPY --chown=node:node ./packages/shared-fe packages/shared-fe
 COPY ./apps/next-client ./apps/next-client
 

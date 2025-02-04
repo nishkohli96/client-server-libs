@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { CarBrandModel, CarModel } from '@/db/models';
+import { CarBrandModel, CarModel } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 import * as CarTypeDefs from './types';
 
