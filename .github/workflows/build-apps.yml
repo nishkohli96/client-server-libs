@@ -18,15 +18,28 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+          
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      # Reference https://github.com/actions/cache/blob/main/examples.md#node---yarn-2
+      - uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+            path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --frozen-lockfile --non-interactive
 
       - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
         run: yarn lib
 
-      # - name: Build express-server
-      #   run: yarn workspace express-server build
+      - name: Build express-server
+        run: yarn workspace express-server build
 
       - name: Build nestjs-server
         run: yarn workspace nestjs-server build

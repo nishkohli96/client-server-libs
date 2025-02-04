@@ -13,7 +13,7 @@ COPY --chown=node:node package.json turbo.json yarn.lock ./
 COPY --chown=node:node ./apps/nestjs-server apps/nestjs-server
 
 # install node_modules
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --non-interactive
 
 # run server in prod env
 CMD ["yarn", "workspace", "nestjs-server", "start"]

@@ -23,14 +23,14 @@
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "turbo": "^2.3.3"
+    "turbo": "^2.4.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --ignore-pattern mongo-seeders"
-    ],
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --ignore-pattern mongo-seeders"
     ]
   },
   "packageManager": "yarn@1.22.22"
