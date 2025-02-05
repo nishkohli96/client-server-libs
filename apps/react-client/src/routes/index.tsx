@@ -1,13 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppBar } from 'components';
 import RouteNames from './route-names';
 import { RouteList } from './route-list';
 
 import HomePage from 'pages/Home';
 import Page404 from 'pages/Page404';
 
-export default function Routing() {
+const Routing = () => {
   return (
     <BrowserRouter>
+      <AppBar />
       <Routes>
         <Route path={RouteNames.home} element={<HomePage />} />
         {RouteList.map(route => (
@@ -21,4 +23,7 @@ export default function Routing() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
+
+export default Routing;
+
