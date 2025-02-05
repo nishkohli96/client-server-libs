@@ -31,3 +31,4 @@ $ yarn run start:prod
   - CRUD operations
   - Advanced filtering using operators from [Mui Datagrid](https://mui.com/x/react-data-grid/)
 - [Stytch](https://stytch.com/) authentication methods
+- Connect to **Postgres** and **MySQL** DBs deployed on [railway](https://docs.railway.com/) using [Sequelize](https://sequelize.org/).

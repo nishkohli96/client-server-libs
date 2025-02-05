@@ -8,7 +8,7 @@
  * truncate code, due to foreign key constraint
  */
 
-import { connectToDB, disconnectDB } from '../config';
+import { connectPostgresDB, disconnectPostgresDB } from '../config';
 import { CarBrandModel, CarModel } from '../models';
 import carBrands from './data/car-brands.json';
 import cars from './data/car-models.json';
@@ -16,7 +16,7 @@ import cars from './data/car-models.json';
 async function seedData() {
   try {
     /* Connect to the database */
-    await connectToDB();
+    await connectPostgresDB();
 
     /* Truncate existing data from tables */
     // await CarModel.truncate();
@@ -31,7 +31,7 @@ async function seedData() {
     console.log('Inserted data in cars table');
 
     /* Disconnect from the database */
-    await disconnectDB();
+    await disconnectPostgresDB();
     process.exit(0);
   } catch(error) {
     console.error(error);

@@ -22,7 +22,7 @@ export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
   }
 });
 
-export async function connectToDB() {
+export async function connectPostgresDB() {
   try {
     await postgreSequelize.authenticate();
     console.log(chalk.green('Connection has been established successfully.'));
@@ -47,7 +47,7 @@ export async function connectToDB() {
   }
 }
 
-export async function disconnectDB() {
+export async function disconnectPostgresDB() {
   try {
     await postgreSequelize.close();
     console.log(chalk.green('Database connection closed successfully.'));
