@@ -2,6 +2,7 @@ import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
 import { CarBrandModel, CarModel } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
+import { CarModelCreationAttributes } from '@/db/postgres/models';
 import * as CarTypeDefs from './types';
 
 /**
@@ -9,7 +10,7 @@ import * as CarTypeDefs from './types';
  * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators
  */
 class CarService {
-  async addCar(res: Response, carData: CarTypeDefs.AddCar) {
+  async addCar(res: Response, carData: CarModelCreationAttributes) {
     try {
       /**
        * Sequelize provides the create method, which combines the
@@ -182,7 +183,7 @@ class CarService {
   async updateCarDetails(
     res: Response,
     carId: string,
-    carData: CarTypeDefs.AddCar
+    carData: CarModelCreationAttributes
   ) {
     try {
       await CarModel.update(carData, {

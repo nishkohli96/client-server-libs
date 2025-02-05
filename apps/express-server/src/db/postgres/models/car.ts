@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
+
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { postgreSequelize, shouldAlterTable } from '@/db/postgres/config';
+import { postgreSequelize, shouldAlterTable } from '@/db/postgres';
 import { CarBrandModel } from './car-brand';
 
 export enum CarColors {
@@ -22,8 +23,8 @@ export enum CarColors {
  * sequelize.define('User', { name: DataTypes.STRING });
  */
 
-type CarModelAttributes = InferAttributes<CarModel>;
-type CarModelCreationAttributes = InferCreationAttributes<CarModel>;
+export type CarModelAttributes = InferAttributes<CarModel>;
+export type CarModelCreationAttributes = InferCreationAttributes<CarModel>;
 
 class CarModel extends Model<CarModelAttributes, CarModelCreationAttributes> {
   declare id: CreationOptional<string>;

@@ -8,7 +8,7 @@
  * truncate code, due to foreign key constraint
  */
 
-import { connectPostgresDB, disconnectPostgresDB } from '../config';
+import { connectPostgresDB, disconnectPostgresDB } from '..';
 import { CarBrandModel, CarModel } from '../models';
 import carBrands from './data/car-brands.json';
 import cars from './data/car-models.json';
