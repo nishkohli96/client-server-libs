@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Mahindra",
+    "country": "India"
+  },
+  {
+    "id": 2,
+    "name": "Hyundai",
+    "country": "South Korea"
+  },
+  {
+    "id": 3,
+    "name": "Tata Motors",
+    "country": "India"
+  },
+  {
+    "id": 4,
+    "name": "Honda",
+    "country": "Japan"
+  },
+  {
+    "id": 5,
+    "name": "Morris Garages",
+    "country": "United Kingdom"
+  }
+]

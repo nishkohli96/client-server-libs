@@ -1,0 +1,44 @@
+[
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6681",
+    "name": "Thar Roxx",
+    "brand_id": 1,
+    "colors": ["BLACK", "GREY"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6682",
+    "name": "XUV 700",
+    "brand_id": 1,
+    "colors": ["BLUE", "BLACK", "GREY", "WHITE"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6683",
+    "name": "Creta",
+    "brand_id": 2,
+    "colors": ["WHITE", "BLUE", "BLACK"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6684",
+    "name": "i20",
+    "brand_id": 2,
+    "colors": ["BLACK", "GREY", "RED", "BLUE", "WHITE"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6685",
+    "name": "Nexon",
+    "brand_id": 3,
+    "colors": ["BLACK", "WHITE"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6686",
+    "name": "City",
+    "brand_id": 4,
+    "colors": ["WHITE"]
+  },
+  {
+    "id": "45d70566-b59b-4f12-9ad1-f84601ae6687",
+    "name": "Astor",
+    "brand_id": 5,
+    "colors": ["BLACK", "WHITE", "GREY", "RED"]
+  }
+]

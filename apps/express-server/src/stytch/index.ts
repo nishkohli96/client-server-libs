@@ -1,4 +1,4 @@
-import stytch from 'stytch';
+import * as stytch from 'stytch';
 import { ENV_VARS } from '@/app-constants';
 
 export const stytchClient = new stytch.B2BClient({

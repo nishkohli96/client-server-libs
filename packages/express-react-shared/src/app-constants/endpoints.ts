@@ -1,5 +1,26 @@
 export const ExpressServerEndpoints = Object.freeze({
   apiPrefix: '/api',
+  car: {
+    rootPath: '/car',
+    subRoutes: {
+      list: 'list',
+      groupByBrand: 'group-by-brand',
+      add: 'add',
+      details: 'details',
+      update: 'update',
+      delete: 'delete',
+      deletedList: 'deleted-list',
+      restore: 'restore',
+    }
+  },
+  carBrand: {
+    rootPath: '/car-brand',
+    subRoutes: {
+      add: 'add',
+      list: 'list',
+      delete: 'delete'
+    }
+  },
   files: {
     rootPath: '/file',
     subRoutes: {
@@ -18,9 +39,17 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       add: 'add',
-      edit: 'edit',
+      update: 'update',
       delete: 'delete',
       downloadList: 'download-list'
+    }
+  },
+  user: {
+    rootPath: '/user',
+    subRoutes: {
+      list: 'list',
+      listInactive: 'list-inactive',
+      add: 'add',
     }
   },
   stytch: {

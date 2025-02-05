@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Create directories to copy application code
 RUN mkdir -p packages/express-react-shared
+RUN mkdir -p packages/mongo-models
 RUN mkdir -p packages/shared-fe
 RUN mkdir -p apps/react-client
 
@@ -14,10 +15,11 @@ COPY --chown=node:node package.json tsconfig.json turbo.json yarn.lock ./
 # Copy required app and packages
 COPY --chown=node:node ./packages/express-react-shared packages/express-react-shared
 COPY --chown=node:node ./packages/shared-fe packages/shared-fe
+COPY --chown=node:node ./packages/mongo-models packages/mongo-models
 COPY --chown=node:node ./apps/react-client apps/react-client
 
 # install node_modules
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --non-interactive
 
 # Using Turbo pipeline build -
 # @csl/react-express, @csl/shared-fe & react-client

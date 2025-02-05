@@ -18,5 +18,9 @@ export const ENV_VARS = Object.freeze({
     orgId: env.STYTCH_ORG_ID ?? '',
     secret: env.STYTCH_SECRET ?? '',
     testEmail: env.STYTCH_TEST_EMAIL ?? 'hello@abc.com'
-  }
+  },
+  postgresUrl: env.POSTGRES_URL ?? 'postgres://root:password@localhost:5432/test',
+  mySQLUrl: env.MYSQL_URL ?? 'mysql://root:password@localhost:3306/mydatabase'
 });
+
+export const isProductionEnv = ENV_VARS.env === 'production';
