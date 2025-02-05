@@ -1,6 +1,9 @@
+import os from 'os';
 import { Sequelize } from 'sequelize';
 import { ENV_VARS, isProductionEnv } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
+
+const hostName = os.hostname();
 
 /**
  * default logging mechanism is console.log. It can be
@@ -24,7 +27,9 @@ export const mySQLSequelize = new Sequelize(ENV_VARS.mySQLUrl, {
 export async function connectMySQLDB() {
   try {
     await mySQLSequelize.authenticate();
-    console.log('Connected to MySQL DB.');
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`
+    );
 
     if (ENV_VARS.env === 'production') {
       await mySQLSequelize.sync();
@@ -40,8 +45,7 @@ export async function connectMySQLDB() {
 	 * access your database again.
      */
   } catch (error) {
-    console.log('⚠ Error connecting to MySQL Database ⚠');
-    console.log(error);
+    winstonLogger.error('⚠ Error connecting to MySQL Database ⚠', error);
     process.exit(1);
   }
 }
@@ -49,10 +53,11 @@ export async function connectMySQLDB() {
 export async function disconnectMySQLDB() {
   try {
     await mySQLSequelize.close();
-    console.log('MySQL Database connection closed successfully.');
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - MySQL Database connection closed successfully`
+    );
   } catch (error) {
-    console.log('⚠ Error disconnecting from MySQL Database ⚠');
-    console.log(error);
+    winstonLogger.error('⚠ Error disconnecting from MySQL Database ⚠', error);
     process.exit(1);
   }
 }

@@ -1,6 +1,9 @@
+import os from 'os';
 import { Sequelize } from 'sequelize';
 import { ENV_VARS, isProductionEnv } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
+
+const hostName = os.hostname();
 
 /**
  * default logging mechanism is console.log. It can be
@@ -24,7 +27,9 @@ export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
 export async function connectPostgresDB() {
   try {
     await postgreSequelize.authenticate();
-    console.log('Connected to Postgres DB.');
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - Connected to Postgres`
+    );
 
     if (ENV_VARS.env === 'production') {
       await postgreSequelize.sync();
@@ -40,7 +45,7 @@ export async function connectPostgresDB() {
 	 * access your database again.
      */
   } catch (error) {
-    console.log('⚠ Error connecting to Postgres Database ⚠');
+    winstonLogger.error('⚠ Error connecting to Postgres Database ⚠');
     console.log(error);
     process.exit(1);
   }
@@ -49,10 +54,11 @@ export async function connectPostgresDB() {
 export async function disconnectPostgresDB() {
   try {
     await postgreSequelize.close();
-    console.log('Postgres Database connection closed successfully.');
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - Postgres Database connection closed successfully`
+    );
   } catch (error) {
-    console.log('⚠ Error disconnecting from Postgres Database ⚠');
-    console.log(error);
+    winstonLogger.error('⚠ Error disconnecting from Postgres Database ⚠', error);
     process.exit(1);
   }
 }

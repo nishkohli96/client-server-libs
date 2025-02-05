@@ -15,13 +15,7 @@ const dbConnectionString = `${ENV_VARS.mongoDB.url}/${ENV_VARS.mongoDB.dbName}`;
 async function bootstrap() {
   try {
     await connectPostgresDB();
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to Postgres`
-    );
     await connectMySQLDB();
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL`
-    );
     await connect(dbConnectionString);
     winstonLogger.info(
       `[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`
