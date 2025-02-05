@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
     "build": "tsc && tsc-alias",
-    "start": "node dist/index.js",
-    "start:local": "env-cmd -f .env.prod node dist/index.js",
+    "start": "env-cmd -f .env.prod node dist/index.js",
     "prod": "yarn build && yarn start",
     "lint": "eslint --fix .",
     "seed:postgres": "env-cmd -f .env ts-node src/db/postgres/seeders/index.ts"
@@ -25,7 +24,7 @@
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.5",
-    "stytch": "^11.11.0",
+    "stytch": "^12.4.0",
     "winston": "3.11.0"
   },
   "devDependencies": {

@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize';
-import chalk from 'chalk';
 import { ENV_VARS, isProductionEnv } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 
@@ -25,7 +24,7 @@ export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
 export async function connectPostgresDB() {
   try {
     await postgreSequelize.authenticate();
-    console.log(chalk.green('Connected to Postgres DB.'));
+    console.log('Connected to Postgres DB.');
 
     if (ENV_VARS.env === 'production') {
       await postgreSequelize.sync();
@@ -41,7 +40,7 @@ export async function connectPostgresDB() {
 	 * access your database again.
      */
   } catch (error) {
-    console.log(chalk.red('⚠ Error connecting to Postgres Database ⚠'));
+    console.log('⚠ Error connecting to Postgres Database ⚠');
     console.log(error);
     process.exit(1);
   }
@@ -50,9 +49,9 @@ export async function connectPostgresDB() {
 export async function disconnectPostgresDB() {
   try {
     await postgreSequelize.close();
-    console.log(chalk.green('Postgres Database connection closed successfully.'));
+    console.log('Postgres Database connection closed successfully.');
   } catch (error) {
-    console.log(chalk.red('⚠ Error disconnecting from Postgres Database ⚠'));
+    console.log('⚠ Error disconnecting from Postgres Database ⚠');
     console.log(error);
     process.exit(1);
   }

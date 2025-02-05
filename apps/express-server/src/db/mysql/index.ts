@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize';
-import chalk from 'chalk';
 import { ENV_VARS, isProductionEnv } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 
@@ -25,7 +24,7 @@ export const mySQLSequelize = new Sequelize(ENV_VARS.mySQLUrl, {
 export async function connectMySQLDB() {
   try {
     await mySQLSequelize.authenticate();
-    console.log(chalk.green('Connected to MySQL DB.'));
+    console.log('Connected to MySQL DB.');
 
     if (ENV_VARS.env === 'production') {
       await mySQLSequelize.sync();
@@ -41,7 +40,7 @@ export async function connectMySQLDB() {
 	 * access your database again.
      */
   } catch (error) {
-    console.log(chalk.red('⚠ Error connecting to MySQL Database ⚠'));
+    console.log('⚠ Error connecting to MySQL Database ⚠');
     console.log(error);
     process.exit(1);
   }
@@ -50,9 +49,9 @@ export async function connectMySQLDB() {
 export async function disconnectMySQLDB() {
   try {
     await mySQLSequelize.close();
-    console.log(chalk.green('MySQL Database connection closed successfully.'));
+    console.log('MySQL Database connection closed successfully.');
   } catch (error) {
-    console.log(chalk.red('⚠ Error disconnecting from MySQL Database ⚠'));
+    console.log('⚠ Error disconnecting from MySQL Database ⚠');
     console.log(error);
     process.exit(1);
   }

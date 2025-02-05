@@ -24,9 +24,9 @@ RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
 
 # ----- Prepare production image -----
-FROM node:20-alpine3.18 AS production
+# FROM node:20-alpine3.18 AS production
 
-WORKDIR /app
+# WORKDIR /app
 
 # Copy built files from the previous stage
 # COPY --from=builder /app/apps/express-server/dist ./dist
@@ -34,13 +34,16 @@ WORKDIR /app
 # COPY --from=builder /app/node_modules ./node_modules
 # COPY --from=builder /app/yarn.lock .
 
-COPY --from=builder /app/apps/express-server/dist .
-COPY --from=builder /app/apps/express-server/package.json .
-COPY --from=builder /app/yarn.lock .
-COPY --from=builder /app/node_modules/@csl/react-express ./node_modules
+# COPY --from=builder /app/apps/express-server/dist .
+# COPY --from=builder /app/apps/express-server/package.json .
+# COPY --from=builder /app/yarn.lock .
 
 # Install only production dependencies
-RUN yarn install --force --production --frozen-lockfile
+# RUN yarn install --force --production --frozen-lockfile
+
+# Copy the built node_modules
+# COPY --from=builder /app/node_modules/@csl/mongo-models ./node_modules
+# COPY --from=builder /app/node_modules/@csl/react-express ./node_modules
 
 # Run express-server build
 CMD ["yarn", "workspace", "express-server", "start"]
