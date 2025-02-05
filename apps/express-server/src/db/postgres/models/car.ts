@@ -125,6 +125,13 @@ CarModel.init(
     paranoid: true,
     deletedAt: 'deleted_at',
     /**
+     * This option will set the field option on all attributes to the snake_case
+     * version of its name. This also applies to foreign keys automatically generated
+     * by associations and other automatically generated fields.
+     *
+     * underscored: true,
+     */
+    /**
      * Validations can also be defined to check the model after the
      * field-specific validators. Eg -
      *

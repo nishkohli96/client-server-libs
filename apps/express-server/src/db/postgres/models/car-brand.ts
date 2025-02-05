@@ -42,6 +42,14 @@ export const CarBrandModel = postgreSequelize.define(
      *
      * Sequelize manages the timestamps, so direct SQL queries used
      * without sequelize won't update these values.
+     *
+     */
+    /**
+     * SCOPE -> Scopes are used to help you reuse code. You can define
+     * commonly used queries, specifying options such as
+     * where, include, limit, etc.
+     *
+     * https://sequelize.org/docs/v6/other-topics/scopes/
      */
   }
 );

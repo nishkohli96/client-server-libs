@@ -60,3 +60,10 @@ export async function disconnectDB() {
 
 /* Alter tables should not be allowed in "production" env. */
 export const shouldAlterTable = !isProductionEnv;
+
+/**
+ * This can be used for running migrations & seeders.
+ *
+ * https://sequelize.org/docs/v6/other-topics/query-interface/
+ */
+export const postgreQueryInterface = postgreSequelize.getQueryInterface();
