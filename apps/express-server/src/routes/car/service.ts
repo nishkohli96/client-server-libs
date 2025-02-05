@@ -3,7 +3,6 @@ import sequelize, { Op } from 'sequelize';
 import { CarBrandModel, CarModel } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 import { CarModelCreationAttributes } from '@/db/postgres/models';
-import * as CarTypeDefs from './types';
 
 /**
  * Sequelize provides a wide range of operators to query the database.

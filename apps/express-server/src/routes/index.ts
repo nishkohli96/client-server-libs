@@ -4,6 +4,7 @@ import { carBrandRouter } from './car-brand/controller';
 import { fileRouter } from './file/controller';
 import { personRouter } from './person/controller';
 import { stytchRouter } from './stytch/controller';
+import { userRouter } from './user/controller';
 
 export const routesArray = [
   {
@@ -26,4 +27,8 @@ export const routesArray = [
     rootPath: ExpressServerEndpoints.stytch.rootPath,
     router: stytchRouter
   },
+  {
+    rootPath: ExpressServerEndpoints.user.rootPath,
+    router: userRouter
+  }
 ];

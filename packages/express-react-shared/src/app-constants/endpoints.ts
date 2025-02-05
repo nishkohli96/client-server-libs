@@ -44,6 +44,14 @@ export const ExpressServerEndpoints = Object.freeze({
       downloadList: 'download-list'
     }
   },
+  user: {
+    rootPath: '/user',
+    subRoutes: {
+      list: 'list',
+      listInactive: 'list-inactive',
+      add: 'add',
+    }
+  },
   stytch: {
     rootPath: '/stytch',
     subRoutes: {
