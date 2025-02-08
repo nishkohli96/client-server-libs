@@ -32,9 +32,15 @@ async function bootstrap() {
        */
       cors: {
         origin: [
-          'http://localhost:3000', 'http://localhost:3001'
-          // "https://example.com"
+          'http://localhost:3000',
+          'http://localhost:3001'
         ]
+      },
+      connectionStateRecovery: {
+        /* the backup duration of the sessions and the packets */
+        maxDisconnectionDuration: 2 * 60 * 1000,
+        /* whether to skip middlewares upon successful recovery */
+        skipMiddlewares: true,
       }
     });
 
@@ -116,6 +122,26 @@ async function bootstrap() {
        */
       winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
       console.log('Socket Room ', socket.rooms);
+
+      /**
+       * recovery was successful: socket.id, socket.rooms and socket.data
+       * were restored.
+       *
+       * if (socket.recovered) {
+       * } else {}
+       */
+
+      /**
+       * Catch-all listeners - Called for an incoming event
+       *
+       * socket.onAny((eventName, ...args) => {
+       *   console.log(eventName); // 'hello'
+       *   console.log(args); // [ 1, '2', { 3: '4', 5: ArrayBuffer (1) [ 6 ] } ]
+       * });
+       *
+       * Similarly, for outgoing packets, use
+       * socket.onAnyOutgoing((eventName, ...args) => {}
+       */
 
       /**
        * socket.on("disconnecting", (reason) => {
