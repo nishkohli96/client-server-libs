@@ -1,9 +1,15 @@
 import 'dotenv/config';
 import os from 'os';
 import { createServer } from 'node:http';
+import uuid from 'uuid';
 import { connect, disconnect } from 'mongoose';
 import { Server } from 'socket.io';
-import uuid from 'uuid';
+import {
+  ClientToServerEvents,
+  ServerToClientEvents,
+  InterServerEvents,
+  SocketData
+} from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
@@ -24,7 +30,12 @@ async function bootstrap() {
     );
     const server = createServer(app);
 
-    const io = new Server(server, {
+    const io = new Server<
+      ClientToServerEvents,
+      ServerToClientEvents,
+      InterServerEvents,
+      SocketData
+    >(server, {
       /**
        * Need to explicitly enable cors
        *
@@ -97,16 +108,20 @@ async function bootstrap() {
      * If sucess, call next() and if error call
      * next(error), which might disconnect the connection.
      *
-     * You can register several middleware functions,
-     * and they will be executed sequentially
+     * socket.use(([event, ...args], next) => {
+     *   next();
+     * });
+     *
+     * You can register several middleware functions, and they
+     * will be executed sequentially:
+     * io.use((socket, next) => {
+     *   if (isValid(socket.request)) {
+     *     next();
+     *   } else {
+     *     next(new Error("invalid"));
+     *   }
+     * });
      */
-    io.use((socket, next) => {
-      // if (isValid(socket.request)) {
-      // } else {
-      //   next(new Error("invalid"));
-      // }
-      next();
-    });
 
     io.on('connection', socket => {
       /**
@@ -121,7 +136,7 @@ async function bootstrap() {
        * or stored in the localStorage and sent in the auth payload)
        */
       winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
-      console.log('Socket Room ', socket.rooms);
+      winstonLogger.info('Socket Room ', socket.rooms);
 
       /**
        * recovery was successful: socket.id, socket.rooms and socket.data
@@ -142,6 +157,8 @@ async function bootstrap() {
        * Similarly, for outgoing packets, use
        * socket.onAnyOutgoing((eventName, ...args) => {}
        */
+
+      socket.emit('basicEmit', 1, '2', Buffer.from([3]));
 
       /**
        * socket.on("disconnecting", (reason) => {
