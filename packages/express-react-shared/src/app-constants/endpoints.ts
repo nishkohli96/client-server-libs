@@ -52,6 +52,12 @@ export const ExpressServerEndpoints = Object.freeze({
       add: 'add',
     }
   },
+  socket: {
+    rootPath: '/socket',
+    subRoutes: {
+      test: 'test'
+    }
+  },
   stytch: {
     rootPath: '/stytch',
     subRoutes: {
