@@ -20,88 +20,76 @@ const hostName = os.hostname();
 const port = ENV_VARS.port;
 const dbConnectionString = `${ENV_VARS.mongoDB.url}/${ENV_VARS.mongoDB.dbName}`;
 
-async function bootstrap() {
-  try {
-    await connectPostgresDB();
-    await connectMySQLDB();
-    await connect(dbConnectionString);
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`
-    );
-    const server = createServer(app);
+const server = createServer(app);
 
-    const io = new Server<
-      ClientToServerEvents,
-      ServerToClientEvents,
-      InterServerEvents,
-      SocketData
-    >(server, {
-      /**
+export const io = new Server<
+  ClientToServerEvents,
+  ServerToClientEvents,
+  InterServerEvents,
+  SocketData
+>(server, {
+  /**
        * Need to explicitly enable cors
        *
        * https://socket.io/docs/v4/handling-cors/
        */
-      cors: {
-        origin: [
-          'http://localhost:3000',
-          'http://localhost:3001'
-        ]
-      },
-      connectionStateRecovery: {
-        /* the backup duration of the sessions and the packets */
-        maxDisconnectionDuration: 2 * 60 * 1000,
-        /* whether to skip middlewares upon successful recovery */
-        skipMiddlewares: true,
-      }
-    });
+  cors: {
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ]
+  },
+  connectionStateRecovery: {
+    /* the backup duration of the sessions and the packets */
+    maxDisconnectionDuration: 2 * 60 * 1000,
+    /* whether to skip middlewares upon successful recovery */
+    skipMiddlewares: true,
+  }
+});
 
-    /**
+/**
      * Server Instance methods
      *
      * https://socket.io/docs/v4/server-instance/
      */
 
-    /* generate a custom session ID (the sid query parameter) */
-    io.engine.generateId = req => uuid.v4();
+/* generate a custom session ID (the sid query parameter) */
+// io.engine.generateId = req => uuid.v4();
 
-    /**
+/**
      * initial_headers: will be emitted just before writing the
      * response headers of the first HTTP request of the
      * session (the handshake), allowing you to customize them.
      */
-    io.engine.on('initial_headers', (headers, req) => {
-      winstonLogger.info('Sending Initial Headers !');
-      headers.test = '123';
-      headers['set-cookie'] = 'mycookie=456';
-    });
+io.engine.on('initial_headers', (headers, req) => {
+  winstonLogger.info('Sending Initial Headers !');
+  headers.test = '123';
+  headers['set-cookie'] = 'mycookie=456';
+});
 
-    /**
+/**
      * headers: will be emitted just before writing the
      * response headers of each HTTP request of the session
      * (including the WebSocket upgrade), allowing you to
      * customize them.
      */
-    io.engine.on('headers', (headers, req) => {
-      winstonLogger.info('Sending Headers...');
-      headers.test = '789';
-    });
+io.engine.on('headers', (headers, req) => {
+  winstonLogger.info('Sending Headers...');
+  headers.test = '789';
+});
 
-    io.engine.on('connection_error', err => {
-      /* the request object */
-      console.log(err.req);
-      /* the error code, for example 1 */
-      console.log(err.code);
-      /* the error message, for example "Session ID unknown" */
-      console.log(err.message);
-      /* some additional error context */
-      console.log(err.context);
-    });
+io.engine.on('connection_error', err => {
+  /* the request object */
+  console.log(err.req);
+  /* the error code, for example 1 */
+  console.log(err.code);
+  /* the error message, for example "Session ID unknown" */
+  console.log(err.message);
+  /* some additional error context */
+  console.log(err.context);
+});
 
-    /*  number of currently connected clients */
-    const count = io.engine.clientsCount;
-    winstonLogger.info(`Total clients connected - ${count}`);
-
-    /**
+/**
      * Socket middleware.
      *
      * Write application logic in the below function.
@@ -123,8 +111,8 @@ async function bootstrap() {
      * });
      */
 
-    io.on('connection', socket => {
-      /**
+io.on('connection', socket => {
+  /**
        * Each new connection is assigned a random 20-characters
        * identifier which is synced with the value on the
        * client-side, ie the values of both socket.id on client
@@ -135,10 +123,14 @@ async function bootstrap() {
        * Use a regular session ID instead (either sent in a cookie,
        * or stored in the localStorage and sent in the auth payload)
        */
-      winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
-      winstonLogger.info('Socket Room ', socket.rooms);
+  winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
+  winstonLogger.info('Socket Room ', socket.rooms);
 
-      /**
+  /*  number of currently connected clients */
+  const count = io.engine.clientsCount;
+  winstonLogger.info(`Total clients connected - ${count}`);
+
+  /**
        * recovery was successful: socket.id, socket.rooms and socket.data
        * were restored.
        *
@@ -146,7 +138,7 @@ async function bootstrap() {
        * } else {}
        */
 
-      /**
+  /**
        * Catch-all listeners - Called for an incoming event
        *
        * socket.onAny((eventName, ...args) => {
@@ -158,18 +150,27 @@ async function bootstrap() {
        * socket.onAnyOutgoing((eventName, ...args) => {}
        */
 
-      socket.emit('basicEmit', 1, '2', Buffer.from([3]));
+  socket.emit('basicEmit', 1, '2', Buffer.from([3]));
 
-      /**
+  /**
        * socket.on("disconnecting", (reason) => {
        *
        * This event is similar to disconnect but is fired a
        * bit earlier, when the Socket#rooms set is not empty yet.
        */
-      socket.on('disconnect', reason => {
-        winstonLogger.info(`Disconnected - ${reason}`);
-      });
-    });
+  socket.on('disconnect', reason => {
+    winstonLogger.info(`Disconnected - ${reason}`);
+  });
+});
+
+async function bootstrap() {
+  try {
+    await connectPostgresDB();
+    await connectMySQLDB();
+    await connect(dbConnectionString);
+    winstonLogger.info(
+      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`
+    );
 
     server.listen(port, () => {
       winstonLogger.info(

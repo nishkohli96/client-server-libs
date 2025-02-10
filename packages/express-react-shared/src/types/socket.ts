@@ -14,6 +14,7 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   hello: () => void;
+  submitForm: (inputValue: string) => void;
 }
 
 export interface InterServerEvents {

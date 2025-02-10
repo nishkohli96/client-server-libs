@@ -33,4 +33,5 @@ $ yarn run start:prod
   - convert file as base64 and upload in parts
 - Fetching and rendering dynamic data in [Mui Datagrid](https://mui.com/x/react-data-grid/).
   - Supporting sorting, filtering and pagination
-  - Complete functionality for CRUD operations for list of people using.
+  - Complete functionality for CRUD operations for list of people.
+- Integrated [socket.io](https://socket.io/) on client side.

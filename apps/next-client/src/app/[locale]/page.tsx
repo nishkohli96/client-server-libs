@@ -2,7 +2,7 @@ import { useTranslations, useMessages } from 'next-intl';
 import Typography from '@mui/material/Typography';
 import { PageHeading } from '@csl/shared-fe';
 import { PageLinks } from '@/app-constants';
-import { PageLink, StyledLink } from '@/components';
+import { PageLink, StyledLink, SocketConnection } from '@/components';
 
 export default function Home() {
   const t = useTranslations('HomePage');
@@ -29,6 +29,7 @@ export default function Home() {
       {PageLinks.map((link, idx) => (
         <PageLink text={link.title} href={link.href} key={idx} />
       ))}
+      <SocketConnection />
       <p>
         {t('interpolation.plural', { count: 3580 })}
       </p>
