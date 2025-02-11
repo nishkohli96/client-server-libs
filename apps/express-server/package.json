@@ -26,7 +26,7 @@
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
     "stytch": "^12.4.0",
-    "uuid": "^9.0.1",
+    "uuid": "^11.0.5",
     "winston": "3.11.0"
   },
   "devDependencies": {
