@@ -28,3 +28,17 @@ npx sequelize-cli model:generate --name User --attributes firstName:string,lastN
 ```
 NODE_ENV=production npx sequelize-cli db:migrate
 ```
+
+To undo the most recent migration, run
+```
+npx sequelize-cli db:migrate:undo
+```
+
+7. Generate Seeder files using:
+```
+npx sequelize-cli seed:generate --name demo-user
+```
+Run seeders:
+```
+npx sequelize-cli db:seed:all
+```

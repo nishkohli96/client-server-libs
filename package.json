@@ -30,7 +30,7 @@
       "prettier --write --ignore-unknown"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --ignore-pattern mongo-seeders"
+      "eslint --fix --ignore-pattern mongo-seeders --ignore-pattern postgres-migrations"
     ]
   },
   "packageManager": "yarn@1.22.22"
