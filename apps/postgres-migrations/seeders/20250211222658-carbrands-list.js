@@ -1,6 +1,6 @@
 'use strict';
 
-const carBrandsList = require('../../express-server/src/db/postgres/seeders/data/car-models.json');
+const carBrandsList = require('../../express-server/src/db/postgres/seeders/data/car-brands.json');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
