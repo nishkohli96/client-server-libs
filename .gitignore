@@ -45,3 +45,6 @@ coverage
 # misc
 apps/express-server/public
 apps/express-server/uploads
+
+# config files for migrations
+apps/postgres-migrations/config/config.json
