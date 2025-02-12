@@ -17,7 +17,10 @@ module.exports = {
       id: car.id,
       name: car.name,
       brand_id: car.brand_id,
-      // ✅ Cast colors to ENUM array
+      /**
+       * Cast colors to ENUM array, else insertion process would throw error
+       * related to type, as well as for an invalid enum value.
+       */
       colors: Sequelize.literal(`ARRAY[${car.colors.map(color => `'${color}'`).join(', ')}]::enum_cars_colors[]`),
       created_at: new Date(),
       updated_at: new Date()
