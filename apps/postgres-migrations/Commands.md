@@ -38,7 +38,19 @@ npx sequelize-cli db:migrate:undo
 ```
 npx sequelize-cli seed:generate --name demo-user
 ```
-Run seeders:
+Run All seeders:
 ```
 npx sequelize-cli db:seed:all
 ```
+
+Run a specific seeder:
+```
+npx sequelize-cli db:seed --seed 20250211224419-cars-list
+```
+Unlike migrations, the Seeder execution history is not stored anywhere.
+
+8. Undo Seeders
+```
+npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+```
+If seedername is not provided, the last applied seeder will be reverted.
