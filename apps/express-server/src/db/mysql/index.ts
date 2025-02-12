@@ -31,18 +31,10 @@ export async function connectMySQLDB() {
       `[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`
     );
 
-    if (ENV_VARS.env === 'production') {
-      await mySQLSequelize.sync();
-      console.log('Production: Run migrations for schema updates.');
-    } else {
-      await mySQLSequelize.sync({ alter: true });
-      console.log(`${ENV_VARS.env}: MySQL Database schema synchronized with alter mode.`);
-    }
-
     /**
      * sequelize.close() -> will close the connection to the DB.
-	 * You will need to create a new Sequelize instance to
-	 * access your database again.
+	   * You will need to create a new Sequelize instance to
+	   * access your database again.
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to MySQL Database ⚠', error);

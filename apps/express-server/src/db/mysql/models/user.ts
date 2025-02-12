@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { mySQLSequelize, shouldAlterTable } from '@/db/mysql';
+import { mySQLSequelize } from '@/db/mysql';
 
 export type UserModelAttributes = InferAttributes<UserModel>;
 export type UserModelCreationAttributes = InferCreationAttributes<UserModel>;
@@ -92,12 +92,6 @@ UserModel.init(
     }
   }
 );
-
-async function createTable() {
-  await UserModel.sync({ alter: shouldAlterTable });
-}
-
-createTable();
 
 const InactiveUserModel = UserModel.scope('inactiveUsers');
 

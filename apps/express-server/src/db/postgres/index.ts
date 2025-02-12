@@ -26,23 +26,20 @@ export const postgreSequelize = new Sequelize(ENV_VARS.postgresUrl, {
 
 export async function connectPostgresDB() {
   try {
+    /**
+     * SELECT 1+1 AS result is the default test query in Sequelize
+     * to verify database connection, when calling sequelize.authenticate().
+     * It can't be disabled though.
+     */
     await postgreSequelize.authenticate();
     winstonLogger.info(
       `[ ⚡️ ${hostName} ⚡️ ] - Connected to Postgres`
     );
 
-    if (ENV_VARS.env === 'production') {
-      await postgreSequelize.sync();
-      console.log('Production: Run migrations for schema updates.');
-    } else {
-      await postgreSequelize.sync({ alter: true });
-      console.log(`${ENV_VARS.env}: Postgres Database schema synchronized with alter mode.`);
-    }
-
     /**
      * sequelize.close() -> will close the connection to the DB.
-	 * You will need to create a new Sequelize instance to
-	 * access your database again.
+	   * You will need to create a new Sequelize instance to
+	   * access your database again.
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to Postgres Database ⚠');
