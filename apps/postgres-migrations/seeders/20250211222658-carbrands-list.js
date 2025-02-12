@@ -1,5 +1,6 @@
 'use strict';
 
+const { tableNames } = require('../table-names');
 const carBrandsList = require('../../express-server/src/db/postgres/seeders/data/car-brands.json');
 
 /** @type {import('sequelize-cli').Migration} */
@@ -10,7 +11,7 @@ module.exports = {
      * Additional options like transaction, ignoreDuplicates
      */
     await queryInterface.bulkInsert(
-      'car_brands',
+      tableNames.carBrands,
       carBrandsList
     );
   },
@@ -22,6 +23,6 @@ module.exports = {
      *   email: 'john@example.com'
      * }, {});
      */
-    await queryInterface.bulkDelete('car_brands', null, {});
+    await queryInterface.bulkDelete(tableNames.carBrands, null, {});
   }
 };

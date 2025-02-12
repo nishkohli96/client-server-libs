@@ -1,5 +1,6 @@
 'use strict';
 
+const { tableNames } = require('../table-names');
 const carsList = require('../../express-server/src/db/postgres/seeders/data/car-models.json');
 
 /**
@@ -26,11 +27,11 @@ module.exports = {
       updated_at: new Date()
     }));
     await queryInterface.bulkInsert(
-      'cars',
+      tableNames.car,
       carsWithEnumColors
     );
   },
   async down (queryInterface) {
-    await queryInterface.bulkDelete('cars', null, {});
+    await queryInterface.bulkDelete(tableNames.car, null, {});
   }
 };

@@ -1,6 +1,7 @@
 'use strict';
 
 const { v6: uuidv6 } = require('uuid');
+const { tableNames } = require('../table-names');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -18,7 +19,7 @@ module.exports = {
         END IF;
       END $$;
     `);
-    await queryInterface.createTable('cars', {
+    await queryInterface.createTable(tableNames.car, {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
@@ -62,6 +63,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('cars');
+    await queryInterface.dropTable(tableNames.car);
   },
 };

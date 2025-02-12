@@ -47,4 +47,5 @@ apps/express-server/public
 apps/express-server/uploads
 
 # config files for migrations
+apps/mysql-migrations/config/config.json
 apps/postgres-migrations/config/config.json
