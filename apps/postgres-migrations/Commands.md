@@ -64,7 +64,7 @@
 | Command |	Description |
 |-|-|
 | `\l` | List all databases |
-| `\c db_name` | Switch to a database |
+| `\c db_name` | Switch to the specified database, else gives the db_name currently connected  |
 | `\dt` |	List all tables in the current database |
 | `\d table_name` |	Show table structure (Columns, Data Types, Indexes & References) |
 | `\ds` | View all sequences in your database |

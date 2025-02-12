@@ -36,7 +36,7 @@ module.exports = {
         allowNull: false,
         references: {
           /* Must match tableName */
-          model: 'car_brands',
+          model: tableNames.carBrands,
           key: 'id',
         },
         onDelete: 'CASCADE',

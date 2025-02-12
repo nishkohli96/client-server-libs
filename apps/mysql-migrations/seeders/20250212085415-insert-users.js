@@ -1,11 +1,18 @@
 'use strict';
 
 const { tableNames } = require('../table-names');
-const usersList = require('../../express-server/src/db/postgres/seeders/data/car-brands.json');
+const users = require('../data/users.json');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface) {
+  async up (queryInterface, Sequelize) {
+    const usersList = users.map(user => ({
+      ...user,
+      // preferences: user.preferences ? Sequelize.literal(user.preferences) : null,
+      // tags: user.tags ? Sequelize.literal(user.tags) : null,
+      created_at: new Date(),
+      updated_at: new Date()
+    }));
     await queryInterface.bulkInsert(
       tableNames.user,
       usersList
