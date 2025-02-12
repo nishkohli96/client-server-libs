@@ -23,11 +23,13 @@ module.exports = {
       },
       preferences: {
         type: Sequelize.JSON,
-        allowNull: true
+        allowNull: true,
+        defaultValue: null
       },
       tags: {
         type: Sequelize.JSON,
-        allowNull: true
+        allowNull: true,
+        defaultValue: null
       },
       age: {
         type: Sequelize.INTEGER,
@@ -46,6 +48,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
+      },
+      deleted_at: {
+        type: Sequelize.DATE,
       }
     });
   },

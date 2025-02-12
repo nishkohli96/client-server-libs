@@ -17,7 +17,7 @@ class UserService {
         data: result
       });
     } catch (error) {
-      return sendErrorResponse(res, error, 'Unable to create a new car brand');
+      return sendErrorResponse(res, error, 'Unable to create new user');
     }
   }
 
