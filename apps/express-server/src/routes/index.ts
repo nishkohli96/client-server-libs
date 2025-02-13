@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
+import { buyerRouter } from './buyer/controller';
 import { carRouter } from './car/controller';
 import { carBrandRouter } from './car-brand/controller';
 import { fileRouter } from './file/controller';
@@ -14,6 +15,10 @@ type RouteInfo = {
 }
 
 export const routesArray: RouteInfo[] = [
+  {
+    rootPath: ExpressServerEndpoints.buyer.rootPath,
+    router: buyerRouter
+  },
   {
     rootPath: ExpressServerEndpoints.car.rootPath,
     router: carRouter

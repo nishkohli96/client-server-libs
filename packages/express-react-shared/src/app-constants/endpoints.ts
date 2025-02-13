@@ -1,5 +1,12 @@
 export const ExpressServerEndpoints = Object.freeze({
   apiPrefix: '/api',
+  buyer: {
+    rootPath: '/buyers',
+    subRoutes: {
+      purchase: 'purchase',
+      purchaseDetails: 'purchase-details'
+    }
+  },
   car: {
     rootPath: '/car',
     subRoutes: {

@@ -23,12 +23,12 @@ class CarService {
        * each record, which the method doesnt do by default. However, passing
        * this arg will slow down the bulk insert operation.
        */
-      const carModel = await CarModel.create(carData);
+      const carDetails = await CarModel.create(carData);
       return res.json({
         success: true,
         status: 200,
         message: 'Car added.',
-        data: carModel
+        data: carDetails
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Unable to add new car details');
