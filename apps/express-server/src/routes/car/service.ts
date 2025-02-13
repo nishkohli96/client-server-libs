@@ -1,8 +1,7 @@
 import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { CarBrandModel, CarModel } from '@/db/postgres/models';
+import { CarBrandModel, CarModel, CarModelCreationAttributes } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
-import { CarModelCreationAttributes } from '@/db/postgres/models';
 
 /**
  * Sequelize provides a wide range of operators to query the database.
