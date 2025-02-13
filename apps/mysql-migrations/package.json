@@ -1,0 +1,12 @@
+{
+  "name": "mysql-migrations",
+	"author": "Nishant Kohli",
+	"scripts": {
+		"migrate": "npx sequelize-cli db:migrate",
+		"migrate:undo": "npx sequelize-cli db:migrate:undo",
+		"seed:all": "npx sequelize-cli db:seed:all",
+		"seed": "npx sequelize-cli db:seed --seed $SEED_FILE",
+		"seed:undo": "npx sequelize-cli db:seed:undo --seed $SEED_FILE",
+		"seed:undo:last": "npx sequelize-cli db:seed:undo"
+	}
+}

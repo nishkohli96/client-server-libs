@@ -137,8 +137,9 @@ CarModel.init(
      * This will prevent the auto-pluralization performed by Sequelize,
      * ie. the table name will be equal to the model name, without
      * any modifications
+     *
+     * freezeTableName: true,
      */
-    freezeTableName: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     modelName: 'car',
@@ -187,7 +188,7 @@ CarModel.belongsTo(CarBrandModel, {
 
 CarBrandModel.hasMany(CarModel, {
   foreignKey: 'brand_id',
-  as: 'cars',
+  // as: 'cars',
 });
 
 
