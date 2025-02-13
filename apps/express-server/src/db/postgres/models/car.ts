@@ -188,7 +188,7 @@ CarModel.belongsTo(CarBrandModel, {
 
 CarBrandModel.hasMany(CarModel, {
   foreignKey: 'brand_id',
-  // as: 'cars',
+  as: 'carModels',
 });
 
 

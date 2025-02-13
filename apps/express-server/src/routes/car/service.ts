@@ -39,13 +39,13 @@ class CarService {
   async listCars(res: Response) {
     try {
       /**
-       * CarBrandModel should have many cars and CarModel should belong to a CarBrand.
+       * CarBrandModel should have many cars and CarModel should belong
+       * to a CarBrand.
        *
-       * If an association is aliased (using the as option), you must specify
-       * this alias when including the model.
+       * I've already defined this association in models/car. If an association
+       * is aliased (using the as option), you must specify this alias when
+       * including the model.
        */
-      CarBrandModel.hasMany(CarModel, { foreignKey: 'brand_id', as: 'cars' });
-      CarModel.belongsTo(CarBrandModel, { foreignKey: 'brand_id', as: 'brand' });
 
       const carList = await CarModel.findAll({
         where: {
