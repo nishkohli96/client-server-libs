@@ -128,8 +128,16 @@ CarModel.init(
         );
       },
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    }
   },
   {
     sequelize: postgreSequelize,
@@ -140,10 +148,10 @@ CarModel.init(
      *
      * freezeTableName: true,
      */
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     modelName: 'car',
-    timestamps: true,
     /**
      * Sequelize provides paranoid tables which soft deletes a record
      * by inserting deletedAt timestamp. Timestamps must be enabled to
@@ -178,7 +186,10 @@ CarModel.init(
   }
 );
 
-/* Define the relationship between CarModel and CarBrandModel using optional aliases */
+/**
+ * Define the relationship between CarModel and CarBrandModel
+ * using optional aliases
+ */
 CarModel.belongsTo(CarBrandModel, {
   foreignKey: 'brand_id',
   as: 'brand',
