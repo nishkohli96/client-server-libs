@@ -59,6 +59,11 @@
 9.  Case Sensitivity of table names.
     PostgreSQL automatically converts unquoted table names to lowercase → `sequelizemeta`. If the table was originally created as "SequelizeMeta", PostgreSQL does not find sequelizemeta, causing an error. Thus `DROP TABLE "SequelizeMeta";` will work but `DROP TABLE SequelizeMeta;` will throw an error as table `sequelizemeta` does not exist.
 
+10. Generate new migation file:
+    ```
+    NAME=migrationName yarn new-migration
+    ```
+
 ## Database Commands
 
 | Command |	Description |
