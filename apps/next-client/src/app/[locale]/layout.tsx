@@ -5,9 +5,8 @@ import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import { PageContent, useOnlineStatus, OfflineFallback } from '@csl/shared-fe';
 import theme from '@/assets/styles/theme';
-import { AppBar } from '@/components';
+import { AppBar, PageContainer } from '@/components';
 import { routing } from '@/i18n/routing';
 import { Locales } from '@/types';
 import '../globals.css';
@@ -50,7 +49,6 @@ export default async function RootLayout({
    * easiest way to get started
    */
   const messages = await getMessages();
-  const isOnline = useOnlineStatus();
 
   return (
     <html lang={locale}>
@@ -59,9 +57,9 @@ export default async function RootLayout({
           <AppRouterCacheProvider options={{ key: 'mui' }}>
             <ThemeProvider theme={theme}>
               <AppBar />
-              <PageContent>
-                {isOnline ? children : <OfflineFallback />}
-              </PageContent>
+              <PageContainer>
+                {children}
+              </PageContainer>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>

@@ -6,3 +6,4 @@
 - [MDX Integration](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
 - [SASS](https://sass-lang.com/) integration.
 - Integrate [socket.io](https://socket.io/) using [this guide](https://socket.io/how-to/use-with-nextjs).
+- Render a fallback UI if internet is disconnected.
