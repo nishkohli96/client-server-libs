@@ -6,12 +6,14 @@ import * as BuyerTypeDefs from './types';
 const buyerRouter = Router();
 const subRoutes = ExpressServerEndpoints.buyer.subRoutes;
 
-/* POST /buyer/purchase */
+/* POST /buyers/purchase */
 buyerRouter.post(
   `/${subRoutes.purchase}`,
   async (req: BuyerTypeDefs.AddPurchaseRequest, res: Response) => {
     return await buyerService.createPurchase(res, req.body);
   }
 );
+
+/* GET /buyers/purchase-details */
 
 export { buyerRouter };

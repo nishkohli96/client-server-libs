@@ -3,6 +3,7 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { v6 as UUIDv6 } from 'uuid';
 import { postgreSequelize } from '@/db/postgres';
+import { isUUIDv6 } from '@/utils';
 import { CarModel, CarColors } from './car';
 
 export type BuyerModelAttributes = InferAttributes<BuyerModel>;
@@ -21,7 +22,14 @@ BuyerModel.init(
     id: {
       type: DataTypes.UUID,
       defaultValue: () => UUIDv6(),
-      primaryKey: true
+      primaryKey: true,
+      validate: {
+        isuuidV6(value: string) {
+          if (!isUUIDv6(value)) {
+            throw new Error('Invalid UUID v6 format.');
+          }
+        }
+      }
     },
     name: {
       type: DataTypes.STRING,
@@ -29,13 +37,17 @@ BuyerModel.init(
     },
     car_id: {
       type: DataTypes.UUID,
-      validate: {
-        isUUID: 6,
-      },
       allowNull: false,
       references: {
         model: CarModel,
         key: 'id',
+      },
+      validate: {
+        isuuidV6(value: string) {
+          if (!isUUIDv6(value)) {
+            throw new Error('Invalid UUID v6 format.');
+          }
+        }
       },
     },
     color: {
