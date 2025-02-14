@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Mickey Mouse",
+    "email": "mickey.mouse@disney.com",
+    "preferences": {
+      "theme": "dark",
+      "brightness": 80
+    },
+    "tags": ["mouse", "cheese", "disney"],
+    "age": 20
+  },
+  {
+    "name": "Donald Duck",
+    "email": "donald.duck@quack.com",
+    "preferences": null,
+    "tags": null,
+    "age": 23,
+    "is_active": false
+  }
+]

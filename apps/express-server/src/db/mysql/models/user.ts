@@ -1,21 +1,21 @@
 /* eslint-disable no-use-before-define */
 
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { mySQLSequelize, shouldAlterTable } from '@/db/mysql';
+import { mySQLSequelize } from '@/db/mysql';
 
 export type UserModelAttributes = InferAttributes<UserModel>;
 export type UserModelCreationAttributes = InferCreationAttributes<UserModel>;
 
 class UserModel extends Model<UserModelAttributes, UserModelCreationAttributes> {
 	declare id: CreationOptional<number>;
-	name!: string;
-	email!: string;
-	isActive!: CreationOptional<boolean>;
-	preferences!: object;
-	tags!: string[];
-	age!: number;
-	createdAt!: CreationOptional<Date>;
-	updatedAt!: CreationOptional<Date>;
+	declare name: string;
+	declare email: string;
+	declare isActive: CreationOptional<boolean>;
+	declare preferences: object | null;
+	declare tags: string[] | null;
+	declare age: number;
+	declare createdAt: CreationOptional<Date>;
+	declare updatedAt: CreationOptional<Date>;
 }
 
 UserModel.init(
@@ -43,12 +43,14 @@ UserModel.init(
     },
     preferences: {
       type: DataTypes.JSON,
-      allowNull: true
+      allowNull: true,
+      defaultValue: null
     },
     /* Arrays are not supported in MySQL */
     tags: {
       type: DataTypes.JSON,
-      allowNull: true
+      allowNull: true,
+      defaultValue: null
     },
     age: {
       type: DataTypes.INTEGER,
@@ -92,12 +94,6 @@ UserModel.init(
     }
   }
 );
-
-async function createTable() {
-  await UserModel.sync({ alter: shouldAlterTable });
-}
-
-createTable();
 
 const InactiveUserModel = UserModel.scope('inactiveUsers');
 

@@ -1,8 +1,7 @@
 import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { CarBrandModel, CarModel } from '@/db/postgres/models';
+import { BuyerModel, CarBrandModel, CarModel, CarModelCreationAttributes } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
-import { CarModelCreationAttributes } from '@/db/postgres/models';
 
 /**
  * Sequelize provides a wide range of operators to query the database.
@@ -24,12 +23,12 @@ class CarService {
        * each record, which the method doesnt do by default. However, passing
        * this arg will slow down the bulk insert operation.
        */
-      const carModel = await CarModel.create(carData);
+      const carDetails = await CarModel.create(carData);
       return res.json({
         success: true,
         status: 200,
         message: 'Car added.',
-        data: carModel
+        data: carDetails
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Unable to add new car details');
@@ -39,13 +38,13 @@ class CarService {
   async listCars(res: Response) {
     try {
       /**
-       * CarBrandModel should have many cars and CarModel should belong to a CarBrand.
+       * CarBrandModel should have many cars and CarModel should belong
+       * to a CarBrand.
        *
-       * If an association is aliased (using the as option), you must specify
-       * this alias when including the model.
+       * I've already defined this association in models/car. If an association
+       * is aliased (using the as option), you must specify this alias when
+       * including the model.
        */
-      CarBrandModel.hasMany(CarModel, { foreignKey: 'brand_id', as: 'cars' });
-      CarModel.belongsTo(CarBrandModel, { foreignKey: 'brand_id', as: 'brand' });
 
       const carList = await CarModel.findAll({
         where: {
@@ -297,6 +296,87 @@ class CarService {
       return sendErrorResponse(res, error, 'Unable to restore car details');
     }
   }
+
+  /**
+   * Get Card details, joining brand details and list of owners
+   * who purchased that car.
+   */
+  async getOwnersList(res: Response) {
+    try {
+      const carOwnersList = await CarModel.findAll(
+        {
+          include: [
+            {
+              model: CarBrandModel,
+              as: 'brand',
+              attributes: [
+                'id',
+                'name',
+                'country'
+              ]
+            },
+            /**
+             * Say if BuyerModel has user details and PurchaseModel
+             * links buyer_id to car_id, you will need four joins:
+             *
+             * 1. CarModel (Primary car data)
+             * 2. CarBrandModel (Brand details for the car)
+             * 3. PurchaseModel (Links car purchases to buyers)
+             * 4. BuyerModel (Details of the buyer, including user details)
+             *
+             * Then the shape of this model would be like,
+             * {
+             *   model: PurchaseModel,
+             *   as: 'purchases',
+             *   attributes: [
+             *     'id', 'buyer_id', 'car_id', 'purchased_on'
+             *   ],
+             *   include: [
+             *     {
+             *       model: BuyerModel,
+             *       as: 'buyer',
+             *       attributes: ['id', 'name', 'email'],
+             *       include: [
+             *        {
+             *          model: UserModel,
+             *          as: 'user',
+             *          attributes: ['id', 'name', 'email']
+             *        }
+             *       ]
+             *     }
+             *   ]
+             * }
+             */
+            {
+              model: BuyerModel,
+              as: 'owners',
+              attributes: [
+                'name',
+                'color',
+                'purchased_on'
+              ]
+            }
+          ],
+          attributes: {
+            exclude: [
+              'created_at',
+              'updated_at',
+              'deleted_at'
+            ]
+          }
+        }
+      );
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Cars owner list.',
+        data: carOwnersList
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to get cars owner list');
+    }
+  }
 }
 
-export default new CarService();
+const carService = new CarService();
+export default carService;

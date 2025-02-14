@@ -5,6 +5,7 @@ import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS, ServerConfig } from '@/app-constants';
 import { requestLogger } from '@/middleware';
 import { routesArray } from '@/routes';
+import { io } from '.';
 
 const app: Express = express();
 
@@ -41,6 +42,7 @@ app.use(requestLogger);
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (_: Request, response: Response) => {
+  io.emit('noArg');
   response.status(200).json({
     env: ENV_VARS.env,
     message: 'Api is up & running!!!'

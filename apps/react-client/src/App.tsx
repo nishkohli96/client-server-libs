@@ -2,11 +2,13 @@ import { Suspense } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ToastContainer } from 'react-toastify';
 import { Loading } from '@csl/shared-fe';
+import { useSocketConnection } from 'hooks';
 import { AppThemeProvider } from 'theme';
 import Routing from 'routes';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = () => {
+  useSocketConnection();
   return (
     <AppThemeProvider>
       <CssBaseline />

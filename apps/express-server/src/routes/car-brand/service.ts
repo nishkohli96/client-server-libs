@@ -84,4 +84,5 @@ class CarBrandService {
   }
 }
 
-export default new CarBrandService();
+const carbrandService = new CarBrandService();
+export default carbrandService;

@@ -1,7 +1,9 @@
 /* eslint-disable no-use-before-define */
 
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { postgreSequelize, shouldAlterTable } from '@/db/postgres';
+import { v6 as UUIDv6 } from 'uuid';
+import { postgreSequelize } from '@/db/postgres';
+import { isUUIDv6 } from '@/utils';
 import { CarBrandModel } from './car-brand';
 
 export enum CarColors {
@@ -26,6 +28,16 @@ export enum CarColors {
 export type CarModelAttributes = InferAttributes<CarModel>;
 export type CarModelCreationAttributes = InferCreationAttributes<CarModel>;
 
+/**
+ * Always create and modify tables using migration scripts instead of
+ * calling the createTable method, because everytime you restart the
+ * server, the same index will be called multiple times, which will
+ * eventually give you "Too many keys specified; max 64 keys allowed"
+ * error.
+ *
+ * Migrations can be easily replicated on different environments and should
+ * be the preferred way of creating and managing tables.
+ */
 class CarModel extends Model<CarModelAttributes, CarModelCreationAttributes> {
   declare id: CreationOptional<string>;
   name!: string;
@@ -44,9 +56,25 @@ class CarModel extends Model<CarModelAttributes, CarModelCreationAttributes> {
 CarModel.init(
   {
     id: {
+      /**
+       * FYI UUIDv6 must be used instead of v4, as v6 is
+       * Timestamp-based + random whereas v4 is fully random,
+       * thus its better used for indexing. Previously it was
+       * DataTypes.UUIDV4.
+       *
+       * Also use DataTypes.UUID only instead of DataTypes.STRING as
+       * the former is lighter and faster in indexing.
+       */
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+      defaultValue: () => UUIDv6(),
+      primaryKey: true,
+      validate: {
+        isuuidV6(value: string) {
+          if (!isUUIDv6(value)) {
+            throw new Error('Invalid UUID v6 format.');
+          }
+        }
+      }
     },
     name: {
       type: DataTypes.STRING,
@@ -108,8 +136,16 @@ CarModel.init(
         );
       },
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    }
   },
   {
     sequelize: postgreSequelize,
@@ -117,12 +153,13 @@ CarModel.init(
      * This will prevent the auto-pluralization performed by Sequelize,
      * ie. the table name will be equal to the model name, without
      * any modifications
+     *
+     * freezeTableName: true,
      */
-    freezeTableName: true,
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     modelName: 'car',
-    timestamps: true,
     /**
      * Sequelize provides paranoid tables which soft deletes a record
      * by inserting deletedAt timestamp. Timestamps must be enabled to
@@ -157,7 +194,10 @@ CarModel.init(
   }
 );
 
-/* Define the relationship between CarModel and CarBrandModel using optional aliases */
+/**
+ * Define the relationship between CarModel and CarBrandModel
+ * using optional aliases
+ */
 CarModel.belongsTo(CarBrandModel, {
   foreignKey: 'brand_id',
   as: 'brand',
@@ -167,7 +207,7 @@ CarModel.belongsTo(CarBrandModel, {
 
 CarBrandModel.hasMany(CarModel, {
   foreignKey: 'brand_id',
-  as: 'cars',
+  as: 'carModels',
 });
 
 
@@ -176,12 +216,9 @@ CarBrandModel.hasMany(CarModel, {
  * if it exists. The former option will drop the table while the
  * latter performs the necessary changes in the table to make it
  * match the model.
+ *
+ * await CarModel.sync({ alter: shouldAlterTable });
  */
-async function createTable() {
-  await CarModel.sync({ alter: shouldAlterTable });
-}
-
-createTable();
 
 export { CarModel };
 
