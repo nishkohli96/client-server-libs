@@ -30,6 +30,10 @@ export default function useLocation() {
       return;
     }
 
+    /**
+		 * Refer the Navigator API here:
+		 * https://developer.mozilla.org/en-US/docs/Web/API/Navigator
+		 */
     navigator.geolocation.getCurrentPosition(
       position => {
         setLocation({
