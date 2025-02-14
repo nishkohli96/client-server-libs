@@ -1,4 +1,9 @@
-export const PageLinks = [
+type PageInfo = {
+  title: string;
+  href: string;
+}
+
+export const PageLinks: PageInfo[] = [
   {
     title: 'DatoCMS',
     href: '/dato-cms'
@@ -18,5 +23,9 @@ export const PageLinks = [
   {
     title: 'MDX with Translations',
     href: '/mdx'
+  },
+  {
+    title: 'Location',
+    href: '/location'
   }
 ];
