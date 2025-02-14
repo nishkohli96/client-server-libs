@@ -3,7 +3,6 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { v6 as UUIDv6 } from 'uuid';
 import { postgreSequelize } from '@/db/postgres';
-import { CarBrandModel } from './car-brand';
 import { CarModel, CarColors } from './car';
 
 export type BuyerModelAttributes = InferAttributes<BuyerModel>;
@@ -67,7 +66,7 @@ BuyerModel.belongsTo(CarModel, {
 
 CarModel.hasMany(BuyerModel, {
   foreignKey: 'car_id',
-  as: 'buyers',
+  as: 'owners',
 });
 
 export { BuyerModel };

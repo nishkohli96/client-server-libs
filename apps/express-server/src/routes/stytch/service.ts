@@ -405,4 +405,6 @@ class StytchService {
   }
 }
 
-export default new StytchService();
+const stytchService = new StytchService();
+export default stytchService;
+

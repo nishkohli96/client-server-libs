@@ -191,4 +191,5 @@ class PersonService {
   }
 }
 
-export default new PersonService();
+const personService = new PersonService();
+export default personService;

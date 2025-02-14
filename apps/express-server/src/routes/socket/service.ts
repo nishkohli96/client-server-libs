@@ -55,4 +55,5 @@ class SocketService {
   }
 }
 
-export default new SocketService();
+const sockerService = new SocketService();
+export default sockerService;

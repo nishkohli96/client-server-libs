@@ -35,4 +35,5 @@ class BuyerService {
   }
 }
 
-export default new BuyerService();
+const buyerService = new BuyerService();
+export default buyerService;

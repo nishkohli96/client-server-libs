@@ -4,12 +4,16 @@
 	"version": "1.0.0",
   "license": "ISC",
 	"scripts": {
-		"new-migration": "npx sequelize-cli migration:generate --name $NAME",
+		"migration:new": "npx sequelize-cli migration:generate --name $NAME",
 		"migrate": "npx sequelize-cli db:migrate",
 		"migrate:undo": "npx sequelize-cli db:migrate:undo",
+		"seed:new": "npx sequelize-cli seed:generate --name $SEEDER",
 		"seed:all": "npx sequelize-cli db:seed:all",
 		"seed": "npx sequelize-cli db:seed --seed $SEEDER",
 		"seed:undo": "npx sequelize-cli db:seed:undo --seed $SEEDER",
 		"seed:undo:last": "npx sequelize-cli db:seed:undo"
+	},
+	"dependencies": {
+		"uuid": "^11.0.5"
 	}
 }

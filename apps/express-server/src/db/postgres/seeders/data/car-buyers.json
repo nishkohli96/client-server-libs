@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1efeab96-203c-6bc0-b2fe-914a837a60e6",
+    "name": "John Doe",
+    "car_id": "1efe914f-0fc7-67b5-b0d5-e46d9a30dd48",
+    "color": "BLACK"
+  },
+  {
+    "id": "1efeab96-203f-62d0-8e36-8b84fbc7a65b",
+    "name": "Alex Smith",
+    "car_id": "1efe914f-0fc7-67b1-afd5-557efdb37e92",
+    "color": "WHITE"
+  },
+  {
+    "id": "1efeab96-203f-62d1-b63e-166761404ee9",
+    "name": "Joe Jones",
+    "car_id": "1efe914f-0fc7-67b5-b0d5-e46d9a30dd48",
+    "color": "RED"
+  },
+  {
+    "id": "1efeab96-203f-62d2-8c34-d12efc41110a",
+    "name": "John Doe",
+    "car_id": "1efe914f-0fc7-67b3-a52a-317a66974c2a",
+    "color": "BLUE"
+  }
+]
