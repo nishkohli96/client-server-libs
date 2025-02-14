@@ -14,6 +14,7 @@ import { ENV_VARS } from '@/app-constants';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
+import { connectToRedis } from '@/redis';
 import app from './app';
 
 const hostName = os.hostname();
@@ -171,6 +172,7 @@ async function bootstrap() {
     await connectMySQLDB();
     await connect(dbConnectionString);
     winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
+    await connectToRedis();
 
     server.listen(port, () => {
       winstonLogger.info(
