@@ -33,6 +33,27 @@ class BuyerService {
       return sendErrorResponse(res, error, 'Unable to add new car details');
     }
   }
+
+  async getPurchaseDetails(res: Response) {
+    try {
+      const purchaseList = await BuyerModel.findAll(
+        {
+          include: {
+            model: CarModel,
+            as: 'carDetails'
+          }
+        }
+      );
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Purchase list',
+        data: purchaseList
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to get purchase history');
+    }
+  }
 }
 
 const buyerService = new BuyerService();

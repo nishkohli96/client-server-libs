@@ -64,6 +64,8 @@
     NAME=migrationName yarn new-migration
     ```
 
+11. You can also [configure a custom js file](https://sequelize.org/docs/v6/other-topics/migrations/#the-sequelizerc-file) instead of the default [config.json](./config/config_sample.json) file to define database connection settings.
+
 ## Database Commands
 
 | Command |	Description |

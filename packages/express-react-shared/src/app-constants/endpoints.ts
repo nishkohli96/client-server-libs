@@ -18,6 +18,7 @@ export const ExpressServerEndpoints = Object.freeze({
       delete: 'delete',
       deletedList: 'deleted-list',
       restore: 'restore',
+      ownersList: 'owners-list'
     }
   },
   carBrand: {

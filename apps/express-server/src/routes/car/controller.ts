@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import carService from './service';
 import * as CarTypeDefs from './types';
@@ -67,6 +67,14 @@ carRouter.patch(
   `/${subRoutes.restore}/:carId`,
   async (req: CarTypeDefs.GetCarDetailsRequest, res: Response) => {
     return await carService.restoreCarRecord(res, req.params.carId);
+  }
+);
+
+/* GET /car/owners-list */
+carRouter.get(
+  `/${subRoutes.ownersList}`,
+  async (req: Request, res: Response) => {
+    return await carService.getOwnersList(res);
   }
 );
 

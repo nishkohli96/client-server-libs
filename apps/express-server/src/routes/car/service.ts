@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { CarBrandModel, CarModel, CarModelCreationAttributes } from '@/db/postgres/models';
+import { BuyerModel, CarBrandModel, CarModel, CarModelCreationAttributes } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 
 /**
@@ -294,6 +294,86 @@ class CarService {
       });
     } catch (error) {
       return sendErrorResponse(res, error, 'Unable to restore car details');
+    }
+  }
+
+  /**
+   * Get Card details, joining brand details and list of owners
+   * who purchased that car.
+   */
+  async getOwnersList(res: Response) {
+    try {
+      const carOwnersList = await CarModel.findAll(
+        {
+          include: [
+            {
+              model: CarBrandModel,
+              as: 'brand',
+              attributes: [
+                'id',
+                'name',
+                'country'
+              ]
+            },
+            /**
+             * Say if BuyerModel has user details and PurchaseModel
+             * links buyer_id to car_id, you will need four joins:
+             *
+             * 1. CarModel (Primary car data)
+             * 2. CarBrandModel (Brand details for the car)
+             * 3. PurchaseModel (Links car purchases to buyers)
+             * 4. BuyerModel (Details of the buyer, including user details)
+             *
+             * Then the shape of this model would be like,
+             * {
+             *   model: PurchaseModel,
+             *   as: 'purchases',
+             *   attributes: [
+             *     'id', 'buyer_id', 'car_id', 'purchased_on'
+             *   ],
+             *   include: [
+             *     {
+             *       model: BuyerModel,
+             *       as: 'buyer',
+             *       attributes: ['id', 'name', 'email'],
+             *       include: [
+             *        {
+             *          model: UserModel,
+             *          as: 'user',
+             *          attributes: ['id', 'name', 'email']
+             *        }
+             *       ]
+             *     }
+             *   ]
+             * }
+             */
+            {
+              model: BuyerModel,
+              as: 'owners',
+              attributes: [
+                'name',
+                'color',
+                'purchased_on'
+              ]
+            }
+          ],
+          attributes: {
+            exclude: [
+              'created_at',
+              'updated_at',
+              'deleted_at'
+            ]
+          }
+        }
+      );
+      return res.json({
+        success: true,
+        status: 200,
+        message: 'Cars owner list.',
+        data: carOwnersList
+      });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Unable to get cars owner list');
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import buyerService from './service';
 import * as BuyerTypeDefs from './types';
@@ -15,5 +15,11 @@ buyerRouter.post(
 );
 
 /* GET /buyers/purchase-details */
+buyerRouter.get(
+  `/${subRoutes.purchaseDetails}`,
+  async (req: Request, res: Response) => {
+    return await buyerService.getPurchaseDetails(res);
+  }
+);
 
 export { buyerRouter };
