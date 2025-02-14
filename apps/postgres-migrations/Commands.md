@@ -69,26 +69,26 @@
 12. By default, Sequelize does not track the executed seeders. Thus you need to configure that in the `config.json`, using the available
 storage options:
 
-| Option Name | Description |
-|-|-|
-| `none` (Default) | No tracking of executed seeders |
-| `json` | Stores executed seeders in a JSON file |
-| `sequelize` | Stores executed seeders in the database in a table (SequelizeData) |
+    | Option Name | Description |
+    |-|-|
+    | `none` (Default) | No tracking of executed seeders |
+    | `json` | Stores executed seeders in a JSON file |
+    | `sequelize` | Stores executed seeders in the database in a table (SequelizeData) |
 
-The snippet below defines how and where to store data of the applied [migrations](https://sequelize.org/docs/v6/other-topics/migrations/#migration-storage) and [seeders](https://sequelize.org/docs/v6/other-topics/migrations/#migration-storage).
+    The snippet below defines how and where to store data of the applied [migrations](https://sequelize.org/docs/v6/other-topics/migrations/#migration-storage) and [seeders](https://sequelize.org/docs/v6/other-topics/migrations/#migration-storage).
 
-```json
-{
-  "development": {
-    "migrationStorage": "json",
-    "migrationStorageTableName": "SequelizeMigrations",
-    "seederStorage": "sequelize",
-    "seederStorageTableName": "SequelizeSeeders"
-  }
-}
-```
+    ```json
+    {
+      "development": {
+        "migrationStorage": "json",
+        "migrationStorageTableName": "SequelizeMigrations",
+        "seederStorage": "sequelize",
+        "seederStorageTableName": "SequelizeSeeders"
+      }
+    }
+    ```
 
-Make sure to add `applied_at` column for the appropriate db tables to keep a track of the date when the last migration was applied or the data was seeded.
+    Make sure to add `applied_at` column for the appropriate db tables to keep a track of the date when the last migration was applied or the data was seeded.
 
 ## Database Commands
 
