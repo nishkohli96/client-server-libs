@@ -117,7 +117,7 @@ ZRANGEBYLEX myset - + LIMIT 0 3
 ZRANGEBYLEX myset [c [m
 ```
 
-- - → Represents lowest lexicographical value.
-- + → Represents highest lexicographical value.
-- [ → Inclusive
-- ( → Exclusive
+- `-` → Represents lowest lexicographical value.
+- `+` → Represents highest lexicographical value.
+- `[` → Inclusive
+- `(` → Exclusive
