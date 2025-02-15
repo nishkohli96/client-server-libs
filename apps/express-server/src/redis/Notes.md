@@ -2,20 +2,30 @@
 
 ## Redis Commands
 
-| Command Name | Description |
+### Strings
+| Command | Description |
 |-|-|
 | `SET` | Assign a new value or overwrite value for a key |
 | `GET` | Retrieve value for a key |
 | `UNLINK` | Remove a key |
+| `TYPE` | Returns data type of the key |
+| `EXISTS` | Returns 1 if key is present, else 0 |
+
+### List
+| Command | Description |
+|-|-|
 | `LPUSH` | Append element to the starting of the list |
 | `RPOP` | Remove element from the end of the list |
 | `LLEN` | Returns length of the list |
 | `LRANGE` | Returns elements from start to end index, both inclusive |
 | `LINDEX` | Returns element at the specified index |
 | `LTRIM` | Mutate list from start to end index, both inclusive |
-| `TYPE` | Returns data type of the key |
-| `EXISTS` | Returns 1 if key is present, else 0 |
-| `SADD` | Add element to a set |
+
+### Set
+| Command | Description |
+|-|-|
+| `SADD` | Add element(s) to a set |
+| `SREM` | Remove element(s) from a set |
 | `SMEMBERS` | Get all members of a set |
 | `SISMEMBER` | Check if a Value Exists in a Set |
 | `SRANDMEMBER` | Get random element(s) from a set. Returns n number of random elements if n is specified after the key name, else it returns only a single element |
@@ -36,4 +46,5 @@
 ## Links
 
 | Name | Links |
+|-|-|
 | **Lists** | [Docs](https://redis.io/docs/latest/develop/data-types/lists/), [Commands](https://redis.io/docs/latest/commands/?group=list) | 
