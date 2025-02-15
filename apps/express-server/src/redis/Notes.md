@@ -22,7 +22,7 @@
 | `LINDEX` | Returns element at the specified index |
 | `LTRIM` | Mutate list from start to end index, both inclusive |
 
-For more details on lists, refer the [Redis documentation](https://redis.io/docs/latest/develop/data-types/lists/) and the complete list of [list related commands](https://redis.io/docs/latest/commands/?group=list).
+For more details on lists, refer the [Redis Lists documentation](https://redis.io/docs/latest/develop/data-types/lists/) and the complete list of [list related commands](https://redis.io/docs/latest/commands/?group=list).
 
 ### Set
 | Command | Description |
@@ -38,7 +38,7 @@ For more details on lists, refer the [Redis documentation](https://redis.io/docs
 | `SINTER` | Intersection of 2 or more sets |
 | `SDIFF` | Get elements of 1st set that are not present on 1 or more sets |
 
-For more details on sets, refer the [Redis documentation](https://redis.io/docs/latest/develop/data-types/sets/) and the complete list of [set related commands](https://redis.io/docs/latest/commands/?group=set).
+For more details on sets, refer the [Redis Sets documentation](https://redis.io/docs/latest/develop/data-types/sets/) and the complete list of [set related commands](https://redis.io/docs/latest/commands/?group=set).
 
 ### Hash
 
@@ -52,7 +52,7 @@ For more details on sets, refer the [Redis documentation](https://redis.io/docs/
 | `HINCRBYFLOAT` | Increments value of floating values for a field |
 | `HLEN` | Returns the number of fields contained in the hash stored at key |
 
-For more details on hashes, refer the [Redis documentation](https://redis.io/docs/latest/develop/data-types/hashes/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=hash).
+For more details on hashes, refer the [Redis Hashes documentation](https://redis.io/docs/latest/develop/data-types/hashes/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=hash).
 
 ### Sorted Set
 
@@ -69,7 +69,7 @@ For more details on hashes, refer the [Redis documentation](https://redis.io/doc
 | `ZREM` | Removes element by field |
 | `ZINCRBY` | Increments score of a key by the specified value. `ZINCRBY rating 1.2 joe` |
 
-For more details on sorted-sets, refer the [Redis documentation](https://redis.io/docs/latest/develop/data-types/sorted-sets/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=sorted-set).
+For more details on sorted-sets, refer the [Redis Sorted-Sets documentation](https://redis.io/docs/latest/develop/data-types/sorted-sets/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=sorted-set).
 
 ## Notes
 
@@ -117,7 +117,7 @@ ZRANGEBYLEX myset - + LIMIT 0 3
 ZRANGEBYLEX myset [c [m
 ```
 
-- → Represents lowest lexicographical value.
-+ → Represents highest lexicographical value.
-[ → Inclusive
-( → Exclusive
+- - → Represents lowest lexicographical value.
+- + → Represents highest lexicographical value.
+- [ → Inclusive
+- ( → Exclusive
