@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import * as Sentry from '@sentry/nextjs';
 import { AirportModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
 
@@ -14,9 +15,9 @@ export async function GET(request: NextRequest) {
     const allData = await AirportModel.find()
       .skip((pageNum - 1) * recordsPerPage)
       .limit(recordsPerPage);
-
     return NextResponse.json(allData);
-  } catch {
+  } catch(error) {
+    Sentry.captureException(error);
     return NextResponse.json({ message: 'Something went wrong!' });
   }
 }

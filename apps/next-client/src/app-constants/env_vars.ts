@@ -8,4 +8,11 @@ export const ENV_VARS = Object.freeze({
     url: process.env.MONGODB_URL ?? '',
     dbName: process.env.MONGODB_NAME ?? ''
   },
+  sentry: {
+    orgName: process.env.SENTRY_ORG ?? '',
+    projectName: process.env.SENTRY_PROJECT ?? '',
+    serverDSN: process.env.SENTRY_SERVER_DSN ?? '',
+    edgeDSN: process.env.SENTRY_EDGE_DSN ?? '',
+    clientDSN: process.env.NEXT_PUBLIC_SENTRY_CLIENT_DSN ?? ''
+  }
 });
