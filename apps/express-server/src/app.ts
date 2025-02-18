@@ -1,6 +1,7 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
+import * as Sentry from '@sentry/node';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS, ServerConfig } from '@/app-constants';
 import { requestLogger } from '@/middleware';
@@ -53,10 +54,36 @@ app.get('/', (_: Request, response: Response) => {
 routesArray.forEach(route =>
   app.use(generatePath(route.rootPath), route.router));
 
+app.get('/debug-sentry', function mainHandler(req, res) {
+  throw new Error('My first Sentry error!');
+});
+
 /* 404 Handler */
 app.get('*', (req: Request, response: Response) => {
   const notFoundMsg = `Not Found - "${req.originalUrl}"`;
   response.status(404).send(notFoundMsg);
+});
+
+/**
+ * The error handler must be registered before any other error middleware
+ * and after all controllers.
+ */
+Sentry.setupExpressErrorHandler(app);
+
+/* Optional fallthrough error handler */
+app.use(function onError(
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  /**
+   * The error id is attached to `res.sentry` to be returned
+   * and optionally displayed to the user for support.
+   */
+  res.statusCode = 500;
+  // @ts-ignore
+  res.end(res.sentry + '\n');
 });
 
 export default app;
