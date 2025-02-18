@@ -2568,9 +2568,9 @@
     eslint-plugin-react-hooks "^5.1.0"
     typescript-eslint "^8.21.0"
 
-"@nish1896/rhf-mui-components@^2.0.0":
+"@nish1896/rhf-mui-components@^2.0.1":
   version "2.0.1"
-  resolved "https://registry.npmjs.org/@nish1896/rhf-mui-components/-/rhf-mui-components-2.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/@nish1896/rhf-mui-components/-/rhf-mui-components-2.0.1.tgz#b770aa2434f3f6d993ee7ef2b98ca006dec81407"
   integrity sha512-ucGfI45lM1dGfuTygK0Mtyx0tQWcK2L+oTOgmY5GgUtNb4I/ah1sVU/S6H9CZhTf8MQPplPGQxXLIbyRhtQTcg==
 
 "@nodelib/fs.scandir@2.1.5":
@@ -3351,7 +3351,7 @@
     "@sentry/core" "9.1.0"
     "@sentry/node" "9.1.0"
 
-"@sentry/react@9.1.0":
+"@sentry/react@9.1.0", "@sentry/react@^9.1.0":
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/@sentry/react/-/react-9.1.0.tgz#031afee69c55ed9e16cf3196019e78553f38ee71"
   integrity sha512-aP2sXHH+erbomuzU762ktg340IGDh8zD7ueuqwBwGu98fhCpTYsLXiS85I29tUvPLljwNU9puLPmxbgW4iZ2tQ==
