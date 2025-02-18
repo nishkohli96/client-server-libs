@@ -1,11 +1,13 @@
 import { Fragment } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { useOnlineStatus } from '@csl/shared-fe';
 import { NavPill, PageLayout } from 'components';
 import { RouteList } from 'routes/route-list';
 import { socket } from 'socket';
 
 export default function HomePage() {
+  useOnlineStatus();
   async function emitSocketEvent() {
     try {
       const response = await socket

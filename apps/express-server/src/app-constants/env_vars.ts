@@ -20,7 +20,13 @@ export const ENV_VARS = Object.freeze({
     testEmail: env.STYTCH_TEST_EMAIL ?? 'hello@abc.com'
   },
   postgresUrl: env.POSTGRES_URL ?? 'postgres://root:password@localhost:5432/test',
-  mySQLUrl: env.MYSQL_URL ?? 'mysql://root:password@localhost:3306/mydatabase'
+  mySQLUrl: env.MYSQL_URL ?? 'mysql://root:password@localhost:3306/mydatabase',
+  redis: {
+    user: env.REDIS_USER ?? 'default',
+    password: env.REDIS_PASSWORD,
+    host: env.REDIS_HOST ?? '127.0.0.1',
+    port: Number(env.REDIS_PORT) ?? 6379
+  },
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';

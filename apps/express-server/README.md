@@ -32,3 +32,4 @@ $ yarn run start:prod
   - Advanced filtering using operators from [Mui Datagrid](https://mui.com/x/react-data-grid/)
 - [Stytch](https://stytch.com/) authentication methods
 - Connect to **Postgres** and **MySQL** DBs deployed on [railway](https://docs.railway.com/) using [Sequelize](https://sequelize.org/).
+- [Redis](https://redis.io/) connection using [redis](https://www.npmjs.com/package/redis) and [ioredis](https://www.npmjs.com/package/ioredis) packages. Prepared doc containing some commonly used [redis commands](https://redis.io/docs/latest/commands/).

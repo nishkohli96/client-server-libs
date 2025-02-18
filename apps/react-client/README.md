@@ -35,3 +35,4 @@ $ yarn run start:prod
   - Supporting sorting, filtering and pagination
   - Complete functionality for CRUD operations for list of people.
 - Integrated [socket.io](https://socket.io/) on client side.
+- Hooks to detect internet connectivity, and render a fallback UI if internet is disconnected.

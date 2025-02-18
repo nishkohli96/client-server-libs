@@ -41,4 +41,4 @@ Each of the applications have common scripts which can be easily executed in par
 
 ## Support Me
 
-If you found this template helpful and saved your valuable time, consider [buying me a coffee](https://www.buymeacoffee.com/nish1896)
+If you found these code snippets helpful and saved your valuable time, please consider [buying me a coffee](https://www.buymeacoffee.com/nish1896).

@@ -5,9 +5,8 @@ import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import { PageContent } from '@csl/shared-fe';
 import theme from '@/assets/styles/theme';
-import { AppBar } from '@/components';
+import { AppBar, PageContainer } from '@/components';
 import { routing } from '@/i18n/routing';
 import { Locales } from '@/types';
 import '../globals.css';
@@ -20,7 +19,7 @@ type RootLayoutProps = {
 const inter = Inter({ subsets: ['latin'] });
 
 /**
- * Make sure to also add translationsmin your application
+ * Make sure to also add translations in your application
  * for the metadata of each page.
  */
 export async function generateMetadata({
@@ -40,13 +39,15 @@ export default async function RootLayout({
   children,
   params: { locale }
 }: RootLayoutProps) {
-  // Ensure that the incoming `locale` is valid
+  /* Ensure that the incoming `locale` is valid */
   if (!routing.locales.includes(locale as Locales)) {
     notFound();
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
+  /**
+   * Providing all messages to the client side is the
+   * easiest way to get started
+   */
   const messages = await getMessages();
 
   return (
@@ -56,9 +57,9 @@ export default async function RootLayout({
           <AppRouterCacheProvider options={{ key: 'mui' }}>
             <ThemeProvider theme={theme}>
               <AppBar />
-              <PageContent>
+              <PageContainer>
                 {children}
-              </PageContent>
+              </PageContainer>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
