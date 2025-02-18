@@ -71,6 +71,16 @@ For more details on hashes, refer the [Redis Hashes documentation](https://redis
 
 For more details on sorted-sets, refer the [Redis Sorted-Sets documentation](https://redis.io/docs/latest/develop/data-types/sorted-sets/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=sorted-set).
 
+### JSON
+
+| Command | Description |
+|-|-|
+| `JSON.SET` | Adds a ney key. Eg: `JSON.SET product $ '{"age":34, "rating":3.4, "name": "Joey Mars", "isActive": true }'` |
+| `JSON.GET` | Returns the whole value for a key. Partial value can also be obtained. |
+| `JSON.DEL` | Removes the specified field from the key |
+
+For more details on sorted-sets, refer the [Redis JSON documentation](https://redis.io/docs/latest/develop/data-types/json/) and the complete list of [hash related commands](https://redis.io/docs/latest/commands/?group=json).
+
 ## Notes
 
 1. Keys are case-insensitive. Both "color" and "Color" keys can exist with different values.
@@ -117,7 +127,23 @@ ZRANGEBYLEX myset - + LIMIT 0 3
 ZRANGEBYLEX myset [c [m
 ```
 
-- `-` → Represents lowest lexicographical value.
-- `+` → Represents highest lexicographical value.
-- `[` → Inclusive
-- `(` → Exclusive
+`-` → Lowest lexicographical value.
+`+` → Highest lexicographical value.
+`[` → Inclusive
+`(` → Exclusive
+
+10. `JSON.Get` can also return values for a specific field or all values.
+
+```
+// Returns ["3.4"]
+JSON.GET product $.rating
+
+// Returns values for all fields
+JSON.GET product $.*
+
+// Adds new field, description with the specified value
+JSON.SET product $.description "Some product description"
+
+// Removes the specified field
+JSON.DEL product $.rating
+```
