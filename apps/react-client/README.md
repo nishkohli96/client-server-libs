@@ -36,3 +36,4 @@ $ yarn run start:prod
   - Complete functionality for CRUD operations for list of people.
 - Integrated [socket.io](https://socket.io/) on client side.
 - Hooks to detect internet connectivity, and render a fallback UI if internet is disconnected.
+- Integration with [Sentry](https://docs.sentry.io/platforms/javascript/guides/react/).

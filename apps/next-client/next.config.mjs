@@ -1,7 +1,6 @@
 import createMDX from '@next/mdx';
 import createNextIntlPlugin from 'next-intl/plugin';
 import { withSentryConfig } from '@sentry/nextjs';
-import { ENV_VARS } from '@/app-constants';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -30,8 +29,8 @@ export default withSentryConfig(withNextIntl(withMDX(nextConfig)), {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: ENV_VARS.sentry.orgName,
-  project: ENV_VARS.sentry.projectName,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
