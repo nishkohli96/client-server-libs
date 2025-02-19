@@ -25,6 +25,7 @@ coverage
 *.log
 .pnp.js
 *.pem
+.sentryclirc
 
 # IDEs and editors
 /.idea
