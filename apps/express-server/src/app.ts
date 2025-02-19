@@ -83,6 +83,8 @@ app.use(function onError(
    */
   res.statusCode = 500;
   // @ts-ignore
+  console.log('res.sentry: ', res.sentry, typeof res.sentry);
+  // @ts-ignore
   res.end(res.sentry + '\n');
 });
 
