@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as Sentry from '@sentry/nextjs';
 import { AirportModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
+import { logApiError } from '@/utils';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -17,7 +17,12 @@ export async function GET(request: NextRequest) {
       .limit(recordsPerPage);
     return NextResponse.json(allData);
   } catch(error) {
-    Sentry.captureException(error);
-    return NextResponse.json({ message: 'Something went wrong!' });
+    logApiError(error, request);
+    return NextResponse.json({
+      message: 'Something went wrong!',
+      error: error instanceof Error
+        ? error.message
+        : JSON.stringify(error)
+    });
   }
 }

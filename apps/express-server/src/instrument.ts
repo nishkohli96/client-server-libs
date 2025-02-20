@@ -10,6 +10,7 @@ Sentry.init({
   /* Tracing: Capture 100% of the transactions */
   tracesSampleRate: 1.0,
   profilesSampleRate: 1.0,
+  environment: 'development'
 });
 
 export function startProfiler() {
