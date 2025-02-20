@@ -38,23 +38,25 @@ jobs:
       - name: Build @csl/react-express, @csl/shared-fe, @csl/mongo-models
         run: yarn lib
 
-      - name: Build express-server
-        run: yarn workspace express-server build
+      # - name: Build express-server
+      #   run: yarn workspace express-server build
 
-      - name: Upload Express-Server Source Maps to Sentry
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_EXPRESS }}
-        run: |
-          cd apps/express-server
-          npx sentry-cli releases new $GITHUB_SHA
-          npx sentry-cli releases set-commits --auto $GITHUB_SHA
-          npx sentry-cli releases finalize $GITHUB_SHA
-          yarn sentry:sourcemaps
+      # # ✅ Only upload source maps when pushing to main
+      # - name: Upload Express-Server Source Maps to Sentry
+      #   if: github.ref == 'refs/heads/main'
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_EXPRESS }}
+      #   run: |
+      #     cd apps/express-server
+      #     npx sentry-cli releases new $GITHUB_SHA
+      #     npx sentry-cli releases set-commits --auto $GITHUB_SHA
+      #     npx sentry-cli releases finalize $GITHUB_SHA
+      #     yarn sentry:sourcemaps
 
-      - name: Build nestjs-server
-        run: yarn workspace nestjs-server build
+      # - name: Build nestjs-server
+      #   run: yarn workspace nestjs-server build
 
       - name: Build react-client
         run: yarn workspace react-client build
@@ -62,6 +64,7 @@ jobs:
       - name: Upload React-Client Source Maps to Sentry
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         run: |
           cd apps/react-client
           npx sentry-cli releases new $GITHUB_SHA
