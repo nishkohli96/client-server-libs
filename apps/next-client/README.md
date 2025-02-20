@@ -8,3 +8,4 @@
 - Integrate [socket.io](https://socket.io/) using [this guide](https://socket.io/how-to/use-with-nextjs).
 - Render a fallback UI if internet is disconnected.
 - Get Location using `navigator`
+- [Sentry](https://docs.sentry.io/platforms/javascript/guides/nextjs/) integration

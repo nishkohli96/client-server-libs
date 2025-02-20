@@ -27,6 +27,7 @@ export const ENV_VARS = Object.freeze({
     host: env.REDIS_HOST ?? '127.0.0.1',
     port: Number(env.REDIS_PORT) ?? 6379
   },
+  sentryDSN: env.SENTRY_DSN ?? ''
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';
