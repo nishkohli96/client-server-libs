@@ -30,7 +30,7 @@ export default withSentryConfig(withNextIntl(withMDX(nextConfig)), {
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
   org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
+  project: process.env.SENTRY_PROJECT_NEXT,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

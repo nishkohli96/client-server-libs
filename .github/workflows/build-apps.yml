@@ -58,5 +58,14 @@ jobs:
       - name: Build react-client
         run: yarn workspace react-client build
 
+      - name: Upload Express-Server Source Maps to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          cd apps/react-client
+          npx sentry-cli releases new $GITHUB_SHA
+          npx sentry-cli releases set-commits --auto $GITHUB_SHA
+          npx sentry-cli releases finalize $GITHUB_SHA
+
       - name: Build next-client
         run: yarn workspace next-client build
