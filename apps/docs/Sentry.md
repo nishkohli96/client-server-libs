@@ -18,6 +18,6 @@
     - Associates commits from your repo (set-commits --auto).
     - Finalizes the release (releases finalize $GITHUB_SHA).
     - Ensures errors are linked to a specific release version in Sentry.
-	  - Then run `sentry:sourcemaps` script to upload source maps to the   correct release.
+    - Then run `sentry:sourcemaps` script to upload source maps to the   correct release.
 
 4.  By default, `withSentryConfig` will add a custom Webpack plugin to your configuration that runs for both server and client builds. This means that when you run a production build (`next build`), sourcemaps will be generated and uploaded to Sentry, so that you get readable stack traces in your Sentry issues.
