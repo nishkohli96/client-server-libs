@@ -41,6 +41,17 @@ jobs:
       - name: Build express-server
         run: yarn workspace express-server build
 
+      - name: Upload Express-Server Source Maps to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_EXPRESS }}
+        run: |
+          cd apps/express-server
+          npx sentry-cli releases new $GITHUB_SHA
+          npx sentry-cli releases set-commits --auto $GITHUB_SHA
+          npx sentry-cli releases finalize $GITHUB_SHA
+
       - name: Build nestjs-server
         run: yarn workspace nestjs-server build
 
