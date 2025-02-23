@@ -37,3 +37,4 @@ $ yarn run start:prod
 - Integrated [socket.io](https://socket.io/) on client side.
 - Hooks to detect internet connectivity, and render a fallback UI if internet is disconnected.
 - Integration with [Sentry](https://docs.sentry.io/platforms/javascript/guides/react/).
+- Check out some useful [custom hooks](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main/src).
