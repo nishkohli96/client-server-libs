@@ -5,6 +5,7 @@ const { combine, timestamp, printf } = format;
 
 /**
  * https://github.com/winstonjs/winston?tab=readme-ov-file#using-custom-logging-levels
+ * https://www.datadoghq.com/blog/node-logging-best-practices/
  */
 const customLevels = {
   levels: {
@@ -32,6 +33,9 @@ const myFormat = printf(
  *
  * Winston has seven levels (ordered from the most to least important)
  * - error, warn, info, verbose, debug, and silly.
+ *
+ * You can create more than one logger to capture logs related to certain
+ * modules, for eg: paymentsLogger, userLogger etc.
  */
 const winstonLogger = createLogger({
   levels: customLevels.levels,

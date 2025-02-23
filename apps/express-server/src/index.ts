@@ -1,4 +1,5 @@
 import 'dotenv/config';
+// import '@/middleware/datadog';
 import os from 'os';
 import { createServer } from 'node:http';
 import { v4 as uuidv4 } from 'uuid';
