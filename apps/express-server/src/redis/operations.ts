@@ -10,12 +10,14 @@ type SScanResult = {
   members: string[]
 };
 
+type SortedSetMember = {
+  score: number;
+  value: string;
+};
+
 type ZScanResult = {
   cursor: number;
-  members: {
-    score: number;
-    value: string;
-  }[];
+  members: SortedSetMember[];
 }
 
 /**
@@ -28,49 +30,63 @@ type ZScanResult = {
  * Count here is the number of elements to scan in one iteration.
  * The iteration stops when 0 is returned as the cursor value.
  */
-async function scanSet(key: string, matchPattern = '*', count = 20) {
-  let currentCursor: number | null = null;
-  const results = [];
+async function scanSet(
+  key: string,
+  matchPattern = '*',
+  count = 20,
+  cursor = 0,
+  results: string[] = []
+) {
   try {
-    while (currentCursor !== 0) {
-      const { cursor, members }: SScanResult = await redisClient.sScan(
-        key,
-        currentCursor ?? 0,
-        {
-          MATCH: matchPattern,
-          COUNT: count
-        }
-      );
-      currentCursor = cursor;
-      results.push(...members);
+    const { cursor: newCursor, members }: SScanResult = await redisClient.sScan(
+      key,
+      cursor,
+      {
+        MATCH: matchPattern,
+        COUNT: count
+      }
+    );
+    results.push(...members);
+
+    if (newCursor !== 0) {
+      return scanSet(key, matchPattern, count, newCursor, results);
     }
     console.log(`Set "${key}" members:`, results);
     return results;
   } catch (error) {
     console.error('Error scanning set:', error);
+    return [];
   }
 }
 
-async function scanSortedSet(key: string, matchPattern = '*', count = 20) {
-  let currentCursor: number | null = null;
-  const results = [];
+async function scanSortedSet(
+  key: string,
+  matchPattern = '*',
+  count = 20,
+  cursor = 0,
+  results: SortedSetMember[] = []
+) {
   try {
-    while (currentCursor !== 0) {
-      const { cursor, members }: ZScanResult
-        = await redisClient.zScan(key, currentCursor ?? 0, {
-          MATCH: matchPattern,
-          COUNT: count
-        });
-      currentCursor = cursor;
-      results.push(...members);
+    const { cursor: newCursor, members }: ZScanResult = await redisClient.zScan(
+      key,
+      cursor,
+      {
+        MATCH: matchPattern,
+        COUNT: count
+      }
+    );
+    results.push(...members);
+
+    if (newCursor !== 0) {
+      return scanSortedSet(key, matchPattern, count, newCursor, results);
     }
     console.log(`Sorted Set "${key}" members:`, results);
     return results;
   } catch (error) {
-    console.error('Error scanning set:', error);
+    console.error('Error scanning sorted set:', error);
+    return [];
   }
 }
-
 
 export async function performRedisOps() {
   try {
