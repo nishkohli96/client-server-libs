@@ -5,7 +5,8 @@ const ENV_VARS = Object.freeze({
   serverURL: env.EXPRESS_SERVER_URL ?? 'http://localhost:8000',
   sentry: {
     dsn: env.REACT_APP_SENTRY_DSN ?? ''
-  }
+  },
+  mixPanelToken: env.REACT_APP_MIXPANEL_TOKEN ?? '',
 });
 
 export default ENV_VARS;

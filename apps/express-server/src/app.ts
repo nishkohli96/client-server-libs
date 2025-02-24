@@ -1,4 +1,4 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import * as Sentry from '@sentry/node';
@@ -54,7 +54,7 @@ app.get('/', (_: Request, response: Response) => {
 routesArray.forEach(route =>
   app.use(generatePath(route.rootPath), route.router));
 
-app.get('/debug-sentry', function mainHandler(req, res) {
+app.get('/debug-sentry', function mainHandler() {
   throw new Error('My first Sentry error!');
 });
 
@@ -75,7 +75,7 @@ app.use(function onError(
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  // next: NextFunction
 ) {
   /**
    * The error id is attached to `res.sentry` to be returned

@@ -28,6 +28,7 @@ export const ENV_VARS = Object.freeze({
     port: Number(env.REDIS_PORT) ?? 6379
   },
   sentryDSN: env.SENTRY_DSN ?? '',
+  mixPanelToken: env.MIXPANEL_TOKEN ?? '',
   aws: {
     accessKey: env.AWS_ACCESS_KEY ?? '',
     accessKeySecret: env.AWS_ACCESS_KEY_SECRET ?? ''
