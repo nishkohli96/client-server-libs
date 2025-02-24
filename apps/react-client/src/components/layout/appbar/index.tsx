@@ -20,7 +20,12 @@ const AppBar = () => {
           >
             <AdbIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, cursor: 'pointer' }}
+            onClick={() => navigate('/')}
+          >
             React Client
           </Typography>
           <ThemeChangeButton />

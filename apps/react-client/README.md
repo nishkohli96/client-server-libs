@@ -31,10 +31,11 @@ $ yarn run start:prod
   - upload single & multiple files for same field
   - convert large video file in chunks
   - convert file as base64 and upload in parts
-- Fetching and rendering dynamic data in [Mui Datagrid](https://mui.com/x/react-data-grid/).
+- Fetching and rendering dynamic data in [Mui Datagrid](https://mui.com/x/react-data-grid/)
   - Supporting sorting, filtering and pagination
-  - Complete functionality for CRUD operations for list of people.
-- Integrated [socket.io](https://socket.io/) on client side.
-- Hooks to detect internet connectivity, and render a fallback UI if internet is disconnected.
-- Integration with [Sentry](https://docs.sentry.io/platforms/javascript/guides/react/).
-- Check out some useful [custom hooks](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main/src).
+  - Complete functionality for CRUD operations for list of people
+- Integrated [socket.io](https://socket.io/) on client side
+- Hooks to detect internet connectivity, and render a fallback UI if internet is disconnected
+- Integration with [Sentry](https://docs.sentry.io/platforms/javascript/guides/react/)
+- Check out some useful [custom hooks](https://github.com/WebDevSimplified/useful-custom-react-hooks/tree/main/src)
+- Track user analytics using [Mixpanel](https://mixpanel.com/home/)

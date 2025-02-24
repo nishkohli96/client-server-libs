@@ -15,7 +15,8 @@ const RouteNames = {
       view: 'view',
       edit: 'edit'
     }
-  }
+  },
+  events: '/events'
 };
 
 export default RouteNames;
