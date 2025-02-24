@@ -7,3 +7,5 @@ mixpanel.init(ENV_VARS.mixPanelToken, {
   track_pageview: true,
   persistence: 'localStorage'
 });
+
+export { mixpanel };
