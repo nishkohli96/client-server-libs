@@ -3,7 +3,6 @@
 import {
   IAMClient,
   ListGroupsCommand,
-  AddUserToGroupCommand
 } from '@aws-sdk/client-iam';
 import { ENV_VARS } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
