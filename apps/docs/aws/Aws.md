@@ -14,18 +14,20 @@
 
 1.  When creating an **EC2**, you can specify the start commands or upload file under `Advanced details > User data` section. When restarting an instance, its public IP would change, but the private IP will remain constant. To modify EC2 user data, select the instance, stop its execution, then `Actions > Instance settings > Edit user data`.
 
-2.  For an EC2 instance, 
+2.  For an EC2 instance,
     | Port Number | Function |
-		|-|-|
+    |-|-|
     | **22** | SSH & SFTP (Secure FTP, ie upload files via ssh) |
     | **21** | FTP (File Transfer Protocol) |
     |  **80** | HTTP - Access unsecured websites |
     |  **443** | HTTPS - Secure web browsing |
-	  | **3389** | RDP (Remote Desktop Protocol) |
+    | **3389** | RDP (Remote Desktop Protocol) |
 
 3.  Public IPv4 of an EC2 instance changes whenever you start and stop an instance. To prevent this from happening, create a new **Elastic IP** under `Network & Security > Elastic IPs` and assign that IP to your EC2 instance. Make sure to disassociate and release the Elastic IP address to avoid being charged.
 
-4. To create a new AMI from an EC2 instance, select and right click it, then `Image and templates > Create image`. This newly created image will be available under `Images > AMIs`. You can also explore or purchase AMIs in the `Images > AMI Catalog` section.
+4. To create a new AMI from an EC2 instance, select and right click it, then `Image and templates > Create image`. This newly created image will be available under `Images > AMIs`. You can also explore or purchase AMIs in the `Images > AMI Catalog` section. You can launch new instances by clicking on the **Launch Instance from AMI** button or selecting your own AMI from the _Application and OS Images_ section when creating a new instance.
+
+5. Refer the user-data setup scripts for [Amazon Linux](./ec2_node_amazon-linux.sh) and [Ubuntu](./ec2_node_ubuntu.sh) which update the packages, install git,[nvm](https://github.com/nvm-sh/nvm), [node](https://nodejs.org/en) and [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/).
 
 # EBS
 
