@@ -8,22 +8,13 @@ sudo apt update -y
 sudo apt install git -y
 git --version
 
-# Install nvm
+# Setup node env in "ubuntu" directory
+sudo -u ubuntu bash << 'EC2_SCRIPT'
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-
-# Load nvm immediately so it's available
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-# Verify nvm is installed
-nvm -v
-
-# Install Node.js
+export NVM_DIR="/home/ubuntu/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 nvm install node
-
-# Verify Node.js and npm
 node -v
 npm -v
-
-# Install PM2 globally
 npm i -g pm2
+EC2_SCRIPT
