@@ -29,6 +29,10 @@ export const ENV_VARS = Object.freeze({
   },
   sentryDSN: env.SENTRY_DSN ?? '',
   mixPanelToken: env.MIXPANEL_TOKEN ?? '',
+  aws: {
+    accessKey: env.AWS_ACCESS_KEY ?? '',
+    accessKeySecret: env.AWS_ACCESS_KEY_SECRET ?? ''
+  }
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';

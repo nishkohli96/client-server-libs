@@ -13,6 +13,7 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org nish1896 --project node-express dist && sentry-cli sourcemaps upload --org nish1896 --project node-express dist"
   },
   "dependencies": {
+    "@aws-sdk/client-iam": "^3.750.0",
     "@csl/mongo-models": "*",
     "@csl/react-express": "*",
     "@sentry/cli": "^2.42.1",
