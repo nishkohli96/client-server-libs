@@ -31,7 +31,8 @@ export const ENV_VARS = Object.freeze({
   mixPanelToken: env.MIXPANEL_TOKEN ?? '',
   aws: {
     accessKey: env.AWS_ACCESS_KEY ?? '',
-    accessKeySecret: env.AWS_ACCESS_KEY_SECRET ?? ''
+    accessKeySecret: env.AWS_ACCESS_KEY_SECRET ?? '',
+    elastiCacheRedis: env.AWS_ELASTICACHE_REDIS ?? '',
   }
 });
 

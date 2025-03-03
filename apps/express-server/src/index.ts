@@ -16,7 +16,6 @@ import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
 import { connectToRedis } from '@/redis';
-import { iamOps } from '@/aws';
 import app from './app';
 
 const hostName = os.hostname();
@@ -170,12 +169,11 @@ io.on('connection', socket => {
 
 async function bootstrap() {
   try {
-    // await connectPostgresDB();
-    // await connectMySQLDB();
-    // await connect(dbConnectionString);
-    // winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
-    // await connectToRedis();
-    await iamOps();
+    await connectPostgresDB();
+    await connectMySQLDB();
+    await connect(dbConnectionString);
+    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
+    await connectToRedis();
 
     server.listen(port, () => {
       winstonLogger.info(

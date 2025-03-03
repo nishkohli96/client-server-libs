@@ -71,22 +71,22 @@ app.get('*', (req: Request, response: Response) => {
 Sentry.setupExpressErrorHandler(app);
 
 /* Optional fallthrough error handler */
-app.use(function onError(
-  err: Error,
-  req: Request,
-  res: Response,
-  // next: NextFunction
-) {
-  /**
-   * The error id is attached to `res.sentry` to be returned
-   * and optionally displayed to the user for support.
-   */
-  res.statusCode = 500;
-  // @ts-ignore
-  console.log('res.sentry: ', res.sentry, typeof res.sentry);
-  // @ts-ignore
-  res.end(res.sentry + '\n');
-});
+// app.use(function onError(
+//   err: Error,
+//   req: Request,
+//   res: Response,
+//   // next: NextFunction
+// ) {
+//   /**
+//    * The error id is attached to `res.sentry` to be returned
+//    * and optionally displayed to the user for support.
+//    */
+//   res.statusCode = 500;
+//   // @ts-ignore
+//   console.log('res.sentry: ', res.sentry, typeof res.sentry);
+//   // @ts-ignore
+//   res.end(res.sentry + '\n');
+// });
 
 export default app;
 

@@ -14,7 +14,7 @@ const chunkUploader = fileUploader(multerDirs.chunk);
 const uploader = fileUploader();
 
 /**
- * POST /files/upload
+ * POST /file/upload
  *
  * Uploading a single file, here "media" in
  * mediaUploader.single is the fieldName of the
@@ -30,7 +30,7 @@ fileRouter.post(
 );
 
 /**
- * POST /files/upload-many
+ * POST /file/upload-many
  *
  * Uploading multiple files in the same field
  */
@@ -43,7 +43,7 @@ fileRouter.post(
 );
 
 /**
- * POST /files/upload-separate
+ * POST /file/upload-separate
  *
  * Uploading files in two different fields, say an image
  * and a document. maxCount is the max number of files
@@ -112,7 +112,7 @@ fileRouter.get(
 );
 
 /**
- * POST /files/upload-base64
+ * POST /file/upload-base64
  *
  * Uploading large file by splitting into chunks and encoding
  * as base64, and then hitting the combine-file api to get the
@@ -138,7 +138,7 @@ fileRouter.post(
 );
 
 /**
- * POST /files/combine-base64
+ * POST /file/combine-base64
  *
  * Get filename along with the extension in params, combine
  * all the chunks stored from the above endpoint into the
@@ -163,7 +163,7 @@ fileRouter.get(
 );
 
 /**
- * POST /files/combine-with-ffmpeg
+ * POST /file/combine-with-ffmpeg
  *
  * Combine videos using ffmpeg. Install ffmpeg by running -
  * git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg

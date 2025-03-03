@@ -30,4 +30,7 @@ $ yarn run start:prod
 - Connect to **Postgres** and **MySQL** DBs deployed on [railway](https://docs.railway.com/) using [Sequelize](https://sequelize.org/)
 - [Redis](https://redis.io/) connection using [redis](https://www.npmjs.com/package/redis) and [ioredis](https://www.npmjs.com/package/ioredis) packages. Prepared doc containing some commonly used [redis commands](https://redis.io/docs/latest/commands/)
 - How to design a permission based system ? Watch this [Youtube Video](https://www.youtube.com/watch?v=5GG-VUvruzE) with [source code](https://github.com/WebDevSimplified/permission-system/tree/main). You can also use a user-management system like [Clerk](https://clerk.com/)
-- Track user analytics using [Mixpanel](https://mixpanel.com/home/). 
+- Track user analytics using [Mixpanel](https://mixpanel.com/home/).
+- AWS Services
+  - IAM using [@aws-sdk/client-iam](https://www.npmjs.com/package/@aws-sdk/client-iam)
+  - Redis Elasticache using [ioredis](https://www.npmjs.com/package/ioredis).
