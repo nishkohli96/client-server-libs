@@ -4,15 +4,9 @@ import {
   IAMClient,
   ListGroupsCommand,
 } from '@aws-sdk/client-iam';
-import { ENV_VARS } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 
-const iamClient = new IAMClient({
-  credentials: {
-    accessKeyId: ENV_VARS.aws.accessKey,
-    secretAccessKey: ENV_VARS.aws.accessKeySecret
-  }
-});
+const iamClient = new IAMClient();
 
 export async function iamOps() {
   try {
