@@ -48,3 +48,24 @@
 2.  EBS Snapshot can take a backup(snapshot) of your EBS volume at a point in time and can copy the snapshot to a AZ or a region. It is not necessary, but recommended to detach volume when taking a snapshot.
 
 3. You can create a new volume from snapshot by navigating `EC2 > EBS > Snapshots > Create volume from snapshot`.
+
+## S3
+
+1. Each bucket name must be globally unique and it only belongs to the region it is created in.
+
+2. By default the objects in a bucket will not have public access for securiy reasons. Only after enabling the public access, its contents would be publically accessible.
+
+3. Versioning in files can be enabled at bucket level. Same key overwrite will change the version, and previous versions can also be rolled back. It can be enabled in `bucketName > Properties > Bucket Versioning`.
+    Any file that is no versioned prior to enabling versioning will have the version **null**. Suspending versioning does not delete the previous versions.
+
+4. S3 Replication - **CRR**(Cross Region Replication) & **SRR**(Same Region Replication) is asynchronous and must have proper IAM permissions. It can be done under `bucketName > Management > Replication rules`. Previously uploaded objects would be to be replicated via a batch operation, but any subsequent uploads in the source bucket after replication has been applied, will also be copied to the destination bucket.
+    **S3 Replication requires versioning to be enabled on both the source and destination buckets.**
+
+5. Whenever a file is uploaded in S3, you can create event notifications for a lambda, SNS or SQS trigger in `bucketName > Properties > Event notifications` or enable **Amazon Eventbridge** to build event driven applications at scale using S3 event notifications. Add `Send Message` action in the Policy Generator for your concerned SNS, SQS or lambda. 
+
+
+## SES
+
+1. A **Configuration Set** in Amazon SES is a way to group and manage email sending settings. It allows you to apply specific rules (like tracking events, publishing logs, etc.) to emails you send using SES.
+
+2. AWS SES email templates are **region-specific**. So, if you want to send emails from `us-west-2` (Oregon), you would need to recreate the template in that region. If you modify and re-publish (recreate) an SES email template with the same name, it will override the existing template.

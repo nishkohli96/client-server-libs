@@ -11,3 +11,7 @@
 5. `uptime`: The duration for which an EC2 instance has been running.
 
 6. `cat /var/log/cloud-init-output.log`: User data logs for an EC2 instance. Use `cat /var/log/cloud-init.log` for detailed cloud-init process logs.
+
+7. `sudo yum install -y bind-utils`: Installs `dig` and `nslookup`(short for "Name Server Lookup") which are command-line tools used to query Domain Name System (DNS) servers to obtain information about domain names, IP addresses, or DNS records. Eg: `nslookup/dig google.com`.
+
+8. 
