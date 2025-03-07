@@ -8,13 +8,14 @@ import {
   GetObjectCommandInput,
   ListObjectsV2Command,
   ListObjectsV2CommandInput,
+  PutObjectCommand,
   DeleteObjectCommand,
   DeleteObjectCommandInput,
   DeleteBucketCommand,
   DeleteBucketCommandInput,
 } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import csvParser from 'csv-parser';
-import { ENV_VARS } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 import {
   printObject,
@@ -66,6 +67,27 @@ export async function getBucketObjects(bucketName: string) {
   } catch (err) {
     winstonLogger.error('Error listing bucket objects: ', err);
   }
+}
+
+/**
+ * Code Reference:
+ * https://docs.aws.amazon.com/AmazonS3/latest/API/s3_example_s3_Scenario_PresignedUrl_section.html
+ *
+ * Prefer generating presignedUrl using the aws-sdk only and not
+ * using the createPresignedUrlWithoutClient method as you will
+ * get the following error:
+ *
+ * "Can't resolve 'crypto' in '/node_modules/@smithy/hash-node/dist-es"
+ * as Node.js crypto module, is not available in the browser by default.
+ *
+ * @param: expiresIn -> expiry in seconds
+ */
+export async function createPresignedUrl(
+  bucket: string,
+  key: string
+) {
+  const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+  return getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
 }
 
 /**

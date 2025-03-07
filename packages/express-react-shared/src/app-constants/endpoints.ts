@@ -1,5 +1,11 @@
 export const ExpressServerEndpoints = Object.freeze({
   apiPrefix: '/api',
+  aws: {
+    rootPath: '/aws',
+    subRoutes: {
+      preSignedUrl: 'presigned-url',
+    }
+  },
   buyer: {
     rootPath: '/buyers',
     subRoutes: {

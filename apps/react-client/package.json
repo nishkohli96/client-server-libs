@@ -14,8 +14,6 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org nish1896 --project react-client build && sentry-cli sourcemaps upload --org nish1896 --project react-client build"
   },
   "dependencies": {
-    "@aws-sdk/credential-providers": "^3.758.0",
-    "@aws-sdk/s3-request-presigner": "^3.758.0",
     "@csl/mongo-models": "*",
     "@csl/react-express": "*",
     "@csl/shared-fe": "*",

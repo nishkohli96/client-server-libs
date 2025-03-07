@@ -17,6 +17,7 @@
     "@aws-sdk/client-s3": "^3.758.0",
     "@aws-sdk/client-ses": "^3.758.0",
     "@aws-sdk/client-sns": "^3.758.0",
+    "@aws-sdk/s3-request-presigner": "^3.758.0",
     "@csl/mongo-models": "*",
     "@csl/react-express": "*",
     "@sentry/cli": "^2.42.1",
