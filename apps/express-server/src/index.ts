@@ -18,7 +18,7 @@ import { winstonLogger } from '@/middleware';
 import { connectToRedis } from '@/redis';
 import { printObject } from '@/utils';
 import app from './app';
-import { checkIfObjectExist, getBucketObjects } from '@/aws';
+import { readCsvFromS3 } from '@/aws';
 
 const hostName = os.hostname();
 const port = ENV_VARS.port;
@@ -176,8 +176,6 @@ async function bootstrap() {
     await connect(dbConnectionString);
     winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
     await connectToRedis();
-    await getBucketObjects();
-    await checkIfObjectExist();
 
     server.listen(port, () => {
       winstonLogger.info(

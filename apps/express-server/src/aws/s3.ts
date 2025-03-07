@@ -13,6 +13,7 @@ import {
   DeleteBucketCommand,
   DeleteBucketCommandInput,
 } from '@aws-sdk/client-s3';
+import csvParser from 'csv-parser';
 import { ENV_VARS } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
 import {
@@ -20,6 +21,7 @@ import {
   listS3Buckets,
   listS3BucketObjects
 } from '@/utils';
+import { Readable } from 'stream';
 
 export const s3Client = new S3Client();
 
@@ -40,11 +42,14 @@ export async function getS3Buckets() {
  * Upload products.csv from the assets folder in your S3 bucket to
  * test for yourself.
  */
-export async function checkIfObjectExist() {
+export async function checkIfObjectExist(
+  bucketName: string,
+  key: string
+) {
   try {
     const input: HeadObjectCommandInput = {
-      Bucket: ENV_VARS.aws.s3BucketName,
-      Key: 'sheets/products.csv',
+      Bucket: bucketName,
+      Key: key,
     };
     const command = new HeadObjectCommand(input);
     const response = await s3Client.send(command);
@@ -54,20 +59,70 @@ export async function checkIfObjectExist() {
   }
 }
 
-export async function getBucketObjects() {
+export async function getBucketObjects(bucketName: string) {
   try {
-    const bucketObjects = await listS3BucketObjects();
+    const bucketObjects = await listS3BucketObjects(bucketName);
     winstonLogger.info(`S3 Bucket Objects: ${printObject(bucketObjects)}`);
   } catch (err) {
     winstonLogger.error('Error listing bucket objects: ', err);
   }
 }
 
-export async function deleteObject() {
+/**
+ * This function reads a csv file from the bucket and returns the
+ * entries as an array of objects.
+ */
+export async function readCsvFromS3<T>(
+  bucket: string,
+  key: string
+): Promise<T[]> {
+  const records: T[] = [];
+  const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: key
+  });
+
+  try {
+    const response = await s3Client.send(command);
+    if (!response.Body) {
+      winstonLogger.error(`No body received from S3 for key: "${key}"`);
+      return [];
+    }
+
+    return new Promise((resolve, reject) => {
+      const readableStream = response.Body as Readable;
+      readableStream.pipe(csvParser())
+        .on('data', (row: T) => {
+          records.push(row);
+        })
+        .on('end', () => {
+          winstonLogger.info(`CSV records fetch from file: ${printObject(records)}`);
+          resolve(records);
+        })
+        .on('error', error => {
+          winstonLogger.error('Error reading or parsing CSV:', error);
+          reject([]);
+        });
+    });
+  } catch (error) {
+    winstonLogger.error('Error fetching CSV:', error);
+    throw error;
+  }
+}
+
+/**
+ *
+ * @param bucketName: Name of S3 bucket
+ * @param key Eg: pic.png
+ */
+export async function deleteObject(
+  bucketName: string,
+  key: string
+) {
   try {
     const input: DeleteObjectCommandInput = {
-      Bucket: ENV_VARS.aws.s3BucketName,
-      Key: 'pic.png',
+      Bucket: bucketName,
+      Key: key,
     };
     const command = new DeleteObjectCommand(input);
     const response = await s3Client.send(command);
@@ -77,10 +132,10 @@ export async function deleteObject() {
   }
 }
 
-export async function deleteBucket() {
+export async function deleteBucket(bucketName: string) {
   try {
     const input: DeleteBucketCommandInput = {
-      Bucket: ENV_VARS.aws.s3BucketName
+      Bucket: bucketName
     };
     const command = new DeleteBucketCommand(input);
     const response = await s3Client.send(command);
