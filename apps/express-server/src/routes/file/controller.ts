@@ -2,6 +2,7 @@ import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ServerConfig } from '@/app-constants';
 import { fileUploader, winstonLogger } from '@/middleware';
+import { printObject } from '@/utils';
 import fileService from './service';
 import * as FileTypeDefs from './types';
 
@@ -61,7 +62,7 @@ fileRouter.post(
   ]),
   function uploadFile(req: FileTypeDefs.UploadMediaRequest, res: Response) {
     const files = req.files as FileTypeDefs.MultiFieldFiles;
-    winstonLogger.info('files: ', files);
+    winstonLogger.info(`files: ${printObject(files)}`);
     return res.send('Files uploaded successfully');
   }
 );

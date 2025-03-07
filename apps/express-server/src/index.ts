@@ -16,7 +16,9 @@ import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
 import { connectToRedis } from '@/redis';
+import { printObject } from '@/utils';
 import app from './app';
+import { listBucketObjects } from '@/aws';
 
 const hostName = os.hostname();
 const port = ENV_VARS.port;
@@ -123,7 +125,7 @@ io.on('connection', socket => {
    * or stored in the localStorage and sent in the auth payload)
    */
   winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
-  winstonLogger.info('Socket Room ', socket.rooms);
+  winstonLogger.info(`Socket Room: ${printObject(socket.rooms)}`);
 
   /*  number of currently connected clients */
   const count = io.engine.clientsCount;
@@ -174,6 +176,7 @@ async function bootstrap() {
     await connect(dbConnectionString);
     winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
     await connectToRedis();
+    await listBucketObjects();
 
     server.listen(port, () => {
       winstonLogger.info(

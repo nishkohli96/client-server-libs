@@ -5,6 +5,7 @@ import {
   ListGroupsCommand,
 } from '@aws-sdk/client-iam';
 import { winstonLogger } from '@/middleware';
+import { printObject } from '@/utils';
 
 const iamClient = new IAMClient();
 
@@ -19,7 +20,7 @@ export async function iamOps() {
 		 */
     const listGroupsCommand = new ListGroupsCommand();
     const groupsData = await iamClient.send(listGroupsCommand);
-    winstonLogger.info('groupsData: ', groupsData);
+    winstonLogger.info(`groupsData: ${groupsData}`);
   } catch(error) {
     winstonLogger.error('AWS IAM error: ', error);
   }

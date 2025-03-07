@@ -4,6 +4,7 @@
  */
 import { redisClient } from '.';
 import { winstonLogger } from '@/middleware';
+import { printObject } from '@/utils';
 
 type SScanResult = {
   cursor: number;
@@ -51,7 +52,7 @@ async function scanSet(
     if (newCursor !== 0) {
       return scanSet(key, matchPattern, count, newCursor, results);
     }
-    winstonLogger.info(`Set "${key}" members:`, results);
+    winstonLogger.info(`Set "${key}" members: ${printObject(results)}`);
     return results;
   } catch (error) {
     winstonLogger.error('Error scanning set:', error);
@@ -80,7 +81,7 @@ async function scanSortedSet(
     if (newCursor !== 0) {
       return scanSortedSet(key, matchPattern, count, newCursor, results);
     }
-    winstonLogger.info(`Sorted Set "${key}" members:`, results);
+    winstonLogger.info(`Sorted Set "${key}" members: ${printObject(results)}`);
     return results;
   } catch (error) {
     winstonLogger.error('Error scanning sorted set:', error);
@@ -92,11 +93,11 @@ export async function performRedisOps() {
   try {
     /* ----- String ----- */
     const setResult = await redisClient.set('hello', 'world');
-    winstonLogger.info('setResult: ', setResult);
+    winstonLogger.info(`setResult: ${setResult}`);
     const getResult = await redisClient.get('hello');
-    winstonLogger.info('getResult: ', getResult);
+    winstonLogger.info(`getResult: ${getResult}`);
     const nullVal = await redisClient.get('null');
-    winstonLogger.info('nullVal: ', nullVal);
+    winstonLogger.info(`nullVal: ${nullVal}`);
 
     /**
      * Setting & Getting Integer and Float values. Their value
@@ -105,16 +106,16 @@ export async function performRedisOps() {
      */
     await redisClient.set('age', 25);
     const age = await redisClient.get('age');
-    winstonLogger.info('age: ', age, typeof age);
+    winstonLogger.info(`age: ${age}, type: ${typeof age}`);
 
     await redisClient.incrBy('age', 5);
     const newAge = await redisClient.get('age');
-    winstonLogger.info('newAge: ', newAge);
+    winstonLogger.info(`newAge: ${newAge}`);
 
     await redisClient.set('balance', 20.45);
     await redisClient.incrByFloat('balance', 2.23);
     const newBalance = await redisClient.get('balance');
-    winstonLogger.info('newBalance: ', newBalance, typeof newBalance);
+    winstonLogger.info(`newBalance: ${newBalance}, type: ${typeof newBalance}`);
 
     /* ----- Hash ----- */
     await redisClient.hSet('sessionInfo', {
@@ -123,9 +124,9 @@ export async function performRedisOps() {
       token: 'dnwjed31m3'
     });
     const sessionId = await redisClient.hGet('sessionInfo', 'id');
-    winstonLogger.info('sessionId: ', sessionId);
+    winstonLogger.info(`sessionId: ${printObject(sessionId)}`);
     const sessionInfo = await redisClient.hGetAll('sessionInfo');
-    winstonLogger.info('sessionInfo: ', sessionInfo);
+    winstonLogger.info(`sessionInfo: ${printObject(sessionInfo)}`);
 
     /* List */
     const planets = [
@@ -145,17 +146,17 @@ export async function performRedisOps() {
      */
     await redisClient.rPush('planets', planets);
     const planetsList = await redisClient.lRange('planets', 0, -1);
-    winstonLogger.info('planetsList: ', planetsList);
+    winstonLogger.info(`planetsList: ${printObject(planetsList)}`);
 
     await redisClient.lRem('planets', 1, 'pluto');
     const newPlanetsList = await redisClient.lRange('planets', 0, -1);
-    winstonLogger.info('planetsList: ', newPlanetsList);
+    winstonLogger.info(`planetsList: ${printObject(newPlanetsList)}`);
 
     /* ----- Set ----- */
     await redisClient.sAdd('planetSet', planets);
     /* Avoid using for large data, use sScan instead */
     const planetSet = await redisClient.sMembers('planetSet');
-    winstonLogger.info('planetSet: ', planetSet);
+    winstonLogger.info(`planetSet: ${printObject(planetSet)}`);
 
     const usersList = Array.from({ length: 500 }, (_, i) => `user:${i + 1}`);
     await redisClient.sAdd('users', usersList);
@@ -176,7 +177,7 @@ export async function performRedisOps() {
     ]);
     /* Returns only the values */
     const productRatings = await redisClient.zRange('product:rating', 0, -1);
-    winstonLogger.info('productRatings: ', productRatings);
+    winstonLogger.info(`productRatings: ${printObject(productRatings)}`);
     scanSortedSet('product:rating');
 
     /* ----- JSON ----- */
@@ -192,11 +193,11 @@ export async function performRedisOps() {
       }
     });
     const jsonObj = await redisClient.json.get('jsonObj');
-    winstonLogger.info('jsonObj: ', jsonObj);
+    winstonLogger.info(`jsonObj: ${printObject(jsonObj)}`);
 
     /* Returns ['Melbourne'] */
     const city = await redisClient.json.get('jsonObj', { path: '$.address.city' });
-    winstonLogger.info('city: ', city);
+    winstonLogger.info(`city: ${printObject(city)}`);
 
     /* ----- Geo ----- */
     await redisClient.geoAdd('city', [
@@ -236,7 +237,7 @@ export async function performRedisOps() {
      * ]
 		 */
     const nycCoords = await redisClient.geoPos('city', 'New York');
-    winstonLogger.info('nycCoords: ', nycCoords);
+    winstonLogger.info(`nycCoords: ${printObject(nycCoords)}`);
 
     const nearby = await redisClient.geoSearch(
       'cities',
@@ -249,7 +250,7 @@ export async function performRedisOps() {
         unit: 'km'
       }
     );
-    winstonLogger.info('nearby: ', nearby);
+    winstonLogger.info(`nearby: ${printObject(nearby)}`);
 
     const nearbySilicy = await redisClient.geoSearch(
       'cities',
@@ -259,7 +260,7 @@ export async function performRedisOps() {
         unit: 'km'
       }
     );
-    winstonLogger.info('nearbySilicy: ', nearbySilicy);
+    winstonLogger.info(`nearbySilicy: ${printObject(nearbySilicy)}`);
   } catch (error) {
     winstonLogger.error('Error performing redis ops ', error);
   }

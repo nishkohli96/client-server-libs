@@ -184,7 +184,7 @@ class FileService {
     const ffMpeg = ffmpeg();
     let complexFilter = '';
     const start = moment();
-    winstonLogger.info('start', start);
+    winstonLogger.info(`start: ${start}`);
 
     /**
      * Can read files from a directory and make sure to resolve the path
@@ -210,7 +210,7 @@ class FileService {
         .outputOptions(['-map [vv]', '-map [aa]'])
         .output('fireworks-combo.mov')
         .on('start', commandLine => {
-          winstonLogger.info('FFmpeg command: ' + commandLine);
+          winstonLogger.info(`FFmpeg command: ${commandLine}`);
         })
         // .on('error', (err, stdout, stderr) => {
         .on('error', err => {
@@ -219,9 +219,9 @@ class FileService {
         })
         .on('end', () => {
           const end = moment();
-          winstonLogger.info('end: ', end);
+          winstonLogger.info(`end: ${end}`);
           const diff = end.diff(start, 'seconds');
-          winstonLogger.info('diff: ', diff);
+          winstonLogger.info(`diff: ${diff}`);
           return res.send(`Merged in ${diff} seconds`);
         })
         .run();
