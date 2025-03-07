@@ -4,90 +4,7 @@
  */
 import { redisClient } from '.';
 import { winstonLogger } from '@/middleware';
-import { printObject } from '@/utils';
-
-type SScanResult = {
-  cursor: number;
-  members: string[]
-};
-
-type SortedSetMember = {
-  score: number;
-  value: string;
-};
-
-type ZScanResult = {
-  cursor: number;
-  members: SortedSetMember[];
-}
-
-/**
- * Always use sScan, hScan or zScan over methods like sMembers
- * as the latter returns all set elements with O(n) complexity
- * and can be time consuming for large datasets.
- *
- * MatchPattern: '*' matches all elements. For matching elements
- * that contain '2' use '*2*' as the wildcard.
- * Count here is the number of elements to scan in one iteration.
- * The iteration stops when 0 is returned as the cursor value.
- */
-async function scanSet(
-  key: string,
-  matchPattern = '*',
-  count = 20,
-  cursor = 0,
-  results: string[] = []
-) {
-  try {
-    const { cursor: newCursor, members }: SScanResult = await redisClient.sScan(
-      key,
-      cursor,
-      {
-        MATCH: matchPattern,
-        COUNT: count
-      }
-    );
-    results.push(...members);
-
-    if (newCursor !== 0) {
-      return scanSet(key, matchPattern, count, newCursor, results);
-    }
-    winstonLogger.info(`Set "${key}" members: ${printObject(results)}`);
-    return results;
-  } catch (error) {
-    winstonLogger.error('Error scanning set:', error);
-    return [];
-  }
-}
-
-async function scanSortedSet(
-  key: string,
-  matchPattern = '*',
-  count = 20,
-  cursor = 0,
-  results: SortedSetMember[] = []
-) {
-  try {
-    const { cursor: newCursor, members }: ZScanResult = await redisClient.zScan(
-      key,
-      cursor,
-      {
-        MATCH: matchPattern,
-        COUNT: count
-      }
-    );
-    results.push(...members);
-
-    if (newCursor !== 0) {
-      return scanSortedSet(key, matchPattern, count, newCursor, results);
-    }
-    winstonLogger.info(`Sorted Set "${key}" members: ${printObject(results)}`);
-    return results;
-  } catch (error) {
-    winstonLogger.error('Error scanning sorted set:', error);
-    return [];
-  }
-}
+import { printObject, scanSet, scanSortedSet } from '@/utils';
 
 export async function performRedisOps() {
   try {
@@ -160,7 +77,8 @@ export async function performRedisOps() {
 
     const usersList = Array.from({ length: 500 }, (_, i) => `user:${i + 1}`);
     await redisClient.sAdd('users', usersList);
-    scanSet('users', 'user:2*', 50);
+    const setsResult = await scanSet('users', 'user:2*', 50);
+    winstonLogger.info(`Set "users" members: ${printObject(setsResult)}`);
 
     /* ----- Sorted Set ----- */
     /**
@@ -178,7 +96,8 @@ export async function performRedisOps() {
     /* Returns only the values */
     const productRatings = await redisClient.zRange('product:rating', 0, -1);
     winstonLogger.info(`productRatings: ${printObject(productRatings)}`);
-    scanSortedSet('product:rating');
+    const sortedSetResult = await scanSortedSet('product:rating');
+    winstonLogger.info(`Sorted Set "productRatings" members: ${printObject(sortedSetResult)}`);
 
     /* ----- JSON ----- */
     await redisClient.json.set('jsonObj', '$', {
