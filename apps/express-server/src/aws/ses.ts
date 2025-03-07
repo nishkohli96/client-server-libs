@@ -13,8 +13,7 @@ import {
 } from '@aws-sdk/client-ses';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
-import { emailTemplate } from './email-template';
-import { emailVerificationTemplate } from './email-verify-template';
+import { emailTemplate, emailVerificationTemplate } from './assets';
 
 export const sesClient = new SESClient();
 
