@@ -12,24 +12,23 @@
 
 5.  AWS SDK follows a credential resolution chain. This means if you don't explicitly pass credentials like:
 
-```js
-const iamClient = new IAMClient({
-  credentials: {
-    accessKeyId: ENV_VARS.aws.accessKey,
-    secretAccessKey: ENV_VARS.aws.accessKeySecret
-  }
-});
-
-```
+    ```js
+    const iamClient = new IAMClient({
+      credentials: {
+        accessKeyId: ENV_VARS.aws.accessKey,
+        secretAccessKey: ENV_VARS.aws.accessKeySecret
+      }
+    });
+    ```
     The SDK automatically looks for credentials in multiple places in the following order:
 
-  - Environment Variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, etc.)
-  - Shared Credentials File (usually in ~/.aws/credentials)
-  - Shared Config File (usually in ~/.aws/config)
-  - EC2 Instance Metadata (if running on EC2 or Lambda)
-  - ECS Container Credentials (if running in ECS)
+    - Environment Variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, etc.)
+    - Shared Credentials File (usually in `~/.aws/credentials`)
+    - Shared Config File (usually in `~/.aws/config`)
+    - EC2 Instance Metadata (if running on EC2 or Lambda)
+    - ECS Container Credentials (if running in ECS)
 
-  **Avoid hardcoding credentials in code — even if you are pulling them from environment variables. Let AWS SDK handle credential discovery automatically.**
+    **Avoid hardcoding credentials in code — even if you are pulling them from environment variables. Let AWS SDK handle credential discovery automatically.**
 
 ## EC2
 
@@ -89,3 +88,20 @@ const iamClient = new IAMClient({
 1. A **Configuration Set** in Amazon SES is a way to group and manage email sending settings. It allows you to apply specific rules (like tracking events, publishing logs, etc.) to emails you send using SES.
 
 2. AWS SES email templates are **region-specific**. So, if you want to send emails from `us-west-2` (Oregon), you would need to recreate the template in that region. If you modify and re-publish (recreate) an SES email template with the same name, it will override the existing template.
+
+3. In Sandbox Mode, SES requires every recipient email address to be pre-verified before you can send to them. In Production Mode (After Moving Out of Sandbox), once your AWS SES account is out of the sandbox, you can send to any valid email address (no need to verify every recipient).
+
+    To enable production mode, you **need to verify your domain** and **Request production access** in the SES Dashboard.
+
+4. Key Rule in Sandbox Mode:
+   - All recipient email addresses must be individually verified, regardless of the domain.
+   - Verifying the domain only lets you send from any email address in that domain — it does not automatically authorize sending to all emails in the domain.
+   
+   ✅ Once You Move to Production Mode:
+   - You can send to any email address (no need to verify recipients anymore).
+   - You still need to verify the sending domain or sender email.
+
+5. Email sending commands:
+   - [SendEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendEmailCommand/) - Basic email sending API where you define the subject, body, and recipient(s) directly in the request for simple transactional emails (e.g., password resets, notifications). Does not support attachments and personalization for different recipients.
+   - [SendRawEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendRawEmailCommand/) - Lets you build the full email yourself (including headers, attachments, inline images). Refer [SendRawEmail.md](./SendRawEmail.md).
+   - [SendTemplatedEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendTemplatedEmailCommand/) - Email content (subject, text, HTML) is defined in a template in SES, which supports personalization with dynamic variables.

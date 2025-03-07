@@ -3,7 +3,7 @@ export const emailTemplate = {
     TemplateName: 'WelcomeTemplate',
     SubjectPart: 'Welcome Email',
     TextPart:
-      'Hi {{personName}},\n\nWelcome to our service! We\'re happy to have you.\n\nCheers,\nThe Team',
+      'Hi {{personName}},\n\nWelcome to {{appName}}! We\'re happy to have you.\n\nCheers,\nThe Team',
     HtmlPart: `<html>
 									<head>
 										<style>
@@ -24,6 +24,7 @@ export const emailTemplate = {
 									<body>
 										<div class='container'>
 											<h1>Welcome, {{personName}}!</h1>
+											<h3>Welcome to {{appName}}!>/h3>
 											<p>We are excited to have you with us.</p>
 											<p>
                         <img

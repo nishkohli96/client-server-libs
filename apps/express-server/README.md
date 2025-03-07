@@ -33,4 +33,5 @@ $ yarn run start:prod
 - Track user analytics using [Mixpanel](https://mixpanel.com/home/).
 - AWS Services
   - IAM using [@aws-sdk/client-iam](https://www.npmjs.com/package/@aws-sdk/client-iam)
-  - Redis Elasticache using [ioredis](https://www.npmjs.com/package/ioredis).
+  - Redis Elasticache using [ioredis](https://www.npmjs.com/package/ioredis)
+  - SES using[@aws-sdk/client-ses](https://www.npmjs.com/package/@aws-sdk/client-ses)
