@@ -43,7 +43,6 @@ export async function connectPostgresDB() {
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to Postgres Database ⚠');
-    console.log(error);
     process.exit(1);
   }
 }

@@ -83,67 +83,67 @@ For more details on sorted-sets, refer the [Redis JSON documentation](https://re
 
 ## Notes
 
-1. Keys are case-insensitive. Both "color" and "Color" keys can exist with different values.
+1.  Keys are case-insensitive. Both "color" and "Color" keys can exist with different values.
 
-2. Push commands return the new length of the list whereas the pop commands return the removed element from the list.
+2.  Push commands return the new length of the list whereas the pop commands return the removed element from the list.
 
-3. Range of a list start from 0 till `length-1`. From the end, it starts from -1 onwards. If you want to get elements from an index _i_ onwards till the end, use `LRANGE key i -1`. The `GET` command won't work for a list. To get all the elements, use `LRANGE <key> 0 -1`. 
+3.  Range of a list start from 0 till `length-1`. From the end, it starts from -1 onwards. If you want to get elements from an index _i_ onwards till the end, use `LRANGE key i -1`. The `GET` command won't work for a list. To get all the elements, use `LRANGE <key> 0 -1`. 
 
-4. Both `DEL` and `UNLINK` are used to remove keys from Redis, but `DEL` is synchronous and blocks Redis until deletion completes, making it slower for large datasets. `UNLINK` is	asynchronous	and removes keys in the background.
+4.  Both `DEL` and `UNLINK` are used to remove keys from Redis, but `DEL` is synchronous and blocks Redis until deletion completes, making it slower for large datasets. `UNLINK` is	asynchronous	and removes keys in the background.
 
-5. Redis hashes do not support nested key-value structures directly. Unlike JavaScript objects, where you can have deeply nested properties, Redis hashes only store flat key-value pairs where both keys and values are strings. If you need to store nested data, serialize the nested object into a JSON string before storing it. You can use Namespaced Keys, ie, instead of nesting, store related data as separate hash keys. eg:
+5.  Redis hashes do not support nested key-value structures directly. Unlike JavaScript objects, where you can have deeply nested properties, Redis hashes only store flat key-value pairs where both keys and values are strings. If you need to store nested data, serialize the nested object into a JSON string before storing it. You can use Namespaced Keys, ie, instead of nesting, store related data as separate hash keys. eg:
 
-```
-HSET user:1 name "Alice" age "25"
-HSET user:1:address city "NY" zip "10001"
-```
+    ```
+    HSET user:1 name "Alice" age "25"
+    HSET user:1:address city "NY" zip "10001"
+    ```
 
-Else the best option is to use RedisJSON module that allows native JSON support in Redis.
+    Else the best option is to use RedisJSON module that allows native JSON support in Redis.
 
-6. Floating-point precision issues are normal. Say if do `HINCRBYFLOAT` for 12.452 by 3, it gives me 15.45199999999999996. So the best option is to avoid storing float values, esp for currencies to avoid precision loss.
+6.  Floating-point precision issues are normal. Say if do `HINCRBYFLOAT` for 12.452 by 3, it gives me 15.45199999999999996. So the best option is to avoid storing float values, esp for currencies to avoid precision loss.
 
-7. Redis does not support expiring individual fields inside a hash. You need to store expiry timestamp in the hash and check before use. Else instead of using a hash, store each field as a separate key with EXPIRE:
+7.  Redis does not support expiring individual fields inside a hash. You need to store expiry timestamp in the hash and check before use. Else instead of using a hash, store each field as a separate key with EXPIRE:
 
-```
-SET user:123:name "John"
-EXPIRE user:123:name 60  # This expires in 60 seconds
+    ```
+    SET user:123:name "John"
+    EXPIRE user:123:name 60  # This expires in 60 seconds
 
-SET user:123:age "30"
-EXPIRE user:123:age 120  # This expires in 120 seconds
-```
+    SET user:123:age "30"
+    EXPIRE user:123:age 120  # This expires in 120 seconds
+    ```
 
 8. `ZRANGEBYLEX` is used in Redis Sorted Sets (ZSET) to fetch elements in lexicographical order when all elements have the same score.
 
-```
-ZADD myset 0 apple 0 banana 0 cherry 0 date 0 grape 0 mango 0 orange 0 peach
+    ```
+    ZADD myset 0 apple 0 banana 0 cherry 0 date 0 grape 0 mango 0 orange 0 peach
 
-// Returns: All elements sorted by name
-ZRANGEBYLEX myset - +
+    // Returns: All elements sorted by name
+    ZRANGEBYLEX myset - +
 
-// Returns: First 3 Elements
-ZRANGEBYLEX myset - + LIMIT 0 3
+    // Returns: First 3 Elements
+    ZRANGEBYLEX myset - + LIMIT 0 3
 
-// Returns: "cherry", "date", "grape", "mango"
-ZRANGEBYLEX myset [c [m
-```
+    // Returns: "cherry", "date", "grape", "mango"
+    ZRANGEBYLEX myset [c [m
+    ```
 
-`-` → Lowest lexicographical value.
-`+` → Highest lexicographical value.
-`[` → Inclusive
-`(` → Exclusive
+    - `-` → Lowest lexicographical value.
+    - `+` → Highest lexicographical value.
+    - `[` → Inclusive
+    - `(` → Exclusive
 
 10. `JSON.Get` can also return values for a specific field or all values.
 
-```
-// Returns ["3.4"]
-JSON.GET product $.rating
+    ```
+    // Returns ["3.4"]
+    JSON.GET product $.rating
 
-// Returns values for all fields
-JSON.GET product $.*
+    // Returns values for all fields
+    JSON.GET product $.*
 
-// Adds new field, description with the specified value
-JSON.SET product $.description "Some product description"
+    // Adds new field, description with the specified value
+    JSON.SET product $.description "Some product description"
 
-// Removes the specified field
-JSON.DEL product $.rating
-```
+    // Removes the specified field
+    JSON.DEL product $.rating
+    ```

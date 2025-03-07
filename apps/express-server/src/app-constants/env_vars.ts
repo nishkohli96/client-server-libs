@@ -33,6 +33,7 @@ export const ENV_VARS = Object.freeze({
     accessKey: env.AWS_ACCESS_KEY_ID ?? '',
     accessKeySecret: env.AWS_SECRET_ACCESS_KEY ?? '',
     elastiCacheRedis: env.AWS_ELASTICACHE_REDIS ?? '',
+    s3BucketName: env.AWS_S3_BUCKET_NAME ?? ''
   }
 });
 

@@ -8,6 +8,7 @@
  * truncate code, due to foreign key constraint
  */
 
+import { winstonLogger } from '@/middleware';
 import { connectPostgresDB, disconnectPostgresDB } from '..';
 import { CarBrandModel, CarModel } from '../models';
 import carBrands from './data/car-brands.json';
@@ -20,21 +21,21 @@ async function seedData() {
 
     /* Truncate existing data from tables */
     // await CarModel.truncate();
-    console.log('Cleared data from cars table');
+    winstonLogger.info('Cleared data from cars table');
     // await CarBrandModel.truncate();
-    console.log('Cleared data from car_brands table');
+    winstonLogger.info('Cleared data from car_brands table');
 
     /* Insert seeder data into tables */
     await CarBrandModel.bulkCreate(carBrands);
-    console.log('Inserted data in car_brands table');
+    winstonLogger.info('Inserted data in car_brands table');
     await CarModel.bulkCreate(cars);
-    console.log('Inserted data in cars table');
+    winstonLogger.info('Inserted data in cars table');
 
     /* Disconnect from the database */
     await disconnectPostgresDB();
     process.exit(0);
   } catch(error) {
-    console.error(error);
+    winstonLogger.error(error);
     process.exit(1);
   }
 }

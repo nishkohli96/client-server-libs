@@ -79,13 +79,13 @@ io.engine.on('headers', headers => {
 
 io.engine.on('connection_error', err => {
   /* the request object */
-  console.log(err.req);
+  winstonLogger.error(err.req);
   /* the error code, for example 1 */
-  console.log(err.code);
+  winstonLogger.error(err.code);
   /* the error message, for example "Session ID unknown" */
-  console.log(err.message);
+  winstonLogger.error(err.message);
   /* some additional error context */
-  console.log(err.context);
+  winstonLogger.error(err.context);
 });
 
 /**
@@ -152,7 +152,7 @@ io.on('connection', socket => {
   socket.emit('basicEmit', 1, '2', Buffer.from([3]));
 
   socket.on('submitForm', (inputValue, ack) => {
-    console.log('--- submitForm event ---');
+    winstonLogger.info('--- submitForm event ---');
     ack({ message: `Server received inputValue: ${inputValue}` });
   });
 
@@ -181,20 +181,20 @@ async function bootstrap() {
       );
     });
   } catch (err) {
-    console.log('err: ', err);
+    winstonLogger.error('Error in starting server: ', err);
     process.exit(1);
   }
 }
 
 /* Gracefully handle SIGTERM or SIGINT */
 async function handleExit(signal: string) {
-  console.log(`Received ${signal}`);
+  winstonLogger.info(`Received ${signal}`);
   try {
     await disconnectPostgresDB();
     await disconnectMySQLDB();
     await disconnect();
   } catch (error) {
-    console.error('Error while disconnecting from the database:', error);
+    winstonLogger.error('Error while disconnecting from the database:', error);
   } finally {
     process.exit(0);
   }

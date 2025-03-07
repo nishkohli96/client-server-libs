@@ -11,6 +11,7 @@ import {
   SendCustomVerificationEmailCommand,
   SendCustomVerificationEmailCommandInput
 } from '@aws-sdk/client-ses';
+import { winstonLogger } from '@/middleware';
 import { emailTemplate } from './email-template';
 import { emailVerificationTemplate } from './email-verify-template';
 
@@ -25,9 +26,9 @@ export async function createEmailTemplate() {
      */
     const command = new CreateTemplateCommand(emailTemplate);
     const response = await sesClient.send(command);
-    console.log('Template Created:', response);
+    winstonLogger.info('Template Created:', response);
   } catch (err) {
-    console.error('Error Creating Template:', err);
+    winstonLogger.error('Error Creating Template:', err);
   }
 }
 
@@ -47,9 +48,9 @@ export async function verifyEmailAddress() {
     };
     const command = new VerifyEmailIdentityCommand(input);
     const response = await sesClient.send(command);
-    console.log('Verify email result:', response);
+    winstonLogger.info('Verify email result:', response);
   } catch (err) {
-    console.error('Error verifying email address:', err);
+    winstonLogger.error('Error verifying email address:', err);
   }
 }
 
@@ -59,9 +60,9 @@ export async function createCustomEmailVerifyTemplate() {
       emailVerificationTemplate
     );
     const response = await sesClient.send(command);
-    console.log('Created custom email verify template:', response);
+    winstonLogger.info('Created custom email verify template:', response);
   } catch (err) {
-    console.error('Unable to create custom email verify template:', err);
+    winstonLogger.error('Unable to create custom email verify template:', err);
   }
 }
 
@@ -80,9 +81,9 @@ export async function sendCustomVerificationEmail() {
     };
     const command = new SendCustomVerificationEmailCommand(input);
     const response = await sesClient.send(command);
-    console.log('Created custom email verify template:', response);
+    winstonLogger.info('Created custom email verify template:', response);
   } catch (err) {
-    console.error('Failed to send custom verification email:', err);
+    winstonLogger.error('Failed to send custom verification email:', err);
   }
 }
 
@@ -120,8 +121,8 @@ export async function sendBulkEmails() {
     };
     const command = new SendBulkTemplatedEmailCommand(bulkEmailTemplateInput);
     const response = await sesClient.send(command);
-    console.log('Bulk emails sent:', response);
+    winstonLogger.info('Bulk emails sent:', response);
   } catch (err) {
-    console.error('Error sending bulk emails:', err);
+    winstonLogger.error('Error sending bulk emails:', err);
   }
 }
