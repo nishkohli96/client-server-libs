@@ -53,6 +53,7 @@ const S3OpsPage = () => {
         pubkey={ENV_VARS.uploadCareKey}
         onChange={handleFileChange}
       />
+      <br/>
       <Button variant="outlined" color="primary" onClick={uploadToS3}>
         Upload to S3
       </Button>

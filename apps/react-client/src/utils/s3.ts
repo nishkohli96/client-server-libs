@@ -17,6 +17,10 @@ export function sanitizeFileName(file: File) {
   return newFile;
 }
 
+/**
+ * When trying to upload to S3 using frontend, make sure that the origin
+ * is allowed in bucket CORS. Refer aws notes for more details.
+ */
 export async function uploadFileToS3({
   preSignedUrl,
   file,

@@ -82,6 +82,44 @@
 
 5. Whenever a file is uploaded in S3, you can create event notifications for a lambda, SNS or SQS trigger in `bucketName > Properties > Event notifications` or enable **Amazon Eventbridge** to build event driven applications at scale using S3 event notifications. Add `Send Message` action in the Policy Generator for your concerned SNS, SQS or lambda. 
 
+6. When trying to upload to S3 using your frontend application, make  sure that the origin hostname is allowed in bucket CORS, under `bucketName > Permissions > CORS`.
+
+    ```
+    [
+      {
+        "AllowedHeaders": [
+          "*"
+        ],
+        "AllowedMethods": [
+          "PUT",
+          "POST",
+          "DELETE"
+        ],
+        "AllowedOrigins": [
+          "http://localhost:3000"
+        ],
+        "ExposeHeaders": [
+          "x-amz-server-side-encryption",
+          "x-amz-request-id",
+          "x-amz-id-2"
+        ],
+        "MaxAgeSeconds": 3600
+      }
+    ]
+    ```
+
+    Reference:
+    - [Configuring CORS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) 
+    - [Elements of CORS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html)
+
+6.  **Block public access** (bucket settings):
+
+    | Setting | Blocks New? | Blocks Existing? | Impact|
+    |-|-|-|-|
+    | 1. Block public ACLs (New Only) |	✅ Yes |	❌ No | Prevents new public ACLs, but old ones still work|
+    | 2. Block public ACLs (All) | ✅ Yes | ✅ Yes | Completely ignores all public ACLs, even old ones |
+    | 3. Block public bucket policies (New Only) | ✅ Yes | ❌ No |	Stops new public bucket policies but keeps existing ones |
+    | 4. Block public bucket policies (All) | ✅ Yes | ✅ Yes |	Completely disables public/cross-account access via bucket policies |
 
 ## SES
 

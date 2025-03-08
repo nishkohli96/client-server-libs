@@ -6,8 +6,6 @@ import {
   HeadObjectCommandInput,
   GetObjectCommand,
   GetObjectCommandInput,
-  ListObjectsV2Command,
-  ListObjectsV2CommandInput,
   PutObjectCommand,
   DeleteObjectCommand,
   DeleteObjectCommandInput,
@@ -82,11 +80,28 @@ export async function getBucketObjects(bucketName: string) {
  *
  * @param: expiresIn -> expiry in seconds
  */
-export async function createPresignedUrl(
+export async function createPutPresignedUrl(
   bucket: string,
   key: string
 ) {
   const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+  return getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
+}
+
+export function getS3Object( bucket: string, key: string) {
+  const input: GetObjectCommandInput = {
+    Bucket: bucket,
+    Key: key
+  };
+  return new GetObjectCommand(input);
+}
+
+/* Presigned url for downloading an object from an S3 bucket */
+export async function createGetPresignedUrl(
+  bucket: string,
+  key: string
+) {
+  const command = getS3Object(bucket, key);
   return getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
 }
 

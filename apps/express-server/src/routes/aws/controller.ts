@@ -6,11 +6,27 @@ import * as AwsTypeDefs from './types';
 const awsRouter = Router();
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;
 
-/* GET /aws/presigned-url */
+/* GET /aws/upload-presigned-url */
 awsRouter.get(
-  `/${subRoutes.preSignedUrl}`,
+  `/${subRoutes.uploadPreSignedUrl}`,
   async (req: AwsTypeDefs.PreSignedUrlRequest, res: Response) => {
-    return await awsService.generatePreSignedUrl(res, req.query);
+    return await awsService.getUploadPreSignedUrl(res, req.query);
+  }
+);
+
+/* GET /aws/download-presigned-url */
+awsRouter.get(
+  `/${subRoutes.downloadPreSignedUrl}`,
+  async (req: AwsTypeDefs.PreSignedUrlRequest, res: Response) => {
+    return await awsService.getDownloadPreSignedUrl(res, req.query);
+  }
+);
+
+/* GET /aws/download-file */
+awsRouter.get(
+  `/${subRoutes.downloadFile}`,
+  async (req: AwsTypeDefs.PreSignedUrlRequest, res: Response) => {
+    return await awsService.downloadFile(res, req.query);
   }
 );
 

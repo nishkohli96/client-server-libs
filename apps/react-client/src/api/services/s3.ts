@@ -15,7 +15,7 @@ export async function getS3PresignedUrl(params: PreSignedUrlQueryParams): Promis
   try {
     const queryString = generateQueryString(params);
     const response = await serverApi.get<ServerResponse<string>>(
-      `${rootPath}/${subRoutes.preSignedUrl}?${queryString}`
+      `${rootPath}/${subRoutes.uploadPreSignedUrl}?${queryString}`
     );
     return response.data.data;
   } catch (error) {
