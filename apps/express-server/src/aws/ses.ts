@@ -76,8 +76,7 @@ export async function sendCustomVerificationEmail() {
   try {
     const input: SendCustomVerificationEmailCommandInput = {
       TemplateName: 'UserVerificationTemplate',
-      EmailAddress: 'nishiouskohli@gmail.com',
-
+      EmailAddress: 'welcome.user@gmail.com',
     };
     const command = new SendCustomVerificationEmailCommand(input);
     const response = await sesClient.send(command);

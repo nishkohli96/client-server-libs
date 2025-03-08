@@ -1,10 +1,3 @@
-import axios from 'axios';
-
-type UploadS3FileProps = {
-  preSignedUrl: string;
-  file: File
-};
-
 /**
  * It's not recommended to use spaces in S3 key names due to potential
  * issues with URL encoding and compatibility across different systems.
