@@ -16,20 +16,3 @@ export function sanitizeFileName(file: File) {
   const newFile = new File([file], sanitizedFileName, { type: file.type });
   return newFile;
 }
-
-/**
- * When trying to upload to S3 using frontend, make sure that the origin
- * is allowed in bucket CORS. Refer aws notes for more details.
- */
-export async function uploadFileToS3({
-  preSignedUrl,
-  file,
-}: UploadS3FileProps) {
-  const s3UploadResponse = await axios.put(preSignedUrl, file, {
-    headers: {
-      'Content-Type': file.type,
-      'Content-Length': file.size
-    }
-  });
-  return s3UploadResponse;
-}

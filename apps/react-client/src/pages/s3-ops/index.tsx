@@ -5,6 +5,7 @@ import {
   FileUploaderRegular,
   OutputCollectionState
 } from '@uploadcare/react-uploader';
+import { uploadFileToS3 } from '@csl/react-express';
 import { PageLayout } from 'components';
 import { ENV_VARS } from 'app-constants';
 import {
@@ -12,7 +13,7 @@ import {
   getPreSignedFileUrl,
   downloadFile
 } from 'api/services';
-import { sanitizeFileName, uploadFileToS3 } from 'utils';
+import { sanitizeFileName } from 'utils';
 import '@uploadcare/react-uploader/core.css';
 import axios from 'axios';
 
@@ -39,13 +40,11 @@ const S3OpsPage = () => {
       const preSignedURL = await getS3PresignedUrl({
         fileName: sanitizedFile.name
       });
-      console.log('preSignedURL: ', preSignedURL);
       if (preSignedURL) {
-        const response = await uploadFileToS3({
+        await uploadFileToS3({
           preSignedUrl: preSignedURL,
           file: sanitizedFile
         });
-        console.log('response: ', response);
       }
     } catch (error) {
       toast.error(

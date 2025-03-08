@@ -35,3 +35,4 @@ $ yarn run start:prod
   - IAM using [@aws-sdk/client-iam](https://www.npmjs.com/package/@aws-sdk/client-iam)
   - Redis Elasticache using [ioredis](https://www.npmjs.com/package/ioredis)
   - SES using[@aws-sdk/client-ses](https://www.npmjs.com/package/@aws-sdk/client-ses)
+  - S3 using [@aws-sdk/client-s3](https://www.npmjs.com/package/@aws-sdk/client-s3) alongside creating csv file using [papaparse](https://www.npmjs.com/package/papaparse) and downloading files

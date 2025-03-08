@@ -5,6 +5,7 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       uploadPreSignedUrl: 'upload-presigned-url',
       downloadPreSignedUrl: 'download-presigned-url',
+      uploadCSVFile: 'upload-csv-file',
       downloadFile: 'download-file'
     }
   },

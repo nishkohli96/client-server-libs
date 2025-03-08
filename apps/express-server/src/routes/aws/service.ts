@@ -1,14 +1,16 @@
 import { Response } from 'express';
-import * as AwsTypeDefs from './types';
+import Papa from 'papaparse';
+import { Readable } from 'stream';
+import { ENV_VARS } from '@/app-constants';
 import {
   s3Client,
   createPutPresignedUrl,
   createGetPresignedUrl,
   getS3Object
 } from '@/aws';
-import { ENV_VARS } from '@/app-constants';
+import { uploadFileToS3 } from '@csl/react-express';
 import { sendErrorResponse } from '@/utils';
-import { Readable } from 'stream';
+import * as AwsTypeDefs from './types';
 
 class AwsService {
   async getUploadPreSignedUrl(
@@ -55,6 +57,41 @@ class AwsService {
         res,
         error,
         'Unable to generate download pre-signed url'
+      );
+    }
+  }
+
+  async uploadCSVFile(res: Response) {
+    try {
+      const data = [
+        { id: 1, name: 'Alice', age: 25 },
+        { id: 2, name: 'Bob', age: 30 }
+      ];
+      const csv = Papa.unparse(data);
+      const csvBlob = new Blob([csv], { type: 'text/csv' });
+
+      const fileName = `users_${Date.now()}.csv`;
+      const csvFile = new File([csvBlob], fileName, { type: 'text/csv' });
+
+      const preSignedUrl = await createPutPresignedUrl(
+        ENV_VARS.aws.s3BucketName,
+        fileName
+      );
+      await uploadFileToS3({
+        file: csvFile,
+        preSignedUrl
+      });
+      return res.json({
+        success: true,
+        status: 200,
+        message: `File uploaded to S3 bucket with key: "${fileName}"`,
+        data: preSignedUrl
+      });
+    } catch (error) {
+      return sendErrorResponse(
+        res,
+        error,
+        'Unable to upload csv file'
       );
     }
   }

@@ -8,6 +8,7 @@ import {
   CommonPrefix
 } from '@aws-sdk/client-s3';
 import { s3Client } from '@/aws';
+import axios from 'axios';
 
 type S3ObjectsList = {
   commonPrefixes: CommonPrefix[];
@@ -90,4 +91,18 @@ export async function listS3BucketObjects(
     );
   }
   return s3Objects;
+}
+
+export async function uploadFileToS3(file: Blob, presignedUrl: string) {
+  try {
+    await axios.put(presignedUrl, file, {
+      headers: {
+        'Content-Type': 'text/csv',
+        'Content-Length': file.size.toString()
+      }
+    });
+    console.log('File uploaded successfully!');
+  } catch (error) {
+    console.error('Error uploading file:', error);
+  }
 }
