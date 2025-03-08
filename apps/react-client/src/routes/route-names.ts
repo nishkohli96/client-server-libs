@@ -16,7 +16,8 @@ const RouteNames = {
       edit: 'edit'
     }
   },
-  events: '/events'
+  events: '/events',
+  s3Ops: '/s3-ops',
 };
 
 export default RouteNames;

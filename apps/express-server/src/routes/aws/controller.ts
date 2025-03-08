@@ -7,7 +7,7 @@ const awsRouter = Router();
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;
 
 /* GET /aws/presigned-url */
-awsRouter.post(
+awsRouter.get(
   `/${subRoutes.preSignedUrl}`,
   async (req: AwsTypeDefs.PreSignedUrlRequest, res: Response) => {
     return await awsService.generatePreSignedUrl(res, req.query);

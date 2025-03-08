@@ -5,6 +5,7 @@ import RouteNames from './route-names';
 const DatoCMSPage = lazy(() => import('pages/dato-cms'));
 const FileUploadsPage = lazy(() => import('pages/files-upload'));
 const EventsPage = lazy(() => import('pages/events'));
+const S3OpsPage = lazy(() => import('pages/s3-ops'));
 
 const PeoplePage = lazy(() => import('pages/people'));
 const AddPersonPage = lazy(() => import('pages/people/add'));
@@ -26,6 +27,11 @@ export const RouteList: RouteItem[] = [
     path: RouteNames.events,
     text: 'Events',
     element: <EventsPage />
+  },
+  {
+    path: RouteNames.s3Ops,
+    text: 'S3 Ops',
+    element: <S3OpsPage />
   },
   /* Person Routes */
   {

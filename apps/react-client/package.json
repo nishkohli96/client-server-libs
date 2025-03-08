@@ -27,6 +27,7 @@
     "@nish1896/rhf-mui-components": "^2.1.0",
     "@sentry/cli": "^2.42.1",
     "@sentry/react": "^9.1.0",
+    "@uploadcare/react-uploader": "^1.5.0",
     "axios": "^1.6.8",
     "joi": "^17.13.3",
     "lodash": "^4.17.21",

@@ -28,7 +28,8 @@ export const handleApiError = (error: unknown) => {
       error.response?.data?.message || `Error: ${error.message || 'Unknown error occurred'}`
     );
   } else {
-    toast.error('An unexpected error occurred while fetching the data.');
+    const errMsg = error instanceof Error ? error.message : JSON.stringify(error);
+    toast.error(`An unexpected error occurred while fetching the data: ${errMsg}`);
   }
 };
 
