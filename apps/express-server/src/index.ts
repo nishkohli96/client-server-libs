@@ -12,13 +12,13 @@ import {
   SocketData
 } from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
+import { loadSSMParameters } from '@/aws';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
 import { connectToRedis } from '@/redis';
 import { printObject } from '@/utils';
 import app from './app';
-import { readCsvFromS3 } from '@/aws';
 
 const hostName = os.hostname();
 const port = ENV_VARS.port;
@@ -171,6 +171,9 @@ io.on('connection', socket => {
 
 async function bootstrap() {
   try {
+    if(ENV_VARS.env !== 'development') {
+      await loadSSMParameters('/dev/');
+    }
     await connectPostgresDB();
     await connectMySQLDB();
     await connect(dbConnectionString);

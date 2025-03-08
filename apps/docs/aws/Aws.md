@@ -113,7 +113,7 @@
     - [Configuring CORS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) 
     - [Elements of CORS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html)
 
-6.  **Block public access** (bucket settings):
+7.  **Block public access** (bucket settings):
 
     | Setting | Blocks New? | Blocks Existing? | Impact|
     |-|-|-|-|
@@ -121,6 +121,9 @@
     | 2. Block public ACLs (All) | ✅ Yes | ✅ Yes | Completely ignores all public ACLs, even old ones |
     | 3. Block public bucket policies (New Only) | ✅ Yes | ❌ No |	Stops new public bucket policies but keeps existing ones |
     | 4. Block public bucket policies (All) | ✅ Yes | ✅ Yes |	Completely disables public/cross-account access via bucket policies |
+
+8.  The contents of an S3 bucket must be emptied before the bucket can be deleted.
+
 
 ## SES
 
