@@ -38,3 +38,4 @@ $ yarn run start:prod
   - S3 using [@aws-sdk/client-s3](https://www.npmjs.com/package/@aws-sdk/client-s3) alongside creating csv file using [papaparse](https://www.npmjs.com/package/papaparse) and downloading files
   - Access environment variables stored in **Parameter Store** using
   [@aws-sdk/client-ssm](https://www.npmjs.com/package/@aws-sdk/client-ssm)
+  - Create, get secrets using [@aws-sdk/client-secrets-manager](https://www.npmjs.com/package/@aws-sdk/client-secrets-manager)

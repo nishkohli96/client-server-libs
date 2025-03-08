@@ -7,8 +7,9 @@ import {
   _Object,
   CommonPrefix
 } from '@aws-sdk/client-s3';
-import { s3Client } from '@/aws';
 import axios from 'axios';
+import { s3Client } from '@/aws';
+import { winstonLogger } from '@/middleware';
 
 type S3ObjectsList = {
   commonPrefixes: CommonPrefix[];
@@ -101,8 +102,8 @@ export async function uploadFileToS3(file: Blob, presignedUrl: string) {
         'Content-Length': file.size.toString()
       }
     });
-    console.log('File uploaded successfully!');
+    winstonLogger.info('File uploaded successfully!');
   } catch (error) {
-    console.error('Error uploading file:', error);
+    winstonLogger.error('Error uploading file:', error);
   }
 }

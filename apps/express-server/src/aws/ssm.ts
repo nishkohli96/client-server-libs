@@ -1,4 +1,7 @@
+/* https://www.npmjs.com/package/@aws-sdk/client-ssm */
+
 import { SSMClient, GetParametersByPathCommand } from '@aws-sdk/client-ssm';
+import { winstonLogger } from '@/middleware';
 
 export const ssm = new SSMClient();
 
@@ -30,9 +33,9 @@ export async function loadSSMParameters(envName: string) {
           }
         }
       });
-      console.log('SSM parameters loaded successfully!');
+      winstonLogger.info('SSM parameters loaded successfully!');
     }
   } catch (error) {
-    console.error('Error loading SSM parameters:', error);
+    winstonLogger.error('Error loading SSM parameters:', error);
   }
 }

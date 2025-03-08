@@ -136,14 +136,19 @@
     To enable production mode, you **need to verify your domain** and **Request production access** in the SES Dashboard.
 
 4. Key Rule in Sandbox Mode:
-   - All recipient email addresses must be individually verified, regardless of the domain.
-   - Verifying the domain only lets you send from any email address in that domain — it does not automatically authorize sending to all emails in the domain.
-   
-   ✅ Once You Move to Production Mode:
-   - You can send to any email address (no need to verify recipients anymore).
-   - You still need to verify the sending domain or sender email.
+    - All recipient email addresses must be individually verified, regardless of the domain.
+    - Verifying the domain only lets you send from any email address in that domain — it does not automatically authorize sending to all emails in the domain.
+
+    ✅ Once You Move to Production Mode:
+    - You can send to any email address (no need to verify recipients anymore).
+    - You still need to verify the sending domain or sender email.
 
 5. Email sending commands:
-   - [SendEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendEmailCommand/) - Basic email sending API where you define the subject, body, and recipient(s) directly in the request for simple transactional emails (e.g., password resets, notifications). Does not support attachments and personalization for different recipients.
-   - [SendRawEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendRawEmailCommand/) - Lets you build the full email yourself (including headers, attachments, inline images). Refer [SendRawEmail.md](./SendRawEmail.md).
-   - [SendTemplatedEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendTemplatedEmailCommand/) - Email content (subject, text, HTML) is defined in a template in SES, which supports personalization with dynamic variables.
+    - [SendEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendEmailCommand/) - Basic email sending API where you define the subject, body, and recipient(s) directly in the request for simple transactional emails (e.g., password resets, notifications). Does not support attachments and personalization for different recipients.
+    - [SendRawEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendRawEmailCommand/) - Lets you build the full email yourself (including headers, attachments, inline images). Refer [SendRawEmail.md](./SendRawEmail.md).
+    - [SendTemplatedEmail](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ses/command/SendTemplatedEmailCommand/) - Email content (subject, text, HTML) is defined in a template in SES, which supports personalization with dynamic variables.
+
+
+## Systems Manager
+
+1.  Both AWS **Secrets Manager** and **Systems Manager** (SSM) Parameter Store are used for managing secrets, but Secrets Manager has automatic secret rotation and is more expensive than the latter.

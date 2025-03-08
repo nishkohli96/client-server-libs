@@ -1,5 +1,4 @@
 import 'dotenv/config';
-// import '@/middleware/datadog';
 import os from 'os';
 import { createServer } from 'node:http';
 import { v4 as uuidv4 } from 'uuid';
@@ -172,7 +171,7 @@ io.on('connection', socket => {
 async function bootstrap() {
   try {
     if(ENV_VARS.env !== 'development') {
-      await loadSSMParameters('/dev/');
+      await loadSSMParameters(`/${ENV_VARS.env}/`);
     }
     await connectPostgresDB();
     await connectMySQLDB();
