@@ -7,9 +7,14 @@ import {
 } from '@uploadcare/react-uploader';
 import { PageLayout } from 'components';
 import { ENV_VARS } from 'app-constants';
-import { getS3PresignedUrl } from 'api/services';
+import {
+  getS3PresignedUrl,
+  getPreSignedFileUrl,
+  downloadFile
+} from 'api/services';
 import { sanitizeFileName, uploadFileToS3 } from 'utils';
 import '@uploadcare/react-uploader/core.css';
+import axios from 'axios';
 
 /**
  * Uploadcare has 14-days of access to premium features, and is then
@@ -31,9 +36,11 @@ const S3OpsPage = () => {
         return;
       }
       const sanitizedFile = sanitizeFileName(uploadedFile);
-      const preSignedURL = await getS3PresignedUrl({ fileName: sanitizedFile.name });
+      const preSignedURL = await getS3PresignedUrl({
+        fileName: sanitizedFile.name
+      });
       console.log('preSignedURL: ', preSignedURL);
-      if(preSignedURL) {
+      if (preSignedURL) {
         const response = await uploadFileToS3({
           preSignedUrl: preSignedURL,
           file: sanitizedFile
@@ -47,15 +54,68 @@ const S3OpsPage = () => {
     }
   };
 
+  const fetchAndOpenFile = async () => {
+    try {
+      const preSignedURL = await getPreSignedFileUrl({
+        fileName: 'Aadhaar_nishant.jpg'
+      });
+      if (preSignedURL) {
+        const response = await axios.get(preSignedURL, {
+          responseType: 'blob'
+        });
+        const blob = response.data;
+        const fileUrl = window.URL.createObjectURL(blob);
+        window.open(fileUrl, '_blank');
+        /* Clean up object URL after some time */
+        setTimeout(() => URL.revokeObjectURL(fileUrl), 30000);
+      }
+    } catch (error) {
+      console.log('error: ', error);
+      toast.error(
+        `Error opening file from S3: ${JSON.stringify(error, null, 2)}`
+      );
+    }
+  };
+
+  const downloadFileFromS3 = async () => {
+    try {
+      const fileName = 'products.csv';
+      const blobData = await downloadFile({ fileName });
+      if (blobData) {
+        const fileUrl = window.URL.createObjectURL(blobData);
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(fileUrl);
+      }
+    } catch (error) {
+      console.log('error: ', error);
+      toast.error(
+        `Error downloading file from S3: ${JSON.stringify(error, null, 2)}`
+      );
+    }
+  };
+
   return (
     <PageLayout seoTitle="S3 Ops">
       <FileUploaderRegular
         pubkey={ENV_VARS.uploadCareKey}
         onChange={handleFileChange}
       />
-      <br/>
+      <br />
       <Button variant="outlined" color="primary" onClick={uploadToS3}>
         Upload to S3
+      </Button>
+      <br />
+      <Button variant="outlined" color="primary" onClick={fetchAndOpenFile}>
+        Open File from S3
+      </Button>
+      <br />
+      <Button variant="outlined" color="primary" onClick={downloadFileFromS3}>
+        Download File from S3
       </Button>
     </PageLayout>
   );

@@ -91,6 +91,7 @@
           "*"
         ],
         "AllowedMethods": [
+          "GET",
           "PUT",
           "POST",
           "DELETE"

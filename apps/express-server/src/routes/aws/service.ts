@@ -8,6 +8,7 @@ import {
 } from '@/aws';
 import { ENV_VARS } from '@/app-constants';
 import { sendErrorResponse } from '@/utils';
+import { Readable } from 'stream';
 
 class AwsService {
   async getUploadPreSignedUrl(
@@ -77,6 +78,8 @@ class AwsService {
       );
       res.setHeader('Content-Type', ContentType || 'application/octet-stream');
       res.setHeader('Content-Length', ContentLength || 0);
+      const readableStream = Body as Readable;
+      readableStream.pipe(res);
     } catch (error) {
       return sendErrorResponse(
         res,
