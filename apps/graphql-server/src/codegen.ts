@@ -1,5 +1,5 @@
-import path from 'path';
 import type { CodegenConfig } from '@graphql-codegen/cli';
+import { schemaArray } from './graphql';
 
 /**
  * During the initialization, the schema value was set to
@@ -11,9 +11,10 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
  * if you make any changes in this file and run the codegen, the
  * types are regenerated.
  */
+
 const config: CodegenConfig = {
   overwrite: true,
-  schema: path.join(__dirname, './schema.graphql'),
+  schema: schemaArray,
   generates: {
     'src/types/graphql.ts': {
       plugins: ['typescript', 'typescript-resolvers'],

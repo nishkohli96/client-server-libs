@@ -3,12 +3,17 @@ import { readFileSync } from 'fs';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { User, Colors } from '@/types';
+import { typeDefs } from './graphql';
 
-const typeDefs = readFileSync(
-  path.join(__dirname, './schema.graphql'), {
-    encoding: 'utf-8'
-  }
-);
+
+// const schemaArray = loadFilesSync(path.join(__dirname, './graphql/*.graphql')); // ✅ Auto-loads all GraphQL files
+
+// const typeDefs = mergeTypeDefs(schemaArray);
+// readFileSync(
+//   path.join(__dirname, './schema.graphql'), {
+//     encoding: 'utf-8'
+//   }
+// );
 
 const users: User[] = [
   {

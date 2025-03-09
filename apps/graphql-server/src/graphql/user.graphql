@@ -1,0 +1,5 @@
+type AdminUser {
+  id: ID!
+  name: String!
+  email: String!
+}
