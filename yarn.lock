@@ -1885,7 +1885,7 @@
     "@graphql-codegen/plugin-helpers" "^5.0.3"
     tslib "~2.6.0"
 
-"@graphql-codegen/cli@^5.0.5":
+"@graphql-codegen/cli@5.0.5":
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-5.0.5.tgz#9a29b2c7a459e333fbae025dff951927fafe5d2f"
   integrity sha512-9p9SI5dPhJdyU+O6p1LUqi5ajDwpm6pUhutb1fBONd0GZltLFwkgWFiFtM6smxkYXlYVzw61p1kTtwqsuXO16w==
@@ -2009,7 +2009,7 @@
     auto-bind "~4.0.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/typescript-resolvers@^4.4.4":
+"@graphql-codegen/typescript-resolvers@4.4.4":
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-4.4.4.tgz#948037bc7bbd24a2ed469110d2732ef5d94d060e"
   integrity sha512-MOngdWxBV1ZqVc7t9cVNU+XPnaA3bls2pWfmUrJDzYZqFN7gijlcOLFGftipWb/U30q7JrYkxGjbNz0ILXI8aw==
@@ -2021,7 +2021,7 @@
     auto-bind "~4.0.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/typescript@^4.1.5":
+"@graphql-codegen/typescript@4.1.5", "@graphql-codegen/typescript@^4.1.5":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-4.1.5.tgz#ae0c33334feb647db5bfb0a97e7b0f996ddcdc1a"
   integrity sha512-BmbXcS8hv75qDIp4LCFshFXXDq0PCd48n8WLZ5Qf4XCOmHYGSxMn49dp/eKeApMqXWYTkAZuNt8z90zsRSQeOg==
