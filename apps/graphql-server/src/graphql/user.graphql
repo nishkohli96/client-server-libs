@@ -3,3 +3,9 @@ type AdminUser {
   name: String!
   email: String!
 }
+
+enum Role {
+  ADMIN
+  GUEST
+  USER
+}

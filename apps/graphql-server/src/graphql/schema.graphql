@@ -8,6 +8,7 @@ enum Colors {
   RED
   BLUE
   BLACK
+  ORANGE
 }
 
 type Query {

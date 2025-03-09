@@ -23,7 +23,9 @@ export type AdminUser = {
 };
 
 export enum Colors {
+  Black = 'BLACK',
   Blue = 'BLUE',
+  Orange = 'ORANGE',
   Red = 'RED'
 }
 
@@ -39,6 +41,12 @@ export type Query = {
   persons?: Maybe<Array<Person>>;
   users?: Maybe<Array<User>>;
 };
+
+export enum Role {
+  Admin = 'ADMIN',
+  Guest = 'GUEST',
+  User = 'USER'
+}
 
 export type User = {
   __typename?: 'User';
@@ -125,6 +133,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Person: ResolverTypeWrapper<Person>;
   Query: ResolverTypeWrapper<{}>;
+  Role: Role;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<User>;
 };

@@ -1,5 +1,11 @@
+import { readdirSync } from 'fs';
+import path from 'path';
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import { schemaArray } from './graphql';
+
+/* Read only ".graphql" files from graphql directory. */
+const schemaArray = readdirSync(path.join(__dirname, 'graphql'))
+  .filter(fileName => fileName.endsWith('.graphql'))
+  .map(fileName => path.join(__dirname, 'graphql', fileName));
 
 /**
  * During the initialization, the schema value was set to
