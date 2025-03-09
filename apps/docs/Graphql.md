@@ -17,3 +17,5 @@
         JEDI
       }
 			```
+
+2.  Adding `#graphql` to the beginning of a template literal provides GraphQL syntax highlighting in supporting IDEs.
