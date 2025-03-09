@@ -1,19 +1,15 @@
+type User {
+  name: String!
+  age: Int!
+  favouriteColor: Colors
+}
+
+enum Colors {
+  RED
+  BLUE
+}
+
 type Query {
-  books: [Book]
+  users: [User!]
 }
 
-type Book {
-  title: String
-  author: String
-}
-
-type AddBookMutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  book: Book
-}
-
-type Mutation {
-  addBook(title: String, author: String): AddBookMutationResponse
-}

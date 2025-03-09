@@ -1,17 +1,24 @@
+import path from 'path';
 import { readFileSync } from 'fs';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { User, Colors } from '@/types';
 
-const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
+const typeDefs = readFileSync(
+  path.join(__dirname, './schema.graphql'), {
+    encoding: 'utf-8'
+  }
+);
 
-const books = [
+const users: User[] = [
   {
-    title: 'The Awakening',
-    author: 'Kate Chopin'
+    name: 'The Awakening',
+    age: 32,
+    favouriteColor: Colors.Red
   },
   {
-    title: 'City of Glass',
-    author: 'Paul Auster'
+    name: 'City of Glass',
+    age: 25
   }
 ];
 
@@ -19,7 +26,7 @@ const books = [
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    books: () => books
+    users: () => users
   }
 };
 
@@ -34,8 +41,11 @@ const server = new ApolloServer({
 //  1. creates an Express app
 //  2. installs your ApolloServer instance as middleware
 //  3. prepares your app to handle incoming requests
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 }
-});
+async function bootstrap() {
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 }
+  });
+  console.log(`🚀  Server ready at: ${url}`);
+}
 
-console.log(`🚀  Server ready at: ${url}`);
+bootstrap();
