@@ -16,6 +16,9 @@ const schemaArray = readdirSync(path.join(__dirname, 'graphql'))
  * Thus you need to set this value to your schema.graphql file, so
  * if you make any changes in this file and run the codegen, the
  * types are regenerated.
+ *
+ * NOTE: If you get any error wrt "VoidFunction", ensure lib in
+ * tsconfig.json includes "dom".
  */
 
 const config: CodegenConfig = {
