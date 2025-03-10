@@ -21,3 +21,5 @@
 2.  Adding `#graphql` to the beginning of a template literal provides GraphQL syntax highlighting in supporting IDEs.
 
 3.  Refer [this article](https://www.apollographql.com/docs/apollo-server/workflow/generate-types) to use Graphql with Typescript. The server must be running to generate types using `graphql-codegen`.
+
+4. When extending an interface, you must explicitly specify all the fields from the interface in your type even as GraphQL does not automatically inherit fields from an interface like some programming languages (e.g., TypeScript or Java).

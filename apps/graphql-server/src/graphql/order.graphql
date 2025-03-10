@@ -1,0 +1,55 @@
+scalar Date
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CARD
+  PAYPAL
+}
+
+type CreditCard {
+  type: PaymentMethod!
+  cardNumber: String!
+  expiryDate: String!
+}
+
+type PayPal {
+  type: PaymentMethod!
+  email: String!
+}
+
+union PaymentMethod = CreditCard | PayPal
+
+type Order {
+  id: ID!
+  customer: Customer!
+  products: [Product!]!
+  totalAmount: Float!
+  status: OrderStatus!
+  payment: PaymentMethod!
+  createdAt: Date!
+}
+
+input OrderInput {
+  customerId: ID!
+  productIds: [ID!]!
+  paymentMethod: PaymentInput!
+  amount: String!
+}
+
+type Query {
+  getOrders(customerId: ID!): [Order!]!
+}
+
+type Mutation {
+  placeOrder(input: OrderInput!): Order!
+}
+
+type Subscription {
+  orderUpdated(orderId: ID!): Order!
+}

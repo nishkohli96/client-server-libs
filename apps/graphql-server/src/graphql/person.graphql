@@ -1,9 +1,0 @@
-type Person {
-  id: ID!
-  fullName: String!
-  user: User  # ✅ No need to import User, just define it in the same schema
-}
-
-type Query {
-  persons: [Person!]
-}

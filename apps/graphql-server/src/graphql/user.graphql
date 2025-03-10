@@ -1,11 +1,41 @@
-type AdminUser {
+interface User {
   id: ID!
   name: String!
   email: String!
 }
 
-enum Role {
-  ADMIN
-  GUEST
-  USER
+enum Countries {
+  INDIA
+  SINGAPORE
+  AUSTRALIA
+  UNITED_ARAB_EMIRATES
+  AZERBAIJAN
+  GEORGIA
+}
+
+type Address {
+  houseNo: String!
+  street: String!
+  landmark: String
+  city: String!
+  state: String
+  country: Countries!
+}
+
+type Customer implements User {
+  id: ID!
+  name: String!
+  email: String!
+  address: Address
+}
+
+type Admin implements User {
+  id: ID!
+  name: String!
+  email: String!
+  manager: ID
+}
+
+type Query {
+  getUser(id: ID!): Customer | Admin
 }
