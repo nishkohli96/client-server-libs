@@ -6,7 +6,7 @@ type Category {
 type Product {
   id: ID!
   name: String!
-  description: String
+  description: String!
   price: Float!
   category: Category!
 }

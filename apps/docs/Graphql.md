@@ -26,3 +26,14 @@
 
 4. When extending an interface, you must explicitly specify all the fields from the interface in your type even as GraphQL does not automatically inherit fields from an interface like some programming languages (e.g., TypeScript or Java).
 
+5. Explicitly define the union types, esp when returning the response from a query or a mutation.
+
+    ```
+    union AdminOrCustomer = Admin | Customer
+
+    type Query {
+      getUserById(id: ObjectID!): Admin | Customer    ❌
+      getUserById(id: ObjectID!): AdminOrCustomer     ✅
+    }
+    ```` 
+

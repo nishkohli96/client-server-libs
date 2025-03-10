@@ -11,18 +11,9 @@ import {
   UUIDResolver
 } from 'graphql-scalars';
 import { typeDefs } from '@/graphql';
-import { User, Colors } from '@/types';
+import { User } from '@/types';
 
 const users: User[] = [
-  {
-    name: 'The Awakening',
-    age: 32,
-    favouriteColor: Colors.Red
-  },
-  {
-    name: 'City of Glass',
-    age: 25
-  }
 ];
 
 // Resolvers define how to fetch the types defined in your schema.
