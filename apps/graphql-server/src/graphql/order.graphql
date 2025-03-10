@@ -1,4 +1,5 @@
 scalar DateTimeISO
+scalar UUID
 
 enum OrderStatus {
   PENDING
@@ -7,43 +8,44 @@ enum OrderStatus {
   CANCELLED
 }
 
-enum PaymentMethod {
+enum PaymentOption {
   CARD
   PAYPAL
 }
 
 type CreditCard {
-  type: PaymentMethod!
+  type: PaymentOption!
   cardNumber: String!
   expiryDate: String!
 }
 
 type PayPal {
-  type: PaymentMethod!
-  email: String!
+  type: PaymentOption!
+  email: EmailAddress!
 }
 
 union PaymentMethod = CreditCard | PayPal
 
 type Order {
-  id: ID!
-  customer: Customer!
-  products: [Product!]!
+  id: UUID!
+  customerId: ObjectID!
+  productIds: [ID!]!
   totalAmount: Float!
   status: OrderStatus!
   payment: PaymentMethod!
-  createdAt: Date!
+  createdAt: DateTimeISO!
 }
 
 input OrderInput {
-  customerId: ID!
+  customerId: ObjectID!
   productIds: [ID!]!
-  paymentMethod: PaymentInput!
-  amount: String!
+  paymentMethod: PaymentMethod!
+  amount: Float!
 }
 
 type Query {
-  getOrders(customerId: ID!): [Order!]!
+  getOrders(customerId: ObjectID!): [Order!]!
+  getOrderById(orderId: UUID!): Order
 }
 
 type Mutation {

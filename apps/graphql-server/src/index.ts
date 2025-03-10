@@ -4,9 +4,11 @@ import {
   DateTimeISOTypeDefinition,
   EmailAddressTypeDefinition,
   ObjectIDTypeDefinition,
+  UUIDDefinition,
   DateTimeISOResolver,
   EmailAddressResolver,
-  ObjectIDResolver
+  ObjectIDResolver,
+  UUIDResolver
 } from 'graphql-scalars';
 import { typeDefs } from '@/graphql';
 import { User, Colors } from '@/types';
@@ -39,11 +41,13 @@ const server = new ApolloServer({
     DateTimeISOTypeDefinition,
     EmailAddressTypeDefinition,
     ObjectIDTypeDefinition,
+    UUIDDefinition,
   ],
   resolvers: {
     DateTimeISOResolver,
     EmailAddressResolver,
     ObjectIDResolver,
+    UUIDResolver,
     ...resolvers
   }
 });
