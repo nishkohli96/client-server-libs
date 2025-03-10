@@ -1,4 +1,4 @@
-scalar Date
+scalar DateTimeISO
 
 enum OrderStatus {
   PENDING

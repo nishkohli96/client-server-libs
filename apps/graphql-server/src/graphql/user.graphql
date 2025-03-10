@@ -1,5 +1,8 @@
+scalar EmailAddress
+scalar ObjectID
+
 interface User {
-  id: ID!
+  id: ObjectID!
   name: String!
   email: String!
 }
@@ -23,19 +26,19 @@ type Address {
 }
 
 type Customer implements User {
-  id: ID!
+  id: ObjectID!
   name: String!
   email: String!
   address: Address
 }
 
 type Admin implements User {
-  id: ID!
+  id: ObjectID!
   name: String!
   email: String!
-  manager: ID
+  manager: ObjectID
 }
 
 type Query {
-  getUser(id: ID!): Customer | Admin
+  getUser(id: ObjectID!): Customer | Admin
 }

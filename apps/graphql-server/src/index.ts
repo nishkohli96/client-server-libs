@@ -1,5 +1,13 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import {
+  DateTimeISOTypeDefinition,
+  EmailAddressTypeDefinition,
+  ObjectIDTypeDefinition,
+  DateTimeISOResolver,
+  EmailAddressResolver,
+  ObjectIDResolver
+} from 'graphql-scalars';
 import { typeDefs } from '@/graphql';
 import { User, Colors } from '@/types';
 
@@ -26,8 +34,18 @@ const resolvers = {
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+  typeDefs: [
+    typeDefs,
+    DateTimeISOTypeDefinition,
+    EmailAddressTypeDefinition,
+    ObjectIDTypeDefinition,
+  ],
+  resolvers: {
+    DateTimeISOResolver,
+    EmailAddressResolver,
+    ObjectIDResolver,
+    ...resolvers
+  }
 });
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
