@@ -15,10 +15,10 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DateTimeISO: { input: any; output: any; }
-  EmailAddress: { input: any; output: any; }
-  ObjectID: { input: any; output: any; }
-  UUID: { input: any; output: any; }
+  DateTimeISO: { input: string; output: string; }
+  EmailAddress: { input: string; output: string; }
+  ObjectID: { input: string; output: string; }
+  UUID: { input: string; output: string; }
 };
 
 export type Address = {
@@ -33,7 +33,7 @@ export type Address = {
 
 export type Admin = User & {
   __typename?: 'Admin';
-  email: Scalars['String']['output'];
+  email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   manager?: Maybe<Scalars['ObjectID']['output']>;
   name: Scalars['String']['output'];
@@ -60,6 +60,12 @@ export type CreditCard = {
   __typename?: 'CreditCard';
   cardNumber: Scalars['String']['output'];
   expiryDate: Scalars['String']['output'];
+  type: PaymentOption;
+};
+
+export type CreditCardInput = {
+  cardNumber: Scalars['String']['input'];
+  expiryDate: Scalars['String']['input'];
   type: PaymentOption;
 };
 
@@ -101,7 +107,7 @@ export type Order = {
 export type OrderInput = {
   amount: Scalars['Float']['input'];
   customerId: Scalars['ObjectID']['input'];
-  paymentMethod: PaymentMethod;
+  paymentMethod: PaymentMethodInput;
   productIds: Array<Scalars['ID']['input']>;
 };
 
@@ -118,7 +124,17 @@ export type PayPal = {
   type: PaymentOption;
 };
 
+export type PayPalInput = {
+  email: Scalars['EmailAddress']['input'];
+  type: PaymentOption;
+};
+
 export type PaymentMethod = CreditCard | PayPal;
+
+export type PaymentMethodInput = {
+  card?: InputMaybe<CreditCardInput>;
+  paypal?: InputMaybe<PayPalInput>;
+};
 
 export enum PaymentOption {
   Card = 'CARD',
@@ -127,7 +143,7 @@ export enum PaymentOption {
 
 export type Product = {
   __typename?: 'Product';
-  category: Category;
+  categoryId: Scalars['ID']['output'];
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -143,21 +159,24 @@ export type ProductInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getCategories: Array<Category>;
+  getCustomerOrders: Array<Order>;
   getOrderById?: Maybe<Order>;
   getOrders: Array<Order>;
   getProductById?: Maybe<Product>;
   getProducts: Array<Product>;
   getUserById?: Maybe<AdminOrCustomer>;
+  getUsers: Array<AdminOrCustomer>;
+};
+
+
+export type QueryGetCustomerOrdersArgs = {
+  customerId: Scalars['ObjectID']['input'];
 };
 
 
 export type QueryGetOrderByIdArgs = {
   orderId: Scalars['UUID']['input'];
-};
-
-
-export type QueryGetOrdersArgs = {
-  customerId: Scalars['ObjectID']['input'];
 };
 
 
@@ -181,7 +200,7 @@ export type SubscriptionOrderUpdatedArgs = {
 };
 
 export type User = {
-  email: Scalars['String']['output'];
+  email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   name: Scalars['String']['output'];
 };
@@ -273,6 +292,7 @@ export type ResolversTypes = {
   Category: ResolverTypeWrapper<Category>;
   Countries: Countries;
   CreditCard: ResolverTypeWrapper<CreditCard>;
+  CreditCardInput: CreditCardInput;
   Customer: ResolverTypeWrapper<Customer>;
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>;
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
@@ -284,7 +304,9 @@ export type ResolversTypes = {
   OrderInput: OrderInput;
   OrderStatus: OrderStatus;
   PayPal: ResolverTypeWrapper<PayPal>;
+  PayPalInput: PayPalInput;
   PaymentMethod: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['PaymentMethod']>;
+  PaymentMethodInput: PaymentMethodInput;
   PaymentOption: PaymentOption;
   Product: ResolverTypeWrapper<Product>;
   ProductInput: ProductInput;
@@ -303,6 +325,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Category: Category;
   CreditCard: CreditCard;
+  CreditCardInput: CreditCardInput;
   Customer: Customer;
   DateTimeISO: Scalars['DateTimeISO']['output'];
   EmailAddress: Scalars['EmailAddress']['output'];
@@ -313,7 +336,9 @@ export type ResolversParentTypes = {
   Order: Omit<Order, 'payment'> & { payment: ResolversParentTypes['PaymentMethod'] };
   OrderInput: OrderInput;
   PayPal: PayPal;
+  PayPalInput: PayPalInput;
   PaymentMethod: ResolversUnionTypes<ResolversParentTypes>['PaymentMethod'];
+  PaymentMethodInput: PaymentMethodInput;
   Product: Product;
   ProductInput: ProductInput;
   Query: {};
@@ -334,7 +359,7 @@ export type AddressResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type AdminResolvers<ContextType = any, ParentType extends ResolversParentTypes['Admin'] = ResolversParentTypes['Admin']> = {
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   manager?: Resolver<Maybe<ResolversTypes['ObjectID']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -405,7 +430,7 @@ export type PaymentMethodResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
+  categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -414,11 +439,14 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
+  getCustomerOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
   getOrderById?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetOrderByIdArgs, 'orderId'>>;
-  getOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetOrdersArgs, 'customerId'>>;
+  getOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
   getProductById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'product'>>;
   getProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
   getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
+  getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -431,7 +459,7 @@ export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   __resolveType: TypeResolveFn<'Admin' | 'Customer', ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };

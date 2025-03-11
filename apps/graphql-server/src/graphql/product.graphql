@@ -8,7 +8,7 @@ type Product {
   name: String!
   description: String!
   price: Float!
-  category: Category!
+  categoryId: ID!
 }
 
 input ProductInput {
@@ -19,6 +19,7 @@ input ProductInput {
 }
 
 type Query {
+  getCategories: [Category!]!
   getProducts: [Product!]!
   getProductById(product: ID!): Product
 }

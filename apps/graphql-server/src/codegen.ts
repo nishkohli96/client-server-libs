@@ -27,6 +27,14 @@ const config: CodegenConfig = {
   generates: {
     'src/types/graphql.ts': {
       plugins: ['typescript', 'typescript-resolvers'],
+      config: {
+        scalars: {
+          DateTimeISO: 'string',
+          EmailAddress: 'string',
+          ObjectID: 'string',
+          UUID: 'string'
+        }
+      }
     }
   }
 };

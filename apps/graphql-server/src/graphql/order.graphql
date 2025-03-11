@@ -19,9 +19,32 @@ type CreditCard {
   expiryDate: String!
 }
 
+input CreditCardInput {
+  type: PaymentOption!
+  cardNumber: String!
+  expiryDate: String!
+}
+
 type PayPal {
   type: PaymentOption!
   email: EmailAddress!
+}
+
+input PayPalInput {
+  type: PaymentOption!
+  email: EmailAddress!
+}
+
+input PaymentMethodInput {
+  card: CreditCardInput
+  paypal: PayPalInput
+}
+
+input OrderInput {
+  customerId: ObjectID!
+  productIds: [ID!]!
+  paymentMethod: PaymentMethodInput!
+  amount: Float!
 }
 
 union PaymentMethod = CreditCard | PayPal
@@ -36,15 +59,9 @@ type Order {
   createdAt: DateTimeISO!
 }
 
-input OrderInput {
-  customerId: ObjectID!
-  productIds: [ID!]!
-  paymentMethod: PaymentMethod!
-  amount: Float!
-}
-
 type Query {
-  getOrders(customerId: ObjectID!): [Order!]!
+  getOrders: [Order!]!
+  getCustomerOrders(customerId: ObjectID!): [Order!]!
   getOrderById(orderId: UUID!): Order
 }
 

@@ -38,8 +38,8 @@
     "createdAt": "2024-03-06T08:45:00Z"
   },
   {
-    "id": "order-104",
-    "customerId": "7890abcd-1234-5678-9ef0-abcdef123456",
+    "id": "7890abcd-1234-5678-9ef0-abcdef123456",
+    "customerId": "65f1a3b5e89f1c00123abcd2",
     "productIds": ["prod-001", "prod-002", "prod-003"],
     "totalAmount": 319.97,
     "status": "CANCELLED",

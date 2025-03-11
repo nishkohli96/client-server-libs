@@ -37,3 +37,21 @@
     }
     ```` 
 
+6. **Query fields are executed in parallel, mutation fields run in series**, so that the first is guaranteed to finish before the second begins, ensuring that we don’t end up in a race condition with ourselves.
+
+7.  For returning response for a mutation,
+
+    ```
+    type Mutation {
+      placeOrder(input: OrderInput!): Order
+    }
+    ```
+
+    - Use Order (nullable) if you want to return `null` during an error scenario, be it validation or an exception.
+    - Use Order! (non-nullable) if you always expect a valid order or want to force error handling via GraphQL errors.
+
+  If you're using GraphQL best practices, it's better to use `Order!` and handle errors explicitly.
+
+8. The server should handle user authentication before a GraphQL request is validated; authorization should happen within your business logic during GraphQL request execution.
+
+9. GraphQL requests are sent using the `POST` HTTP method, but query operations may also be sent using the `GET` method. Clients should also provide a `Content-type` header with a value of `application/json` for POST requests.
