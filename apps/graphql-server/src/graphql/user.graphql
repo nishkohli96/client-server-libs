@@ -1,6 +1,9 @@
 scalar ObjectID
 scalar EmailAddress
 
+"""
+Cannot add space in enum values, hence used _
+"""
 enum Countries {
   INDIA
   SINGAPORE

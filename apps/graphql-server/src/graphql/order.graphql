@@ -47,6 +47,7 @@ input OrderInput {
   amount: Float!
 }
 
+"Either via Paypal or Credit Card"
 union PaymentMethod = CreditCard | PayPal
 
 type Order {

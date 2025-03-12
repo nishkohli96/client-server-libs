@@ -18,11 +18,11 @@
       }
 			```
     
-    For using other scalers or creating your own customer scalar, use [graphql-scalars](https://the-guild.dev/graphql/scalars).
+    For using other scalers or creating your own customer scalar, use [graphql-scalars](https://the-guild.dev/graphql/scalars), define your [own scalar](https://www.apollographql.com/docs/apollo-server/schema/custom-scalars).  
 
 2.  Adding `#graphql` to the beginning of a template literal provides GraphQL syntax highlighting in supporting IDEs.
 
-3.  Refer [this article](https://www.apollographql.com/docs/apollo-server/workflow/generate-types) to use Graphql with Typescript. The server must be running to generate types using `graphql-codegen`.
+3.  Refer [this article](https://www.apollographql.com/docs/apollo-server/workflow/generate-types) to use **Graphql with Typescript**. Generate types from a GraphQL schema using `graphql-codegen`.
 
 4. When extending an interface, you must explicitly specify all the fields from the interface in your type even as GraphQL does not automatically inherit fields from an interface like some programming languages (e.g., TypeScript or Java).
 
@@ -55,3 +55,9 @@
 8. The server should handle user authentication before a GraphQL request is validated; authorization should happen within your business logic during GraphQL request execution.
 
 9. GraphQL requests are sent using the `POST` HTTP method, but query operations may also be sent using the `GET` method. Clients should also provide a `Content-type` header with a value of `application/json` for POST requests.
+
+10. Querying for `__typename` is almost always recommended, but it's even more important when querying a field that might return one of multiple types.
+
+11. Read more on the [Resolver arguments](https://www.apollographql.com/docs/apollo-server/data/resolvers#resolver-arguments).
+
+11.  https://www.apollographql.com/docs/apollo-server/schema/schema#internal-values-advanced
