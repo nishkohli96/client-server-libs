@@ -3,4 +3,5 @@ export * from './iam';
 export * from './s3';
 export * from './secrets-manager';
 export * from './ses';
+export * from './sqs';
 export * from './ssm';

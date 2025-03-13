@@ -60,7 +60,7 @@ export async function checkIfObjectExist(
 
 export async function getBucketObjects(bucketName: string) {
   try {
-    const bucketObjects = await listS3BucketObjects(bucketName);
+    const bucketObjects = await listS3BucketObjects({ bucketName });
     winstonLogger.info(`S3 Bucket Objects: ${printObject(bucketObjects)}`);
   } catch (err) {
     winstonLogger.error('Error listing bucket objects: ', err);

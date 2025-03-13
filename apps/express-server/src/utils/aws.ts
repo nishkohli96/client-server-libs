@@ -35,7 +35,7 @@ export async function listS3Buckets(
     MaxBuckets: limit,
     ContinuationToken: continuationToken,
     Prefix: prefix
-    // BucketRegion: "STRING_VALUE",
+    // BucketRegion: "ap-south-1",
   };
   const command = new ListBucketsCommand(input);
   const result = await s3Client.send(command);
@@ -50,6 +50,8 @@ export async function listS3Buckets(
 }
 
 /**
+ * Get the contents and commonPrefixes of a S3 bucket.
+ *
  * Use "sheets/" for getting objects under "sheets" folder.
  * Do test again on a larger dataset. This function will NOT
  * return versions for the keys.
@@ -58,13 +60,22 @@ export async function listS3Buckets(
  * name, Ex: "HappyFace.jpg" or "folder/HappyFace.jpg" to fetch
  * all versions for this specific file.
  */
-export async function listS3BucketObjects(
-  bucketName: string,
-  s3Objects: S3ObjectsList = { commonPrefixes: [], contents: [] },
-  limit: number = 10,
-  continuationToken?: string,
-  prefix?: string
-) {
+
+type ListS3BucketObjectsProps = {
+  bucketName: string;
+  s3Objects?: S3ObjectsList;
+  limit?: number;
+  continuationToken?: string;
+  prefix?: string;
+};
+
+export async function listS3BucketObjects({
+  bucketName,
+  s3Objects = { commonPrefixes: [], contents: [] },
+  limit = 10,
+  continuationToken,
+  prefix
+}: ListS3BucketObjectsProps) {
   const input: ListObjectsV2CommandInput = {
     Bucket: bucketName,
     MaxKeys: limit,
@@ -83,13 +94,13 @@ export async function listS3BucketObjects(
   }
 
   if (result.ContinuationToken) {
-    return listS3BucketObjects(
+    return listS3BucketObjects({
       bucketName,
       s3Objects,
       limit,
-      result.ContinuationToken,
+      continuationToken: result.ContinuationToken,
       prefix
-    );
+    });
   }
   return s3Objects;
 }
@@ -98,7 +109,7 @@ export async function uploadFileToS3(file: Blob, presignedUrl: string) {
   try {
     await axios.put(presignedUrl, file, {
       headers: {
-        'Content-Type': 'text/csv',
+        'Content-Type': file.type,
         'Content-Length': file.size.toString()
       }
     });

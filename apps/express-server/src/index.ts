@@ -11,7 +11,7 @@ import {
   SocketData
 } from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
-import { loadSSMParameters } from '@/aws';
+import { loadSSMParameters, listQueues } from '@/aws';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
@@ -178,6 +178,7 @@ async function bootstrap() {
     await connect(dbConnectionString);
     winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
     await connectToRedis();
+    await listQueues();
 
     server.listen(port, () => {
       winstonLogger.info(
