@@ -49,6 +49,8 @@ The message is persisted in SQS until a consumer deletes it after successfully p
 
 8.  When using an SQS FIFO queue, each message within a `MessageGroupId`must have a unique `MessageDeduplicationId`. If the MessageGroupId is set, but MessageDeduplicationId is missing, you either need to provide this id or else enable `ContentBasedDeduplication` setting under the **Configuration** section of your queue.
 
+9.   FIFO queues should receive one message at a time, so that they are processed in order and deleting messages individually ensures that FIFO constraints are met. If multiple messages are received and processed in parallel, a failure in one message could cause later messages to be processed before earlier ones, which violates FIFO behavior.
+
 
 ## SNS
 

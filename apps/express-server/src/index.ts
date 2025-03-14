@@ -11,7 +11,7 @@ import {
   SocketData
 } from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
-import { loadSSMParameters, sendBatchMessages, receiveBatchMessages } from '@/aws';
+import { loadSSMParameters } from '@/aws';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
 import { winstonLogger } from '@/middleware';
@@ -170,20 +170,14 @@ io.on('connection', socket => {
 
 async function bootstrap() {
   try {
-    // if(ENV_VARS.env !== 'development') {
-    //   await loadSSMParameters(`/${ENV_VARS.env}/`);
-    // }
-    // await connectPostgresDB();
-    // await connectMySQLDB();
-    // await connect(dbConnectionString);
-    // winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
-    // await connectToRedis();
-    // console.log('---- StandardQ -----')
-    // await sendBatchMessages(ENV_VARS.aws.sqsUrl);
-    // await receiveBatchMessages(ENV_VARS.aws.sqsUrl);
-    console.log('---- FIFO -----');
-    await sendBatchMessages(ENV_VARS.aws.sqsFifoUrl, undefined, true);
-    await receiveBatchMessages(ENV_VARS.aws.sqsFifoUrl);
+    if(ENV_VARS.env !== 'development') {
+      await loadSSMParameters(`/${ENV_VARS.env}/`);
+    }
+    await connectPostgresDB();
+    await connectMySQLDB();
+    await connect(dbConnectionString);
+    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
+    await connectToRedis();
 
     server.listen(port, () => {
       winstonLogger.info(

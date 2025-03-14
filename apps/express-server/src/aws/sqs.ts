@@ -13,6 +13,7 @@ import {
   SendMessageBatchCommandInput,
   DeleteMessageBatchCommandInput,
   DeleteMessageBatchCommand,
+  Message,
 } from '@aws-sdk/client-sqs';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -144,6 +145,7 @@ export async function sendBatchMessages(
 ) {
   const batchSize = 10;
   for (let i = 0; i < numMessages; i += batchSize) {
+    const batchId = `Batch-${i / batchSize + 1}`;
     const messages = Array.from({ length: batchSize }, (_, index) => ({
       Id: `msg-${i + index + 1}`,
       MessageBody: `Message ${i + index + 1}`,
@@ -151,7 +153,9 @@ export async function sendBatchMessages(
        * MessageGroupId is only required for FIFO Queues,
        * will throw an error if sent for standard queue.
        */
-      ...(isFifo && { MessageGroupId: `Batch-${index + 1}` })
+      ...(isFifo && {
+        MessageGroupId: batchId
+      })
     }));
     const input: SendMessageBatchCommandInput = {
       QueueUrl: queueUrl,
@@ -161,27 +165,35 @@ export async function sendBatchMessages(
     try {
       const command = new SendMessageBatchCommand(input);
       const response = await sqsClient.send(command);
-      winstonLogger.info(`Batch ${i / batchSize + 1} sent successfully: ${printObject(response)}`);
+      winstonLogger.info(`${batchId} sent successfully: }`);
     } catch (error) {
-      winstonLogger.error(`Error sending batch ${i / batchSize + 1}`, error);
+      winstonLogger.error(`Error sending ${batchId}`, error);
     }
   }
 }
 
+/**
+ * FIFO queues should receive one message at a time,
+ * so that they are processed in order and deleting messages
+ * individually ensures that FIFO constraints are met.
+ * If multiple messages are received and processed in parallel,
+ * a failure in one message could cause later messages to be
+ * processed before earlier ones, which violates FIFO behavior.
+ */
 export async function receiveBatchMessages(
   queueUrl: string,
-  numMessages: number = 100
+  numMessages: number = 100,
+  isFifo: boolean = false
 ) {
   let totalReceived = 0;
 
   while (totalReceived < numMessages) {
     const input: ReceiveMessageCommandInput = {
       QueueUrl: queueUrl,
-      MaxNumberOfMessages: 10,
+      MaxNumberOfMessages: isFifo ? 1: 10,
       VisibilityTimeout: 30,
       WaitTimeSeconds: 5
     };
-
     const command = new ReceiveMessageCommand(input);
     const response = await sqsClient.send(command);
 
@@ -212,5 +224,57 @@ export async function receiveBatchMessages(
     await sqsClient.send(deleteCommand);
 
     console.log(`Deleted ${response.Messages.length} messages.`);
+  }
+}
+
+/**
+ * Fetch and group all messages from a standard or a FIFO queue, do
+ * some processing and then delete them all.
+ */
+export async function receiveAllMessages(queueUrl: string, isFifo: boolean = false) {
+  const messageGroups: Record<string, Message[]> = {};
+
+  while (true) {
+    const input: ReceiveMessageCommandInput = {
+      QueueUrl: queueUrl,
+      MaxNumberOfMessages: isFifo ? 1: 10,
+      VisibilityTimeout: 30,
+      WaitTimeSeconds: 5
+    };
+
+    const command = new ReceiveMessageCommand(input);
+    const response = await sqsClient.send(command);
+
+    if (!response.Messages || response.Messages.length === 0) {
+      winstonLogger.info('No more messages in the queue.');
+      break;
+    }
+
+    /* Organize messages by MessageGroupId */
+    for (const msg of response.Messages) {
+      const groupId = msg.Attributes?.MessageGroupId || 'default';
+      if (!messageGroups[groupId]) {
+        messageGroups[groupId] = [];
+      }
+      messageGroups[groupId].push(msg);
+    }
+    winstonLogger.info(`Received ${response.Messages.length} messages.`);
+  }
+
+  /* Process and delete messages per MessageGroupId */
+  for (const [groupId, messages] of Object.entries(messageGroups)) {
+    winstonLogger.info(`Processing batch for Group ID: ${groupId}`);
+
+    const deleteInput: DeleteMessageBatchCommandInput = {
+      QueueUrl: queueUrl,
+      Entries: messages.map((msg, idx) => ({
+        Id: `msg-${idx + 1}`,
+        ReceiptHandle: msg.ReceiptHandle!
+      }))
+    };
+
+    const deleteCommand = new DeleteMessageBatchCommand(deleteInput);
+    await sqsClient.send(deleteCommand);
+    winstonLogger.info(`Deleted ${messages.length} messages from Group ${groupId}.`);
   }
 }
