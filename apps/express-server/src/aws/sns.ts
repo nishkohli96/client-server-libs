@@ -7,7 +7,10 @@ import {
   ListTopicsCommand,
   ListTopicsCommandInput,
   ListSubscriptionsCommand,
-  ListSubscriptionsCommandInput
+  ListSubscriptionsCommandInput,
+  PublishBatchCommand,
+  PublishBatchCommandInput,
+  PublishBatchRequestEntry,
 } from '@aws-sdk/client-sns';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -74,6 +77,37 @@ export async function listSNSSubscriptions() {
   try {
     const snsTopics = await getSNSSubscriptions();
     winstonLogger.info(`SNS subscriptions list: ${printObject(snsTopics)}`);
+  } catch (err) {
+    winstonLogger.error('Failed to fetch SNS subscriptions list:', err);
+  }
+}
+/*
+ * Similar to SQS FIFO, when using an SNS FIFO topic, each message within
+ * a MessageGroupId must have a unique MessageDeduplicationId. If the
+ * MessageGroupId is set, but MessageDeduplicationId is missing, you either
+ * need to provide this id or else enable ContentBasedDeduplication setting
+ * under the Configuration section of your SNS topic.
+*/
+export async function publishBatchNotifications(
+  topicArn: string,
+  payload: Array<string | object>
+) {
+  try {
+    const batchEntries: PublishBatchRequestEntry[] = payload.map((item, idx) => {
+      const itemValue = typeof item === 'string' ? item : JSON.stringify(item);
+      return {
+        Id: `Notification_${idx + 1}`,
+        Message: itemValue,
+        Subject: `Notification for Item ${idx + 1}`,
+      };
+    });
+    const input: PublishBatchCommandInput = {
+      TopicArn: topicArn,
+      PublishBatchRequestEntries: batchEntries
+    };
+    const command = new PublishBatchCommand(input);
+    const response = await snsClient.send(command);
+    winstonLogger.info(`SNS batch notif response: ${printObject(response)}`);
   } catch (err) {
     winstonLogger.error('Failed to fetch SNS subscriptions list:', err);
   }

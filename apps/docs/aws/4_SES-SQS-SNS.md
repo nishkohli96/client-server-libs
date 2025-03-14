@@ -51,6 +51,22 @@ The message is persisted in SQS until a consumer deletes it after successfully p
 
 9.   FIFO queues should receive one message at a time, so that they are processed in order and deleting messages individually ensures that FIFO constraints are met. If multiple messages are received and processed in parallel, a failure in one message could cause later messages to be processed before earlier ones, which violates FIFO behavior.
 
+10.  The `MessageAttributes` field for both ***SQS*** and ***SNS*** is used for metadata (key-value pairs), not the actual message content.
+
+    It allows consumers (Lambda, SQS, HTTP endpoints) to filter messages based on attributes. Each attribute must have a Type (String, Number, Binary) and a Value.
+
+    ```
+		 MessageAttributes: {
+      eventType: {
+        DataType: "String",
+        StringValue: "OrderShipped"
+      },
+      priority: {
+        DataType: "Number",
+        StringValue: "1"
+      }
+    }
+		```
 
 ## SNS
 
@@ -64,3 +80,20 @@ The message is persisted in SQS until a consumer deletes it after successfully p
 
 4.  Just like SQS, the SNS can also be of type **Standard** or **FIFO**. The name of a FIFO SNS must end with `.fifo` and it can **only subscribe to a SQS**.
 
+5.  The **MessageStructure** field in AWS SNS allows you to send different message formats (e.g., JSON) for different protocols (like Email, SMS, or SQS). When setting `"MessageStructure": "json"`, you can specify different messages for each protocol in the `Message` field. It must contain at least a top-level JSON key of **"default"** with a value that is a string.
+
+    ```
+    const params = {
+      TopicArn: "arn:aws:sns:ap-south-1:accountId:MyTopic",
+      MessageStructure: "json",
+      Message: JSON.stringify({
+        default: "This is the default message.",
+        email: "This is an email message.",
+        sms: "This is an SMS message.",
+        sqs: JSON.stringify({ event: "FileUploaded", fileId: 12345 }),
+				lambda": JSON.stringify({ event: "FileUploaded", fileId: 12345 }),
+      }),
+    };
+
+		await snsClient.send(new PublishCommand(params));
+		```
