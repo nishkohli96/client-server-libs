@@ -20,7 +20,7 @@ export async function iamOps() {
 		 */
     const listGroupsCommand = new ListGroupsCommand();
     const groupsData = await iamClient.send(listGroupsCommand);
-    winstonLogger.info(`groupsData: ${groupsData}`);
+    winstonLogger.info(`groupsData: ${printObject(groupsData)}`);
   } catch(error) {
     winstonLogger.error('AWS IAM error: ', error);
   }

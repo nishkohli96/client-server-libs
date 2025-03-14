@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import awsService from './service';
 import * as AwsTypeDefs from './types';

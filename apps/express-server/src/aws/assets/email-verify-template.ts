@@ -22,7 +22,7 @@ import { CreateCustomVerificationEmailTemplateCommandInput } from '@aws-sdk/clie
 
 export const emailVerificationTemplate: CreateCustomVerificationEmailTemplateCommandInput = {
   TemplateName: 'UserVerificationTemplate',
-  FromEmailAddress: 'nishant.kohli1896@gmail.com', // 'no-reply@yourdomain.com',
+  FromEmailAddress: 'no-reply@yourdomain.com',
   TemplateSubject: 'Verify your email',
   TemplateContent:
     '<html>\n\

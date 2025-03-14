@@ -85,7 +85,7 @@ export async function createPutPresignedUrl(
   key: string
 ) {
   const command = new PutObjectCommand({ Bucket: bucket, Key: key });
-  return getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
+  return await getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
 }
 
 export function getS3Object( bucket: string, key: string) {
@@ -97,7 +97,7 @@ export function getS3Object( bucket: string, key: string) {
 }
 
 /* Presigned url for downloading an object from an S3 bucket */
-export async function createGetPresignedUrl(
+export function createGetPresignedUrl(
   bucket: string,
   key: string
 ) {
@@ -138,7 +138,7 @@ export async function readCsvFromS3<T>(
         })
         .on('error', error => {
           winstonLogger.error('Error reading or parsing CSV:', error);
-          reject([]);
+          reject(error);
         });
     });
   } catch (error) {

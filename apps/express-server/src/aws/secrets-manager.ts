@@ -79,10 +79,11 @@ export async function getSecretValue(name: string) {
 export async function upsertSecret(secretName: string, secretValue: string | object) {
   try {
     const valueToStore = typeof secretValue === 'string' ? secretValue : JSON.stringify(secretValue);
-    const updateCommand = new UpdateSecretCommand({
+    const input: UpdateSecretCommandInput = {
       SecretId: secretName,
       SecretString: valueToStore
-    });
+    };
+    const updateCommand = new UpdateSecretCommand(input);
 
     await secretsManagerClient.send(updateCommand);
     winstonLogger.info(`Secret "${secretName}" updated successfully.`);
