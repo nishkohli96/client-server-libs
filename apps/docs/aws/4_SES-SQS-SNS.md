@@ -47,6 +47,8 @@ The message is persisted in SQS until a consumer deletes it after successfully p
 
 7.  To send messages to a DLQ, create two queues, a main queue and another queue to be used as a DLQ. Rnable the **Dead-letter queue** setting on the main queue and link the arn of the DLQ to send the failed messages.
 
+8.  When using an SQS FIFO queue, each message within a `MessageGroupId`must have a unique `MessageDeduplicationId`. If the MessageGroupId is set, but MessageDeduplicationId is missing, you either need to provide this id or else enable `ContentBasedDeduplication` setting under the **Configuration** section of your queue.
+
 
 ## SNS
 

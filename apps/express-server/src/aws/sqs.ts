@@ -130,20 +130,32 @@ export async function receiveMessagesFromQueue(queueUrl: string) {
 /**
  * Send messages in batch, where one batch can send a maximum of
  * 10 entries.
+ *
+ * When using an SQS FIFO queue, each message within a MessageGroupId
+ * must have a unique MessageDeduplicationId. If the MessageGroupId is
+ * set, but MessageDeduplicationId is missing, you either need to provide
+ * this id or else enable ContentBasedDeduplication setting under the
+ * Configuration section of your queue.
  */
 export async function sendBatchMessages(
   queueUrl: string,
-  numMessages: number = 100
+  numMessages: number = 100,
+  isFifo: boolean = false
 ) {
   const batchSize = 10;
   for (let i = 0; i < numMessages; i += batchSize) {
     const messages = Array.from({ length: batchSize }, (_, index) => ({
-      Id: `msg-${i + index + 1}`, // Unique ID for each message
-      MessageBody: `Message ${i + index + 1}`
+      Id: `msg-${i + index + 1}`,
+      MessageBody: `Message ${i + index + 1}`,
+      /**
+       * MessageGroupId is only required for FIFO Queues,
+       * will throw an error if sent for standard queue.
+       */
+      ...(isFifo && { MessageGroupId: `Batch-${index + 1}` })
     }));
     const input: SendMessageBatchCommandInput = {
       QueueUrl: queueUrl,
-      Entries: messages
+      Entries: messages,
     };
 
     try {
@@ -178,6 +190,11 @@ export async function receiveBatchMessages(
       break;
     }
 
+    /**
+     * There are high chances that even if you have plenty of messages,
+     * a single batch may not always return 10 messages only. Sometimes
+     * it can also be 6, 8 or 4 messages per batch.
+     */
     winstonLogger.info(`Received ${response.Messages.length} messages.`);
     totalReceived += response.Messages.length;
     response.Messages.forEach((msg, idx) =>
