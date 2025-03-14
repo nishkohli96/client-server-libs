@@ -42,6 +42,15 @@ export async function listTopics() {
   }
 }
 
+/**
+ * This would return list of all subscriptions. If you want to get
+ * subscriptions for only a particular topic, use "ListSubscriptionsByTopic".
+ * const input = {
+ *   TopicArn: "STRING_VALUE",
+ *   NextToken: "STRING_VALUE",
+ * };
+ * const command = new ListSubscriptionsByTopicCommand(input);
+ */
 async function getSNSSubscriptions(
   subscriptions: Subscription[] = [],
   nextToken: string | null = null
