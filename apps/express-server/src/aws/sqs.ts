@@ -1,4 +1,5 @@
 /* https://www.npmjs.com/package/@aws-sdk/client-sqs */
+/* eslint-disable no-await-in-loop */
 
 import {
   SQSClient,
@@ -36,7 +37,7 @@ export async function listQueues() {
     const response = await sqsClient.send(command);
     winstonLogger.info(`SQS queues list: ${printObject(response)}`);
   } catch (err) {
-    winstonLogger.error('Failed to send custom verification email:', err);
+    winstonLogger.error('Failed to fetch SQS queues list: ', err);
   }
 }
 
