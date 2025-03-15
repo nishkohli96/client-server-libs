@@ -13,6 +13,7 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org nish1896 --project node-express dist && sentry-cli sourcemaps upload --org nish1896 --project node-express dist"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.767.0",
     "@aws-sdk/client-iam": "^3.758.0",
     "@aws-sdk/client-s3": "^3.758.0",
     "@aws-sdk/client-ses": "^3.758.0",

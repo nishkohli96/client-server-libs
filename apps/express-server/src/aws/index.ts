@@ -1,3 +1,4 @@
+export * from './dynamo-db';
 // export * from './elasticache';
 export * from './iam';
 export * from './s3';

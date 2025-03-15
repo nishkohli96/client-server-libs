@@ -41,4 +41,4 @@ $ yarn run start:prod
   - Access environment variables stored in **Parameter Store** using
   [@aws-sdk/client-ssm](https://www.npmjs.com/package/@aws-sdk/client-ssm)
   - Create, get secrets using [@aws-sdk/client-secrets-manager](https://www.npmjs.com/package/@aws-sdk/client-secrets-manager)
-
+  - Dynamo DB using [@aws-sdk/client-dynamodb](https://www.npmjs.com/package/@aws-sdk/client-dynamodb)
