@@ -19,6 +19,42 @@
 
 5.  The lambda function must be deployed in your VPC, because RDS Proxy is never publically accessible.
 
+6.  The default **Handler**, ie. the point of execution of a lambda function is `index.handler` which means that the code execution will start from the `handler` function of `index.(js|mjs|ts)` file. This can be changed under the `Code > Runtime settings`.
+
+
+### Deploy Lambda function
+
+1️⃣ Using AWS CLI
+    🔹 Step 1: Zip Your Code
+    ```sh
+    zip -r function.zip .
+    ```
+
+    🔹 Step 2: Upload to Lambda
+    ```
+    aws lambda update-function-code --function-name MyLambdaFunction --zip-file fileb://function.zip
+    ```
+
+    ✅ Works for simple functions
+    ❌ Limited to 50MB direct uploads (use S3 for larger functions)
+
+2️⃣ Using AWS CLI with S3 (For Large Deployments)
+    If your **code exceeds 50MB**, upload the .zip to S3 and deploy from there.
+
+    🔹 Step 2: Upload to S3
+    ```
+    aws s3 cp function.zip s3://my-bucket/function.zip
+    ```
+
+    🔹 Step 3: Deploy from S3
+    ```
+    aws lambda update-function-code --function-name MyLambdaFunction --s3-bucket my-bucket --s3-key function.zip
+    ```
+
+    ✅ Works for large codebases
+    ✅ S3 can store previous versions for rollback
+
+
 
 ## DynamoDB
 
