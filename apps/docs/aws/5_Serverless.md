@@ -13,7 +13,7 @@
 
 3.  Throttle behaviour
     - If synchronous invocation => return ThrottleError - 429
-	  - If async invocation => retry automatically and then go to Dead Letter Queue (DLQ).
+    - If async invocation => retry automatically and then go to Dead Letter Queue (DLQ).
 
 4.  If lambda functions directly access your database, they may open too many connections under high load. Hence we use a RDS Proxy by pooling and sharing DB connections. It also enforces security by enforcing IAM uthentication and storing credentials in Secrets Manager.
 
@@ -24,7 +24,8 @@
 
 ### Deploy Lambda function
 
-1️⃣ Using AWS CLI
+1. Using AWS CLI
+
     🔹 Step 1: Zip Your Code
     ```sh
     zip -r function.zip .
@@ -34,12 +35,18 @@
     ```
     aws lambda update-function-code --function-name MyLambdaFunction --zip-file fileb://function.zip
     ```
-
+    
     ✅ Works for simple functions
+
     ❌ Limited to 50MB direct uploads (use S3 for larger functions)
 
-2️⃣ Using AWS CLI with S3 (For Large Deployments)
+ 2. Using AWS CLI with S3 (For Large Deployments)
     If your **code exceeds 50MB**, upload the .zip to S3 and deploy from there.
+    
+    🔹 Step 1: Zip Your Code
+    ```sh
+    zip -r function.zip .
+    ```
 
     🔹 Step 2: Upload to S3
     ```
@@ -52,6 +59,7 @@
     ```
 
     ✅ Works for large codebases
+
     ✅ S3 can store previous versions for rollback
 
 
@@ -60,7 +68,7 @@
 
 1.  A DynamoDB table is **region-based** by default. Use the following policy when creating a dynamoDB table or refer the [DynamoDB resource based policy examples](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).
     ```
-		{
+    {
       "Version": "2012-10-17",
       "Statement": [
         {
@@ -73,12 +81,12 @@
         }
       ]
     }
-		```
+    ```
 
 2.  Each record in the db must have the partition key. A record can be inserted via the [PutItemCommand](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/command/PutItemCommand/) command with a payload similar to:
 
-   ```
-	  const record: Record<string, AttributeValue> = {
+    ```
+    const record: Record<string, AttributeValue> = {
       id: { S: 'as2323' },
       productId: { S: '12345' },
       name: { S: 'Wireless Headphones' },
@@ -92,9 +100,8 @@
         }
       }
     };
-	  ```
-
-		where `S` is string, `N` is number, `L` is list and so on.
+    ```
+    where `S` is string, `N` is number, `L` is list and so on.
 
 4.  To automatically delete records, turn on the **Time to Live (TTL)** setting under the **Additional Settings** for the table. The TTL value must be a Unix timestamp (seconds, not milliseconds). Expired items are not queryable.
 
