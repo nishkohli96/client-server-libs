@@ -22,7 +22,7 @@
 
 ## DynamoDB
 
-1.  Use the following policy when creating a dynamoDB table or refer the [DynamoDB resource based policy examples](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).
+1.  A DynamoDB table is **region-based** by default. Use the following policy when creating a dynamoDB table or refer the [DynamoDB resource based policy examples](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-examples.html).
     ```
 		{
       "Version": "2012-10-17",
@@ -60,4 +60,6 @@
 
 		where `S` is string, `N` is number, `L` is list and so on.
 
-4.  To automatically delete records, turn on the **Time to Live (TTL)** setting under the **Additional Settings** for the table. The TTL value must be a Unix timestamp (seconds, not milliseconds).
+4.  To automatically delete records, turn on the **Time to Live (TTL)** setting under the **Additional Settings** for the table. The TTL value must be a Unix timestamp (seconds, not milliseconds). Expired items are not queryable.
+
+    You must manually add the TTL attribute (eg: `expiresAt`) to each item.DynamoDB does not set a default expiration time—you must include the TTL field with a Unix timestamp for each record when inserting it. If no TTL is provided, the item will never expire.
