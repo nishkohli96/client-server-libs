@@ -19,7 +19,18 @@
 
 5.  The lambda function must be deployed in your VPC, because RDS Proxy is never publically accessible.
 
-6.  The default **Handler**, ie. the point of execution of a lambda function is `index.handler` which means that the code execution will start from the `handler` function of `index.(js|mjs|ts)` file. This can be changed under the `Code > Runtime settings`.
+6.  The default **Handler**, ie. the point of execution of a lambda function is `index.handler` which means that the code execution will start from the `handler` function of `index.(js|mjs)` file. This can be changed under the `Code > Runtime settings`.
+    If the entry point of your code is in `src/index.js` file, then the handler's value would be `src/index.handler`. 
+
+7.  Using the same S3 bucket for both input and output is not recommended and that this configuration can cause recursive invocations, increased Lambda usage, and increased costs.
+
+8.  You can directly configure environment variables in the visual code editor of your lambda function. The following reserved variables cannot be defined in environment variables:
+    - `AWS_ACCESS_KEY_ID`
+    - `AWS_SECRET_ACCESS_KEY`
+    - `AWS_REGION`  
+
+9.  The source code of a lambda function can be updated either by directly uploading a `.zip` folder or by pasting S3 link URL to your function code .zip file.
+    Check out my [lambda-s3](https://github.com/nishkohli96/lambda-s3) repository, where I’ve implemented GitHub Actions to automatically update the Lambda function whenever changes are pushed to the `main` branch. 🚀
 
 
 ### Deploy Lambda function

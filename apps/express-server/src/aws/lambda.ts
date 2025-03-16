@@ -11,6 +11,8 @@ import { printObject } from '@/utils';
 export const lambdaClient = new LambdaClient();
 
 /**
+ * The Event object in handler function will have the exact
+ * payload passed from the "Payload" key in input.
  * The SDK also has a InvokeAsync command, but that is now
  * deprecated.
  */

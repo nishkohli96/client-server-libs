@@ -42,3 +42,4 @@ $ yarn run start:prod
   [@aws-sdk/client-ssm](https://www.npmjs.com/package/@aws-sdk/client-ssm)
   - Create, get secrets using [@aws-sdk/client-secrets-manager](https://www.npmjs.com/package/@aws-sdk/client-secrets-manager)
   - Dynamo DB using [@aws-sdk/client-dynamodb](https://www.npmjs.com/package/@aws-sdk/client-dynamodb)
+  - Lambda using [@aws-sdk/client-lambda](https://www.npmjs.com/package/@aws-sdk/client-lambda)
