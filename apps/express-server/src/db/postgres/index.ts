@@ -42,8 +42,7 @@ export async function connectPostgresDB() {
 	   * access your database again.
      */
   } catch (error) {
-    winstonLogger.error('⚠ Error connecting to Postgres Database ⚠');
-    console.log(error);
+    winstonLogger.error('⚠ Error connecting to Postgres Database ⚠', error);
     process.exit(1);
   }
 }

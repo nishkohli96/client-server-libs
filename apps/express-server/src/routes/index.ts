@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
+import { awsRouter } from './aws/controller';
 import { buyerRouter } from './buyer/controller';
 import { carRouter } from './car/controller';
 import { carBrandRouter } from './car-brand/controller';
@@ -15,6 +16,10 @@ type RouteInfo = {
 }
 
 export const routesArray: RouteInfo[] = [
+  {
+    rootPath: ExpressServerEndpoints.aws.rootPath,
+    router: awsRouter
+  },
   {
     rootPath: ExpressServerEndpoints.buyer.rootPath,
     router: buyerRouter
