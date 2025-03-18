@@ -145,7 +145,7 @@ export enum PaymentOption {
 
 export type Product = {
   __typename?: 'Product';
-  categoryId: Scalars['ID']['output'];
+  category: Category;
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -432,7 +432,7 @@ export type PaymentMethodResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  categoryId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
