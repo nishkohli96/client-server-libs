@@ -66,7 +66,7 @@ type Query {
 }
 
 type Mutation {
-  placeOrder(input: OrderInput!): OrderSchema!
+  placeOrder(input: OrderInput!): Boolean!
 }
 
 type Subscription {

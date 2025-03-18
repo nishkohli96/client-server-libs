@@ -1,6 +1,6 @@
-import { Category } from '@/types';
+import { CategorySchema } from '@/types';
 
-export const categories: Category[] = [
+export const categories: CategorySchema[] = [
   {
     id: 'cat-001',
     name: 'Electronics'

@@ -3,6 +3,7 @@ import {
   Product,
   QueryGetProductByIdArgs,
   MutationResolvers,
+  ProductSchema,
 } from '@/types';
 
 type ProductMutation = Pick<MutationResolvers, 'createProduct'>;
@@ -44,7 +45,7 @@ const productMutation: ProductMutation = {
       id: generateProductId(),
       name,
       description,
-      price
+      price,
     };
     products.push({
       ...productDetails,
@@ -67,8 +68,17 @@ export const productResolver = {
      * result in an error.
      * Also, the "parent" arg in this case, actually yields the whole
      * Product object that matches the filtered result.
+     *
+     * PS: For the mutation, if I'm directly returning the category,
+     * this resolver function was still being computed by GraphQL.
+     * Hence I needed to add a secondary condition in it to prevent
+     * "Cannot return null for non-nullable field ProductSchema.category"
+     * error.
      */
-    category: (parent: Product) => {
+    category: (parent: Product | ProductSchema) => {
+      if('category' in parent) {
+        return parent.category;
+      }
       return categories.find(c => c.id === parent.categoryId);
     },
   },
