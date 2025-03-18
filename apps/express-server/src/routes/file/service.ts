@@ -14,7 +14,7 @@ import path from 'path';
 import moment from 'moment';
 import ffmpeg from 'fluent-ffmpeg';
 import { ServerConfig } from '@/app-constants';
-
+import { winstonLogger } from '@/middleware';
 class FileService {
   multerDirs = ServerConfig.multer.dirs;
 
@@ -25,7 +25,7 @@ class FileService {
       }
       return res.send('File Uploaded');
     } catch (err) {
-      console.log('Error in uploading file ', err);
+      winstonLogger.error('Error in uploading file ', err);
       return res.send(err);
     }
   }
@@ -64,7 +64,7 @@ class FileService {
 
       return res.send(`Chunk ${chunkNumber} uploaded`);
     } catch (err) {
-      console.log('Error in uploading file ', err);
+      winstonLogger.error('Error in uploading file ', err);
       res.send(err);
     }
   }
@@ -138,7 +138,7 @@ class FileService {
       writeFileSync(chunkDestination, buffer);
       return res.send(`Base64 file no ${chunkNumber} uploaded`);
     } catch (err) {
-      console.log('Error in uploading file ', err);
+      winstonLogger.error('Error in uploading file ', err);
       res.send(err);
     }
   }
@@ -194,7 +194,7 @@ class FileService {
     const ffMpeg = ffmpeg();
     let complexFilter = '';
     const start = moment();
-    console.log('start', start);
+    winstonLogger.info(`start: ${start}`);
 
     /**
      * Can read files from a directory and make sure to resolve the path
@@ -220,23 +220,23 @@ class FileService {
         .outputOptions(['-map [vv]', '-map [aa]'])
         .output('fireworks-combo.mov')
         .on('start', commandLine => {
-          console.log('FFmpeg command: ' + commandLine);
+          winstonLogger.info(`FFmpeg command: ${commandLine}`);
         })
         // .on('error', (err, stdout, stderr) => {
         .on('error', err => {
-          console.log('err: ', err);
+          winstonLogger.error('err: ', err);
           return res.status(500).send(err);
         })
         .on('end', () => {
           const end = moment();
-          console.log('end: ', end);
+          winstonLogger.info(`end: ${end}`);
           const diff = end.diff(start, 'seconds');
-          console.log('diff: ', diff);
+          winstonLogger.info(`diff: ${diff}`);
           return res.send(`Merged in ${diff} seconds`);
         })
         .run();
     } catch (err) {
-      console.log('err: ', err);
+      winstonLogger.error('err: ', err);
       res.send(err);
     }
   }

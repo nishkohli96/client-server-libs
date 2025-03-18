@@ -7,6 +7,7 @@ const ENV_VARS = Object.freeze({
     dsn: env.REACT_APP_SENTRY_DSN ?? ''
   },
   mixPanelToken: env.REACT_APP_MIXPANEL_TOKEN ?? '',
+  uploadCareKey: env.REACT_APP_UPLOADERCARE_KEY ?? ''
 });
 
 export default ENV_VARS;

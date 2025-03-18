@@ -18,8 +18,13 @@ export function getPaginationParams(
   };
 }
 
-export function sendErrorResponse(res: Response, error: unknown, message?: string) {
-  return res.status(500).json({
+export function sendErrorResponse(
+  res: Response,
+  error: unknown,
+  message?: string,
+  statusCode: number = 500
+) {
+  return res.status(statusCode).json({
     success: false,
     status: 500,
     message: message ?? 'An error occurred',

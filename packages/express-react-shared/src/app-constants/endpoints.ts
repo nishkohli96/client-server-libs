@@ -1,5 +1,14 @@
 export const ExpressServerEndpoints = Object.freeze({
   apiPrefix: '/api',
+  aws: {
+    rootPath: '/aws',
+    subRoutes: {
+      uploadPreSignedUrl: 'upload-presigned-url',
+      downloadPreSignedUrl: 'download-presigned-url',
+      uploadCSVFile: 'upload-csv-file',
+      downloadFile: 'download-file'
+    }
+  },
   buyer: {
     rootPath: '/buyers',
     subRoutes: {

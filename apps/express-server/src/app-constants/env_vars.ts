@@ -3,32 +3,58 @@
  * export across other modules.
  */
 
-const env = process.env;
+function defEnvVariable(varName: string, defaultValue?: string): string {
+  const value = process.env[varName]?.trim();
+  if (value) {
+    return value;
+  }
+  if (defaultValue !== undefined) {
+    return defaultValue;
+  }
+  throw new Error(`Missing required environment variable: ${varName}`);
+}
 
 export const ENV_VARS = Object.freeze({
-  env: env.NODE_ENV ?? 'development',
-  port: env.PORT ?? 8000,
-  domain: env.DOMAIN ?? 'http://localhost:8000',
+  env: defEnvVariable('NODE_ENV', 'development'),
+  port: defEnvVariable('PORT', '8000'),
+  get domain() {
+    return defEnvVariable('DOMAIN', `http://localhost:${this.port}`);
+  },
   mongoDB: {
-    url: process.env.DB_URL ?? 'mongodb://localhost:27017',
-    dbName: process.env.DB_NAME ?? 'SeederDB'
+    url: defEnvVariable('DB_URL', 'mongodb://localhost:27017'),
+    dbName: defEnvVariable('DB_NAME', 'SeederDB')
   },
   stytch: {
-    projectId: env.STYTCH_PROJECT_ID ?? '',
-    orgId: env.STYTCH_ORG_ID ?? '',
-    secret: env.STYTCH_SECRET ?? '',
-    testEmail: env.STYTCH_TEST_EMAIL ?? 'hello@abc.com'
+    projectId: defEnvVariable('STYTCH_PROJECT_ID'),
+    orgId: defEnvVariable('STYTCH_ORG_ID'),
+    secret: defEnvVariable('STYTCH_SECRET'),
+    testEmail: defEnvVariable('STYTCH_TEST_EMAIL', 'hello@abc.com')
   },
-  postgresUrl: env.POSTGRES_URL ?? 'postgres://root:password@localhost:5432/test',
-  mySQLUrl: env.MYSQL_URL ?? 'mysql://root:password@localhost:3306/mydatabase',
+  postgresUrl: defEnvVariable(
+    'POSTGRES_URL',
+    'postgres://root:password@localhost:5432/test'
+  ),
+  mySQLUrl: defEnvVariable(
+    'MYSQL_URL',
+    'mysql://root:password@localhost:3306/mydatabase'
+  ),
   redis: {
-    user: env.REDIS_USER ?? 'default',
-    password: env.REDIS_PASSWORD,
-    host: env.REDIS_HOST ?? '127.0.0.1',
-    port: Number(env.REDIS_PORT) ?? 6379
+    user: defEnvVariable('REDIS_USER', 'default'),
+    password: defEnvVariable('REDIS_PASSWORD'),
+    host: defEnvVariable('REDIS_HOST', '127.0.0.1'),
+    port: Number(defEnvVariable('REDIS_PORT', '6379'))
   },
-  sentryDSN: env.SENTRY_DSN ?? '',
-  mixPanelToken: env.MIXPANEL_TOKEN ?? '',
+  sentryDSN: defEnvVariable('SENTRY_DSN'),
+  mixPanelToken: defEnvVariable('MIXPANEL_TOKEN'),
+  aws: {
+    accessKey: defEnvVariable('AWS_ACCESS_KEY_ID'),
+    accessKeySecret: defEnvVariable('AWS_SECRET_ACCESS_KEY'),
+    elastiCacheRedis: defEnvVariable('AWS_ELASTICACHE_REDIS'),
+    s3BucketName: defEnvVariable('AWS_S3_BUCKET_NAME'),
+    sqsUrl: defEnvVariable('AWS_SQS_URL'),
+    sqsFifoUrl: defEnvVariable('AWS_SQS_FIFO_URL'),
+    snsTopicArn: defEnvVariable('AWS_SNS_TOPIC_ARN')
+  }
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';
