@@ -15,7 +15,9 @@ type UserQueryResolver = Pick<
 type UserMutation = Pick<MutationResolvers, 'createUser'>;
 
 const userQuery: UserQueryResolver = {
-  getUsers: () => users,
+  getUsers: () => {
+    return users;
+  },
   getUserById(_, args) {
     return users.find(user => user.id === args.id);
   }
@@ -64,8 +66,6 @@ const userMutation: UserMutation = {
 };
 
 export const userResolver = {
-  Query: userQuery,
-  Mutation: userMutation,
   AdminOrCustomerSchema: {
     __resolveType(obj: AdminSchema | CustomerSchema) {
       if ('address' in obj) {
@@ -77,4 +77,6 @@ export const userResolver = {
       return null;
     },
   },
+  Query: userQuery,
+  Mutation: userMutation,
 };
