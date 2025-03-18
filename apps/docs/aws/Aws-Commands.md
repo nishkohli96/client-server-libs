@@ -33,3 +33,12 @@
 4. `aws sesv2 delete-email-template --template-name MyTemplate`: To delete an email template.
 
 Reference: AWS docs for [managing email templates](https://docs.aws.amazon.com/ses/latest/dg/send-personalized-email-manage-templates.html).
+
+
+## SSM
+
+1.  `aws ssm get-parameters --name /my-app/dev/db/username /my-app/dev/db/password`:  Get values of the specified **SSM parameters** Use `--with-decryption` to get the decrypted value for an encrypted param.
+
+2.  `aws ssm get-parameters-by-path --path /my-app/dev`: Get all SSM parameters starting with the input prefix.
+
+3.  `aws ssm get-parameters-by-path -path /my-app/ --recursive`: Get all params under the path tree.
