@@ -66,17 +66,17 @@ const userMutation: UserMutation = {
 };
 
 export const userResolver = {
+  Query: userQuery,
+  Mutation: userMutation,
   AdminOrCustomerSchema: {
     __resolveType(obj: AdminSchema | CustomerSchema) {
       if ('address' in obj) {
         return 'CustomerSchema';
       }
-      if ('manager' in obj) {
+      if ('managerId' in obj) {
         return 'AdminSchema';
       }
       return null;
     },
   },
-  Query: userQuery,
-  Mutation: userMutation,
 };

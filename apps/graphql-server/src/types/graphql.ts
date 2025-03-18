@@ -102,7 +102,7 @@ export type MutationCreateCategoryArgs = {
 
 
 export type MutationCreateProductArgs = {
-  input: ProductInput;
+  productInput: ProductInput;
 };
 
 
@@ -165,7 +165,7 @@ export enum PaymentOption {
 
 export type ProductInput = {
   categoryId: Scalars['ID']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
+  description: Scalars['String']['input'];
   name: Scalars['String']['input'];
   price: Scalars['Float']['input'];
 };
@@ -441,7 +441,7 @@ export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<Resolv
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCategory?: Resolver<ResolversTypes['CategorySchema'], ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'categoryName'>>;
-  createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'input'>>;
+  createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'productInput'>>;
   createUser?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'userInfo'>>;
   placeOrder?: Resolver<ResolversTypes['OrderSchema'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
 };

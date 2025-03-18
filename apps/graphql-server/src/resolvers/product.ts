@@ -1,5 +1,11 @@
 import { categories, products } from '@/data';
-import { QueryGetProductByIdArgs, Product } from '@/types';
+import {
+  Product,
+  QueryGetProductByIdArgs,
+  MutationResolvers,
+} from '@/types';
+
+type ProductMutation = Pick<MutationResolvers, 'createProduct'>;
 
 /**
  * I used the typing in users query, but not in this case, as
@@ -18,8 +24,42 @@ const productQuery = {
   }
 };
 
+function generateProductId() {
+  return `prod-0${Math.floor(Math.random() * 100)}`;
+}
+
+const productMutation: ProductMutation = {
+  createProduct(_, args) {
+    const {
+      name,
+      description,
+      price,
+      categoryId,
+    } = args.productInput;
+    const productCategory = categories.find(category => category.id === categoryId);
+    if(!productCategory) {
+      throw new Error('Invalid Product Category');
+    }
+    const productDetails = {
+      id: generateProductId(),
+      name,
+      description,
+      price
+    };
+    products.push({
+      ...productDetails,
+      categoryId
+    });
+    return {
+      ...productDetails,
+      category: productCategory
+    };
+  }
+};
+
 export const productResolver = {
   Query: productQuery,
+  Mutation: productMutation,
   ProductSchema: {
     /**
      * Product.category resolver uses parent to fetch the category,
