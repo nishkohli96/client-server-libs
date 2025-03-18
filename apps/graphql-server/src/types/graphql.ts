@@ -31,6 +31,15 @@ export type AddressSchema = {
   street: Scalars['String']['output'];
 };
 
+export type AddressSchemaInput = {
+  city: Scalars['String']['input'];
+  country: Countries;
+  houseNo: Scalars['String']['input'];
+  landmark?: InputMaybe<Scalars['String']['input']>;
+  state?: InputMaybe<Scalars['String']['input']>;
+  street: Scalars['String']['input'];
+};
+
 export type AdminOrCustomerSchema = AdminSchema | CustomerSchema;
 
 export type AdminSchema = UserSchema & {
@@ -82,6 +91,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCategory: CategorySchema;
   createProduct: ProductSchema;
+  createUser?: Maybe<AdminOrCustomerSchema>;
   placeOrder: OrderSchema;
 };
 
@@ -93,6 +103,11 @@ export type MutationCreateCategoryArgs = {
 
 export type MutationCreateProductArgs = {
   input: ProductInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  userInfo: UserInput;
 };
 
 
@@ -206,6 +221,19 @@ export type SubscriptionOrderUpdatedArgs = {
   orderId: Scalars['ID']['input'];
 };
 
+export type UserInput = {
+  address?: InputMaybe<AddressSchemaInput>;
+  email: Scalars['EmailAddress']['input'];
+  manager?: InputMaybe<Scalars['ObjectID']['input']>;
+  name: Scalars['String']['input'];
+  type: UserRole;
+};
+
+export enum UserRole {
+  Admin = 'ADMIN',
+  Customer = 'CUSTOMER'
+}
+
 export type UserSchema = {
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
@@ -293,6 +321,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AddressSchema: ResolverTypeWrapper<AddressSchema>;
+  AddressSchemaInput: AddressSchemaInput;
   AdminOrCustomerSchema: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AdminOrCustomerSchema']>;
   AdminSchema: ResolverTypeWrapper<AdminSchema>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -321,12 +350,15 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
+  UserInput: UserInput;
+  UserRole: UserRole;
   UserSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserSchema']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AddressSchema: AddressSchema;
+  AddressSchemaInput: AddressSchemaInput;
   AdminOrCustomerSchema: ResolversUnionTypes<ResolversParentTypes>['AdminOrCustomerSchema'];
   AdminSchema: AdminSchema;
   Boolean: Scalars['Boolean']['output'];
@@ -352,6 +384,7 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Subscription: {};
   UUID: Scalars['UUID']['output'];
+  UserInput: UserInput;
   UserSchema: ResolversInterfaceTypes<ResolversParentTypes>['UserSchema'];
 };
 
@@ -409,6 +442,7 @@ export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<Resolv
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCategory?: Resolver<ResolversTypes['CategorySchema'], ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'categoryName'>>;
   createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'input'>>;
+  createUser?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'userInfo'>>;
   placeOrder?: Resolver<ResolversTypes['OrderSchema'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
 };
 
