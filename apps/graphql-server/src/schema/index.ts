@@ -10,5 +10,5 @@ import path from 'path';
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs } from '@graphql-tools/merge';
 
-const gqlSchemas = loadFilesSync(path.join(__dirname, './*.graphql')); // ✅ Auto-loads all GraphQL files
+const gqlSchemas = loadFilesSync(path.join(__dirname, './*.graphql'));
 export const typeDefs = mergeTypeDefs(gqlSchemas);

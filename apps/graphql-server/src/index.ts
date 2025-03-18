@@ -10,20 +10,8 @@ import {
   ObjectIDResolver,
   UUIDResolver
 } from 'graphql-scalars';
-import { orders, users, products, categories } from '@/data';
-import { typeDefs } from '@/graphql';
-
-const resolvers = {
-  Query: {
-    getCategories: () => categories,
-    getProducts: () => products,
-    getUsers: () => users,
-    getOrders: () => orders,
-    getOrderById: (parent, args, contextValue, info) => {
-
-    }
-  }
-};
+import { resolvers } from '@/resolvers';
+import { typeDefs } from '@/schema';
 
 /**
  * Make sure to also define the Scalars with their appropriate

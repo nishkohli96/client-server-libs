@@ -3,9 +3,10 @@ import path from 'path';
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 /* Read only ".graphql" files from graphql directory. */
-const schemaArray = readdirSync(path.join(__dirname, 'graphql'))
+const schemaDirName = 'schema';
+const schemaArray = readdirSync(path.join(__dirname, schemaDirName))
   .filter(fileName => fileName.endsWith('.graphql'))
-  .map(fileName => path.join(__dirname, 'graphql', fileName));
+  .map(fileName => path.join(__dirname, schemaDirName, fileName));
 
 /**
  * During the initialization, the schema value was set to

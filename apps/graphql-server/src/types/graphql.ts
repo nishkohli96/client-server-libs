@@ -47,6 +47,7 @@ export type Category = {
   name: Scalars['String']['output'];
 };
 
+/** Cannot add space in enum values, hence used _ */
 export enum Countries {
   Australia = 'AUSTRALIA',
   Azerbaijan = 'AZERBAIJAN',
@@ -129,6 +130,7 @@ export type PayPalInput = {
   type: PaymentOption;
 };
 
+/** Either via Paypal or Credit Card */
 export type PaymentMethod = CreditCard | PayPal;
 
 export type PaymentMethodInput = {
