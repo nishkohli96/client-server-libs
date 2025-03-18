@@ -1,5 +1,5 @@
 import { users } from '@/data';
-import { QueryResolvers } from '@/types';
+import { AdminSchema, CustomerSchema, QueryResolvers } from '@/types';
 
 type UserQueryResolver = Pick<
   QueryResolvers,
@@ -14,5 +14,16 @@ const userQuery: UserQueryResolver = {
 };
 
 export const userResolver = {
-  Query: userQuery
+  Query: userQuery,
+  // AdminOrCustomerSchema: {
+  //   __resolveType(obj: AdminSchema | CustomerSchema) {
+  //     if ('address' in obj) {
+  //       return 'CustomerSchema'; // If `address` exists, it's a Customer
+  //     }
+  //     if ('manager' in obj) {
+  //       return 'AdminSchema'; // If `manager` exists, it's an Admin
+  //     }
+  //     return null;
+  //   },
+  // },
 };

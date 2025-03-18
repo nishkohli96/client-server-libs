@@ -1,25 +1,25 @@
 import { categories, products } from '@/data';
-import { QueryResolvers, QueryGetProductByIdArgs, Product } from '@/types';
+import { QueryGetProductByIdArgs, Product } from '@/types';
 
-type ProductQueryResolver = Pick<
-  QueryResolvers,
-  'getProducts' | 'getProductById'
->;
-
-// const productQuery: ProductQueryResolver = {
-//   getProducts: () => products,
-//   getProductById(_, args: QueryGetProductByIdArgs) {
-//     return products.find(product => product.id === args.productId);
-//   }
-// }
+/**
+ * I used the typing in users query, but not in this case, as
+ * there would be a type mismatch in the products array and the
+ * result expected by GraphQL schema.
+ *
+ * Either I can modify the products array to return the correct response
+ * or let GraphQL handle Product.category Resolver which is preferred as:
+ * ✔ Efficient & Optimized: Only resolves category when explicitly queried.
+ * ✔ Works dynamically: If category is removed or changed, the resolver handles it.
+ */
+const productQuery = {
+  getProducts: () => products,
+  getProductById(_, args: QueryGetProductByIdArgs) {
+    return products.find(product => product.id === args.productId);
+  }
+};
 
 export const productResolver = {
-  Query: {
-    getProducts: () => products,
-    getProductById(_, args: QueryGetProductByIdArgs) {
-      return products.find(product => product.id === args.productId);
-    },
-  },
+  Query: productQuery,
   Product: {
     /**
      * Product.category resolver uses parent to fetch the category,
