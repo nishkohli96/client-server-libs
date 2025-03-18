@@ -6,3 +6,7 @@ type CategorySchema {
 type Query {
   getCategories: [CategorySchema!]!
 }
+
+type Mutation {
+  createCategory(categoryName: String!): CategorySchema!
+}

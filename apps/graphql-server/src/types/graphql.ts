@@ -80,8 +80,14 @@ export type CustomerSchema = UserSchema & {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCategory: CategorySchema;
   createProduct: ProductSchema;
   placeOrder: OrderSchema;
+};
+
+
+export type MutationCreateCategoryArgs = {
+  categoryName: Scalars['String']['input'];
 };
 
 
@@ -130,7 +136,6 @@ export type PayPalSchema = {
   type: PaymentOption;
 };
 
-/** Either via Paypal or Credit Card */
 export type PaymentMethod = CreditCardSchema | PayPalSchema;
 
 export type PaymentMethodInput = {
@@ -402,6 +407,7 @@ export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<Resolv
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createCategory?: Resolver<ResolversTypes['CategorySchema'], ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'categoryName'>>;
   createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'input'>>;
   placeOrder?: Resolver<ResolversTypes['OrderSchema'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
 };
