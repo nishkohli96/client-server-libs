@@ -62,8 +62,8 @@ type Order {
 
 type Query {
   getOrders: [Order!]!
-  getCustomerOrders(customerId: ObjectID!): [Order!]!
   getOrderById(orderId: UUID!): Order
+  getCustomerOrders(customerId: ObjectID!): [Order!]!
 }
 
 type Mutation {

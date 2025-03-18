@@ -1,8 +1,3 @@
-type Category {
-  id: ID!
-  name: String!
-}
-
 type Product {
   id: ID!
   name: String!
@@ -19,9 +14,8 @@ input ProductInput {
 }
 
 type Query {
-  getCategories: [Category!]!
   getProducts: [Product!]!
-  getProductById(product: ID!): Product
+  getProductById(productId: ID!): Product
 }
 
 type Mutation {

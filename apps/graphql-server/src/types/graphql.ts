@@ -183,7 +183,7 @@ export type QueryGetOrderByIdArgs = {
 
 
 export type QueryGetProductByIdArgs = {
-  product: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
 };
 
 
@@ -445,7 +445,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getCustomerOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
   getOrderById?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetOrderByIdArgs, 'orderId'>>;
   getOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
-  getProductById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'product'>>;
+  getProductById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'productId'>>;
   getProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
   getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
   getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType>;
