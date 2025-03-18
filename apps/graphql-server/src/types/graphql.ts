@@ -104,10 +104,10 @@ export type OrderInput = {
 export type OrderSchema = {
   __typename?: 'OrderSchema';
   createdAt: Scalars['DateTimeISO']['output'];
-  customerId: Scalars['ObjectID']['output'];
+  customer: AdminOrCustomerSchema;
   id: Scalars['UUID']['output'];
   payment: PaymentMethod;
-  productIds: Array<Scalars['ID']['output']>;
+  products: Array<ProductSchema>;
   status: OrderStatus;
   totalAmount: Scalars['Float']['output'];
 };
@@ -303,7 +303,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   ObjectID: ResolverTypeWrapper<Scalars['ObjectID']['output']>;
   OrderInput: OrderInput;
-  OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'payment'> & { payment: ResolversTypes['PaymentMethod'] }>;
+  OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversTypes['AdminOrCustomerSchema'], payment: ResolversTypes['PaymentMethod'] }>;
   OrderStatus: OrderStatus;
   PayPalInput: PayPalInput;
   PayPalSchema: ResolverTypeWrapper<PayPalSchema>;
@@ -336,7 +336,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   ObjectID: Scalars['ObjectID']['output'];
   OrderInput: OrderInput;
-  OrderSchema: Omit<OrderSchema, 'payment'> & { payment: ResolversParentTypes['PaymentMethod'] };
+  OrderSchema: Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversParentTypes['AdminOrCustomerSchema'], payment: ResolversParentTypes['PaymentMethod'] };
   PayPalInput: PayPalInput;
   PayPalSchema: PayPalSchema;
   PaymentMethod: ResolversUnionTypes<ResolversParentTypes>['PaymentMethod'];
@@ -412,10 +412,10 @@ export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type OrderSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderSchema'] = ResolversParentTypes['OrderSchema']> = {
   createdAt?: Resolver<ResolversTypes['DateTimeISO'], ParentType, ContextType>;
-  customerId?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
+  customer?: Resolver<ResolversTypes['AdminOrCustomerSchema'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
   payment?: Resolver<ResolversTypes['PaymentMethod'], ParentType, ContextType>;
-  productIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['OrderStatus'], ParentType, ContextType>;
   totalAmount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

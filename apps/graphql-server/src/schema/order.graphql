@@ -52,8 +52,8 @@ union PaymentMethod = CreditCardSchema | PayPalSchema
 
 type OrderSchema {
   id: UUID!
-  customerId: ObjectID!
-  productIds: [ID!]!
+  customer: AdminOrCustomerSchema!
+  products: [ProductSchema!]!
   totalAmount: Float!
   status: OrderStatus!
   payment: PaymentMethod!

@@ -1,12 +1,24 @@
 import { categories, products } from '@/data';
-import { QueryGetProductByIdArgs, Product } from '@/types';
+import { QueryResolvers, QueryGetProductByIdArgs, Product } from '@/types';
+
+type ProductQueryResolver = Pick<
+  QueryResolvers,
+  'getProducts' | 'getProductById'
+>;
+
+// const productQuery: ProductQueryResolver = {
+//   getProducts: () => products,
+//   getProductById(_, args: QueryGetProductByIdArgs) {
+//     return products.find(product => product.id === args.productId);
+//   }
+// }
 
 export const productResolver = {
   Query: {
     getProducts: () => products,
     getProductById(_, args: QueryGetProductByIdArgs) {
       return products.find(product => product.id === args.productId);
-    }
+    },
   },
   Product: {
     /**
