@@ -1,9 +1,9 @@
-type Product {
+type ProductSchema {
   id: ID!
   name: String!
   description: String!
   price: Float!
-  category: Category!
+  category: CategorySchema!
 }
 
 input ProductInput {
@@ -14,11 +14,11 @@ input ProductInput {
 }
 
 type Query {
-  getProducts: [Product!]!
-  getProductById(productId: ID!): Product
+  getProducts: [ProductSchema!]!
+  getProductById(productId: ID!): ProductSchema
 }
 
 type Mutation {
-  createProduct(input: ProductInput!): Product!
+  createProduct(input: ProductInput!): ProductSchema!
 }
 

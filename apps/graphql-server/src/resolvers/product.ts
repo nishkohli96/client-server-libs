@@ -1,5 +1,5 @@
 import { categories, products } from '@/data';
-import { QueryGetProductByIdArgs } from '@/types';
+import { QueryGetProductByIdArgs, Product } from '@/types';
 
 export const productResolver = {
   Query: {
@@ -16,8 +16,7 @@ export const productResolver = {
      * Also, the "parent" arg in this case, actually yields the whole
      * Product object that matches the filtered result.
      */
-    category: (parent: { categoryId: string }) => {
-      console.log('parent: ', parent);
+    category: (parent: Product) => {
       return categories.find(c => c.id === parent.categoryId);
     },
   },

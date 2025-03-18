@@ -1,8 +1,8 @@
-type Category {
+type CategorySchema {
   id: ID!
   name: String!
 }
 
 type Query {
-  getCategories: [Category!]!
+  getCategories: [CategorySchema!]!
 }

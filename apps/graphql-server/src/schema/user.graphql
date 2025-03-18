@@ -13,7 +13,7 @@ enum Countries {
   GEORGIA
 }
 
-type Address {
+type AddressSchema {
   houseNo: String!
   street: String!
   landmark: String
@@ -22,29 +22,29 @@ type Address {
   country: Countries!
 }
 
-interface User {
+interface UserSchema {
   id: ObjectID!
   name: String!
   email: EmailAddress!
 }
 
-type Customer implements User {
+type CustomerSchema implements UserSchema {
   id: ObjectID!
   name: String!
   email: EmailAddress!
-  address: Address
+  address: AddressSchema
 }
 
-type Admin implements User {
+type AdminSchema implements UserSchema {
   id: ObjectID!
   name: String!
   email: EmailAddress!
   manager: ObjectID
 }
 
-union AdminOrCustomer = Admin | Customer
+union AdminOrCustomerSchema = AdminSchema | CustomerSchema
 
 type Query {
-  getUsers: [AdminOrCustomer!]!
-  getUserById(id: ObjectID!): AdminOrCustomer
+  getUsers: [AdminOrCustomerSchema!]!
+  getUserById(id: ObjectID!): AdminOrCustomerSchema
 }

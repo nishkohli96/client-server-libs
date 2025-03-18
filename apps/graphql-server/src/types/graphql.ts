@@ -21,8 +21,8 @@ export type Scalars = {
   UUID: { input: string; output: string; }
 };
 
-export type Address = {
-  __typename?: 'Address';
+export type AddressSchema = {
+  __typename?: 'AddressSchema';
   city: Scalars['String']['output'];
   country: Countries;
   houseNo: Scalars['String']['output'];
@@ -31,18 +31,18 @@ export type Address = {
   street: Scalars['String']['output'];
 };
 
-export type Admin = User & {
-  __typename?: 'Admin';
+export type AdminOrCustomerSchema = AdminSchema | CustomerSchema;
+
+export type AdminSchema = UserSchema & {
+  __typename?: 'AdminSchema';
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   manager?: Maybe<Scalars['ObjectID']['output']>;
   name: Scalars['String']['output'];
 };
 
-export type AdminOrCustomer = Admin | Customer;
-
-export type Category = {
-  __typename?: 'Category';
+export type CategorySchema = {
+  __typename?: 'CategorySchema';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
@@ -57,22 +57,22 @@ export enum Countries {
   UnitedArabEmirates = 'UNITED_ARAB_EMIRATES'
 }
 
-export type CreditCard = {
-  __typename?: 'CreditCard';
-  cardNumber: Scalars['String']['output'];
-  expiryDate: Scalars['String']['output'];
-  type: PaymentOption;
-};
-
 export type CreditCardInput = {
   cardNumber: Scalars['String']['input'];
   expiryDate: Scalars['String']['input'];
   type: PaymentOption;
 };
 
-export type Customer = User & {
-  __typename?: 'Customer';
-  address?: Maybe<Address>;
+export type CreditCardSchema = {
+  __typename?: 'CreditCardSchema';
+  cardNumber: Scalars['String']['output'];
+  expiryDate: Scalars['String']['output'];
+  type: PaymentOption;
+};
+
+export type CustomerSchema = UserSchema & {
+  __typename?: 'CustomerSchema';
+  address?: Maybe<AddressSchema>;
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   name: Scalars['String']['output'];
@@ -80,8 +80,8 @@ export type Customer = User & {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createProduct: Product;
-  placeOrder: Order;
+  createProduct: ProductSchema;
+  placeOrder: OrderSchema;
 };
 
 
@@ -94,8 +94,15 @@ export type MutationPlaceOrderArgs = {
   input: OrderInput;
 };
 
-export type Order = {
-  __typename?: 'Order';
+export type OrderInput = {
+  amount: Scalars['Float']['input'];
+  customerId: Scalars['ObjectID']['input'];
+  paymentMethod: PaymentMethodInput;
+  productIds: Array<Scalars['ID']['input']>;
+};
+
+export type OrderSchema = {
+  __typename?: 'OrderSchema';
   createdAt: Scalars['DateTimeISO']['output'];
   customerId: Scalars['ObjectID']['output'];
   id: Scalars['UUID']['output'];
@@ -105,13 +112,6 @@ export type Order = {
   totalAmount: Scalars['Float']['output'];
 };
 
-export type OrderInput = {
-  amount: Scalars['Float']['input'];
-  customerId: Scalars['ObjectID']['input'];
-  paymentMethod: PaymentMethodInput;
-  productIds: Array<Scalars['ID']['input']>;
-};
-
 export enum OrderStatus {
   Cancelled = 'CANCELLED',
   Delivered = 'DELIVERED',
@@ -119,19 +119,19 @@ export enum OrderStatus {
   Shipped = 'SHIPPED'
 }
 
-export type PayPal = {
-  __typename?: 'PayPal';
-  email: Scalars['EmailAddress']['output'];
-  type: PaymentOption;
-};
-
 export type PayPalInput = {
   email: Scalars['EmailAddress']['input'];
   type: PaymentOption;
 };
 
+export type PayPalSchema = {
+  __typename?: 'PayPalSchema';
+  email: Scalars['EmailAddress']['output'];
+  type: PaymentOption;
+};
+
 /** Either via Paypal or Credit Card */
-export type PaymentMethod = CreditCard | PayPal;
+export type PaymentMethod = CreditCardSchema | PayPalSchema;
 
 export type PaymentMethodInput = {
   card?: InputMaybe<CreditCardInput>;
@@ -143,15 +143,6 @@ export enum PaymentOption {
   Paypal = 'PAYPAL'
 }
 
-export type Product = {
-  __typename?: 'Product';
-  category: Category;
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  price: Scalars['Float']['output'];
-};
-
 export type ProductInput = {
   categoryId: Scalars['ID']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
@@ -159,16 +150,25 @@ export type ProductInput = {
   price: Scalars['Float']['input'];
 };
 
+export type ProductSchema = {
+  __typename?: 'ProductSchema';
+  category: CategorySchema;
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['Float']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  getCategories: Array<Category>;
-  getCustomerOrders: Array<Order>;
-  getOrderById?: Maybe<Order>;
-  getOrders: Array<Order>;
-  getProductById?: Maybe<Product>;
-  getProducts: Array<Product>;
-  getUserById?: Maybe<AdminOrCustomer>;
-  getUsers: Array<AdminOrCustomer>;
+  getCategories: Array<CategorySchema>;
+  getCustomerOrders: Array<OrderSchema>;
+  getOrderById?: Maybe<OrderSchema>;
+  getOrders: Array<OrderSchema>;
+  getProductById?: Maybe<ProductSchema>;
+  getProducts: Array<ProductSchema>;
+  getUserById?: Maybe<AdminOrCustomerSchema>;
+  getUsers: Array<AdminOrCustomerSchema>;
 };
 
 
@@ -193,7 +193,7 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  orderUpdated: Order;
+  orderUpdated: OrderSchema;
 };
 
 
@@ -201,7 +201,7 @@ export type SubscriptionOrderUpdatedArgs = {
   orderId: Scalars['ID']['input'];
 };
 
-export type User = {
+export type UserSchema = {
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   name: Scalars['String']['output'];
@@ -276,81 +276,81 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping of union types */
 export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
-  AdminOrCustomer: ( Admin ) | ( Customer );
-  PaymentMethod: ( CreditCard ) | ( PayPal );
+  AdminOrCustomerSchema: ( AdminSchema ) | ( CustomerSchema );
+  PaymentMethod: ( CreditCardSchema ) | ( PayPalSchema );
 };
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
-  User: ( Admin ) | ( Customer );
+  UserSchema: ( AdminSchema ) | ( CustomerSchema );
 };
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Address: ResolverTypeWrapper<Address>;
-  Admin: ResolverTypeWrapper<Admin>;
-  AdminOrCustomer: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AdminOrCustomer']>;
+  AddressSchema: ResolverTypeWrapper<AddressSchema>;
+  AdminOrCustomerSchema: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AdminOrCustomerSchema']>;
+  AdminSchema: ResolverTypeWrapper<AdminSchema>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  Category: ResolverTypeWrapper<Category>;
+  CategorySchema: ResolverTypeWrapper<CategorySchema>;
   Countries: Countries;
-  CreditCard: ResolverTypeWrapper<CreditCard>;
   CreditCardInput: CreditCardInput;
-  Customer: ResolverTypeWrapper<Customer>;
+  CreditCardSchema: ResolverTypeWrapper<CreditCardSchema>;
+  CustomerSchema: ResolverTypeWrapper<CustomerSchema>;
   DateTimeISO: ResolverTypeWrapper<Scalars['DateTimeISO']['output']>;
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectID: ResolverTypeWrapper<Scalars['ObjectID']['output']>;
-  Order: ResolverTypeWrapper<Omit<Order, 'payment'> & { payment: ResolversTypes['PaymentMethod'] }>;
   OrderInput: OrderInput;
+  OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'payment'> & { payment: ResolversTypes['PaymentMethod'] }>;
   OrderStatus: OrderStatus;
-  PayPal: ResolverTypeWrapper<PayPal>;
   PayPalInput: PayPalInput;
+  PayPalSchema: ResolverTypeWrapper<PayPalSchema>;
   PaymentMethod: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['PaymentMethod']>;
   PaymentMethodInput: PaymentMethodInput;
   PaymentOption: PaymentOption;
-  Product: ResolverTypeWrapper<Product>;
   ProductInput: ProductInput;
+  ProductSchema: ResolverTypeWrapper<ProductSchema>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
-  User: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['User']>;
+  UserSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserSchema']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Address: Address;
-  Admin: Admin;
-  AdminOrCustomer: ResolversUnionTypes<ResolversParentTypes>['AdminOrCustomer'];
+  AddressSchema: AddressSchema;
+  AdminOrCustomerSchema: ResolversUnionTypes<ResolversParentTypes>['AdminOrCustomerSchema'];
+  AdminSchema: AdminSchema;
   Boolean: Scalars['Boolean']['output'];
-  Category: Category;
-  CreditCard: CreditCard;
+  CategorySchema: CategorySchema;
   CreditCardInput: CreditCardInput;
-  Customer: Customer;
+  CreditCardSchema: CreditCardSchema;
+  CustomerSchema: CustomerSchema;
   DateTimeISO: Scalars['DateTimeISO']['output'];
   EmailAddress: Scalars['EmailAddress']['output'];
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Mutation: {};
   ObjectID: Scalars['ObjectID']['output'];
-  Order: Omit<Order, 'payment'> & { payment: ResolversParentTypes['PaymentMethod'] };
   OrderInput: OrderInput;
-  PayPal: PayPal;
+  OrderSchema: Omit<OrderSchema, 'payment'> & { payment: ResolversParentTypes['PaymentMethod'] };
   PayPalInput: PayPalInput;
+  PayPalSchema: PayPalSchema;
   PaymentMethod: ResolversUnionTypes<ResolversParentTypes>['PaymentMethod'];
   PaymentMethodInput: PaymentMethodInput;
-  Product: Product;
   ProductInput: ProductInput;
+  ProductSchema: ProductSchema;
   Query: {};
   String: Scalars['String']['output'];
   Subscription: {};
   UUID: Scalars['UUID']['output'];
-  User: ResolversInterfaceTypes<ResolversParentTypes>['User'];
+  UserSchema: ResolversInterfaceTypes<ResolversParentTypes>['UserSchema'];
 };
 
-export type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = {
+export type AddressSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddressSchema'] = ResolversParentTypes['AddressSchema']> = {
   city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   country?: Resolver<ResolversTypes['Countries'], ParentType, ContextType>;
   houseNo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -360,7 +360,11 @@ export type AddressResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AdminResolvers<ContextType = any, ParentType extends ResolversParentTypes['Admin'] = ResolversParentTypes['Admin']> = {
+export type AdminOrCustomerSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminOrCustomerSchema'] = ResolversParentTypes['AdminOrCustomerSchema']> = {
+  __resolveType: TypeResolveFn<'AdminSchema' | 'CustomerSchema', ParentType, ContextType>;
+};
+
+export type AdminSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminSchema'] = ResolversParentTypes['AdminSchema']> = {
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   manager?: Resolver<Maybe<ResolversTypes['ObjectID']>, ParentType, ContextType>;
@@ -368,25 +372,21 @@ export type AdminResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AdminOrCustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminOrCustomer'] = ResolversParentTypes['AdminOrCustomer']> = {
-  __resolveType: TypeResolveFn<'Admin' | 'Customer', ParentType, ContextType>;
-};
-
-export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+export type CategorySchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategorySchema'] = ResolversParentTypes['CategorySchema']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type CreditCardResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreditCard'] = ResolversParentTypes['CreditCard']> = {
+export type CreditCardSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreditCardSchema'] = ResolversParentTypes['CreditCardSchema']> = {
   cardNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   expiryDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['PaymentOption'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type CustomerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = {
-  address?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+export type CustomerSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CustomerSchema'] = ResolversParentTypes['CustomerSchema']> = {
+  address?: Resolver<Maybe<ResolversTypes['AddressSchema']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -402,15 +402,15 @@ export interface EmailAddressScalarConfig extends GraphQLScalarTypeConfig<Resolv
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'input'>>;
-  placeOrder?: Resolver<ResolversTypes['Order'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
+  createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'input'>>;
+  placeOrder?: Resolver<ResolversTypes['OrderSchema'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
 };
 
 export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjectID'], any> {
   name: 'ObjectID';
 }
 
-export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
+export type OrderSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderSchema'] = ResolversParentTypes['OrderSchema']> = {
   createdAt?: Resolver<ResolversTypes['DateTimeISO'], ParentType, ContextType>;
   customerId?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
@@ -421,18 +421,18 @@ export type OrderResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PayPalResolvers<ContextType = any, ParentType extends ResolversParentTypes['PayPal'] = ResolversParentTypes['PayPal']> = {
+export type PayPalSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['PayPalSchema'] = ResolversParentTypes['PayPalSchema']> = {
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['PaymentOption'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PaymentMethodResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentMethod'] = ResolversParentTypes['PaymentMethod']> = {
-  __resolveType: TypeResolveFn<'CreditCard' | 'PayPal', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'CreditCardSchema' | 'PayPalSchema', ParentType, ContextType>;
 };
 
-export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
+export type ProductSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductSchema'] = ResolversParentTypes['ProductSchema']> = {
+  category?: Resolver<ResolversTypes['CategorySchema'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -441,49 +441,49 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getCategories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
-  getCustomerOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
-  getOrderById?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType, RequireFields<QueryGetOrderByIdArgs, 'orderId'>>;
-  getOrders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
-  getProductById?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'productId'>>;
-  getProducts?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
-  getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
-  getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomer']>, ParentType, ContextType>;
+  getCategories?: Resolver<Array<ResolversTypes['CategorySchema']>, ParentType, ContextType>;
+  getCustomerOrders?: Resolver<Array<ResolversTypes['OrderSchema']>, ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
+  getOrderById?: Resolver<Maybe<ResolversTypes['OrderSchema']>, ParentType, ContextType, RequireFields<QueryGetOrderByIdArgs, 'orderId'>>;
+  getOrders?: Resolver<Array<ResolversTypes['OrderSchema']>, ParentType, ContextType>;
+  getProductById?: Resolver<Maybe<ResolversTypes['ProductSchema']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'productId'>>;
+  getProducts?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
+  getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
+  getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  orderUpdated?: SubscriptionResolver<ResolversTypes['Order'], "orderUpdated", ParentType, ContextType, RequireFields<SubscriptionOrderUpdatedArgs, 'orderId'>>;
+  orderUpdated?: SubscriptionResolver<ResolversTypes['OrderSchema'], "orderUpdated", ParentType, ContextType, RequireFields<SubscriptionOrderUpdatedArgs, 'orderId'>>;
 };
 
 export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {
   name: 'UUID';
 }
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  __resolveType: TypeResolveFn<'Admin' | 'Customer', ParentType, ContextType>;
+export type UserSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserSchema'] = ResolversParentTypes['UserSchema']> = {
+  __resolveType: TypeResolveFn<'AdminSchema' | 'CustomerSchema', ParentType, ContextType>;
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Address?: AddressResolvers<ContextType>;
-  Admin?: AdminResolvers<ContextType>;
-  AdminOrCustomer?: AdminOrCustomerResolvers<ContextType>;
-  Category?: CategoryResolvers<ContextType>;
-  CreditCard?: CreditCardResolvers<ContextType>;
-  Customer?: CustomerResolvers<ContextType>;
+  AddressSchema?: AddressSchemaResolvers<ContextType>;
+  AdminOrCustomerSchema?: AdminOrCustomerSchemaResolvers<ContextType>;
+  AdminSchema?: AdminSchemaResolvers<ContextType>;
+  CategorySchema?: CategorySchemaResolvers<ContextType>;
+  CreditCardSchema?: CreditCardSchemaResolvers<ContextType>;
+  CustomerSchema?: CustomerSchemaResolvers<ContextType>;
   DateTimeISO?: GraphQLScalarType;
   EmailAddress?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   ObjectID?: GraphQLScalarType;
-  Order?: OrderResolvers<ContextType>;
-  PayPal?: PayPalResolvers<ContextType>;
+  OrderSchema?: OrderSchemaResolvers<ContextType>;
+  PayPalSchema?: PayPalSchemaResolvers<ContextType>;
   PaymentMethod?: PaymentMethodResolvers<ContextType>;
-  Product?: ProductResolvers<ContextType>;
+  ProductSchema?: ProductSchemaResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   UUID?: GraphQLScalarType;
-  User?: UserResolvers<ContextType>;
+  UserSchema?: UserSchemaResolvers<ContextType>;
 };
 

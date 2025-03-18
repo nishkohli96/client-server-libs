@@ -9,6 +9,7 @@
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "types": ["node"],
     "paths": {
       "@/*": ["src/*"]

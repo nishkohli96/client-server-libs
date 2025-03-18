@@ -1,4 +1,4 @@
-export { default as categories } from './category.json';
-export { default as orders } from './orders.json';
-export { default as products } from './products.json';
-export { default as users } from './users.json';
+export { categories } from './category';
+export { orders } from './orders';
+export { products } from './products';
+export { users } from './users';

@@ -13,7 +13,7 @@ enum PaymentOption {
   PAYPAL
 }
 
-type CreditCard {
+type CreditCardSchema {
   type: PaymentOption!
   cardNumber: String!
   expiryDate: String!
@@ -25,7 +25,7 @@ input CreditCardInput {
   expiryDate: String!
 }
 
-type PayPal {
+type PayPalSchema {
   type: PaymentOption!
   email: EmailAddress!
 }
@@ -48,9 +48,9 @@ input OrderInput {
 }
 
 "Either via Paypal or Credit Card"
-union PaymentMethod = CreditCard | PayPal
+union PaymentMethod = CreditCardSchema | PayPalSchema
 
-type Order {
+type OrderSchema {
   id: UUID!
   customerId: ObjectID!
   productIds: [ID!]!
@@ -61,15 +61,15 @@ type Order {
 }
 
 type Query {
-  getOrders: [Order!]!
-  getOrderById(orderId: UUID!): Order
-  getCustomerOrders(customerId: ObjectID!): [Order!]!
+  getOrders: [OrderSchema!]!
+  getOrderById(orderId: UUID!): OrderSchema
+  getCustomerOrders(customerId: ObjectID!): [OrderSchema!]!
 }
 
 type Mutation {
-  placeOrder(input: OrderInput!): Order!
+  placeOrder(input: OrderInput!): OrderSchema!
 }
 
 type Subscription {
-  orderUpdated(orderId: ID!): Order!
+  orderUpdated(orderId: ID!): OrderSchema!
 }
