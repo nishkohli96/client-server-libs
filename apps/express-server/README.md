@@ -34,12 +34,11 @@ $ yarn run start:prod
 - AWS Services
   - IAM using [@aws-sdk/client-iam](https://www.npmjs.com/package/@aws-sdk/client-iam)
   - Redis Elasticache using [ioredis](https://www.npmjs.com/package/ioredis)
-  - SES using[@aws-sdk/client-ses](https://www.npmjs.com/package/@aws-sdk/client-ses)
+  - SES using [@aws-sdk/client-ses](https://www.npmjs.com/package/@aws-sdk/client-ses)
   - S3 using [@aws-sdk/client-s3](https://www.npmjs.com/package/@aws-sdk/client-s3) alongside creating csv file using [papaparse](https://www.npmjs.com/package/papaparse) and downloading files
-  - SQS using[@aws-sdk/client-sqs](https://www.npmjs.com/package/@aws-sdk/client-sqs)
-  - SNS using[@aws-sdk/client-sns](https://www.npmjs.com/package/@aws-sdk/client-sns)
-  - Access environment variables stored in **Parameter Store** using
-  [@aws-sdk/client-ssm](https://www.npmjs.com/package/@aws-sdk/client-ssm)
+  - SQS using [@aws-sdk/client-sqs](https://www.npmjs.com/package/@aws-sdk/client-sqs)
+  - SNS using [@aws-sdk/client-sns](https://www.npmjs.com/package/@aws-sdk/client-sns)
+  - Access environment variables stored in **Parameter Store** using [@aws-sdk/client-ssm](https://www.npmjs.com/package/@aws-sdk/client-ssm)
   - Create, get secrets using [@aws-sdk/client-secrets-manager](https://www.npmjs.com/package/@aws-sdk/client-secrets-manager)
   - Dynamo DB using [@aws-sdk/client-dynamodb](https://www.npmjs.com/package/@aws-sdk/client-dynamodb)
   - Lambda using [@aws-sdk/client-lambda](https://www.npmjs.com/package/@aws-sdk/client-lambda)
