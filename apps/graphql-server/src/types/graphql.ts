@@ -46,7 +46,7 @@ export type AdminSchema = UserSchema & {
   __typename?: 'AdminSchema';
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
-  manager?: Maybe<Scalars['ObjectID']['output']>;
+  managerId?: Maybe<Scalars['ObjectID']['output']>;
   name: Scalars['String']['output'];
 };
 
@@ -405,7 +405,7 @@ export type AdminOrCustomerSchemaResolvers<ContextType = any, ParentType extends
 export type AdminSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminSchema'] = ResolversParentTypes['AdminSchema']> = {
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
-  manager?: Resolver<Maybe<ResolversTypes['ObjectID']>, ParentType, ContextType>;
+  managerId?: Resolver<Maybe<ResolversTypes['ObjectID']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

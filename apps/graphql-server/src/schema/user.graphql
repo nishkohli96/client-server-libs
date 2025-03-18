@@ -44,7 +44,7 @@ type AdminSchema implements UserSchema {
   id: ObjectID!
   name: String!
   email: EmailAddress!
-  manager: ObjectID
+  managerId: ObjectID
 }
 
 union AdminOrCustomerSchema = AdminSchema | CustomerSchema

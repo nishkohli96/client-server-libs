@@ -60,4 +60,6 @@
 
 11. Read more on the [Resolver arguments](https://www.apollographql.com/docs/apollo-server/data/resolvers#resolver-arguments).
 
-11.  https://www.apollographql.com/docs/apollo-server/schema/schema#internal-values-advanced
+12. For queries involving multiple levels of nesting, use [graphql-depth-limit](https://www.npmjs.com/package/graphql-depth-limit) package to limit querying upto a certain depth and prevent infinite recursion.
+
+13.  https://www.apollographql.com/docs/apollo-server/schema/schema#internal-values-advanced
