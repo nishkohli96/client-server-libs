@@ -2,7 +2,9 @@ import { orders, users, products } from '@/data';
 import {
   QueryGetOrderByIdArgs,
   QueryGetCustomerOrdersArgs,
-  Order
+  Order,
+  CreditCardSchema,
+  PayPalSchema
 } from '@/types';
 
 const orderQuery = {
@@ -17,12 +19,23 @@ const orderQuery = {
 
 export const orderResolver = {
   Query: orderQuery,
-  Order: {
+  OrderSchema: {
     customer: (parent: Order) => {
       return users.find(user => user.id === parent.customerId);
     },
     products: (parent: Order) => {
       return products.filter(product => parent.productIds.includes(product.id));
     }
-  }
+  },
+  PaymentMethod: {
+    __resolveType(obj: CreditCardSchema | PayPalSchema) {
+      if ('cardNumber' in obj) {
+        return 'CreditCardSchema';
+      }
+      if ('email' in obj) {
+        return 'PayPalSchema';
+      }
+      return null;
+    },
+  },
 };

@@ -20,7 +20,7 @@ const productQuery = {
 
 export const productResolver = {
   Query: productQuery,
-  Product: {
+  ProductSchema: {
     /**
      * Product.category resolver uses parent to fetch the category,
      * the key "Product" must match the schema name, else it would

@@ -30,23 +30,6 @@ const server = new ApolloServer({
     EmailAddress: EmailAddressResolver,
     ObjectID: ObjectIDResolver,
     UUID: UUIDResolver,
-    AdminOrCustomer: {
-      __resolveType(obj, contextValue, info) {
-        /**
-         * The values for both address & manager can be null,
-         * hence its better to use "Object.hasOwnProperty" instead
-         * of if(obj.address || obj.manager)
-         */
-        if(Object.prototype.hasOwnProperty.call(obj, 'address')) {
-          return 'Customer';
-        }
-        if(Object.prototype.hasOwnProperty.call(obj, 'manager')) {
-          return 'Admin';
-        }
-        /* GraphQLError is thrown */
-        return null;
-      }
-    },
     ...resolvers
   }
 });
