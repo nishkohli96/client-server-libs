@@ -47,7 +47,6 @@ input OrderInput {
   amount: Float!
 }
 
-"Either via Paypal or Credit Card"
 union PaymentMethod = CreditCardSchema | PayPalSchema
 
 type OrderSchema {

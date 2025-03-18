@@ -13,7 +13,7 @@ const orderQuery = {
     return orders.find(order => order.id === args.orderId);
   },
   getCustomerOrders: (_, args: QueryGetCustomerOrdersArgs) => {
-    return orders.find(order => order.customerId === args.customerId);
+    return orders.filter(order => order.customerId === args.customerId);
   }
 };
 
