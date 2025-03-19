@@ -2,7 +2,7 @@ scalar DateTimeISO
 scalar UUID
 
 enum OrderStatus {
-  PENDING
+  CREATED
   SHIPPED
   DELIVERED
   CANCELLED
@@ -66,7 +66,7 @@ type Query {
 }
 
 type Mutation {
-  placeOrder(input: OrderInput!): Boolean!
+  placeOrder(orderDetails: OrderInput!): Boolean!
 }
 
 type Subscription {

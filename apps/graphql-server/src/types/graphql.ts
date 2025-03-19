@@ -92,7 +92,7 @@ export type Mutation = {
   createCategory: CategorySchema;
   createProduct: ProductSchema;
   createUser?: Maybe<AdminOrCustomerSchema>;
-  placeOrder: OrderSchema;
+  placeOrder: Scalars['Boolean']['output'];
 };
 
 
@@ -112,7 +112,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationPlaceOrderArgs = {
-  input: OrderInput;
+  orderDetails: OrderInput;
 };
 
 export type OrderInput = {
@@ -135,8 +135,8 @@ export type OrderSchema = {
 
 export enum OrderStatus {
   Cancelled = 'CANCELLED',
+  Created = 'CREATED',
   Delivered = 'DELIVERED',
-  Pending = 'PENDING',
   Shipped = 'SHIPPED'
 }
 
@@ -443,7 +443,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createCategory?: Resolver<ResolversTypes['CategorySchema'], ParentType, ContextType, RequireFields<MutationCreateCategoryArgs, 'categoryName'>>;
   createProduct?: Resolver<ResolversTypes['ProductSchema'], ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'productInput'>>;
   createUser?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'userInfo'>>;
-  placeOrder?: Resolver<ResolversTypes['OrderSchema'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'input'>>;
+  placeOrder?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationPlaceOrderArgs, 'orderDetails'>>;
 };
 
 export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjectID'], any> {

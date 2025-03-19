@@ -9,7 +9,7 @@ export const orders: Order[] = [
       'prod-003'
     ],
     totalAmount: 229.98,
-    status: OrderStatus.Pending,
+    status: OrderStatus.Created,
     payment: {
       type: PaymentOption.Card,
       cardNumber: '4111111111111111',

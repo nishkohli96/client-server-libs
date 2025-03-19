@@ -1,10 +1,13 @@
+import { v6 as UUIDv6 } from 'uuid';
 import { orders, users, products } from '@/data';
 import {
   QueryGetOrderByIdArgs,
   QueryGetCustomerOrdersArgs,
   Order,
   CreditCardSchema,
-  PayPalSchema
+  PayPalSchema,
+  MutationResolvers,
+  OrderStatus
 } from '@/types';
 
 const orderQuery = {
@@ -17,8 +20,27 @@ const orderQuery = {
   }
 };
 
+const orderMutation: Pick<MutationResolvers, 'placeOrder'> = {
+  placeOrder: (_, args) => {
+    const { orderDetails } = args;
+    const { amount, paymentMethod, customerId, productIds } = orderDetails;
+    const order = {
+      id: UUIDv6(),
+      createdAt: new Date().toISOString(),
+      totalAmount: amount,
+      customerId,
+      productIds,
+      payment: paymentMethod.card ?? paymentMethod.paypal,
+      status: OrderStatus.Created
+    };
+    orders.push(order);
+    return true;
+  },
+};
+
 export const orderResolver = {
   Query: orderQuery,
+  Mutation: orderMutation,
   OrderSchema: {
     customer: (parent: Order) => {
       return users.find(user => user.id === parent.customerId);
