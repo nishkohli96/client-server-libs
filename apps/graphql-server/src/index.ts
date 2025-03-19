@@ -31,7 +31,13 @@ const server = new ApolloServer({
     ObjectID: ObjectIDResolver,
     UUID: UUIDResolver,
     ...resolvers
-  }
+  },
+  /**
+   * Server response yields a 200 status code instead of 400
+   * on providing invalid variables. To mitigate this regression,
+   * use this flag below:
+   */
+  status400ForVariableCoercionErrors: true
 });
 
 /**
@@ -42,7 +48,18 @@ const server = new ApolloServer({
  */
 async function bootstrap() {
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 }
+    listen: { port: 4000 },
+    /**
+     * You can share data throughout your server's resolvers
+     * and plugins using the context like authentication scope,
+     * sources for fetching data etc.
+     * Your async context function should async and return
+     * an object. Refer:
+     * https://www.apollographql.com/docs/apollo-server/data/context
+     */
+    // context: async ({ req, res }) => ({
+    //   authScope: getScope(req.headers.authorization),
+    // }),
   });
   console.log(`🚀  Server ready at: ${url}`);
 }

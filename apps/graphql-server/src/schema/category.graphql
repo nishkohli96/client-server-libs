@@ -10,3 +10,7 @@ type Query {
 type Mutation {
   createCategory(categoryName: String!): CategorySchema!
 }
+
+type Subscription {
+  categoryAdded: CategorySchema!
+}

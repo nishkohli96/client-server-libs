@@ -68,7 +68,3 @@ type Query {
 type Mutation {
   placeOrder(orderDetails: OrderInput!): Boolean!
 }
-
-type Subscription {
-  orderUpdated(orderId: ID!): OrderSchema!
-}

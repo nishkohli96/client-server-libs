@@ -62,4 +62,4 @@
 
 12. For queries involving multiple levels of nesting, use [graphql-depth-limit](https://www.npmjs.com/package/graphql-depth-limit) package to limit querying upto a certain depth and prevent infinite recursion.
 
-13.  https://www.apollographql.com/docs/apollo-server/schema/schema#internal-values-advanced
+13. During a GraphQL operation, you can share data throughout your server's resolvers and plugins by creating an object named `contextValue.`You can pass useful things through your contextValue that any resolver might need, like authentication scope, sources for fetching data, database connections, and custom fetch functions.
