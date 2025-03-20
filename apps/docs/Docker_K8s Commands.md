@@ -30,53 +30,60 @@
 
 15. `docker rm <container-id>`: Removes the container, needs to be stopped first before removing. Else simply using `docker rm -f <the-container-id>` to stop and remove a container.
 
-16. `docker exec -it <container-id> <some external cmd>`: Pass some input cmd to an already running container. For example,
+16. `docker rm $(docker ps -a -q`: Removes all stopped containers
+
+17. `docker rmi <image-name:tag-name>`: Removes that tag-name from docker
+
+18. `docker exec -it <container-id> <some external cmd>`: Pass some input cmd to an already running container. For example,
 
     ```
     docker run redis  // start the container
     docker exec -it 8e2ea5e5da51 redis-cli  // start redis-cli after running redis
     ```
 
-17. `docker exec -it <container-id> sh`: Starts a shell script inside the container where you can run cmds like `mkdir`, `ls` etc. Use it on an already running container. 
+19. `docker exec -it <container-id> sh`: Starts a shell script inside the container where you can run cmds like `mkdir`, `ls` etc. Use it on an already running container. 
 
-18. `docker run - it <container-name> sh`: Same as above, but this starts a container and then runs the external cmd.
+20. `docker run - it <container-name> sh`: Same as above, but this starts a container and then runs the external cmd.
 
-19. `docker build . -`  Executes **“Dockerfile”** commands
+21. `docker run --memory="256m" <image>`
 
-20. `docker build -f Dockerfile.dev .`: Runs a dockerfile with specific name for a specific environment, say development.
+22. `docker run --cpus=".5" <image>` 
 
-21. `docker build -t <dockierid>/<repo-name>:latest`: Build image with name say `nish1896/firstimg`. Now you can simply run `docker run nish1896/firstimg:<version num>`.
+23. `docker build . -`  Executes **“Dockerfile”** commands
 
-22. `docker rmi <image-name:tag-name>`: Removes that tag-name from docker
+24. `docker build -f Dockerfile.dev .`: Runs a dockerfile with specific name for a specific environment, say development.
 
-23. `docker system prune`: Removes all containers from the system, would have to redownload to run again.
+25. `docker build -t <dockierid>/<repo-name>:latest`: Build image with name say `nish1896/firstimg`. Now you can simply run `docker run nish1896/firstimg:<version num>`.
 
-24. `docker commit -c 'CMD ["redis-server"]' CONTAINERID`
+26. `docker system prune`: Removes all containers from the system, would have to redownload to run again.
+
+27. `docker commit -c 'CMD ["redis-server"]' CONTAINERID`
 
     For Windows,
     `docker commit -c "CMD 'redis-server'" CONTAINERID`
 
-25. `docker run -p p1:p2 <container name/id>`: When running a nodejs server on docker, it would initially run as an isolated machine, so we use port mapping. p1 is the external port, and p2 is the port you are running on docker container. So now, it will redirect traffic to docker nodejs app running inside the container.
+28. `docker run -p p1:p2 <container name/id>`: When running a nodejs server on docker, it would initially run as an isolated machine, so we use port mapping. p1 is the external port, and p2 is the port you are running on docker container. So now, it will redirect traffic to docker nodejs app running inside the container.
 
-26. `docker push <img-name>`: Push image to docker-hub
+29. `docker push <img-name>`: Push image to docker-hub
 
-27. `docker-compose up`: Run images in `docker-compose.yml` file
+30. `docker-compose up`: Run images in `docker-compose.yml` file
 
-28. `docker-compose up --build`: Re-build your docker image and then run images in `docker-compose.yml` file
+31. `docker-compose up --build`: Re-build your docker image and then run images in `docker-compose.yml` file
 
-29. `docker-compose up -d`: Launch in background
+32. `docker-compose up -d`: Launch in background
 
-30. `docker-compose -f docker-compose.json up`: Run docker-compose with a different fileName
+33. `docker-compose -f docker-compose.json up`: Run docker-compose with a different fileName
 
-31. `docker-compose down`: Stop containers
+34. `docker-compose down`: Stop containers
 
-32. `docker-compose ps`: List all containers running within `docker-compose.yml` file. It would throw an err if it doesn't find `docker-compose.yml` in your pwd.
+35. `docker-compose ps`: List all containers running within `docker-compose.yml` file. It would throw an err if it doesn't find `docker-compose.yml` in your pwd.
 
-33. `docker run -it <container-id> npm run test -- --coverage`: To override the default command. “-- --coverage” is to exit the program after all tests executed. If flag not specified, it will wait for user input to proceed further. 
+36. `docker run -it <container-id> npm run test -- --coverage`: To override the default command. “-- --coverage” is to exit the program after all tests executed. If flag not specified, it will wait for user input to proceed further. 
 
-34. `docker attach <container-id>`: Stdin to the default process of the container
+37. `docker attach <container-id>`: Stdin to the default process of the container
 
-35.  `docker run -p <ur-port-no>:80 <container-id>` - To run static content hosted on nginx. The default port nginx uses is 80.  Now open localhost:<ur-port-no> and run the app.
+38.  `docker run -p <ur-port-no>:80 <container-id>` - To run static content hosted on nginx. The default port nginx uses is 80.  Now open localhost:<ur-port-no> and run the app.
+
 
 ## Docker Volumes
 
