@@ -63,73 +63,68 @@
 27. `docker-compose up`: Run images in `docker-compose.yml` file
 
 28. `docker-compose up --build`: Re-build your docker image and then run images in `docker-compose.yml` file
- 
+
 29. `docker-compose up -d`: Launch in background
 
 30. `docker-compose -f docker-compose.json up`: Run docker-compose with a different fileName
 
-docker-compose down - stop containers
+31. `docker-compose down`: Stop containers
 
-docker-compose ps - list all containers running within docker-compose.yml file. Wud throw an err if it doesnt find  docker-compose.yml in your pwd
+32. `docker-compose ps`: List all containers running within `docker-compose.yml` file. It would throw an err if it doesn't find `docker-compose.yml` in your pwd.
 
-docker Quickstart (recommended)
-docker run -it -p 3000:3000 -v /app/node_modules -v ${PWD}:/app -e CHOKIDAR_USEPOLLING=true CONTAINER_ID
-GitBash
-winpty docker run -it -p 3000:3000 -v /app/node_modules -v "/$(PWD)":/app -e CHOKIDAR_USEPOLLING=true CONTAINER_ID
-PowerShell
-docker run -it -p 3000:3000 -v /app/node_modules -v /c/Users/username/frontend:/app -e CHOKIDAR_USEPOLLING=true CONTAINER_ID
-	To start react app docker container for windows
-docker run -p 3000:3000 -v app/node_modules -v $(pwd):/app <container-id>
+33. `docker run -it <container-id> npm run test -- --coverage`: To override the default command. “-- --coverage” is to exit the program after all tests executed. If flag not specified, it will wait for user input to proceed further. 
 
-To run and reload react app on change in src code. v app/node_modules means put a bookmark on the node_modules folder. -v $(pwd):/app means map the pwd into the ‘/app’ folder so that we dont hav to re-build everytime the app code is modified.
+34. `docker attach <container-id>`: Stdin to the default process of the container
 
-docker run -it <container-id> npm run test -- --coverage - to override default cmd. “-- --coverage” is to exit the program after all tests executed. If flag not specified, it will wait for user input to proceed further. 
+35.  `docker run -p <ur-port-no>:80 <container-id>` - To run static content hosted on nginx. The default port nginx uses is 80.  Now open localhost:<ur-port-no> and run the app.
 
-docker attach <container-id> - stdin to the default process of the container
+## Docker Volumes
 
-docker run -p <ur-port-no>:80 <container-id> - to run static content hosted on nginx. The default port nginx uses is 80.  Now open localhost:<ur-port-no> and run the app.
+`docker run -p 3000:3000 -v app/node_modules -v $(pwd):/app <container-id>`
+
+To run and reload react app on change in src code. `-v app/node_modules` means put a bookmark on the `node_modules` folder. `-v $(pwd):/app` means map the pwd into the **/app** folder so that we don't have to re-build everytime the app code is modified.
 
 
-KUBERNETES COMMANDS
+# KUBERNETES
 
-Kubectl apply -f filename.yml - configure and start your k8 cluster
+1.  `kubectl apply -f filename.yml`: Configure and start your k8 cluster
 
-Kubetcl apply -f k8s - if your folder named k8s has multiple files, using this cmd we can run all of these at once.
+2.  `kubetcl apply -f k8s`: If your folder named k8s has multiple files, using this cmd we can run all of these at once.
 
-Kubectl get pods - gets list of running pods ( kind: Pod )
+3.  `kubectl get pods`: List running pods
 
-Kubectl get services - gets list of running services  ( kind: Service )
+4.  `kubectl get services`: List running services
 
-minikube ip - ip of the running k8 cluster, in dev, won’t run on localhost, but wud run on this IP
-Minikube start
+5.  `minikube ip`: IP of the running k8 cluster, in dev, won’t run on localhost, but wud run on this IP
 
-Kubectl describe <obj-type> <obj-name> - get info about that cluster.  
-Eg. kubectl describe pod client-pod 
+6.  `minikube start`
 
-      8.  Kubectl delete -f filename.yml - delete your running k8 cluster
+7.  `kubectl describe <obj-type> <obj-name>`: Get info about that cluster.
+    Eg. `kubectl describe pod client-pod` 
 
-      9.  kubectl get <obj-type> - get instances running, eg. kubectl get deployments
+8.  `kubectl delete -f filename.yml`: Delete your running k8 cluster
 
-    10. Kubectl set image <obj-type> / <obj-name> <container-name> = <new-img> - 
-          configure   to use newer/specific version of an image. 
-          Eg: kubectl set image deployment/client-deployment client=latestimg:v5
+9.  `kubectl get <obj-type>`: Get instances running, eg. `kubectl get deployments`
 
-     11. Eval $(minikube docker-env) - reconfigure docker env in the current terminal, wud list 
-           all  containers running, by running docker ps after this command
+10. `kubectl set image <obj-type> / <obj-name> <container-name> = <new-img>`: Configure to use newer/specific version of an image. 
 
-     12. minikube docker-env - import docker vars into minkube, substitute of the above cmd
+    Eg: `kubectl set image deployment/client-deployment client=latestimg:v5`
 
-     13. Kubectl get storageclass -  shows options to create persistent volumes
- 
-     14. Kubectl get pv - shows list of persistent volumes 
+11. `eval $(minikube docker-env)`: Reconfigure docker env in the current terminal, would list all containers running, by running `docker ps` after this command.
 
-     15. Kubectl create secret <type-of-secret> <secret-name> --from-literal key=value -   
-           generate a secret env variable, esp passwords.
-           Eg: kubectl create secret generic pgpassword --from-literal    
-           MYPASSWORD=Passowrd123 
-           Then retrieve it using kubectl get secrets
-   
-    16. Minikube dashboard - open active clusters and pods in browser
+12. `minikube docker-env`: Import docker vars into minkube, substitute of the above cmd
+
+13. `kubectl get storageclass`:  Shows options to create persistent volumes
+
+14. `kubectl get pv`: Shows list of persistent volumes 
+
+15. `kubectl create secret <type-of-secret> <secret-name> --from-literal key=value`:  Generate a secret env variable, esp passwords. Fo example,
+    ```
+    kubectl create secret generic pgpassword --from-literal MYPASSWORD=Passowrd123
+    ```
+    Then retrieve it using `kubectl get secrets`
+
+16. `minikube dashboard`: Open active clusters and pods in browser
 
 
 
