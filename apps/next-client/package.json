@@ -36,7 +36,7 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
     "@nish1896/eslint-flat-config": "^1.1.4",
     "@sentry/cli": "^2.42.1",
     "@types/mixpanel-browser": "^2.51.0",
