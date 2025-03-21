@@ -4,7 +4,7 @@ import { PersonModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
 
 type RequestParams = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 /**
@@ -12,7 +12,7 @@ type RequestParams = {
  * @param param1 - Request Params
  */
 export async function GET(request: NextRequest, { params }: RequestParams) {
-  const { id } = params;
+  const { id } = await params;
   try {
     await mongoDB.connect();
     const personDetails = await PersonModel.findOne({

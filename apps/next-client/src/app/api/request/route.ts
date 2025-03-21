@@ -1,13 +1,12 @@
 import { cookies, headers } from 'next/headers';
 
-/* For Next 15, both cookies and headers require await. */
-export function GET() {
-  const cookieStore = cookies();
+export async function GET() {
+  const cookieStore = await cookies();
   const token = cookieStore.get('token');
   // Returns "undefined" if the cookie is not found
   console.log('token: ', token);
 
-  const headersList = headers();
+  const headersList = await headers();
   const referer = headersList.get('12232referer122');
   // Returns "null" for missing headers
   console.log('referer: ', referer);
