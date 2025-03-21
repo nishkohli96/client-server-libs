@@ -7,6 +7,9 @@
     "apps/*",
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "scripts": {
     "prepare": "husky",
     "lib": "turbo run lib:build",

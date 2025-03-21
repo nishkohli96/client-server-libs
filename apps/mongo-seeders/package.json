@@ -18,7 +18,7 @@
 		"mongoose": "^8.7.2"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
+    "@types/node": "^22.13.10",
     "tsc-alias": "^1.8.10",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
