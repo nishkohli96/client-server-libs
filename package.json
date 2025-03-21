@@ -33,9 +33,6 @@
   "lint-staged": {
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
     ]
   },
   "packageManager": "yarn@1.22.22"
