@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';
 import MenuItem from '@mui/material/MenuItem';
-import variables from './styles.module.scss';
 
 type Pokemon = {
   name: string;
@@ -45,7 +44,7 @@ export default async function PokemonList() {
 
   return (
     <main>
-      <p style={{ color: variables.primaryColor }}>
+      <p style={{ color: '#64ff00' }}>
         {`Selected locale: ${locale}`}
       </p>
       <p>

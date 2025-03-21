@@ -27,7 +27,7 @@ const Pagination = ({
       count={pageCount}
       page={page + 1}
       onChange={(event, newPage) => {
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
+        // @ts-ignore
         onPageChange(event as any, newPage - 1);
       }}
     />

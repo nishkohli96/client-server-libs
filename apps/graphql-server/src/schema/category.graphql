@@ -1,0 +1,16 @@
+type CategorySchema {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  getCategories: [CategorySchema!]!
+}
+
+type Mutation {
+  createCategory(categoryName: String!): CategorySchema!
+}
+
+type Subscription {
+  categoryAdded: CategorySchema!
+}

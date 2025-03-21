@@ -1,0 +1,70 @@
+scalar DateTimeISO
+scalar UUID
+
+enum OrderStatus {
+  CREATED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentOption {
+  CARD
+  PAYPAL
+}
+
+type CreditCardSchema {
+  type: PaymentOption!
+  cardNumber: String!
+  expiryDate: String!
+}
+
+input CreditCardInput {
+  type: PaymentOption!
+  cardNumber: String!
+  expiryDate: String!
+}
+
+type PayPalSchema {
+  type: PaymentOption!
+  email: EmailAddress!
+}
+
+input PayPalInput {
+  type: PaymentOption!
+  email: EmailAddress!
+}
+
+input PaymentMethodInput {
+  card: CreditCardInput
+  paypal: PayPalInput
+}
+
+input OrderInput {
+  customerId: ObjectID!
+  productIds: [ID!]!
+  paymentMethod: PaymentMethodInput!
+  amount: Float!
+}
+
+union PaymentMethod = CreditCardSchema | PayPalSchema
+
+type OrderSchema {
+  id: UUID!
+  customer: AdminOrCustomerSchema!
+  products: [ProductSchema!]!
+  totalAmount: Float!
+  status: OrderStatus!
+  payment: PaymentMethod!
+  createdAt: DateTimeISO!
+}
+
+type Query {
+  getOrders: [OrderSchema!]!
+  getOrderById(orderId: UUID!): OrderSchema
+  getCustomerOrders(customerId: ObjectID!): [OrderSchema!]!
+}
+
+type Mutation {
+  placeOrder(orderDetails: OrderInput!): Boolean!
+}
