@@ -5,12 +5,12 @@ import { toast } from 'react-toastify';
 import Link from '@mui/material/Link';
 import {
   GridActionsCellItem,
-  GridColDef,
-  GridFilterModel,
-  GridPaginationModel,
-  GridRowParams,
-  GridRowsProp,
-  GridSortItem,
+  type GridColDef,
+  type GridFilterModel,
+  type GridPaginationModel,
+  type GridRowParams,
+  type GridRowsProp,
+  type GridSortItem,
   getGridStringOperators
 } from '@mui/x-data-grid';
 import { Gender } from '@csl/mongo-models';
@@ -18,7 +18,7 @@ import { ArrayFilters, StringFilters } from '@csl/react-express';
 import { deletePerson } from 'api/services';
 import { DataTable, CenterContainer, ConfirmationDialog } from 'components';
 import RouteNames from 'routes/route-names';
-import { PersonDetails, PersonDetailsRow } from 'types';
+import { type PersonDetails, type PersonDetailsRow } from 'types';
 import { getPersonRecordIndex } from 'utils';
 import { Avatar, GenderIcon, EditIcon, DeleteIcon } from '.';
 
@@ -84,7 +84,7 @@ const PeopleDataGrid = ({
     )
   );
 
-  const peopleTableColumns: GridColDef[] = [
+  const peopleTableColumns: GridColDef<PersonDetailsRow>[] = [
     {
       field: 'id',
       headerName: 'S. No.',
@@ -183,13 +183,13 @@ const PeopleDataGrid = ({
       headerAlign: 'left',
       align: 'left',
       minWidth: 120,
-      valueFormatter: value => value ? `₹ ${value}` : null
+      valueFormatter: value => value ? `₹ ${String(value)}` : null
     },
     {
       field: 'actions',
       type: 'actions',
       maxWidth: 70,
-      getActions: (params: GridRowParams) => [
+      getActions: params => [
         <GridActionsCellItem
           key="edit"
           icon={<EditIcon />}

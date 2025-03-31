@@ -1,7 +1,7 @@
 import {
-  ChangeEvent,
+  type ChangeEvent,
   useCallback,
-  DragEvent,
+  type DragEvent,
   useState,
   useEffect
 } from 'react';
@@ -20,7 +20,7 @@ type FileUploaderProps = {
   allowedFileTypes?: string;
   errorMessage?: string;
   height?: string;
-  anyFileType?: boolean
+  anyFileType?: boolean;
 };
 
 export default function FileUploader({

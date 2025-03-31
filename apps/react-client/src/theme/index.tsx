@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { PaletteMode } from '@mui/material/styles/createPalette';
+import { type PaletteMode } from '@mui/material/styles/createPalette';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
-import { LayoutProps } from 'types';
+import { type LayoutProps } from 'types';
 import { getTheme } from './theme';
 
 interface ThemeContextProps {

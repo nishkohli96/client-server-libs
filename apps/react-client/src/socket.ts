@@ -1,7 +1,7 @@
 /* https://socket.io/how-to/use-with-react */
 
-import { io, Socket } from 'socket.io-client';
-import { ServerToClientEvents, ClientToServerEvents } from '@csl/react-express';
+import { io, type Socket } from 'socket.io-client';
+import { type ServerToClientEvents, type ClientToServerEvents } from '@csl/react-express';
 import { ENV_VARS } from 'app-constants';
 
 /**

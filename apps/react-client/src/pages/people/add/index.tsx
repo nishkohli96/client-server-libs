@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { PersonInfo } from '@csl/mongo-models';
+import { type PersonInfo } from '@csl/mongo-models';
 import { createPerson } from 'api/services';
 import RouteNames from 'routes/route-names';
 import { PersonForm } from '../components';

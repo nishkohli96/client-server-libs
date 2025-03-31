@@ -11,16 +11,16 @@ import RHFTextField from '@nish1896/rhf-mui-components/mui/textfield';
 import RHFCountrySelect from '@nish1896/rhf-mui-components/mui/country-select';
 import RHFRadioGroup from '@nish1896/rhf-mui-components/mui/radio-group';
 import RHFDatePicker from '@nish1896/rhf-mui-components/mui-pickers/date';
-import { PersonInfo, Gender } from '@csl/mongo-models';
+import { type PersonInfo, Gender } from '@csl/mongo-models';
 import { PageLayout } from 'components';
 import { reqdErrorMsg, minLengthErrMsg } from './helpers';
 
 type PersonFormProps = {
-  title: string
+  title: string;
   initialValues?: PersonInfo;
   disabled?: boolean;
   onFormSubmit?: (fieldValues: PersonInfo) => void;
-}
+};
 
 const PersonForm = ({
   title,

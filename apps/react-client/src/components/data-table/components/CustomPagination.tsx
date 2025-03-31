@@ -5,12 +5,12 @@
 import {
   gridPageCountSelector,
   GridPagination,
-  PaginationPropsOverrides,
+  type PaginationPropsOverrides,
   useGridApiContext,
   useGridSelector
 } from '@mui/x-data-grid';
 import MuiPagination from '@mui/material/Pagination';
-import { TablePaginationProps } from '@mui/material/TablePagination';
+import { type TablePaginationProps } from '@mui/material/TablePagination';
 
 const Pagination = ({
   page,
@@ -28,7 +28,7 @@ const Pagination = ({
       page={page + 1}
       onChange={(event, newPage) => {
         // @ts-ignore
-        onPageChange(event as any, newPage - 1);
+        onPageChange(event, newPage - 1);
       }}
     />
   );
