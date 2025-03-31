@@ -1,5 +1,5 @@
 import { categories } from '@/data';
-import { QueryResolvers, MutationResolvers } from '@/types';
+import { type QueryResolvers, type MutationResolvers } from '@/types';
 
 type CategoryQueryResolver = Pick<QueryResolvers, 'getCategories'>;
 type CategoryMutation = Pick<MutationResolvers, 'createCategory'>;

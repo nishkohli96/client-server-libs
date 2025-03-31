@@ -1,8 +1,8 @@
-import { OrderStatus, PaymentMethod } from '@/types';
+import { type OrderStatus, type PaymentMethod } from '@/types';
 
 export type Category = {
   id: string;
-  name: string
+  name: string;
 };
 
 export type Product = {

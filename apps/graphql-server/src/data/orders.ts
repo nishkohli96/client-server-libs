@@ -1,4 +1,4 @@
-import { Order, OrderStatus, PaymentOption } from '@/types';
+import { type Order, OrderStatus, PaymentOption } from '@/types';
 
 export const orders: Order[] = [
   {

@@ -1,12 +1,12 @@
 import { v6 as UUIDv6 } from 'uuid';
 import { orders, users, products } from '@/data';
 import {
-  QueryGetOrderByIdArgs,
-  QueryGetCustomerOrdersArgs,
-  Order,
-  CreditCardSchema,
-  PayPalSchema,
-  MutationResolvers,
+  type QueryGetOrderByIdArgs,
+  type QueryGetCustomerOrdersArgs,
+  type Order,
+  type CreditCardSchema,
+  type PayPalSchema,
+  type MutationResolvers,
   OrderStatus
 } from '@/types';
 

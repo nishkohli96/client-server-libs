@@ -1,10 +1,10 @@
 import { Types } from 'mongoose';
 import { users } from '@/data';
 import {
-  AdminSchema,
-  CustomerSchema,
-  QueryResolvers,
-  MutationResolvers,
+  type AdminSchema,
+  type CustomerSchema,
+  type QueryResolvers,
+  type MutationResolvers,
   UserRole
 } from '@/types';
 
@@ -28,6 +28,7 @@ const userMutation: UserMutation = {
     const { type, name, email, manager, address } = args.userInfo;
 
     if (type !== UserRole.Admin && type !== UserRole.Customer) {
+      /* eslint-disable @typescript-eslint/restrict-template-expressions */
       throw new Error(`Invalid type: ${type}. Must be "${UserRole.Admin}" or "${UserRole.Customer}".`);
     }
     const newUserId = new Types.ObjectId().toString();

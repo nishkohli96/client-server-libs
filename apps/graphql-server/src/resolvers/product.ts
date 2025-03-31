@@ -1,9 +1,9 @@
 import { categories, products } from '@/data';
 import {
-  Product,
-  QueryGetProductByIdArgs,
-  MutationResolvers,
-  ProductSchema,
+  type Product,
+  type QueryGetProductByIdArgs,
+  type MutationResolvers,
+  type ProductSchema,
 } from '@/types';
 
 type ProductMutation = Pick<MutationResolvers, 'createProduct'>;

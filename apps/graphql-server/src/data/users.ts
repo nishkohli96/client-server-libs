@@ -1,4 +1,4 @@
-import { AdminOrCustomerSchema, Countries } from '@/types';
+import { type AdminOrCustomerSchema, Countries } from '@/types';
 
 export const users: AdminOrCustomerSchema[] = [
   {
