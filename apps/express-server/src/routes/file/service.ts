@@ -195,7 +195,7 @@ class FileService {
     const ffMpeg = ffmpeg();
     let complexFilter = '';
     const start = moment();
-    winstonLogger.info(`start: ${start}`);
+    winstonLogger.info(`start: ${start.toString()}`);
 
     /**
      * Can read files from a directory and make sure to resolve the path
@@ -230,7 +230,7 @@ class FileService {
         })
         .on('end', () => {
           const end = moment();
-          winstonLogger.info(`end: ${end}`);
+          winstonLogger.info(`end: ${end.toString()}`);
           const diff = end.diff(start, 'seconds');
           winstonLogger.info(`diff: ${diff}`);
           return res.send(`Merged in ${diff} seconds`);

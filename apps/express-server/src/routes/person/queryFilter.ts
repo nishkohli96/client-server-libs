@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /**
  * Helper class to generate query condition for MongoDB document
  * based on the filter applied from MUI Grid. The applied filter
