@@ -1,24 +1,24 @@
-import { type GraphQLResolveInfo, type GraphQLScalarType, type GraphQLScalarTypeConfig } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends Record<string, unknown>, K extends keyof T> = Partial<Record<K, never>>;
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTimeISO: { input: string; output: string };
-  EmailAddress: { input: string; output: string };
-  ObjectID: { input: string; output: string };
-  UUID: { input: string; output: string };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTimeISO: { input: string; output: string; }
+  EmailAddress: { input: string; output: string; }
+  ObjectID: { input: string; output: string; }
+  UUID: { input: string; output: string; }
 };
 
 export type AddressSchema = {
@@ -119,7 +119,7 @@ export type OrderInput = {
   amount: Scalars['Float']['input'];
   customerId: Scalars['ObjectID']['input'];
   paymentMethod: PaymentMethodInput;
-  productIds: Scalars['ID']['input'][];
+  productIds: Array<Scalars['ID']['input']>;
 };
 
 export type OrderSchema = {
@@ -128,7 +128,7 @@ export type OrderSchema = {
   customer: AdminOrCustomerSchema;
   id: Scalars['UUID']['output'];
   payment: PaymentMethod;
-  products: ProductSchema[];
+  products: Array<ProductSchema>;
   status: OrderStatus;
   totalAmount: Scalars['Float']['output'];
 };
@@ -181,14 +181,14 @@ export type ProductSchema = {
 
 export type Query = {
   __typename?: 'Query';
-  getCategories: CategorySchema[];
-  getCustomerOrders: OrderSchema[];
+  getCategories: Array<CategorySchema>;
+  getCustomerOrders: Array<OrderSchema>;
   getOrderById?: Maybe<OrderSchema>;
-  getOrders: OrderSchema[];
+  getOrders: Array<OrderSchema>;
   getProductById?: Maybe<ProductSchema>;
-  getProducts: ProductSchema[];
+  getProducts: Array<ProductSchema>;
   getUserById?: Maybe<AdminOrCustomerSchema>;
-  getUsers: AdminOrCustomerSchema[];
+  getUsers: Array<AdminOrCustomerSchema>;
 };
 
 
@@ -236,6 +236,7 @@ export type UserSchema = {
 };
 
 
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
@@ -266,8 +267,8 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
 ) => TResult | Promise<TResult>;
 
 export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<Record<TKey, TResult>, TParent, TContext, TArgs>;
-  resolve?: SubscriptionResolveFn<TResult, Record<TKey, TResult>, TContext, TArgs>;
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -331,7 +332,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   ObjectID: ResolverTypeWrapper<Scalars['ObjectID']['output']>;
   OrderInput: OrderInput;
-  OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversTypes['AdminOrCustomerSchema']; payment: ResolversTypes['PaymentMethod'] }>;
+  OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversTypes['AdminOrCustomerSchema'], payment: ResolversTypes['PaymentMethod'] }>;
   OrderStatus: OrderStatus;
   PayPalInput: PayPalInput;
   PayPalSchema: ResolverTypeWrapper<PayPalSchema>;
@@ -367,7 +368,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   ObjectID: Scalars['ObjectID']['output'];
   OrderInput: OrderInput;
-  OrderSchema: Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversParentTypes['AdminOrCustomerSchema']; payment: ResolversParentTypes['PaymentMethod'] };
+  OrderSchema: Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversParentTypes['AdminOrCustomerSchema'], payment: ResolversParentTypes['PaymentMethod'] };
   PayPalInput: PayPalInput;
   PayPalSchema: PayPalSchema;
   PaymentMethod: ResolversUnionTypes<ResolversParentTypes>['PaymentMethod'];
@@ -449,7 +450,7 @@ export type OrderSchemaResolvers<ContextType = any, ParentType extends Resolvers
   customer?: Resolver<ResolversTypes['AdminOrCustomerSchema'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
   payment?: Resolver<ResolversTypes['PaymentMethod'], ParentType, ContextType>;
-  products?: Resolver<ResolversTypes['ProductSchema'][], ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['OrderStatus'], ParentType, ContextType>;
   totalAmount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -475,18 +476,18 @@ export type ProductSchemaResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getCategories?: Resolver<ResolversTypes['CategorySchema'][], ParentType, ContextType>;
-  getCustomerOrders?: Resolver<ResolversTypes['OrderSchema'][], ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
+  getCategories?: Resolver<Array<ResolversTypes['CategorySchema']>, ParentType, ContextType>;
+  getCustomerOrders?: Resolver<Array<ResolversTypes['OrderSchema']>, ParentType, ContextType, RequireFields<QueryGetCustomerOrdersArgs, 'customerId'>>;
   getOrderById?: Resolver<Maybe<ResolversTypes['OrderSchema']>, ParentType, ContextType, RequireFields<QueryGetOrderByIdArgs, 'orderId'>>;
-  getOrders?: Resolver<ResolversTypes['OrderSchema'][], ParentType, ContextType>;
+  getOrders?: Resolver<Array<ResolversTypes['OrderSchema']>, ParentType, ContextType>;
   getProductById?: Resolver<Maybe<ResolversTypes['ProductSchema']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'productId'>>;
-  getProducts?: Resolver<ResolversTypes['ProductSchema'][], ParentType, ContextType>;
+  getProducts?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
   getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
-  getUsers?: Resolver<ResolversTypes['AdminOrCustomerSchema'][], ParentType, ContextType>;
+  getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  categoryAdded?: SubscriptionResolver<ResolversTypes['CategorySchema'], 'categoryAdded', ParentType, ContextType>;
+  categoryAdded?: SubscriptionResolver<ResolversTypes['CategorySchema'], "categoryAdded", ParentType, ContextType>;
 };
 
 export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {

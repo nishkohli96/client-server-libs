@@ -6,7 +6,7 @@ export default [
   ...tsConfig,
   {
     ignores: [
-      './src/types/graphql.ts'
+      'src/types/graphql.ts'
     ]
   }
 ];
