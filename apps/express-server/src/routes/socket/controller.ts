@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import socketService from './service';
 

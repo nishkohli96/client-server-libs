@@ -1,6 +1,6 @@
 export type SScanResult = {
   cursor: number;
-  members: string[]
+  members: string[];
 };
 
 export type SortedSetMember = {
@@ -11,4 +11,4 @@ export type SortedSetMember = {
 export type ZScanResult = {
   cursor: number;
   members: SortedSetMember[];
-}
+};

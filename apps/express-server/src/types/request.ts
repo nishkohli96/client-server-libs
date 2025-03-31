@@ -1,4 +1,4 @@
-import { FilterOperator } from '@csl/react-express';
+import { type FilterOperator } from '@csl/react-express';
 
 export enum SortDirection {
   Asc = 1,
@@ -8,7 +8,7 @@ export enum SortDirection {
 export type SortConfig<T> = {
   key: T;
   direction: SortDirection;
-}
+};
 
 export type RequestQueryParams<SortKeys> = {
   records_per_page?: string;
@@ -20,9 +20,9 @@ export type RequestQueryParams<SortKeys> = {
   field?: string;
   value?: string | number | Date;
   operator?: FilterOperator;
-}
+};
 
 export type PaginationConfig = {
   records_per_page: number;
   page: number;
-}
+};

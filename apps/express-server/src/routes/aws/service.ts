@@ -1,6 +1,6 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import Papa from 'papaparse';
-import { Readable } from 'stream';
+import { type Readable } from 'stream';
 import { ENV_VARS } from '@/app-constants';
 import {
   s3Client,
@@ -10,7 +10,7 @@ import {
 } from '@/aws';
 import { uploadFileToS3 } from '@csl/react-express';
 import { sendErrorResponse } from '@/utils';
-import * as AwsTypeDefs from './types';
+import type * as AwsTypeDefs from './types';
 
 class AwsService {
   async getUploadPreSignedUrl(

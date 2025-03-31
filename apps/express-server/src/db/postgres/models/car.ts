@@ -1,6 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes,
+} from 'sequelize';
 import { v6 as UUIDv6 } from 'uuid';
 import { postgreSequelize } from '@/db/postgres';
 import { isUUIDv6 } from '@/utils';

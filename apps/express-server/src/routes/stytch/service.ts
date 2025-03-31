@@ -1,7 +1,7 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import * as Stytch from '@/stytch';
 import { sendErrorResponse } from '@/utils';
-import * as StytchTypes from './types';
+import type * as StytchTypes from './types';
 
 class StytchService {
   /**

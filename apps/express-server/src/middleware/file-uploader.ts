@@ -1,7 +1,7 @@
-import { Request } from 'express';
+import { type Request } from 'express';
 import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
-import multer, { FileFilterCallback } from 'multer';
+import multer, { type FileFilterCallback } from 'multer';
 import { ServerConfig } from '@/app-constants';
 
 const fileFilter = (allowedFileTypes?: string[]) => {

@@ -3,16 +3,16 @@
 import {
   DynamoDBClient,
   PutItemCommand,
-  PutItemCommandInput,
+  type PutItemCommandInput,
   GetItemCommand,
-  GetItemCommandInput,
+  type GetItemCommandInput,
   QueryCommand,
-  QueryCommandInput,
+  type QueryCommandInput,
   UpdateItemCommand,
-  UpdateItemCommandInput,
+  type UpdateItemCommandInput,
   DeleteItemCommand,
-  DeleteItemCommandInput,
-  AttributeValue
+  type DeleteItemCommandInput,
+  type AttributeValue
 } from '@aws-sdk/client-dynamodb';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';

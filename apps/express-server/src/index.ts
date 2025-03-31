@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { connect, disconnect } from 'mongoose';
 import { Server } from 'socket.io';
 import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  InterServerEvents,
-  SocketData
+  type ClientToServerEvents,
+  type ServerToClientEvents,
+  type InterServerEvents,
+  type SocketData
 } from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
 import { loadSSMParameters } from '@/aws';

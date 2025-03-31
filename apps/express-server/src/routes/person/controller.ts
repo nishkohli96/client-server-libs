@@ -1,6 +1,6 @@
-import { Response, Router } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import * as PersonTypes from './types';
+import type * as PersonTypes from './types';
 import personService from './service';
 
 const personRouter = Router();

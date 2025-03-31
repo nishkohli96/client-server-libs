@@ -1,20 +1,20 @@
 /* https://www.npmjs.com/package/@aws-sdk/client-sqs */
-/* eslint-disable no-await-in-loop */
+
 
 import {
   SQSClient,
   ListQueuesCommand,
   SendMessageCommand,
-  SendMessageCommandInput,
+  type SendMessageCommandInput,
   ReceiveMessageCommand,
-  ReceiveMessageCommandInput,
+  type ReceiveMessageCommandInput,
   DeleteMessageCommand,
-  DeleteMessageCommandInput,
+  type DeleteMessageCommandInput,
   SendMessageBatchCommand,
-  SendMessageBatchCommandInput,
-  DeleteMessageBatchCommandInput,
+  type SendMessageBatchCommandInput,
+  type DeleteMessageBatchCommandInput,
   DeleteMessageBatchCommand,
-  Message,
+  type Message,
 } from '@aws-sdk/client-sqs';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';

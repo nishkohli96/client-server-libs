@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { type Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { awsRouter } from './aws/controller';
 import { buyerRouter } from './buyer/controller';
@@ -13,7 +13,7 @@ import { userRouter } from './user/controller';
 type RouteInfo = {
   rootPath: string;
   router: Router;
-}
+};
 
 export const routesArray: RouteInfo[] = [
   {

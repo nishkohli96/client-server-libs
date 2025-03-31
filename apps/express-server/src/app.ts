@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import * as Sentry from '@sentry/node';
@@ -8,7 +8,7 @@ import { requestLogger } from '@/middleware';
 import { routesArray } from '@/routes';
 import { io } from '.';
 
-const app: Express = express();
+const app = express();
 
 function generatePath(routeName: string): string {
   return `${ExpressServerEndpoints.apiPrefix}${routeName}`;

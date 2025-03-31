@@ -3,7 +3,7 @@
 import {
   LambdaClient,
   InvokeCommand,
-  InvokeCommandInput
+  type InvokeCommandInput
 } from '@aws-sdk/client-lambda';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';

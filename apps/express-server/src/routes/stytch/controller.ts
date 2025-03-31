@@ -1,8 +1,8 @@
-import { Request, Response, Router } from 'express';
+import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS } from '@/app-constants';
 import stytchService from './service';
-import * as StytchTypes from './types';
+import type * as StytchTypes from './types';
 
 const stytchRouter = Router();
 const subRoutes = ExpressServerEndpoints.stytch.subRoutes;

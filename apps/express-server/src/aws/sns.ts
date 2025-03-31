@@ -2,15 +2,15 @@
 
 import {
   SNSClient,
-  Topic,
-  Subscription,
+  type Topic,
+  type Subscription,
   ListTopicsCommand,
-  ListTopicsCommandInput,
+  type ListTopicsCommandInput,
   ListSubscriptionsCommand,
-  ListSubscriptionsCommandInput,
+  type ListSubscriptionsCommandInput,
   PublishBatchCommand,
-  PublishBatchCommandInput,
-  PublishBatchRequestEntry,
+  type PublishBatchCommandInput,
+  type PublishBatchRequestEntry,
 } from '@aws-sdk/client-sns';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -90,7 +90,7 @@ export async function listSNSSubscriptions() {
 */
 export async function publishBatchNotifications(
   topicArn: string,
-  payload: Array<string | object>
+  payload: (string | object)[]
 ) {
   try {
     const batchEntries: PublishBatchRequestEntry[] = payload.map((item, idx) => {

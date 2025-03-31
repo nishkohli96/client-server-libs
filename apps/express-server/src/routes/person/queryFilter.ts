@@ -7,16 +7,16 @@
  * - value: value to compare against
  */
 import moment from 'moment';
-import { FilterQuery } from 'mongoose';
+import { type FilterQuery } from 'mongoose';
 import {
   GenericFilters,
   StringFilters,
   DateFilters,
   NumberFilters,
   ArrayFilters,
-  FilterOperator
+  type FilterOperator
 } from '@csl/react-express';
-import { PersonModel } from '@csl/mongo-models';
+import { type PersonModel } from '@csl/mongo-models';
 
 type FilterValue = string | number | Date;
 

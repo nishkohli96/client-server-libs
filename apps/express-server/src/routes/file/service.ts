@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import {
   createWriteStream,
   existsSync,
@@ -15,6 +15,7 @@ import moment from 'moment';
 import ffmpeg from 'fluent-ffmpeg';
 import { ServerConfig } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
+
 class FileService {
   multerDirs = ServerConfig.multer.dirs;
 

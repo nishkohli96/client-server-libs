@@ -1,6 +1,6 @@
 import { winstonLogger } from '@/middleware';
 import { redisClient } from '@/redis';
-import { SortedSetMember, SScanResult, ZScanResult } from '@/types';
+import { type SortedSetMember, type SScanResult, type ZScanResult } from '@/types';
 import { printObject } from '@/utils';
 
 /**
