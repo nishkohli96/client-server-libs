@@ -213,12 +213,7 @@ export type QueryGetUserByIdArgs = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  orderUpdated: OrderSchema;
-};
-
-
-export type SubscriptionOrderUpdatedArgs = {
-  orderId: Scalars['ID']['input'];
+  categoryAdded: CategorySchema;
 };
 
 export type UserInput = {
@@ -492,7 +487,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  orderUpdated?: SubscriptionResolver<ResolversTypes['OrderSchema'], "orderUpdated", ParentType, ContextType, RequireFields<SubscriptionOrderUpdatedArgs, 'orderId'>>;
+  categoryAdded?: SubscriptionResolver<ResolversTypes['CategorySchema'], "categoryAdded", ParentType, ContextType>;
 };
 
 export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {

@@ -117,8 +117,10 @@ const FilesUploadPage = () => {
           reject(new Error('FileReader result is not a string'));
         }
       };
-      /* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
-      reader.onerror = error => reject(error);
+      reader.onerror = error => {
+        console.log('error: ', error);
+        reject(new Error('FileReader encountered an error'));
+      };
       reader.readAsDataURL(file);
     });
   }
