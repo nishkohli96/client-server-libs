@@ -8,7 +8,7 @@
  * - A Server Component inside a Client Component does NOT
  *   automatically become a Client Component.
  */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { PageContent } from '@csl/shared-fe';
 import { OnlineStatusWrapper } from '@/components';
 

@@ -4,7 +4,7 @@ import { pokeApi } from '@/axios/pokeApi';
 
 type IDParams = {
   params: Promise<{ id: string }>;
-}
+};
 
 /**
  * Dynamically generated metadata for the page.

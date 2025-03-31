@@ -1,4 +1,4 @@
-import { ReactNode, ComponentProps } from 'react';
+import { type ReactNode, type ComponentProps } from 'react';
 import Button from '@mui/material/Button';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from '@/i18n/routing';

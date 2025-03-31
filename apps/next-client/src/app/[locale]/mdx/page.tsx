@@ -7,11 +7,11 @@
  */
 
 import { notFound } from 'next/navigation';
-import { Locales } from '@/types';
+import { type Locales } from '@/types';
 
 type MDXPageProps = {
   params: Promise<{ locale: Locales }>;
-}
+};
 
 export default async function MDXPage({ params }: MDXPageProps) {
   try {

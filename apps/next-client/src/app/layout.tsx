@@ -2,7 +2,7 @@
  * Code Reference -
  * https://github.com/amannn/next-intl/tree/main/examples/example-app-router/src/app
  */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import './globals.css';
 
 type Props = {

@@ -3,10 +3,10 @@
 import { useTransition } from 'react';
 import { useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { routing, usePathname, useRouter } from '@/i18n/routing';
-import { Locales } from '@/types';
+import { type Locales } from '@/types';
 
 export default function LocaleSwitcher() {
   const router = useRouter();
