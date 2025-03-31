@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement } from 'react';
+import { type ReactNode, type ReactElement } from 'react';
 import Box from '@mui/material/Box';
 
 type PageContentProps = {

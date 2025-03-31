@@ -9,7 +9,7 @@
 
 'use client';
 
-import { Component, ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import { styles } from './styles';
 
 type ErrorBoundaryProps = { children: ReactNode };

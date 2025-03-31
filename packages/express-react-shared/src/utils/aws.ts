@@ -2,7 +2,7 @@ import axios from 'axios';
 
 type UploadS3FileProps = {
   preSignedUrl: string;
-  file: File
+  file: File;
 };
 
 /**
