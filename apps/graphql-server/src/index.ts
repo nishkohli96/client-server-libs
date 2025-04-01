@@ -52,14 +52,18 @@ async function bootstrap() {
     /**
      * You can share data throughout your server's resolvers
      * and plugins using the context like authentication scope,
-     * sources for fetching data etc.
+     * sources for fetching data like database.
      * Your async context function should async and return
      * an object. Refer:
      * https://www.apollographql.com/docs/apollo-server/data/context
+     * https://www.apollographql.com/docs/apollo-server/data/fetching-rest
      */
-    // context: async ({ req, res }) => ({
-    //   authScope: getScope(req.headers.authorization),
-    // }),
+    // context: async ({ req, res }) => {
+    //   const { cache } = server;
+    //   return ({
+    //     authScope: getScope(req.headers.authorization),
+    //   })
+    // }
   });
   console.log(`🚀  Server ready at: ${url}`);
 }

@@ -1,0 +1,20 @@
+enum RandomUserGender {
+	male
+	female
+}
+
+type RandomUserName {
+	title: String!
+	first: String!
+  last: String!
+}
+
+type RandomUser {
+  name: RandomUserName!
+	gender: RandomUserGender!
+	email: String!
+}
+
+type query {
+	getRandomUsers(numRecords: Int!): RandomUser!
+}

@@ -211,6 +211,25 @@ export type QueryGetUserByIdArgs = {
   id: Scalars['ObjectID']['input'];
 };
 
+export type RandomUser = {
+  __typename?: 'RandomUser';
+  email: Scalars['String']['output'];
+  gender: RandomUserGender;
+  name: RandomUserName;
+};
+
+export enum RandomUserGender {
+  Female = 'female',
+  Male = 'male'
+}
+
+export type RandomUserName = {
+  __typename?: 'RandomUserName';
+  first: Scalars['String']['output'];
+  last: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   categoryAdded: CategorySchema;
@@ -233,6 +252,16 @@ export type UserSchema = {
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   name: Scalars['String']['output'];
+};
+
+export type Query = {
+  __typename?: 'query';
+  getRandomUsers: RandomUser;
+};
+
+
+export type QueryGetRandomUsersArgs = {
+  numRecords: Scalars['Int']['input'];
 };
 
 
@@ -329,6 +358,7 @@ export type ResolversTypes = {
   EmailAddress: ResolverTypeWrapper<Scalars['EmailAddress']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ObjectID: ResolverTypeWrapper<Scalars['ObjectID']['output']>;
   OrderInput: OrderInput;
@@ -342,12 +372,16 @@ export type ResolversTypes = {
   ProductInput: ProductInput;
   ProductSchema: ResolverTypeWrapper<ProductSchema>;
   Query: ResolverTypeWrapper<{}>;
+  RandomUser: ResolverTypeWrapper<RandomUser>;
+  RandomUserGender: RandomUserGender;
+  RandomUserName: ResolverTypeWrapper<RandomUserName>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
   UserInput: UserInput;
   UserRole: UserRole;
   UserSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserSchema']>;
+  query: ResolverTypeWrapper<Query>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -365,6 +399,7 @@ export type ResolversParentTypes = {
   EmailAddress: Scalars['EmailAddress']['output'];
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   Mutation: {};
   ObjectID: Scalars['ObjectID']['output'];
   OrderInput: OrderInput;
@@ -376,11 +411,14 @@ export type ResolversParentTypes = {
   ProductInput: ProductInput;
   ProductSchema: ProductSchema;
   Query: {};
+  RandomUser: RandomUser;
+  RandomUserName: RandomUserName;
   String: Scalars['String']['output'];
   Subscription: {};
   UUID: Scalars['UUID']['output'];
   UserInput: UserInput;
   UserSchema: ResolversInterfaceTypes<ResolversParentTypes>['UserSchema'];
+  query: Query;
 };
 
 export type AddressSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddressSchema'] = ResolversParentTypes['AddressSchema']> = {
@@ -486,6 +524,20 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType>;
 };
 
+export type RandomUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['RandomUser'] = ResolversParentTypes['RandomUser']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  gender?: Resolver<ResolversTypes['RandomUserGender'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['RandomUserName'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type RandomUserNameResolvers<ContextType = any, ParentType extends ResolversParentTypes['RandomUserName'] = ResolversParentTypes['RandomUserName']> = {
+  first?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  last?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
   categoryAdded?: SubscriptionResolver<ResolversTypes['CategorySchema'], "categoryAdded", ParentType, ContextType>;
 };
@@ -499,6 +551,11 @@ export type UserSchemaResolvers<ContextType = any, ParentType extends ResolversP
   email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['query'] = ResolversParentTypes['query']> = {
+  getRandomUsers?: Resolver<ResolversTypes['RandomUser'], ParentType, ContextType, RequireFields<QueryGetRandomUsersArgs, 'numRecords'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -517,8 +574,11 @@ export type Resolvers<ContextType = any> = {
   PaymentMethod?: PaymentMethodResolvers<ContextType>;
   ProductSchema?: ProductSchemaResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  RandomUser?: RandomUserResolvers<ContextType>;
+  RandomUserName?: RandomUserNameResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   UUID?: GraphQLScalarType;
   UserSchema?: UserSchemaResolvers<ContextType>;
+  query?: QueryResolvers<ContextType>;
 };
 
