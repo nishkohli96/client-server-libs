@@ -1,15 +1,15 @@
-import RandomUserAPI from '@/api/randomuser';
+import type RandomUserAPI from '@/api/randomuser';
 import {
-	RandomUser,
-	type QueryResolvers as BaseQueryResolver,
-	type MutationResolvers as BaseMutationResolver,
+  type RandomUser,
+  type QueryResolvers as BaseQueryResolver,
+  type MutationResolvers as BaseMutationResolver,
 } from '@/types';
 
 export type GraphQLServerContext = {
   dataSources: {
     randomUserAPI: RandomUserAPI;
   };
-}
+};
 
 /**
  * Similarly define typed resolvers for both resolver types and use them,
@@ -22,4 +22,4 @@ export type GraphQLMutationResolver = BaseMutationResolver<GraphQLServerContext>
 export type RandomUserAPIResponse = {
 	results: RandomUser[];
 	info: object;
-}
+};

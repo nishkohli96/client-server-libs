@@ -6,12 +6,12 @@ type RandomUserQueryResolver = Pick<
 >;
 
 const randomUserQuery: RandomUserQueryResolver = {
-	getRandomUsers: async(_, args, { dataSources }) => {
-		const { numRecords } = args;
-		return await dataSources.randomUserAPI.getRandomUsers(numRecords);
-	},
+  getRandomUsers: async(_, args, { dataSources }) => {
+    const { numRecords } = args;
+    return await dataSources.randomUserAPI.getRandomUsers(numRecords);
+  },
 };
 
 export const randomUserResolver = {
-	Query: randomUserQuery,
+  Query: randomUserQuery,
 };

@@ -9,7 +9,7 @@ class RandomUserAPI extends RESTDataSource {
    * What all fields to include in the randomuser query.
    * https://randomuser.me/documentation#incexc
    */
-  includeFieldsQuery = '?inc=gender,name'
+  includeFieldsQuery = '?inc=gender,name';
   async getRandomUsers(limit: number) {
     const response = await this.get<RandomUserAPIResponse>(`${this.includeFieldsQuery}&results=${limit}`);
     return response.results;

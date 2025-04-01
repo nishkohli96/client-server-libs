@@ -13,7 +13,7 @@ import {
 import RandomUserAPI from '@/api/randomuser';
 import { resolvers } from '@/resolvers';
 import { typeDefs } from '@/schema';
-import { GraphQLServerContext } from '@/types';
+import { type GraphQLServerContext } from '@/types';
 
 /**
  * Make sure to also define the Scalars with their appropriate
@@ -56,11 +56,15 @@ async function bootstrap() {
      * and plugins using the context like authentication scope,
      * sources for fetching data like database.
      * Your async context function should async and return
-     * an object. Refer:
+     * an object.
+     * context: async ({ req, res }) => {}
+     *
+     * Refer:
      * https://www.apollographql.com/docs/apollo-server/data/context
      * https://www.apollographql.com/docs/apollo-server/data/fetching-rest
      */
-    context: async ({ req, res }) => {
+    /* eslint-disable @typescript-eslint/require-await */
+    context: async () => {
       const { cache } = server;
       /**
        * We create new instances of our data sources with each request,
@@ -70,7 +74,7 @@ async function bootstrap() {
         dataSources: {
           randomUserAPI: new RandomUserAPI({ cache }),
         }
-      })
+      });
     }
   });
   console.log(`🚀  Server ready at: ${url}`);
