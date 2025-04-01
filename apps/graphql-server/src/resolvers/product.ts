@@ -2,11 +2,11 @@ import { categories, products } from '@/data';
 import {
   type Product,
   type QueryGetProductByIdArgs,
-  type MutationResolvers,
+  type GraphQLMutationResolver,
   type ProductSchema,
 } from '@/types';
 
-type ProductMutation = Pick<MutationResolvers, 'createProduct'>;
+type ProductMutation = Pick<GraphQLMutationResolver, 'createProduct'>;
 
 /**
  * I used the typing in users query, but not in this case, as

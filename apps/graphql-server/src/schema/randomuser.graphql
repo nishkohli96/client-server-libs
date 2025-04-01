@@ -10,11 +10,11 @@ type RandomUserName {
 }
 
 type RandomUser {
-  name: RandomUserName!
-	gender: RandomUserGender!
-	email: String!
+  name: RandomUserName
+	gender: RandomUserGender
+	email: String
 }
 
-type query {
-	getRandomUsers(numRecords: Int!): RandomUser!
+type Query {
+	getRandomUsers(numRecords: Int!): [RandomUser!]!
 }

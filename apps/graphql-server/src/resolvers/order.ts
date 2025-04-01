@@ -6,7 +6,7 @@ import {
   type Order,
   type CreditCardSchema,
   type PayPalSchema,
-  type MutationResolvers,
+  type GraphQLMutationResolver,
   OrderStatus
 } from '@/types';
 
@@ -20,7 +20,7 @@ const orderQuery = {
   }
 };
 
-const orderMutation: Pick<MutationResolvers, 'placeOrder'> = {
+const orderMutation: Pick<GraphQLMutationResolver, 'placeOrder'> = {
   placeOrder: (_, args) => {
     const { orderDetails } = args;
     const { amount, paymentMethod, customerId, productIds } = orderDetails;

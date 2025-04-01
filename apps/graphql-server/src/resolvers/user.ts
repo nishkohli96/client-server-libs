@@ -3,16 +3,16 @@ import { users } from '@/data';
 import {
   type AdminSchema,
   type CustomerSchema,
-  type QueryResolvers,
-  type MutationResolvers,
+  type GraphQLQueryResolver,
+  type GraphQLMutationResolver,
   UserRole
 } from '@/types';
 
 type UserQueryResolver = Pick<
-  QueryResolvers,
+  GraphQLQueryResolver,
   'getUsers' | 'getUserById'
 >;
-type UserMutation = Pick<MutationResolvers, 'createUser'>;
+type UserMutation = Pick<GraphQLMutationResolver, 'createUser'>;
 
 const userQuery: UserQueryResolver = {
   getUsers: () => {

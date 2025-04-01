@@ -187,6 +187,7 @@ export type Query = {
   getOrders: Array<OrderSchema>;
   getProductById?: Maybe<ProductSchema>;
   getProducts: Array<ProductSchema>;
+  getRandomUsers: Array<RandomUser>;
   getUserById?: Maybe<AdminOrCustomerSchema>;
   getUsers: Array<AdminOrCustomerSchema>;
 };
@@ -207,15 +208,20 @@ export type QueryGetProductByIdArgs = {
 };
 
 
+export type QueryGetRandomUsersArgs = {
+  numRecords: Scalars['Int']['input'];
+};
+
+
 export type QueryGetUserByIdArgs = {
   id: Scalars['ObjectID']['input'];
 };
 
 export type RandomUser = {
   __typename?: 'RandomUser';
-  email: Scalars['String']['output'];
-  gender: RandomUserGender;
-  name: RandomUserName;
+  email?: Maybe<Scalars['String']['output']>;
+  gender?: Maybe<RandomUserGender>;
+  name?: Maybe<RandomUserName>;
 };
 
 export enum RandomUserGender {
@@ -252,16 +258,6 @@ export type UserSchema = {
   email: Scalars['EmailAddress']['output'];
   id: Scalars['ObjectID']['output'];
   name: Scalars['String']['output'];
-};
-
-export type Query = {
-  __typename?: 'query';
-  getRandomUsers: RandomUser;
-};
-
-
-export type QueryGetRandomUsersArgs = {
-  numRecords: Scalars['Int']['input'];
 };
 
 
@@ -381,7 +377,6 @@ export type ResolversTypes = {
   UserInput: UserInput;
   UserRole: UserRole;
   UserSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserSchema']>;
-  query: ResolverTypeWrapper<Query>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -418,7 +413,6 @@ export type ResolversParentTypes = {
   UUID: Scalars['UUID']['output'];
   UserInput: UserInput;
   UserSchema: ResolversInterfaceTypes<ResolversParentTypes>['UserSchema'];
-  query: Query;
 };
 
 export type AddressSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddressSchema'] = ResolversParentTypes['AddressSchema']> = {
@@ -520,14 +514,15 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getOrders?: Resolver<Array<ResolversTypes['OrderSchema']>, ParentType, ContextType>;
   getProductById?: Resolver<Maybe<ResolversTypes['ProductSchema']>, ParentType, ContextType, RequireFields<QueryGetProductByIdArgs, 'productId'>>;
   getProducts?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
+  getRandomUsers?: Resolver<Array<ResolversTypes['RandomUser']>, ParentType, ContextType, RequireFields<QueryGetRandomUsersArgs, 'numRecords'>>;
   getUserById?: Resolver<Maybe<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType, RequireFields<QueryGetUserByIdArgs, 'id'>>;
   getUsers?: Resolver<Array<ResolversTypes['AdminOrCustomerSchema']>, ParentType, ContextType>;
 };
 
 export type RandomUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['RandomUser'] = ResolversParentTypes['RandomUser']> = {
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  gender?: Resolver<ResolversTypes['RandomUserGender'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['RandomUserName'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gender?: Resolver<Maybe<ResolversTypes['RandomUserGender']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['RandomUserName']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -553,11 +548,6 @@ export type UserSchemaResolvers<ContextType = any, ParentType extends ResolversP
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['query'] = ResolversParentTypes['query']> = {
-  getRandomUsers?: Resolver<ResolversTypes['RandomUser'], ParentType, ContextType, RequireFields<QueryGetRandomUsersArgs, 'numRecords'>>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
   AddressSchema?: AddressSchemaResolvers<ContextType>;
   AdminOrCustomerSchema?: AdminOrCustomerSchemaResolvers<ContextType>;
@@ -579,6 +569,5 @@ export type Resolvers<ContextType = any> = {
   Subscription?: SubscriptionResolvers<ContextType>;
   UUID?: GraphQLScalarType;
   UserSchema?: UserSchemaResolvers<ContextType>;
-  query?: QueryResolvers<ContextType>;
 };
 

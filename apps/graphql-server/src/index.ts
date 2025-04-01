@@ -10,14 +10,16 @@ import {
   ObjectIDResolver,
   UUIDResolver
 } from 'graphql-scalars';
+import RandomUserAPI from '@/api/randomuser';
 import { resolvers } from '@/resolvers';
 import { typeDefs } from '@/schema';
+import { GraphQLServerContext } from '@/types';
 
 /**
  * Make sure to also define the Scalars with their appropriate
  * types in codegen.ts
  */
-const server = new ApolloServer({
+const server = new ApolloServer<GraphQLServerContext>({
   typeDefs: [
     DateTimeISOTypeDefinition,
     EmailAddressTypeDefinition,
@@ -58,12 +60,18 @@ async function bootstrap() {
      * https://www.apollographql.com/docs/apollo-server/data/context
      * https://www.apollographql.com/docs/apollo-server/data/fetching-rest
      */
-    // context: async ({ req, res }) => {
-    //   const { cache } = server;
-    //   return ({
-    //     authScope: getScope(req.headers.authorization),
-    //   })
-    // }
+    context: async ({ req, res }) => {
+      const { cache } = server;
+      /**
+       * We create new instances of our data sources with each request,
+       * passing in our server's cache.
+       */
+      return ({
+        dataSources: {
+          randomUserAPI: new RandomUserAPI({ cache }),
+        }
+      })
+    }
   });
   console.log(`🚀  Server ready at: ${url}`);
 }
