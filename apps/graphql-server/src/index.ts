@@ -49,6 +49,10 @@ const server = new ApolloServer<GraphQLServerContext>({
  * 3. prepares your app to handle incoming requests
  */
 async function bootstrap() {
+  /**
+   * On specifying NODE_ENV=production, the GraphQL playground is
+   * disabled.
+   */
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
     /**

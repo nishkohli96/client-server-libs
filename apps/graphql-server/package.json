@@ -6,7 +6,7 @@
   "author": "Nishant Kohli",
   "scripts": {
     "codegen": "graphql-codegen --config ./src/codegen.ts",
-    "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
+    "dev": "yarn run codegen && nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
     "build": "yarn run codegen && tsc && tsc-alias",
     "start": "node ./dist/index.js",
     "prod": "yarn build && yarn start",
