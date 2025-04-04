@@ -10,6 +10,12 @@ class RandomUserAPI extends RESTDataSource {
    * https://randomuser.me/documentation#incexc
    */
   includeFieldsQuery = '?inc=gender,name';
+
+  /**
+   * Similarly for caching and other http methods, refer:
+   * https://www.apollographql.com/docs/apollo-server/data/fetching-rest#caching
+   * http://apollographql.com/docs/apollo-server/data/fetching-rest#http-methods
+   */
   async getRandomUsers(limit: number) {
     const response = await this.get<RandomUserAPIResponse>(`${this.includeFieldsQuery}&results=${limit}`);
     return response.results;
