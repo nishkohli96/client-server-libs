@@ -1,10 +1,10 @@
-import { Router, Response } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ServerConfig } from '@/app-constants';
 import { fileUploader, winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
 import fileService from './service';
-import * as FileTypeDefs from './types';
+import type * as FileTypeDefs from './types';
 
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;

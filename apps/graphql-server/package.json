@@ -1,0 +1,40 @@
+{
+  "name": "graphql-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Nishant Kohli",
+  "scripts": {
+    "codegen": "graphql-codegen --config ./src/codegen.ts",
+    "dev": "yarn run codegen && nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
+    "build": "yarn run codegen && tsc && tsc-alias && cp -R ./src/schema/*.graphql ./dist/schema",
+    "start": "NODE_ENV=production node ./dist/index.js",
+    "prod": "yarn build && yarn start",
+    "lint": "eslint --fix ."
+  },
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.4.1",
+    "@apollo/server": "^4.11.3",
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/merge": "^9.0.22",
+    "graphql": "^16.10.0",
+    "graphql-scalars": "^1.24.1",
+    "mongoose": "^8.7.2",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@graphql-codegen/cli": "5.0.5",
+    "@graphql-codegen/typescript": "4.1.5",
+    "@graphql-codegen/typescript-resolvers": "4.4.4",
+    "@nish1896/eslint-flat-config": "^2.0.2",
+    "@types/node": "^22.13.10",
+		"eslint": "^9.23.0",
+    "nodemon": "^3.0.3",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.13",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [],
+  "license": "ISC"
+}

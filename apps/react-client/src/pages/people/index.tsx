@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { debounce, isEmpty } from 'lodash';
 import Box from '@mui/material/Box';
 import {
-  GridSortItem,
-  GridFilterModel,
-  GridPaginationModel
+  type GridSortItem,
+  type GridFilterModel,
+  type GridPaginationModel
 } from '@mui/x-data-grid';
 import { GenericFilters } from '@csl/react-express';
 import { fetchPeopleList } from 'api/services';
 import { dataTableConfig } from 'app-constants';
 import RouteNames from 'routes/route-names';
-import { PersonDetails } from 'types';
+import { type PersonDetails } from 'types';
 import { PageLayout } from 'components';
 import { PeopleDataGrid } from './components';
 import Button from '@mui/material/Button';

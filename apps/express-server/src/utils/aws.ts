@@ -1,11 +1,11 @@
 import {
-  Bucket,
+  type Bucket,
   ListBucketsCommand,
-  ListBucketsCommandInput,
+  type ListBucketsCommandInput,
   ListObjectsV2Command,
-  ListObjectsV2CommandInput,
-  _Object,
-  CommonPrefix
+  type ListObjectsV2CommandInput,
+  type _Object,
+  type CommonPrefix
 } from '@aws-sdk/client-s3';
 import axios from 'axios';
 import { s3Client } from '@/aws';

@@ -7,6 +7,9 @@
     "apps/*",
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "scripts": {
     "prepare": "husky",
     "lib": "turbo run lib:build",
@@ -14,6 +17,8 @@
     "next-client": "yarn workspace next-client dev",
     "express-server": "yarn workspace express-server dev",
     "nestjs-server": "yarn workspace nestjs-server dev",
+    "graphql-server": "yarn workspace graphql-server dev",
+    "codegen": "yarn workspace graphql-server codegen",
     "seed": "yarn workspace mongo-seeders seed",
     "build": "turbo run build",
     "lint": "turbo run lint",
@@ -28,9 +33,6 @@
   "lint-staged": {
     "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
     ]
   },
   "packageManager": "yarn@1.22.22"

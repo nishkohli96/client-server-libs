@@ -1,6 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes,
+} from 'sequelize';
 import { mySQLSequelize } from '@/db/mysql';
 
 export type UserModelAttributes = InferAttributes<UserModel>;

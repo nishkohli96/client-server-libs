@@ -18,7 +18,7 @@
  * ngrok (e.g., https://abcd1234.ngrok.io/success)
  */
 
-import { CreateCustomVerificationEmailTemplateCommandInput } from '@aws-sdk/client-ses';
+import { type CreateCustomVerificationEmailTemplateCommandInput } from '@aws-sdk/client-ses';
 
 export const emailVerificationTemplate: CreateCustomVerificationEmailTemplateCommandInput = {
   TemplateName: 'UserVerificationTemplate',

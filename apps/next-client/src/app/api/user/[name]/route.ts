@@ -1,5 +1,5 @@
 
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 function generateQueryParamsObject(
   urlSearchParams: URLSearchParams
@@ -34,9 +34,9 @@ function generateQueryParamsObject(
  * Test Route -
  * http://localhost:3001/api/user/er?age=18&color=blue&color=red&hidden=true
  */
-export function GET(
+export async function GET(
   req: NextRequest,
-  { params }: { params: { name: string } }
+  { params }: { params: Promise<{ name: string }> }
 ) {
   /**
    * Get the dynamic 'name' parameter from the URL.
@@ -45,7 +45,7 @@ export function GET(
    * Another way to get request params -
    * const name = req.nextUrl.pathname.split('/').pop();
 	 */
-  const { name } = params;
+  const { name } = await params;
 
   /**
    * queryParams.get('color') will return only the first value of the color

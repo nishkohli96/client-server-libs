@@ -1,6 +1,6 @@
-import { Request } from 'express';
-import { NewPerson } from '@csl/mongo-models';
-import { RequestQueryParams } from '@/types';
+import { type Request } from 'express';
+import { type NewPerson } from '@csl/mongo-models';
+import { type RequestQueryParams } from '@/types';
 
 export enum PersonSortingColumns {
   FirstName = 'first_name',

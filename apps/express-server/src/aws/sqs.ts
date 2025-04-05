@@ -1,20 +1,20 @@
 /* https://www.npmjs.com/package/@aws-sdk/client-sqs */
-/* eslint-disable no-await-in-loop */
+
 
 import {
   SQSClient,
   ListQueuesCommand,
   SendMessageCommand,
-  SendMessageCommandInput,
+  type SendMessageCommandInput,
   ReceiveMessageCommand,
-  ReceiveMessageCommandInput,
+  type ReceiveMessageCommandInput,
   DeleteMessageCommand,
-  DeleteMessageCommandInput,
+  type DeleteMessageCommandInput,
   SendMessageBatchCommand,
-  SendMessageBatchCommandInput,
-  DeleteMessageBatchCommandInput,
+  type SendMessageBatchCommandInput,
+  type DeleteMessageBatchCommandInput,
   DeleteMessageBatchCommand,
-  Message,
+  type Message,
 } from '@aws-sdk/client-sqs';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -86,7 +86,7 @@ export async function receiveMessagesFromQueue(queueUrl: string) {
       MaxNumberOfMessages: 10,
       VisibilityTimeout: 30,
       WaitTimeSeconds: 10,
-      MessageAttributeNames: ['All'],
+      MessageAttributeNames: ['All']
     };
     const command = new ReceiveMessageCommand(input);
     const response = await sqsClient.send(command);
@@ -95,34 +95,37 @@ export async function receiveMessagesFromQueue(queueUrl: string) {
       winstonLogger.info('No messages received.');
       return;
     }
-    winstonLogger.info(`Message(s) received successfully: ${printObject(response.Messages)}`);
+    winstonLogger.info(
+      `Message(s) received successfully: ${printObject(response.Messages)}`
+    );
     winstonLogger.info('Now deleting received messages...');
 
     for (const [idx, msg] of response.Messages.entries()) {
       if (!msg.ReceiptHandle) {
-        winstonLogger.warn(`Skipping message ${idx + 1}: No ReceiptHandle found.`);
-        continue;
+        /**
+         * For DeleteMessageBatchCommand, the payload will be of the form:
+         *
+         * Entries: [
+         *  {
+         *    Id: "STRING_VALUE",
+         *    ReceiptHandle: "STRING_VALUE"
+         *  },
+         * ],
+         */
+        const deleteMsgInput: DeleteMessageCommandInput = {
+          QueueUrl: queueUrl,
+          ReceiptHandle: msg.ReceiptHandle
+        };
+        const deleteCommand = new DeleteMessageCommand(deleteMsgInput);
+        const deleteResponse = await sqsClient.send(deleteCommand);
+        winstonLogger.info(
+          `Delete msg response for Message ${idx + 1}: ${printObject(deleteResponse)}`
+        );
+      } else {
+        winstonLogger.warn(
+          `Skipping message ${idx + 1}: No ReceiptHandle found.`
+        );
       }
-
-      /**
-       * For DeleteMessageBatchCommand, the payload will be of the form:
-       *
-       * Entries: [
-       *  {
-       *    Id: "STRING_VALUE",
-       *    ReceiptHandle: "STRING_VALUE"
-       *  },
-       * ],
-       */
-      const deleteMsgInput: DeleteMessageCommandInput = {
-        QueueUrl: queueUrl,
-        ReceiptHandle: msg.ReceiptHandle,
-      };
-      const deleteCommand = new DeleteMessageCommand(deleteMsgInput);
-      const deleteResponse = await sqsClient.send(deleteCommand);
-      winstonLogger.info(
-        `Delete msg response for Message ${idx + 1}: ${printObject(deleteResponse)}`
-      );
     }
   } catch (error) {
     winstonLogger.error('Error receiving message(s):', error);
@@ -166,7 +169,7 @@ export async function sendBatchMessages(
     try {
       const command = new SendMessageBatchCommand(input);
       const response = await sqsClient.send(command);
-      winstonLogger.info(`${batchId} sent successfully: ${response}}`);
+      winstonLogger.info(`${batchId} sent successfully: ${printObject(response)}}`);
     } catch (error) {
       winstonLogger.error(`Error sending ${batchId}`, error);
     }

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
-import { NextRequest } from 'next/server';
+import { type NextRequest } from 'next/server';
 
 /**
  * Logs an error with request metadata using Sentry.

@@ -4,7 +4,7 @@
  * https://socket.io/docs/v4/typescript/
  */
 
-import { Server } from 'socket.io';
+import { type Server } from 'socket.io';
 
 export interface ServerToClientEvents {
   noArg: () => void;

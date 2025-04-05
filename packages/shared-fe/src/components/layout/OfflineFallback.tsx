@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import { useOnlineStatus } from '@/hooks';
 
 const styles: { container: CSSProperties } = {

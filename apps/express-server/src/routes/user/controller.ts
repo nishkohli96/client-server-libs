@@ -1,6 +1,6 @@
-import { Response, Request, Router } from 'express';
+import { Router, type Response, type Request } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import * as UserTypes from './types';
+import type * as UserTypes from './types';
 import userService from './service';
 
 const userRouter = Router();

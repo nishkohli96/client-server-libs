@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { PersonDetails } from '@/types';
+import { type PersonDetails } from '@/types';
 import { Gender } from '@csl/mongo-models';
 
 const columnHelper = createColumnHelper<PersonDetails>();

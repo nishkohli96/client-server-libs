@@ -4,12 +4,12 @@ import {
   SESClient,
   CreateTemplateCommand,
   VerifyEmailIdentityCommand,
-  VerifyEmailAddressCommandInput,
+  type VerifyEmailAddressCommandInput,
   SendBulkTemplatedEmailCommand,
-  SendBulkTemplatedEmailCommandInput,
+  type SendBulkTemplatedEmailCommandInput,
   CreateCustomVerificationEmailTemplateCommand,
   SendCustomVerificationEmailCommand,
-  SendCustomVerificationEmailCommandInput
+  type SendCustomVerificationEmailCommandInput
 } from '@aws-sdk/client-ses';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';

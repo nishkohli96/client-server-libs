@@ -1,7 +1,7 @@
 type PageInfo = {
   title: string;
   href: string;
-}
+};
 
 export const PageLinks: PageInfo[] = [
   {

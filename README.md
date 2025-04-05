@@ -21,6 +21,14 @@ Install `node_modules`
 yarn
 ```
 
+Due to some issues with `express` dependencies, you also need to run
+
+```
+npm dedupe
+```
+
+to scan your `node_modules` and moves dependencies up in the tree if different versions can be consolidated. Delete the `package-lock.json` after running this command.
+
 Build, run, lint or test all your apps in one command thanks to [Turborepo's Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
 
 To build all the shared packages,

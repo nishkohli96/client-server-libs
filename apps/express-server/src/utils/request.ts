@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { PaginationConfig } from '@/types';
+import { type Response } from 'express';
+import { type PaginationConfig } from '@/types';
 
 export const DefaultPaginationOptions: PaginationConfig = {
   records_per_page: 10,

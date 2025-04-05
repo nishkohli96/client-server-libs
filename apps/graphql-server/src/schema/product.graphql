@@ -1,0 +1,24 @@
+type ProductSchema {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  category: CategorySchema!
+}
+
+input ProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  categoryId: ID!
+}
+
+type Query {
+  getProducts: [ProductSchema!]!
+  getProductById(productId: ID!): ProductSchema
+}
+
+type Mutation {
+  createProduct(productInput: ProductInput!): ProductSchema!
+}
+

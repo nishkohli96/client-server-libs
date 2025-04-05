@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { type Request, type Response, type NextFunction } from 'express';
 import { winstonLogger } from './winston-logger';
 
 export function requestLogger(
@@ -15,18 +15,4 @@ export function requestLogger(
     );
   });
   next();
-}
-
-export function printSuccessMsg(msg: string): void {
-  winstonLogger.info(`✅ SUCCESS - ${msg}`);
-}
-
-export function printError(error: unknown): void {
-  winstonLogger.error(`⚠ ERROR - ${error}`);
-}
-
-export function errorLogger(res: Response, error: unknown) {
-  const err = JSON.stringify(error);
-  printError(error);
-  res.status(500).send(err);
 }

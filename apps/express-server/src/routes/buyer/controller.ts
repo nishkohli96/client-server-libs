@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
+import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import buyerService from './service';
-import * as BuyerTypeDefs from './types';
+import type * as BuyerTypeDefs from './types';
 
 const buyerRouter = Router();
 const subRoutes = ExpressServerEndpoints.buyer.subRoutes;

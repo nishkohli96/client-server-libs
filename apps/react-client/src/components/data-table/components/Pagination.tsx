@@ -28,7 +28,7 @@ function displayPaginationData(
   totalCount: number,
   itemsPerPage?: number
 ) {
-  itemsPerPage = itemsPerPage ?? 10;
+  itemsPerPage ??= 10;
   if (totalCount > 1) {
     const selectedPageData = selectedPageNumber - 1;
     const startNumber = selectedPageData * itemsPerPage;

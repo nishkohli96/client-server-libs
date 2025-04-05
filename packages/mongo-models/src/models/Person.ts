@@ -1,5 +1,5 @@
-import mongoose, { Types } from 'mongoose';
-import moment from 'moment';
+import mongoose, { type Types } from 'mongoose';
+import type moment from 'moment';
 import { collectionNames } from '@/constants';
 
 const personCollection = collectionNames.people;

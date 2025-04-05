@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { AirportModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
 import { logApiError } from '@/utils';

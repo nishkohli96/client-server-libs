@@ -1,7 +1,7 @@
 import { serverApi } from 'api/server';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { generateQueryString, handleApiError } from 'utils';
-import { ServerResponse } from 'types';
+import { type ServerResponse } from 'types';
 
 const rootPath = ExpressServerEndpoints.aws.rootPath;
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;

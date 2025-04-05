@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { BuyerModel, CarModel, BuyerModelCreationAttributes } from '@/db/postgres/models';
+import { type Response } from 'express';
+import { BuyerModel, CarModel, type BuyerModelCreationAttributes } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 
 class BuyerService {

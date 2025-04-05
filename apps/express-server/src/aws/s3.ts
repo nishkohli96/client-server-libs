@@ -3,14 +3,14 @@
 import {
   S3Client,
   HeadObjectCommand,
-  HeadObjectCommandInput,
+  type HeadObjectCommandInput,
   GetObjectCommand,
-  GetObjectCommandInput,
+  type GetObjectCommandInput,
   PutObjectCommand,
   DeleteObjectCommand,
-  DeleteObjectCommandInput,
+  type DeleteObjectCommandInput,
   DeleteBucketCommand,
-  DeleteBucketCommandInput,
+  type DeleteBucketCommandInput,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import csvParser from 'csv-parser';
@@ -20,7 +20,7 @@ import {
   listS3Buckets,
   listS3BucketObjects
 } from '@/utils';
-import { Readable } from 'stream';
+import { type Readable } from 'stream';
 
 export const s3Client = new S3Client();
 

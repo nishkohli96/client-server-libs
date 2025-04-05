@@ -1,3 +1,3 @@
-export * from './common';
-export * from './person';
-export * from './request-response';
+export type * from './common';
+export type * from './person';
+export type * from './request-response';

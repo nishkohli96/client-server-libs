@@ -1,7 +1,7 @@
-import { Router, Response } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import awsService from './service';
-import * as AwsTypeDefs from './types';
+import type * as AwsTypeDefs from './types';
 
 const awsRouter = Router();
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;

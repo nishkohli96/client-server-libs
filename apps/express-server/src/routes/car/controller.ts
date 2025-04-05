@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
+import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import carService from './service';
-import * as CarTypeDefs from './types';
+import type * as CarTypeDefs from './types';
 
 const carRouter = Router();
 const subRoutes = ExpressServerEndpoints.car.subRoutes;

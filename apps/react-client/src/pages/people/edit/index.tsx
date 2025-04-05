@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { Person, PersonInfo } from '@csl/mongo-models';
+import { type Person, type PersonInfo } from '@csl/mongo-models';
 import { editPersonDetails } from 'api/services';
 import RouteNames from 'routes/route-names';
 import { PersonForm } from '../components';

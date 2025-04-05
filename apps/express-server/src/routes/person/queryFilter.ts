@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /**
  * Helper class to generate query condition for MongoDB document
  * based on the filter applied from MUI Grid. The applied filter
@@ -7,16 +8,16 @@
  * - value: value to compare against
  */
 import moment from 'moment';
-import { FilterQuery } from 'mongoose';
+import { type FilterQuery } from 'mongoose';
 import {
   GenericFilters,
   StringFilters,
   DateFilters,
   NumberFilters,
   ArrayFilters,
-  FilterOperator
+  type FilterOperator
 } from '@csl/react-express';
-import { PersonModel } from '@csl/mongo-models';
+import { type PersonModel } from '@csl/mongo-models';
 
 type FilterValue = string | number | Date;
 

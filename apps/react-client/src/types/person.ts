@@ -1,4 +1,4 @@
-import { Person } from '@csl/mongo-models';
+import { type Person } from '@csl/mongo-models';
 
 export type PersonDetails = Omit<
   Person,

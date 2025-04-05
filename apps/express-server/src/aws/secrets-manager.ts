@@ -3,13 +3,13 @@
 import {
   SecretsManagerClient,
   CreateSecretCommand,
-  CreateSecretCommandInput,
+  type CreateSecretCommandInput,
   GetSecretValueCommand,
-  GetSecretValueCommandInput,
+  type GetSecretValueCommandInput,
   UpdateSecretCommand,
-  UpdateSecretCommandInput,
+  type UpdateSecretCommandInput,
   DeleteSecretCommand,
-  DeleteSecretCommandInput,
+  type DeleteSecretCommandInput,
 } from '@aws-sdk/client-secrets-manager';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';

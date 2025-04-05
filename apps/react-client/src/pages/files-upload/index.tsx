@@ -71,7 +71,7 @@ const FilesUploadPage = () => {
           formData.append('fileName', file.name);
 
           try {
-            /* eslint-disable no-await-in-loop */
+
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadChunk}`,
               formData,
@@ -117,7 +117,10 @@ const FilesUploadPage = () => {
           reject(new Error('FileReader result is not a string'));
         }
       };
-      reader.onerror = error => reject(error);
+      reader.onerror = error => {
+        console.log('error: ', error);
+        reject(new Error('FileReader encountered an error'));
+      };
       reader.readAsDataURL(file);
     });
   }
@@ -137,7 +140,7 @@ const FilesUploadPage = () => {
 
       while (start < file.size) {
         if (success) {
-          /* eslint-disable no-await-in-loop */
+
           const chunk = file.slice(start, end);
           const base64Chunk = await convertToBase64(chunk);
 
@@ -147,7 +150,7 @@ const FilesUploadPage = () => {
           formData.append('fileName', file.name);
 
           try {
-            /* eslint-disable no-await-in-loop */
+
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadBase64}`,
               formData

@@ -1,10 +1,21 @@
-import { Response } from 'express';
-import fs from 'fs';
+import { type Response } from 'express';
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  rmdirSync,
+  unlinkSync,
+  writeFileSync,
+} from 'fs';
 import path from 'path';
 import moment from 'moment';
 import ffmpeg from 'fluent-ffmpeg';
 import { ServerConfig } from '@/app-constants';
 import { winstonLogger } from '@/middleware';
+
 class FileService {
   multerDirs = ServerConfig.multer.dirs;
 
@@ -44,13 +55,13 @@ class FileService {
        * all directories from start to finish if any of the dirs
        * in between does not exist.
        */
-      if (!fs.existsSync(chunkDir)) {
-        fs.mkdirSync(chunkDir, { recursive: true });
+      if (!existsSync(chunkDir)) {
+        mkdirSync(chunkDir, { recursive: true });
       }
 
       /* Move chunk to the appropriate directory */
       const chunkDestination = path.join(chunkDir, `chunk_${chunkNumber}`);
-      fs.renameSync(chunkPath, chunkDestination);
+      renameSync(chunkPath, chunkDestination);
 
       return res.send(`Chunk ${chunkNumber} uploaded`);
     } catch (err) {
@@ -70,27 +81,27 @@ class FileService {
       `${fileName}`
     );
 
-    const chunkFiles = fs.readdirSync(chunkFilesDir).sort((a, b) => {
+    const chunkFiles = readdirSync(chunkFilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
       const bNum = parseInt(b.split('_')[1]);
       return aNum - bNum;
     });
 
-    const writeStream = fs.createWriteStream(outputFilePath);
+    const writeStream = createWriteStream(outputFilePath);
 
     chunkFiles.forEach(chunkFile => {
       const chunkPath = path.join(chunkFilesDir, chunkFile);
-      const data = fs.readFileSync(chunkPath);
+      const data = readFileSync(chunkPath);
       writeStream.write(data);
       /* Delete chunk file(s) after merging */
-      fs.unlinkSync(chunkPath);
+      unlinkSync(chunkPath);
     });
 
     writeStream.end(() => {
       res.sendFile(outputFilePath, { root: '.' });
       /* Delete chunk directory after merging */
-      fs.rmdirSync(chunkFilesDir);
-      fs.rmdirSync(chunkDir);
+      rmdirSync(chunkFilesDir);
+      rmdirSync(chunkDir);
     });
 
     return res.send('File retrieved');
@@ -113,8 +124,8 @@ class FileService {
         this.multerDirs.base64,
         fileName
       );
-      if (!fs.existsSync(base64Dir)) {
-        fs.mkdirSync(base64Dir, { recursive: true });
+      if (!existsSync(base64Dir)) {
+        mkdirSync(base64Dir, { recursive: true });
       }
 
       /* Decode base64 data */
@@ -125,7 +136,7 @@ class FileService {
         base64Dir,
         `base64_${chunkNumber}.txt`
       );
-      fs.writeFileSync(chunkDestination, buffer);
+      writeFileSync(chunkDestination, buffer);
       return res.send(`Base64 file no ${chunkNumber} uploaded`);
     } catch (err) {
       winstonLogger.error('Error in uploading file ', err);
@@ -144,20 +155,20 @@ class FileService {
       `${fileName}`
     );
 
-    const base64Files = fs.readdirSync(base64FilesDir).sort((a, b) => {
+    const base64Files = readdirSync(base64FilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
       const bNum = parseInt(b.split('_')[1]);
       return aNum - bNum;
     });
 
-    const writeStream = fs.createWriteStream(outputFilePath);
+    const writeStream = createWriteStream(outputFilePath);
 
     base64Files.forEach(base64File => {
       const base64Path = path.join(base64FilesDir, base64File);
-      const data = fs.readFileSync(base64Path);
+      const data = readFileSync(base64Path);
       writeStream.write(data);
       /* Delete file(s) after merging */
-      fs.unlinkSync(base64Path);
+      unlinkSync(base64Path);
     });
 
     writeStream.end(() => {
@@ -166,8 +177,8 @@ class FileService {
        * a dir, make sure it is completely empty before
        * deletion, otherwise it will fail.
        */
-      fs.rmdirSync(base64FilesDir);
-      fs.rmdirSync(base64Dir);
+      rmdirSync(base64FilesDir);
+      rmdirSync(base64Dir);
     });
 
     res.send('File retrieved');
@@ -184,7 +195,7 @@ class FileService {
     const ffMpeg = ffmpeg();
     let complexFilter = '';
     const start = moment();
-    winstonLogger.info(`start: ${start}`);
+    winstonLogger.info(`start: ${start.toString()}`);
 
     /**
      * Can read files from a directory and make sure to resolve the path
@@ -219,7 +230,7 @@ class FileService {
         })
         .on('end', () => {
           const end = moment();
-          winstonLogger.info(`end: ${end}`);
+          winstonLogger.info(`end: ${end.toString()}`);
           const diff = end.diff(start, 'seconds');
           winstonLogger.info(`diff: ${diff}`);
           return res.send(`Merged in ${diff} seconds`);

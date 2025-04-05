@@ -55,6 +55,9 @@ jobs:
           npx sentry-cli releases finalize $GITHUB_SHA
           yarn sentry:sourcemaps
 
+      - name: Build GraphQL Server
+        run: yarn workspace graphql-server build
+
       - name: Build Nestjs Server
         run: yarn workspace nestjs-server build
 
