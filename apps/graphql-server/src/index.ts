@@ -17,7 +17,10 @@ import { type GraphQLServerContext } from '@/types';
 
 /**
  * Make sure to also define the Scalars with their appropriate
- * types in codegen.ts
+ * types in codegen.ts.
+ *
+ * Also you need to explicitly copy .graphql or .gql files in the
+ * dist folders as typescript does not handle it.
  */
 const server = new ApolloServer<GraphQLServerContext>({
   typeDefs: [

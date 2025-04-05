@@ -63,3 +63,9 @@
 12. For queries involving multiple levels of nesting, use [graphql-depth-limit](https://www.npmjs.com/package/graphql-depth-limit) package to limit querying upto a certain depth and prevent infinite recursion.
 
 13. During a GraphQL operation, you can share data throughout your server's resolvers and plugins by creating an object named `contextValue.`You can pass useful things through your contextValue that any resolver might need, like authentication scope, sources for fetching data, database connections, and custom fetch functions.
+
+14. You need to manually copy `.graphql` or `.gql` files in the build folders as typescript does not handle it. Below is the build script of the `graphql-server` workspace:
+
+    ```
+    "build": "yarn run codegen && tsc && tsc-alias && cp -R ./src/schema/*.graphql ./dist/schema",
+    ```
