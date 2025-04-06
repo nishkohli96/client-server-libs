@@ -7,6 +7,7 @@ import { carBrandRouter } from './car-brand/controller';
 import { fileRouter } from './file/controller';
 import { personRouter } from './person/controller';
 import { socketRouter } from './socket/controller';
+import { stripeRouter } from './stripe/controller';
 import { stytchRouter } from './stytch/controller';
 import { userRouter } from './user/controller';
 
@@ -43,6 +44,10 @@ export const routesArray: RouteInfo[] = [
   {
     rootPath: ExpressServerEndpoints.socket.rootPath,
     router: socketRouter
+  },
+  {
+    rootPath: ExpressServerEndpoints.stripe.rootPath,
+    router: stripeRouter
   },
   {
     rootPath: ExpressServerEndpoints.stytch.rootPath,

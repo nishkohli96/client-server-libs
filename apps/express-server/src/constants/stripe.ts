@@ -9,4 +9,4 @@ import { ENV_VARS } from '@/constants';
  * using the configuration options.
  * https://www.npmjs.com/package/stripe#configuration
  */
-export const stripe = new Stripe(ENV_VARS.stripeSecretKey);
+export const stripeSDK = new Stripe(ENV_VARS.stripeSecretKey);

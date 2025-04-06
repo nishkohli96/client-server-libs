@@ -4,12 +4,12 @@
  */
 
 function defEnvVariable(varName: string, defaultValue?: string): string {
-  if (defaultValue) {
-    return defaultValue.trim();
-  }
   const value = process.env[varName];
   if (value) {
     return value.trim();
+  }
+  if (defaultValue) {
+    return defaultValue.trim();
   }
   throw new Error(`Missing required environment variable: ${varName}`);
 }
