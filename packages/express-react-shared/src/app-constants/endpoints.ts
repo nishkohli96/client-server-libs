@@ -85,6 +85,8 @@ export const ExpressServerEndpoints = Object.freeze({
           get: 'get',
           update: 'update',
           delete: 'delete',
+          list: 'list',
+          search: 'search',
         }
       },
     },

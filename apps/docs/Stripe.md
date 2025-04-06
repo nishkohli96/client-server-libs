@@ -21,3 +21,5 @@
 5.  If you have a very large product catalog, use the Products API to import your catalog programmatically. If you’re importing your product catalog to Stripe, you can use anything as your starting data source, like a product management system or CSV file.
 
 6.  You can search for prices, users, invoices etc. using different filters in the [dashboard searchbar](https://docs.stripe.com/dashboard/search#search-filters-operators).
+
+7. Stripe has a rate limit of **100 parallel requests per second** for `live mode` transactions, and **25 parallel requests per second** for `test mode` transactions.​
