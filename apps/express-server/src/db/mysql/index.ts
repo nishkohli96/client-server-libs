@@ -38,7 +38,7 @@ export async function connectMySQLDB() {
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to MySQL Database ⚠', error);
-    process.exit(1);
+    // process.exit(1);
   }
 }
 

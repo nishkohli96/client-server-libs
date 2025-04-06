@@ -7,20 +7,20 @@ import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeService from './service';
 import type * as StripeTypedefs from './types';
 
-const stripeRouter = Router();
-const subRoutes = ExpressServerEndpoints.stripe.subRoutes;
+const stripeProductRouter = Router();
+const subRoutes = ExpressServerEndpoints.stripe.subRoutes.products.subRoutes;
 
-/* POST /stripe/create-product */
-stripeRouter.post(
-  `/${subRoutes.createProduct}`,
+/* POST /stripe/products/create */
+stripeProductRouter.post(
+  `/${subRoutes.create}`,
   async function createProduct(req: StripeTypedefs.CreateProductRequest, res: Response) {
     return await stripeService.createProduct(res, req.body);
   }
 );
 
-/* GET /stripe/get-product */
-stripeRouter.get(
-  `/${subRoutes.getProduct}/:productId`,
+/* GET /stripe/products/get/:productId */
+stripeProductRouter.get(
+  `/${subRoutes.get}/:productId`,
   async function getProduct(req: StripeTypedefs.GetProductRequest, res: Response) {
     return await stripeService.getProduct(res, req.params);
   }
@@ -34,4 +34,4 @@ stripeRouter.get(
 //   }
 // );
 
-export { stripeRouter };
+export { stripeProductRouter };
