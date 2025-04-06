@@ -79,6 +79,9 @@ export const ExpressServerEndpoints = Object.freeze({
     rootPath: '/stripe',
     subRoutes: {
       createProduct: 'create-product',
+      getProduct: 'get-product',
+      updateProduct: 'update-product',
+      deleteProduct: 'delete-product',
     }
   },
   stytch: {

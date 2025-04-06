@@ -21,6 +21,19 @@ class StripeService {
       return sendErrorResponse(res, error, 'Error creating new product');
     }
   }
+
+  /**
+   * https://docs.stripe.com/api/products/retrieve?lang=node
+   * Returns 500 status code if the product is not found.
+   */
+  async getProduct(res: Response, body: StripeTypedefs.GetProductBody) {
+    try {
+      const product = await stripeSDK.products.retrieve(body.productId);
+      return res.status(200).json(product);
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Error getting product');
+    }
+  }
 }
 
 const stripeService = new StripeService();

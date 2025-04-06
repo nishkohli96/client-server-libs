@@ -36,6 +36,11 @@ export const redisClient = createClient({
   }
 });
 
+/**
+ * Redis Cloud may delete the database if it is not used for a
+ * certain period of time. To prevent this, you can set up a
+ * cron job to ping the database at regular intervals.
+ */
 export async function connectToRedis() {
   try {
     await redisClient.connect();

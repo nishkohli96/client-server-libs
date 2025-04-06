@@ -7,7 +7,7 @@ import { carBrandRouter } from './car-brand/controller';
 import { fileRouter } from './file/controller';
 import { personRouter } from './person/controller';
 import { socketRouter } from './socket/controller';
-import { stripeRouter } from './stripe/controller';
+import { stripeRouter } from './stripe/product/controller';
 import { stytchRouter } from './stytch/controller';
 import { userRouter } from './user/controller';
 
