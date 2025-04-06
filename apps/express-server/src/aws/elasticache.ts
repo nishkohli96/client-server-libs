@@ -1,5 +1,5 @@
 import Redis from 'ioredis';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 /**
  * If you are developing locally and your Redis is in AWS VPC,

@@ -22,7 +22,7 @@
  * instance.
  */
 import { createClient } from 'redis';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 const { user, password, host, port } = ENV_VARS.redis;

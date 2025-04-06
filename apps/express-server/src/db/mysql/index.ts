@@ -1,6 +1,6 @@
 import os from 'os';
 import { Sequelize } from 'sequelize';
-import { ENV_VARS, isProductionEnv } from '@/app-constants';
+import { ENV_VARS, isProductionEnv } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 const hostName = os.hostname();

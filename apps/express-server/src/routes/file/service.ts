@@ -13,7 +13,7 @@ import {
 import path from 'path';
 import moment from 'moment';
 import ffmpeg from 'fluent-ffmpeg';
-import { ServerConfig } from '@/app-constants';
+import { ServerConfig } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 class FileService {

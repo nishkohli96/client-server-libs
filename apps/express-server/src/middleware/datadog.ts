@@ -6,7 +6,7 @@
  */
 
 import tracer from 'dd-trace';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import pkgJson from '../../package.json';
 
 /**
