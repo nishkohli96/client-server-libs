@@ -46,6 +46,7 @@
     "redis": "^4.7.0",
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
+    "stripe": "^18.0.0",
     "stytch": "^12.4.0",
     "uuid": "^11.0.5",
     "winston": "3.11.0"
