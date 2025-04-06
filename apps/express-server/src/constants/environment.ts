@@ -4,12 +4,12 @@
  */
 
 function defEnvVariable(varName: string, defaultValue?: string): string {
-  const value = process.env[varName]?.trim();
-  if (value) {
-    return value;
+  if (defaultValue) {
+    return defaultValue.trim();
   }
-  if (defaultValue !== undefined) {
-    return defaultValue;
+  const value = process.env[varName];
+  if (value) {
+    return value.trim();
   }
   throw new Error(`Missing required environment variable: ${varName}`);
 }
@@ -54,7 +54,8 @@ export const ENV_VARS = Object.freeze({
     sqsUrl: defEnvVariable('AWS_SQS_URL'),
     sqsFifoUrl: defEnvVariable('AWS_SQS_FIFO_URL'),
     snsTopicArn: defEnvVariable('AWS_SNS_TOPIC_ARN')
-  }
+  },
+  stripeSecretKey: defEnvVariable('STRIPE_SECRET_KEY'),
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';
