@@ -1,9 +1,9 @@
 import { type Response } from 'express';
 import { stripeSDK } from '@/constants';
 import { sendErrorResponse } from '@/utils';
-import type * as StripeTypedefs from './types';
+import type * as StripeProductsTypedefs from './types';
 
-class StripeService {
+class StripeProductsService {
   /**
 	 * https://docs.stripe.com/api/products/create?lang=node
 	 *
@@ -29,7 +29,7 @@ class StripeService {
    * ✅ Pros: Less chance of hitting rate limits.
    * ⚠️ Cons: Slower, since requests are sequential.
 	 */
-  async createProduct(res: Response, body: StripeTypedefs.CreateProductBody) {
+  async createProduct(res: Response, body: StripeProductsTypedefs.CreateProductBody) {
     try {
       const product = await stripeSDK.products.create(body);
       return res.status(200).json(product);
@@ -45,7 +45,7 @@ class StripeService {
    * parameters passed. Any parameters not provided will be
    * left unchanged.
    */
-  async updateProduct(res: Response, params: StripeTypedefs.GetProductById, updateBody: StripeTypedefs.UpdateProductBody) {
+  async updateProduct(res: Response, params: StripeProductsTypedefs.GetProductById, updateBody: StripeProductsTypedefs.UpdateProductBody) {
     try {
       const product = await stripeSDK.products.update(params.productId, updateBody);
       return res.status(200).json(product);
@@ -59,7 +59,7 @@ class StripeService {
    *
    * Returns 500 status code if the product is not found.
    */
-  async getProduct(res: Response, body: StripeTypedefs.GetProductById) {
+  async getProduct(res: Response, body: StripeProductsTypedefs.GetProductById) {
     try {
       const product = await stripeSDK.products.retrieve(body.productId);
       return res.status(200).json(product);
@@ -89,7 +89,7 @@ class StripeService {
    * - The response contains has_more: true if there are more
    *   results available.
    */
-  async listProducts(res: Response, body: StripeTypedefs.ListProductsBody) {
+  async listProducts(res: Response, body: StripeProductsTypedefs.ListProductsBody) {
     try {
       const products = await stripeSDK.products.list(body);
       return res.status(200).json(products);
@@ -101,7 +101,7 @@ class StripeService {
   /**
    * https://docs.stripe.com/api/products/search?lang=node
    */
-  async searchProducts(res: Response, body: StripeTypedefs.SearchProductsBody) {
+  async searchProducts(res: Response, body: StripeProductsTypedefs.SearchProductsBody) {
     try {
       const products = await stripeSDK.products.search(body);
       return res.status(200).json(products);
@@ -116,7 +116,7 @@ class StripeService {
    * Returns 500 status code if the product is not found or has
    * already been deleted.
    */
-  async deleteProduct(res: Response, params: StripeTypedefs.GetProductById) {
+  async deleteProduct(res: Response, params: StripeProductsTypedefs.GetProductById) {
     try {
       const deletedProduct = await stripeSDK.products.del(params.productId);
       return res.status(200).json(deletedProduct);
@@ -126,5 +126,5 @@ class StripeService {
   }
 }
 
-const stripeService = new StripeService();
-export default stripeService;
+const stripeProductsService = new StripeProductsService();
+export default stripeProductsService;

@@ -89,6 +89,11 @@ export const ExpressServerEndpoints = Object.freeze({
           search: 'search',
         }
       },
+      prices: {
+        rootPath: '/prices',
+        subRoutes: {
+        }
+      },
     },
   },
   stytch: {
