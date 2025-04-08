@@ -10,6 +10,8 @@ export enum StripePrefixes {
   EVENT = 'evt_',
   FILE = 'file_',
   FILE_LINK = 'link_',
+  MANDATE = 'mandate_',
+  PAYMENT_INTENT = 'pi_',
   PRODUCT = 'prod_',
   PRICE = 'price_'
 }
@@ -25,6 +27,8 @@ export enum StripeObjectTypes {
   FILE = 'file',
   FILE_LINK = 'file_link',
   LIST = 'list',
+  MANDATE = 'mandate',
+  PAYMENT_INTENT = 'payment_intent',
   PRODUCT = 'product',
   PRICE = 'price'
 }

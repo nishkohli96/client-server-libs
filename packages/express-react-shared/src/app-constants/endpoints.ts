@@ -96,6 +96,12 @@ export const ExpressServerEndpoints = Object.freeze({
           list: 'list'
         }
       },
+      payments: {
+        rootPath: '/payments',
+        subRoutes: {
+          create: 'create'
+        }
+      },
       products: {
         rootPath: '/products',
         subRoutes: {
