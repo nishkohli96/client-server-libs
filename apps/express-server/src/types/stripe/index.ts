@@ -4,6 +4,8 @@
  * by referring the docs.
  */
 
+export * from './charge';
 export * from './currency';
 export * from './objects';
 export * from './price';
+export * from './transaction';

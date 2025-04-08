@@ -1,13 +1,13 @@
 # Stripe
 
 1.  In Stripe, there are two types of API keys:
-    1. **Publishable Key** (`pk_live_xxx` or `pk_test_xxx`)
+    1.  **Publishable Key** (`pk_live_xxx` or `pk_test_xxx`)
         - Used in the frontend (React, Next.js, etc.).
         - Safe to expose publicly.
         - Used for initializing Stripe.js and creating Payment Intents.
         - Cannot be used for sensitive operations like charging a card directly.
 
-    2. **Secret Key** (sk_live_xxx or sk_test_xxx)
+    2.  **Secret Key** (sk_live_xxx or sk_test_xxx)
         - Used in the backend (Node.js, Express, etc.).
         - Must never be exposed on the frontend.
         - Used to process payments, create subscriptions, manage customers, etc.
@@ -28,16 +28,16 @@
 
     1. `"graduated"` → Pricing follows tiered steps (e.g., first 10 units at $5, next 10 at $4).
 
-    If a customer buys 15 units:
-    - First 10 units → $5 each ($50)
-    - Next 5 units → $4 each ($20)
-    - Total → $70
+        If a customer buys 15 units:
+        - First 10 units → $5 each ($50)
+        - Next 5 units → $4 each ($20)
+        - Total → $70
 
     2. `"volume"` → Flat pricing per unit based on the total quantity (e.g., if buying 15 units falls in the 10+ range, all units are priced at that tier rate).
 
-    If a customer buys 15 units:
-    - Since 15 falls in the 11-20 range, all 15 units are charged at $4 per unit.
-    - Total → $60 (15 × $4)
+        If a customer buys 15 units:
+        - Since 15 falls in the 11-20 range, all 15 units are charged at $4 per unit.
+        - Total → $60 (15 × $4)
 
     **Code Snippet**
     ```
@@ -63,6 +63,42 @@
     });
     ```
 
-9.  Stripe unfortunately doesn't provide **ENUMS**, so they  need to be manually defined by the developer. I've defined them in the [types/stripe](../apps/express-server/src/types/stripe/) folder of `express-server` workspace.
+10.  Stripe unfortunately doesn't provide **ENUMS**, so they  need to be manually defined by the developer. I've defined them in the [types/stripe](../apps/express-server/src/types/stripe/) folder of `express-server` workspace.
 
-10. Each Stripe API has a [Request-ID](https://docs.stripe.com/api/request_ids?lang=node) which can be captured for logging purpose.
+11. Each Stripe API has a [Request-ID](https://docs.stripe.com/api/request_ids?lang=node) which can be captured for logging purpose.
+
+12. The `balance.available` array in Stripe's [Balance API](https://docs.stripe.com/api/balance?lang=node) is grouped by currency.
+
+    When you retrieve the balance using:
+
+    ```
+    const balance = await stripe.balance.retrieve();
+    console.log(balance.available);
+    ```
+
+    You get an array like this:
+
+    ```
+    [
+      { "amount": 10000, "currency": "usd", "source_types": { "card": 8000, "bank_account": 2000 } },
+      { "amount": 5000, "currency": "eur", "source_types": { "card": 5000 } }
+    ]
+    ```
+
+    **How is it Grouped?**
+    1. **By Currency** → Each object represents a different currency (e.g., `"usd"`, `"eur"`).
+
+    2. **By Payment Method** (Inside `source_types`) → It shows amounts available for each source type, like:
+        - `"card"` → Funds from card payments
+        - `"bank_account"` → Funds from bank transfers
+        - `"fpx"` → FPX payments (Malaysia)
+
+13. [Balance transactions](https://docs.stripe.com/api/balance_transactions) represent funds moving through your Stripe account. Stripe creates them for every type of transaction that enters or leaves your Stripe account balance. The `Charge` object represents a single attempt to move money into your Stripe account.
+
+    **Every successful charge in Stripe automatically creates a corresponding balance transaction.**
+
+    <h4>🔹 How It Works:</h4>
+
+    1. Customer makes a payment (via `charges.create` or Checkout).
+    2. A charge (`ch_xxx`) is created, with status `succeeded` (if successful).
+    3. Stripe automatically records a balance transaction (`txn_xxx`) linked to the charge.This balance transaction represents the movement of funds into your Stripe account.
