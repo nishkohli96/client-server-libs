@@ -8,3 +8,18 @@ export type GetPriceById = {
   priceId: string;
 };
 export type GetPriceRequest = Request<GetPriceById>;
+
+export type UpdatePriceBody = Stripe.PriceUpdateParams;
+export type UpdatePriceRequest = Request<GetPriceById, object, UpdatePriceBody>;
+
+export type ListPricesBody = Stripe.PriceListParams;
+export type ListPricesRequest = Request<object, object, ListPricesBody>;
+
+export type SearchPricesBody = Stripe.PriceSearchParams;
+export type SearchPricesRequest = Request<
+  object,
+  object,
+  object,
+  SearchPricesBody
+>;
+export type SearchPricesResponse = Stripe.ApiList<Stripe.Price>;

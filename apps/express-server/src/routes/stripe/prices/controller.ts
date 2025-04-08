@@ -33,4 +33,37 @@ stripePricesRouter.get(
   }
 );
 
+/* PATCH /stripe/prices/update/:priceId */
+stripePricesRouter.patch(
+  `/${subRoutes.update}/:priceId`,
+  async function updatePrice(
+    req: StripePricesTypedefs.UpdatePriceRequest,
+    res: Response
+  ) {
+    return await stripePricesService.updatePrice(res, req.params, req.body);
+  }
+);
+
+/* POST /stripe/prices/list */
+stripePricesRouter.post(
+  `/${subRoutes.list}`,
+  async function listPrices(
+    req: StripePricesTypedefs.ListPricesRequest,
+    res: Response
+  ) {
+    return await stripePricesService.listPrices(res, req.body);
+  }
+);
+
+/* GET /stripe/prices/search */
+stripePricesRouter.get(
+  `/${subRoutes.search}`,
+  async function searchPrices(
+    req: StripePricesTypedefs.SearchPricesRequest,
+    res: Response
+  ) {
+    return await stripePricesService.searchPrices(res, req.query);
+  }
+);
+
 export { stripePricesRouter };
