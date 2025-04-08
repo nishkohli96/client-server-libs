@@ -78,6 +78,17 @@ export const ExpressServerEndpoints = Object.freeze({
   stripe: {
     rootPath: '/stripe',
     subRoutes: {
+      customers: {
+        rootPath: '/customers',
+        subRoutes: {
+          create: 'create',
+          get: 'get',
+          update: 'update',
+          delete: 'delete',
+          list: 'list',
+          search: 'search'
+        }
+      },
       products: {
         rootPath: '/products',
         subRoutes: {

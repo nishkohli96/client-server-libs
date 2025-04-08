@@ -64,3 +64,5 @@
     ```
 
 9.  Stripe unfortunately doesn't provide **ENUMS**, so they  need to be manually defined by the developer. I've defined them in the [types/stripe](../apps/express-server/src/types/stripe/) folder of `express-server` workspace.
+
+10. Each Stripe API has a [Request-ID](https://docs.stripe.com/api/request_ids?lang=node) which can be captured for logging purpose.

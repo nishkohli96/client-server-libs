@@ -5,4 +5,5 @@
  */
 
 export * from './currency';
+export * from './objects';
 export * from './price';
