@@ -49,7 +49,7 @@ stripePricesRouter.post(
   `/${subRoutes.list}`,
   async function listPrices(
     req: StripePricesTypedefs.ListPricesRequest,
-    res: Response
+    res: StripePricesTypedefs.ListPricesResponse
   ) {
     return await stripePricesService.listPrices(res, req.body);
   }

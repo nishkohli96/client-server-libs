@@ -1,4 +1,4 @@
-import { type Request } from 'express';
+import { type Request, type Response } from 'express';
 import type Stripe from 'stripe';
 
 export type CreatePriceBody = Stripe.PriceCreateParams;
@@ -14,6 +14,9 @@ export type UpdatePriceRequest = Request<GetPriceById, object, UpdatePriceBody>;
 
 export type ListPricesBody = Stripe.PriceListParams;
 export type ListPricesRequest = Request<object, object, ListPricesBody>;
+export type ListPricesResponse = Response<
+  Stripe.Response<Stripe.ApiList<Stripe.Price>>
+>;
 
 export type SearchPricesBody = Stripe.PriceSearchParams;
 export type SearchPricesRequest = Request<

@@ -53,7 +53,7 @@ class StripePricesService {
    * https://docs.stripe.com/api/prices/list?lang=node
    */
   async listPrices(
-    res: Response,
+    res: StripePricesTypedefs.ListPricesResponse,
     payload: StripePricesTypedefs.ListPricesBody
   ) {
     try {
