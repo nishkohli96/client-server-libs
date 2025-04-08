@@ -22,4 +22,43 @@
 
 6.  You can search for prices, users, invoices etc. using different filters in the [dashboard searchbar](https://docs.stripe.com/dashboard/search#search-filters-operators).
 
-7. Stripe has a rate limit of **100 parallel requests per second** for `live mode` transactions, and **25 parallel requests per second** for `test mode` transactions.​
+7.  Stripe has a rate limit of **100 parallel requests per second** for `live mode` transactions, and **25 parallel requests per second** for `test mode` transactions.​
+
+8.  `tiers_mode` is a property in [Stripe Prices](https://docs.stripe.com/api/prices?lang=node) that allows you to define tiered pricing for a product. This means the price per unit changes depending on the quantity purchased. It has two modes:
+
+    1. `"graduated"` → Pricing follows tiered steps (e.g., first 10 units at $5, next 10 at $4).
+
+    If a customer buys 15 units:
+    - First 10 units → $5 each ($50)
+    - Next 5 units → $4 each ($20)
+    - Total → $70
+
+    2. `"volume"` → Flat pricing per unit based on the total quantity (e.g., if buying 15 units falls in the 10+ range, all units are priced at that tier rate).
+
+    If a customer buys 15 units:
+    - Since 15 falls in the 11-20 range, all 15 units are charged at $4 per unit.
+    - Total → $60 (15 × $4)
+
+    **Code Snippet**
+    ```
+    const price = await stripe.prices.create({
+      product: 'prod_XXXXXX',
+      currency: 'usd',
+      billing_scheme: 'tiered',
+      tiers_mode: 'graduated' || 'volume',
+      tiers: [
+        {
+          up_to: 10,
+          unit_amount: 500
+        }, // $5 per unit for 1-10
+        {
+          up_to: 20,
+          unit_amount: 400
+        }, // $4 per unit for 11-20
+        {
+          up_to: null,
+          unit_amount: 300
+        }, // $3 per unit for 21+
+      ],
+    });
+    ```

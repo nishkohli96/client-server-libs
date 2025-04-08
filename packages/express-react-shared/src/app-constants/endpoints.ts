@@ -66,7 +66,7 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       listInactive: 'list-inactive',
-      add: 'add',
+      add: 'add'
     }
   },
   socket: {
@@ -86,15 +86,20 @@ export const ExpressServerEndpoints = Object.freeze({
           update: 'update',
           delete: 'delete',
           list: 'list',
-          search: 'search',
+          search: 'search'
         }
       },
       prices: {
         rootPath: '/prices',
         subRoutes: {
+          create: 'create',
+          get: 'get',
+          update: 'update',
+          list: 'list',
+          search: 'search'
         }
-      },
-    },
+      }
+    }
   },
   stytch: {
     rootPath: '/stytch',
@@ -115,7 +120,7 @@ export const ExpressServerEndpoints = Object.freeze({
       authenticatePassword: 'authenticate-with-password',
       passwordStrength: 'password-strength',
       authenticateEmailOTP: 'authenticate-email-otp',
-      getRecoveryCodes: 'get-recovery-codes',
+      getRecoveryCodes: 'get-recovery-codes'
     }
   }
 });
