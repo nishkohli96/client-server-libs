@@ -29,7 +29,9 @@ class StripeFilesService {
    * as these sensitive files are not publicly accessible.
    *
    * To make a file publically accessible, you can create them using
-   * fileLink.create() and share the file link to the client.
+   * fileLinks.create() and share the file link to the client.
+   *
+   * Refer the "createFileLink" method below.
    */
   async getFile(
     res: StripeFileTypedefs.GetFileResponse,
@@ -41,6 +43,25 @@ class StripeFilesService {
     } catch (error) {
       return sendErrorResponse(res, error);
     }
+  }
+
+  /**
+   * This method creates a public url for the given file ID with
+   * an expiry of 1 day, and can be used to extend the above method.
+   * Expired links can no longer be updated.
+   *
+   * "res.redirect(fileLink.url)" -> redirects the user to the file
+   * link thus viewing file contents to the user.
+   *
+   * "res.json(fileLink.url)" -> returns the file url
+   */
+  async createFileLink(fileId: string) {
+    const expires_at = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+    const fileLink = await stripeSDK.fileLinks.create({
+      file: fileId,
+      expires_at
+    });
+    return fileLink.url;
   }
 }
 
