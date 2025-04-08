@@ -8,11 +8,11 @@ import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeProductsService from './service';
 import type * as StripeProductsTypedefs from './types';
 
-const stripeProductRouter = Router();
+const stripeProductsRouter = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes.products.subRoutes;
 
 /* POST /stripe/products/create */
-stripeProductRouter.post(
+stripeProductsRouter.post(
   `/${subRoutes.create}`,
   async function createProduct(
     req: StripeProductsTypedefs.CreateProductRequest,
@@ -23,7 +23,7 @@ stripeProductRouter.post(
 );
 
 /* PATCH /stripe/products/update/:productId */
-stripeProductRouter.patch(
+stripeProductsRouter.patch(
   `/${subRoutes.update}/:productId`,
   async function updateProduct(
     req: StripeProductsTypedefs.UpdateProductRequest,
@@ -34,7 +34,7 @@ stripeProductRouter.patch(
 );
 
 /* GET /stripe/products/get/:productId */
-stripeProductRouter.get(
+stripeProductsRouter.get(
   `/${subRoutes.get}/:productId`,
   async function getProduct(
     req: StripeProductsTypedefs.GetProductRequest,
@@ -45,7 +45,7 @@ stripeProductRouter.get(
 );
 
 /* POST /stripe/products/list */
-stripeProductRouter.post(
+stripeProductsRouter.post(
   `/${subRoutes.list}`,
   async function listProducts(
     req: StripeProductsTypedefs.ListProductsRequest,
@@ -56,7 +56,7 @@ stripeProductRouter.post(
 );
 
 /* GET /stripe/products/search */
-stripeProductRouter.get(
+stripeProductsRouter.get(
   `/${subRoutes.search}`,
   async function searchProducts(
     req: StripeProductsTypedefs.SearchProductsRequest,
@@ -67,7 +67,7 @@ stripeProductRouter.get(
 );
 
 /* DELETE /stripe/products/delete/:productId */
-stripeProductRouter.delete(
+stripeProductsRouter.delete(
   `/${subRoutes.delete}/:productId`,
   async function deleteProduct(
     req: StripeProductsTypedefs.GetProductRequest,
@@ -77,4 +77,4 @@ stripeProductRouter.delete(
   }
 );
 
-export { stripeProductRouter };
+export { stripeProductsRouter };

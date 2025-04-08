@@ -3,11 +3,15 @@
  * better differentiate between different types of objects.
  */
 export enum StripePrefixes {
+  BALANCE_TRANSACTION = 'txn_',
   CHARGE = 'ch_',
   CUSTOMER = 'cus_',
+  DISPUTE = 'du_',
+  EVENT = 'evt_',
+  FILE = 'file_',
+  FILE_LINK = 'link_',
   PRODUCT = 'prod_',
-  PRICE = 'price_',
-  TRANSACTION = 'txn_'
+  PRICE = 'price_'
 }
 
 export enum StripeObjectTypes {
@@ -15,6 +19,11 @@ export enum StripeObjectTypes {
   BALANCE_TRANSACTION = 'balance_transaction',
   CHARGE = 'charge',
   CUSTOMER = 'customer',
+  CUSTOMER_SESSION = 'customer_session',
+  DISPUTE = 'dispute',
+  EVENT = 'event',
+  FILE = 'file',
+  FILE_LINK = 'file_link',
   LIST = 'list',
   PRODUCT = 'product',
   PRICE = 'price'

@@ -6,6 +6,8 @@
 
 export * from './charge';
 export * from './currency';
+export * from './file';
 export * from './objects';
+export * from './payment';
 export * from './price';
 export * from './transaction';

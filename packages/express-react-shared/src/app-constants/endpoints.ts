@@ -89,6 +89,13 @@ export const ExpressServerEndpoints = Object.freeze({
           search: 'search'
         }
       },
+      files: {
+        rootPath: '/files',
+        subRoutes: {
+          get: 'get',
+          list: 'list'
+        }
+      },
       products: {
         rootPath: '/products',
         subRoutes: {

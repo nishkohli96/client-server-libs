@@ -8,11 +8,11 @@ import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeCustomersService from './service';
 import type * as StripeCustomerTypedefs from './types';
 
-const stripeCustomerRouter = Router();
+const stripeCustomersRouter = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes.customers.subRoutes;
 
 /* POST /stripe/customers/create */
-stripeCustomerRouter.post(
+stripeCustomersRouter.post(
   `/${subRoutes.create}`,
   async function createCustomer(
     req: StripeCustomerTypedefs.CreateCustomerRequest,
@@ -23,7 +23,7 @@ stripeCustomerRouter.post(
 );
 
 /* PATCH /stripe/customers/update/:customerId */
-stripeCustomerRouter.patch(
+stripeCustomersRouter.patch(
   `/${subRoutes.update}/:customerId`,
   async function updateCustomer(
     req: StripeCustomerTypedefs.UpdateCustomerRequest,
@@ -38,7 +38,7 @@ stripeCustomerRouter.patch(
 );
 
 /* GET /stripe/customers/get/:customerId */
-stripeCustomerRouter.get(
+stripeCustomersRouter.get(
   `/${subRoutes.get}/:customerId`,
   async function getCustomer(
     req: StripeCustomerTypedefs.GetCustomerRequest,
@@ -49,7 +49,7 @@ stripeCustomerRouter.get(
 );
 
 /* POST /stripe/customers/list */
-stripeCustomerRouter.post(
+stripeCustomersRouter.post(
   `/${subRoutes.list}`,
   async function listCustomers(
     req: StripeCustomerTypedefs.ListCustomersRequest,
@@ -60,7 +60,7 @@ stripeCustomerRouter.post(
 );
 
 /* GET /stripe/customers/search */
-stripeCustomerRouter.get(
+stripeCustomersRouter.get(
   `/${subRoutes.search}`,
   async function searchCustomers(
     req: StripeCustomerTypedefs.SearchCustomersRequest,
@@ -71,7 +71,7 @@ stripeCustomerRouter.get(
 );
 
 /* DELETE /stripe/customers/delete/:customerId */
-stripeCustomerRouter.delete(
+stripeCustomersRouter.delete(
   `/${subRoutes.delete}/:customerId`,
   async function deleteCustomer(
     req: StripeCustomerTypedefs.GetCustomerRequest,
@@ -81,4 +81,4 @@ stripeCustomerRouter.delete(
   }
 );
 
-export { stripeCustomerRouter };
+export { stripeCustomersRouter };
