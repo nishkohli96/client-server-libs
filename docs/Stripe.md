@@ -62,3 +62,5 @@
       ],
     });
     ```
+
+9.  Stripe unfortunately doesn't provide **ENUMS**, so they  need to be manually defined by the developer. I've defined them in the [types/stripe](../apps/express-server/src/types/stripe/) folder of `express-server` workspace.
