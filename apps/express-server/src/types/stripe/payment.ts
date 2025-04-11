@@ -19,6 +19,11 @@ export enum StripePaymentMethodRemove {
   ENABLED = 'enabled'
 }
 
+export enum StripePaymentMethodSetupFutureUsage {
+  OFF_SESSION = 'off_session',
+  ON_SESSION = 'on_session'
+}
+
 export enum StripePaymentMethodSaveUsage {
   OFF_SESSION = 'off_session',
   ON_SESSION = 'on_session'
@@ -40,7 +45,7 @@ export enum StripeMandateType {
   MULTI_USE = 'multi_use'
 }
 
-export enum PaymentIntentStatus {
+export enum StripePaymentIntentStatus {
   CANCELED = 'canceled',
   PROCESSING = 'processing',
   REQUIRES_ACTION = 'requires_action',
@@ -48,4 +53,11 @@ export enum PaymentIntentStatus {
   REQUIRES_CONFIRMATION = 'requires_confirmation',
   REQUIRES_PAYMENT_METHOD = 'requires_payment_method',
   SUCCEEDED = 'succeeded'
+}
+
+export enum StripePaymentIntentCancellationReason {
+  ABANDONED = 'abandoned',
+  DUPLICATE = 'duplicate',
+  FRAUDULENT = 'fraudulent',
+  REQUESTED_BY_CUSTOMER = 'requested_by_customer'
 }

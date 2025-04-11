@@ -99,7 +99,12 @@ export const ExpressServerEndpoints = Object.freeze({
       payments: {
         rootPath: '/payments',
         subRoutes: {
-          create: 'create'
+          create: 'create',
+          update: 'update',
+          get: 'get',
+          cancel: 'cancel',
+          capture: 'capture',
+          confirm: 'confirm'
         }
       },
       products: {
