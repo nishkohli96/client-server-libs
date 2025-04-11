@@ -66,13 +66,68 @@ export const ExpressServerEndpoints = Object.freeze({
     subRoutes: {
       list: 'list',
       listInactive: 'list-inactive',
-      add: 'add',
+      add: 'add'
     }
   },
   socket: {
     rootPath: '/socket',
     subRoutes: {
       test: 'test'
+    }
+  },
+  stripe: {
+    rootPath: '/stripe',
+    subRoutes: {
+      customers: {
+        rootPath: '/customers',
+        subRoutes: {
+          create: 'create',
+          get: 'get',
+          update: 'update',
+          delete: 'delete',
+          list: 'list',
+          search: 'search'
+        }
+      },
+      files: {
+        rootPath: '/files',
+        subRoutes: {
+          get: 'get',
+          list: 'list'
+        }
+      },
+      payments: {
+        rootPath: '/payments',
+        subRoutes: {
+          create: 'create',
+          update: 'update',
+          get: 'get',
+          cancel: 'cancel',
+          capture: 'capture',
+          confirm: 'confirm'
+        }
+      },
+      products: {
+        rootPath: '/products',
+        subRoutes: {
+          create: 'create',
+          get: 'get',
+          update: 'update',
+          delete: 'delete',
+          list: 'list',
+          search: 'search'
+        }
+      },
+      prices: {
+        rootPath: '/prices',
+        subRoutes: {
+          create: 'create',
+          get: 'get',
+          update: 'update',
+          list: 'list',
+          search: 'search'
+        }
+      }
     }
   },
   stytch: {
@@ -94,7 +149,7 @@ export const ExpressServerEndpoints = Object.freeze({
       authenticatePassword: 'authenticate-with-password',
       passwordStrength: 'password-strength',
       authenticateEmailOTP: 'authenticate-email-otp',
-      getRecoveryCodes: 'get-recovery-codes',
+      getRecoveryCodes: 'get-recovery-codes'
     }
   }
 });

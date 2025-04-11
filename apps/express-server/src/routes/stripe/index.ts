@@ -1,0 +1,18 @@
+import { Router } from 'express';
+import { ExpressServerEndpoints } from '@csl/react-express';
+import { stripeCustomersRouter } from './customers/controller';
+import { stripeFilesRouter } from './files/controller';
+import { stripePaymentsRouter } from './payments/controller';
+import { stripePricesRouter } from './prices/controller';
+import { stripeProductsRouter } from './products/controller';
+
+const stripeRouter = Router();
+const subRoutes = ExpressServerEndpoints.stripe.subRoutes;
+
+stripeRouter.use(subRoutes.customers.rootPath, stripeCustomersRouter);
+stripeRouter.use(subRoutes.files.rootPath, stripeFilesRouter);
+stripeRouter.use(subRoutes.payments.rootPath, stripePaymentsRouter);
+stripeRouter.use(subRoutes.prices.rootPath, stripePricesRouter);
+stripeRouter.use(subRoutes.products.rootPath, stripeProductsRouter);
+
+export { stripeRouter };
