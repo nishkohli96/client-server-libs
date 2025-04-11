@@ -44,20 +44,3 @@ export enum StripeMandateType {
   SINGLE_USE = 'single_use',
   MULTI_USE = 'multi_use'
 }
-
-export enum StripePaymentIntentStatus {
-  CANCELED = 'canceled',
-  PROCESSING = 'processing',
-  REQUIRES_ACTION = 'requires_action',
-  REQUIRES_CAPTURE = 'requires_capture',
-  REQUIRES_CONFIRMATION = 'requires_confirmation',
-  REQUIRES_PAYMENT_METHOD = 'requires_payment_method',
-  SUCCEEDED = 'succeeded'
-}
-
-export enum StripePaymentIntentCancellationReason {
-  ABANDONED = 'abandoned',
-  DUPLICATE = 'duplicate',
-  FRAUDULENT = 'fraudulent',
-  REQUESTED_BY_CUSTOMER = 'requested_by_customer'
-}
