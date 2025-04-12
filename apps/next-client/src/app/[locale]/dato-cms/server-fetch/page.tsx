@@ -3,7 +3,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
-import { ApiEndpoints, ENV_VARS } from '@/app-constants';
+import { ApiEndpoints, ENV_VARS } from '@/constants';
 import { SingleStoreLocationsQuery } from '@/graphql/queries';
 
 export default async function DatoCMSServerFetchPage() {
@@ -13,7 +13,7 @@ export default async function DatoCMSServerFetchPage() {
     {
       headers: {
         Authorization: `Bearer ${ENV_VARS.datoCMS.key_server}`
-      // ...(includeDrafts ? { "X-Include-Drafts": "true" } : {}),
+        // ...(includeDrafts ? { "X-Include-Drafts": "true" } : {}),
       }
     }
   );

@@ -2,7 +2,7 @@
 'use client';
 
 import { io } from 'socket.io-client';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 export const socket = io(ENV_VARS.expressServerURL, {
   /* defaults to 1000 */
