@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
+import { stripeCheckoutRouter } from './checkout/controller';
 import { stripeCustomersRouter } from './customers/controller';
 import { stripeFilesRouter } from './files/controller';
 import { stripePaymentsRouter } from './payments/controller';
@@ -9,6 +10,7 @@ import { stripeProductsRouter } from './products/controller';
 const stripeRouter = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes;
 
+stripeRouter.use(subRoutes.checkout.rootPath, stripeCheckoutRouter);
 stripeRouter.use(subRoutes.customers.rootPath, stripeCustomersRouter);
 stripeRouter.use(subRoutes.files.rootPath, stripeFilesRouter);
 stripeRouter.use(subRoutes.payments.rootPath, stripePaymentsRouter);
