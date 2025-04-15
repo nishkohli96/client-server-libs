@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import stytchService from './service';
 import type * as StytchTypes from './types';
 

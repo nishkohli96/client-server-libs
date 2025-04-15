@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import * as Sentry from '@sentry/node';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ENV_VARS, ServerConfig } from '@/app-constants';
+import { ENV_VARS, ServerConfig } from '@/constants';
 import { requestLogger } from '@/middleware';
 import { routesArray } from '@/routes';
 import { io } from '.';

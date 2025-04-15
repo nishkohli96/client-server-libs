@@ -1,7 +1,7 @@
 import { useTranslations, useMessages } from 'next-intl';
 import Typography from '@mui/material/Typography';
 import { PageHeading } from '@csl/shared-fe';
-import { PageLinks } from '@/app-constants';
+import { PageLinks } from '@/constants';
 import { PageLink, StyledLink, SocketConnection } from '@/components';
 
 export default function Home() {
@@ -42,7 +42,7 @@ export default function Home() {
       <p>
         {t.rich('interpolation.richText', {
           guidelines: chunks => (
-            <StyledLink text={chunks} href="/parallel-routes" newTab/>
+            <StyledLink text={chunks} href="/parallel-routes" newTab />
           )
         })}
       </p>

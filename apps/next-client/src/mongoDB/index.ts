@@ -1,16 +1,18 @@
 import mongoose from 'mongoose';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 class MongoDB {
   private connection: typeof mongoose | null = null;
 
   async connect() {
-    if(this.connection) {
+    if (this.connection) {
       console.log('Reusing existing connection');
       return;
     }
     try {
-      this.connection = await mongoose.connect(`${ENV_VARS.mongo.url}/${ENV_VARS.mongo.dbName}`);
+      this.connection = await mongoose.connect(
+        `${ENV_VARS.mongo.url}/${ENV_VARS.mongo.dbName}`
+      );
     } catch (err) {
       console.log('err: ', err);
     }
