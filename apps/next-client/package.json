@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
-    "@nish1896/eslint-flat-config": "^2.0.2",
+    "@nish1896/eslint-flat-config": "^2.0.3",
     "@sentry/cli": "^2.42.1",
     "@types/mixpanel-browser": "^2.51.0",
     "@types/mdx": "^2.0.13",
