@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { expressApi } from '@/axios/expressApi';
+import { expressApi } from '@/axios';
 import { CheckoutButton } from './components';
 
 const stripeRoutes = ExpressServerEndpoints.stripe;
@@ -18,7 +18,8 @@ async function fetchStripeProduct(productId: string) {
 }
 
 export default async function CheckoutPage() {
-  const productData = await fetchStripeProduct('prod_S54uWNLClRAzNa');
+  const productId = 'prod_S54uWNLClRAzNa';
+  const productData = await fetchStripeProduct(productId);
   return (
     <Card sx={{ width: 200 }}>
       <CardMedia
@@ -35,7 +36,7 @@ export default async function CheckoutPage() {
         </Typography>
       </CardContent>
       <CardActions>
-        <CheckoutButton product={productData} />
+        <CheckoutButton productId={productId} />
       </CardActions>
     </Card>
   );

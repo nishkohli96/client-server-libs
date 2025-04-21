@@ -8,3 +8,8 @@ export type CreateCheckoutSessionRequest = Request<
   CreateCheckoutSessionBody
 >;
 export type CreateCheckoutSessionResponse = Response<string>;
+
+export type BuyProductById = {
+  productId: string;
+};
+export type BuyProductRequest = Request<BuyProductById>;

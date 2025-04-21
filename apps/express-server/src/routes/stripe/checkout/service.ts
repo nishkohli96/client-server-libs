@@ -15,6 +15,38 @@ class StripeCheckoutService {
       return sendErrorResponse(res, error, 'Error creating new customer');
     }
   }
+
+  /**
+   * Generate payment link for a product whose prices are
+   * fetched from the server, and send url link to frontend.
+   */
+  async buyProduct(
+    res: Response,
+    params: StripeCheckoutTypedefs.BuyProductById
+  ) {
+    try {
+      const { productId } = params;
+      const prices = await stripeSDK.prices.list({
+        product: productId,
+        active: true,
+        limit: 1
+      });
+      if (!prices.data.length) {
+        return res.status(404).json({ error: 'No price found for product.' });
+      }
+      const paymentLink = await stripeSDK.paymentLinks.create({
+        line_items: [
+          {
+            price: prices.data[0].id,
+            quantity: 1
+          }
+        ]
+      });
+      res.json({ url: paymentLink.url });
+    } catch (error) {
+      return sendErrorResponse(res, error, 'Error creating new customer');
+    }
+  }
 }
 
 const stripeCheckoutService = new StripeCheckoutService();

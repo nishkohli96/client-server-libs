@@ -81,7 +81,8 @@ export const ExpressServerEndpoints = Object.freeze({
       checkout: {
         rootPath: '/checkout',
         subRoutes: {
-          createSession: 'create-session'
+          createSession: 'create-session',
+          buyProduct: 'buy-product'
         }
       },
       customers: {

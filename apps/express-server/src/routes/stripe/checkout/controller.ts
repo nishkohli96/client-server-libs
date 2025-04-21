@@ -22,4 +22,15 @@ stripeCheckoutRouter.post(
   }
 );
 
+/* GET /stripe/checkout/buy-product/:productId */
+stripeCheckoutRouter.get(
+  `/${subRoutes.buyProduct}`,
+  async function buyProduct(
+    req: StripeCheckoutTypedefs.BuyProductRequest,
+    res: Response
+  ) {
+    return await stripeCheckoutService.buyProduct(res, req.params);
+  }
+);
+
 export { stripeCheckoutRouter };
