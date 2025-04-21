@@ -20,10 +20,19 @@ async function fetchStripeProduct(productId: string) {
 export default async function CheckoutPage() {
   const productId = 'prod_S8O1JRI9XYpysx';
   const productData = await fetchStripeProduct(productId);
+  console.log('productData: ', productData);
+
+  /**
+   * Need to find a way to get product image dimensions, either
+   * by a custom API or by using some library like sharp.
+   */
   return (
-    <Card sx={{ width: 200 }}>
+    <Card sx={{ width: { xs: 200, md: 400 } }}>
       <CardMedia
-        sx={{ width: 200, height: 300 }}
+        sx={{
+          width: { xs: 200, md: 400 },
+          height: { xs: 200, md: 400 }
+        }}
         image={productData.images[0]}
         title={productData.name}
       />

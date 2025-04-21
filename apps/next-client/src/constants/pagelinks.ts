@@ -35,14 +35,3 @@ export const PageLinks: PageInfo[] = [
     href: stripePrefix
   }
 ];
-
-export const StripePageLinks: PageInfo[] = [
-  {
-    title: 'Payment Links',
-    href: `${stripePrefix}/payment-links`
-  },
-  {
-    title: 'Checkout',
-    href: `${stripePrefix}/checkout`
-  }
-];
