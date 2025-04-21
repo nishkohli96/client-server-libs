@@ -104,3 +104,6 @@
     3. Stripe automatically records a balance transaction (`txn_xxx`) linked to the charge.This balance transaction represents the movement of funds into your Stripe account.
 
 14. It is recommended that you create exactly one [PaymentIntent](https://docs.stripe.com/api/payment_intents?lang=node) for each order or customer session in your system. You can reference the **PaymentIntent** later to see the history of payment attempts for a particular session. The value of `paymentIntent.amount`must be a positive integer representing how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
+
+15.  You can create payment links for products with international pricing, only if your business is registered. Currently to open a stripe account in India, you need to be invited to apply.
+
