@@ -1,5 +1,4 @@
 import type Stripe from 'stripe';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { expressApi } from '@/axios/expressApi';
+import { CheckoutButton } from './components';
 
 const stripeRoutes = ExpressServerEndpoints.stripe;
 
@@ -15,10 +15,6 @@ async function fetchStripeProduct(productId: string) {
     `${stripeRoutes.rootPath}${stripeRoutes.subRoutes.products.rootPath}/${stripeRoutes.subRoutes.products.subRoutes.get}/${productId}`
   );
   return response.data;
-}
-
-function createCheckoutSession(product: Stripe.Product) {
-  console.log('product: ', product);
 }
 
 export default async function CheckoutPage() {
@@ -39,14 +35,7 @@ export default async function CheckoutPage() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          variant="outlined"
-          color="secondary"
-          onClick={() => createCheckoutSession(productData)}
-        >
-          Proceed to Buy
-        </Button>
+        <CheckoutButton product={productData} />
       </CardActions>
     </Card>
   );
