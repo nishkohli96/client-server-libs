@@ -18,7 +18,7 @@ async function fetchStripeProduct(productId: string) {
 }
 
 export default async function CheckoutPage() {
-  const productId = 'prod_S54uWNLClRAzNa';
+  const productId = 'prod_S8O1JRI9XYpysx';
   const productData = await fetchStripeProduct(productId);
   return (
     <Card sx={{ width: 200 }}>

@@ -24,7 +24,7 @@ stripeCheckoutRouter.post(
 
 /* GET /stripe/checkout/buy-product/:productId */
 stripeCheckoutRouter.get(
-  `/${subRoutes.buyProduct}`,
+  `/${subRoutes.buyProduct}/:productId`,
   async function buyProduct(
     req: StripeCheckoutTypedefs.BuyProductRequest,
     res: Response
