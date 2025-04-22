@@ -1,16 +1,20 @@
-import { Router, Response } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ServerConfig } from '@/app-constants';
+import { ServerConfig } from '@/constants';
 import { fileUploader, winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
 import fileService from './service';
-import * as FileTypeDefs from './types';
+import type * as FileTypeDefs from './types';
 
 const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const multerDirs = ServerConfig.multer.dirs;
 
-const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg', '.png']);
+const mediaUploader = fileUploader('test-folder/some-dir', [
+  '.jpg',
+  '.jpeg',
+  '.png'
+]);
 const chunkUploader = fileUploader(multerDirs.chunk);
 const uploader = fileUploader();
 
@@ -171,10 +175,7 @@ fileRouter.get(
  */
 fileRouter.post(
   `/${subRoutes.combineWithffmpeg}`,
-  function combineVideosWithFfmpeg(
-    req,
-    res: Response
-  ) {
+  function combineVideosWithFfmpeg(req, res: Response) {
     return fileService.combineVideosWithFfmpeg(res);
   }
 );

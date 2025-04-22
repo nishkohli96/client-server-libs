@@ -1,6 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes
+} from 'sequelize';
 import { v6 as UUIDv6 } from 'uuid';
 import { postgreSequelize } from '@/db/postgres';
 import { isUUIDv6 } from '@/utils';
@@ -9,7 +15,10 @@ import { CarModel, CarColors } from './car';
 export type BuyerModelAttributes = InferAttributes<BuyerModel>;
 export type BuyerModelCreationAttributes = InferCreationAttributes<BuyerModel>;
 
-class BuyerModel extends Model<BuyerModelAttributes, BuyerModelCreationAttributes> {
+class BuyerModel extends Model<
+  BuyerModelAttributes,
+  BuyerModelCreationAttributes
+> {
   declare id: CreationOptional<string>;
   declare name: string;
   declare car_id: string;
@@ -33,14 +42,14 @@ BuyerModel.init(
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     car_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: CarModel,
-        key: 'id',
+        key: 'id'
       },
       validate: {
         isuuidV6(value: string) {
@@ -48,16 +57,16 @@ BuyerModel.init(
             throw new Error('Invalid UUID v6 format.');
           }
         }
-      },
+      }
     },
     color: {
       type: DataTypes.ENUM(...Object.values(CarColors)),
-      allowNull: false,
+      allowNull: false
     },
     purchased_on: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: DataTypes.NOW
     }
   },
   {
@@ -65,7 +74,7 @@ BuyerModel.init(
     timestamps: true,
     createdAt: 'purchased_on',
     updatedAt: false,
-    modelName: 'buyer',
+    modelName: 'buyer'
   }
 );
 
@@ -78,7 +87,7 @@ BuyerModel.belongsTo(CarModel, {
 
 CarModel.hasMany(BuyerModel, {
   foreignKey: 'car_id',
-  as: 'owners',
+  as: 'owners'
 });
 
 export { BuyerModel };

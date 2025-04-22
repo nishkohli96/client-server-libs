@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
-import { Person } from '@csl/mongo-models';
+import { type Person } from '@csl/mongo-models';
 import { PersonForm } from '../components';
 
 const ViewPersonPage = () => {

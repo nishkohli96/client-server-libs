@@ -1,16 +1,11 @@
 'use client';
 import { Roboto } from 'next/font/google';
-import { PaletteMode } from '@mui/material';
+import { type PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { LightThemePalette, DarkThemePalette } from './palette';
 
 const roboto = Roboto({
-  weight: [
-    '300',
-    '400',
-    '500',
-    '700'
-  ],
+  weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap'
 });

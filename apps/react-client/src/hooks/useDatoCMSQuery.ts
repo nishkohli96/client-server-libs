@@ -12,7 +12,7 @@ type QueryResult<T> = T | null;
 type QueryResponse<T> = {
   data: T | null;
   isLoading: boolean;
-}
+};
 
 export default function useDatoCMSQuery<T>(query: string): QueryResponse<T> {
   const [data, setData] = useState<QueryResult<T>>(null);

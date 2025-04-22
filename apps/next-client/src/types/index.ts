@@ -1,2 +1,2 @@
 export * from './locales';
-export * from './people';
+export type * from './people';

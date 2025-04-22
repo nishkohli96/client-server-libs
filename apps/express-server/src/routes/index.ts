@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { type Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { awsRouter } from './aws/controller';
 import { buyerRouter } from './buyer/controller';
@@ -7,13 +7,14 @@ import { carBrandRouter } from './car-brand/controller';
 import { fileRouter } from './file/controller';
 import { personRouter } from './person/controller';
 import { socketRouter } from './socket/controller';
+import { stripeRouter } from './stripe';
 import { stytchRouter } from './stytch/controller';
 import { userRouter } from './user/controller';
 
 type RouteInfo = {
   rootPath: string;
   router: Router;
-}
+};
 
 export const routesArray: RouteInfo[] = [
   {
@@ -43,6 +44,10 @@ export const routesArray: RouteInfo[] = [
   {
     rootPath: ExpressServerEndpoints.socket.rootPath,
     router: socketRouter
+  },
+  {
+    rootPath: ExpressServerEndpoints.stripe.rootPath,
+    router: stripeRouter
   },
   {
     rootPath: ExpressServerEndpoints.stytch.rootPath,

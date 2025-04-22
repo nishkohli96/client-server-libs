@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { PaginationConfig } from '@/types';
+import { type Response } from 'express';
+import { type PaginationConfig } from '@/types';
 
 export const DefaultPaginationOptions: PaginationConfig = {
   records_per_page: 10,
@@ -28,8 +28,6 @@ export function sendErrorResponse(
     success: false,
     status: 500,
     message: message ?? 'An error occurred',
-    error: error instanceof Error
-      ? error.message
-      : JSON.stringify(error)
+    error: error instanceof Error ? error.message : JSON.stringify(error)
   });
 }

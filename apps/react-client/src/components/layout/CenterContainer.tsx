@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { LayoutProps } from 'types';
+import { type LayoutProps } from 'types';
 
 const CenterContainer = ({ children }: LayoutProps) => {
   return (

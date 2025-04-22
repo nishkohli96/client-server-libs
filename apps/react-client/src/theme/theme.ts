@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material/styles/createPalette';
+import { type PaletteMode } from '@mui/material/styles/createPalette';
 import { LightThemePalette, DarkThemePalette } from './palette';
 
 export const getTheme = (mode: PaletteMode) => ({
@@ -6,9 +6,9 @@ export const getTheme = (mode: PaletteMode) => ({
     mode,
     common: {
       black: '#000',
-      white: '#fff',
+      white: '#fff'
     },
-    ...(mode === 'light' ? LightThemePalette : DarkThemePalette),
+    ...(mode === 'light' ? LightThemePalette : DarkThemePalette)
   },
   breakpoints: {
     values: {
@@ -16,8 +16,7 @@ export const getTheme = (mode: PaletteMode) => ({
       sm: 350,
       md: 768,
       lg: 1024,
-      xl: 1400,
-    },
+      xl: 1400
+    }
   }
 });
-

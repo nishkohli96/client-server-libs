@@ -2,15 +2,15 @@
 
 import {
   SNSClient,
-  Topic,
-  Subscription,
+  type Topic,
+  type Subscription,
   ListTopicsCommand,
-  ListTopicsCommandInput,
+  type ListTopicsCommandInput,
   ListSubscriptionsCommand,
-  ListSubscriptionsCommandInput,
+  type ListSubscriptionsCommandInput,
   PublishBatchCommand,
-  PublishBatchCommandInput,
-  PublishBatchRequestEntry,
+  type PublishBatchCommandInput,
+  type PublishBatchRequestEntry
 } from '@aws-sdk/client-sns';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -87,20 +87,23 @@ export async function listSNSSubscriptions() {
  * MessageGroupId is set, but MessageDeduplicationId is missing, you either
  * need to provide this id or else enable ContentBasedDeduplication setting
  * under the Configuration section of your SNS topic.
-*/
+ */
 export async function publishBatchNotifications(
   topicArn: string,
-  payload: Array<string | object>
+  payload: (string | object)[]
 ) {
   try {
-    const batchEntries: PublishBatchRequestEntry[] = payload.map((item, idx) => {
-      const itemValue = typeof item === 'string' ? item : JSON.stringify(item);
-      return {
-        Id: `Notification_${idx + 1}`,
-        Message: itemValue,
-        Subject: `Notification for Item ${idx + 1}`,
-      };
-    });
+    const batchEntries: PublishBatchRequestEntry[] = payload.map(
+      (item, idx) => {
+        const itemValue
+          = typeof item === 'string' ? item : JSON.stringify(item);
+        return {
+          Id: `Notification_${idx + 1}`,
+          Message: itemValue,
+          Subject: `Notification for Item ${idx + 1}`
+        };
+      }
+    );
     const input: PublishBatchCommandInput = {
       TopicArn: topicArn,
       PublishBatchRequestEntries: batchEntries

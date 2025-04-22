@@ -4,12 +4,12 @@ import {
   SESClient,
   CreateTemplateCommand,
   VerifyEmailIdentityCommand,
-  VerifyEmailAddressCommandInput,
+  type VerifyEmailAddressCommandInput,
   SendBulkTemplatedEmailCommand,
-  SendBulkTemplatedEmailCommandInput,
+  type SendBulkTemplatedEmailCommandInput,
   CreateCustomVerificationEmailTemplateCommand,
   SendCustomVerificationEmailCommand,
-  SendCustomVerificationEmailCommandInput
+  type SendCustomVerificationEmailCommandInput
 } from '@aws-sdk/client-ses';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -60,7 +60,9 @@ export async function createCustomEmailVerifyTemplate() {
       emailVerificationTemplate
     );
     const response = await sesClient.send(command);
-    winstonLogger.info(`Created custom email verify template: ${printObject(response)}`);
+    winstonLogger.info(
+      `Created custom email verify template: ${printObject(response)}`
+    );
   } catch (err) {
     winstonLogger.error('Unable to create custom email verify template:', err);
   }
@@ -76,11 +78,13 @@ export async function sendCustomVerificationEmail() {
   try {
     const input: SendCustomVerificationEmailCommandInput = {
       TemplateName: 'UserVerificationTemplate',
-      EmailAddress: 'welcome.user@gmail.com',
+      EmailAddress: 'welcome.user@gmail.com'
     };
     const command = new SendCustomVerificationEmailCommand(input);
     const response = await sesClient.send(command);
-    winstonLogger.info(`Created custom email verify template: ${printObject(response)}`);
+    winstonLogger.info(
+      `Created custom email verify template: ${printObject(response)}`
+    );
   } catch (err) {
     winstonLogger.error('Failed to send custom verification email:', err);
   }

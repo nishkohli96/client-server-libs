@@ -1,9 +1,6 @@
-import { Person } from '@csl/mongo-models';
+import { type Person } from '@csl/mongo-models';
 
-export type PersonDetails = Omit<
-  Person,
-  '_id'
-> & {
+export type PersonDetails = Omit<Person, '_id'> & {
   _id: string;
   fullName: string;
 };

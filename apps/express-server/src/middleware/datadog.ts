@@ -6,7 +6,7 @@
  */
 
 import tracer from 'dd-trace';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import pkgJson from '../../package.json';
 
 /**
@@ -20,7 +20,7 @@ const ddTracer = tracer.init({
   version: pkgJson.version,
   logInjection: true,
   // analytics: true, // Enables APM analytics
-  runtimeMetrics: true,
+  runtimeMetrics: true
 });
 
 export default ddTracer;

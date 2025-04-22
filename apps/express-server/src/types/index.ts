@@ -1,2 +1,2 @@
-export * from './redis';
+export type * from './redis';
 export * from './request';

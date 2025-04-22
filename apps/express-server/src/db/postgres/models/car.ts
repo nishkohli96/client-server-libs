@@ -1,6 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes
+} from 'sequelize';
 import { v6 as UUIDv6 } from 'uuid';
 import { postgreSequelize } from '@/db/postgres';
 import { isUUIDv6 } from '@/utils';
@@ -79,18 +85,18 @@ CarModel.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true
     },
     brand_id: {
       type: DataTypes.INTEGER,
       validate: {
-        isInt: true,
+        isInt: true
       },
       allowNull: false,
       /* This is a reference to another model */
       references: {
         model: CarBrandModel,
-        key: 'id',
+        key: 'id'
       },
       comment: 'This column refers to the id of brand in the car_brand table'
     },
@@ -134,17 +140,17 @@ CarModel.init(
         return rawValue.map(
           c => c.charAt(0).toUpperCase() + c.slice(1).toLowerCase()
         );
-      },
+      }
     },
     created_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: DataTypes.NOW
     },
     updated_at: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: DataTypes.NOW
     }
   },
   {
@@ -171,7 +177,7 @@ CarModel.init(
      *
      */
     paranoid: true,
-    deletedAt: 'deleted_at',
+    deletedAt: 'deleted_at'
     /**
      * This option will set the field option on all attributes to the snake_case
      * version of its name. This also applies to foreign keys automatically generated
@@ -207,9 +213,8 @@ CarModel.belongsTo(CarBrandModel, {
 
 CarBrandModel.hasMany(CarModel, {
   foreignKey: 'brand_id',
-  as: 'carModels',
+  as: 'carModels'
 });
-
 
 /**
  * Sync accepts "force" or "alter" option to create or modify table

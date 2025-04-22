@@ -1,9 +1,21 @@
 import { serverApi } from 'api/server';
 import { toast } from 'react-toastify';
-import { Person, NewPerson, PersonInfo } from '@csl/mongo-models';
+import {
+  type Person,
+  type NewPerson,
+  type PersonInfo
+} from '@csl/mongo-models';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { RequestQueryParams, ServerResponse, PersonListApiData } from 'types';
-import { generateQueryString, isValidResponseCode, handleApiError } from 'utils';
+import {
+  type RequestQueryParams,
+  type ServerResponse,
+  type PersonListApiData
+} from 'types';
+import {
+  generateQueryString,
+  isValidResponseCode,
+  handleApiError
+} from 'utils';
 
 const rootPath = ExpressServerEndpoints.people.rootPath;
 const subRoutes = ExpressServerEndpoints.people.subRoutes;
@@ -12,7 +24,7 @@ const fallbackData = {
   nbPages: 0,
   nbRecords: 0,
   records: [],
-  recordsPerPage: 0,
+  recordsPerPage: 0
 };
 
 export async function fetchPeopleList(params: RequestQueryParams) {

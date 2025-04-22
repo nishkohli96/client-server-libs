@@ -2,7 +2,7 @@ import axios from 'axios';
 
 type UploadS3FileProps = {
   preSignedUrl: string;
-  file: File
+  file: File;
 };
 
 /**
@@ -11,7 +11,7 @@ type UploadS3FileProps = {
  */
 export async function uploadFileToS3({
   preSignedUrl,
-  file,
+  file
 }: UploadS3FileProps) {
   const s3UploadResponse = await axios.put(preSignedUrl, file, {
     headers: {

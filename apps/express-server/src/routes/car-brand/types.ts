@@ -1,14 +1,14 @@
-import { Request } from 'express';
+import { type Request } from 'express';
 
 export type AddCarBrand = {
   name: string;
   country: string;
-}
+};
 
 export type AddCarModelRequest = Request<object, object, AddCarBrand>;
 
 export type CarBrandById = {
   brandId: string;
-}
+};
 
-export type RequestCarBrandById = Request<CarBrandById>
+export type RequestCarBrandById = Request<CarBrandById>;

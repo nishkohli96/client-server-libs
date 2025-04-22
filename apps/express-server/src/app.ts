@@ -1,14 +1,14 @@
-import express, { Express, Request, Response } from 'express';
+import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import * as Sentry from '@sentry/node';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ENV_VARS, ServerConfig } from '@/app-constants';
+import { ENV_VARS, ServerConfig } from '@/constants';
 import { requestLogger } from '@/middleware';
 import { routesArray } from '@/routes';
 import { io } from '.';
 
-const app: Express = express();
+const app = express();
 
 function generatePath(routeName: string): string {
   return `${ExpressServerEndpoints.apiPrefix}${routeName}`;
@@ -19,14 +19,18 @@ function generatePath(routeName: string): string {
  * ensure that Express can handle large JSON and
  * URL-encoded payloads.
  */
-app.use(express.json({
-  /* Can also write as "10mb" */
-  limit: ServerConfig.multer.maxFieldLimit
-}));
-app.use(express.urlencoded({
-  limit: ServerConfig.multer.maxFieldLimit,
-  extended: true
-}));
+app.use(
+  express.json({
+    /* Can also write as "10mb" */
+    limit: ServerConfig.multer.maxFieldLimit
+  })
+);
+app.use(
+  express.urlencoded({
+    limit: ServerConfig.multer.maxFieldLimit,
+    extended: true
+  })
+);
 
 app.use(cors());
 app.use(requestLogger);
@@ -89,4 +93,3 @@ Sentry.setupExpressErrorHandler(app);
 // });
 
 export default app;
-

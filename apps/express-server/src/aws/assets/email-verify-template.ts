@@ -18,14 +18,15 @@
  * ngrok (e.g., https://abcd1234.ngrok.io/success)
  */
 
-import { CreateCustomVerificationEmailTemplateCommandInput } from '@aws-sdk/client-ses';
+import { type CreateCustomVerificationEmailTemplateCommandInput } from '@aws-sdk/client-ses';
 
-export const emailVerificationTemplate: CreateCustomVerificationEmailTemplateCommandInput = {
-  TemplateName: 'UserVerificationTemplate',
-  FromEmailAddress: 'no-reply@yourdomain.com',
-  TemplateSubject: 'Verify your email',
-  TemplateContent:
-    '<html>\n\
+export const emailVerificationTemplate: CreateCustomVerificationEmailTemplateCommandInput
+  = {
+    TemplateName: 'UserVerificationTemplate',
+    FromEmailAddress: 'no-reply@yourdomain.com',
+    TemplateSubject: 'Verify your email',
+    TemplateContent:
+      '<html>\n\
 			<body style=\'font-family: Arial, sans-serif;\'>\n\
 					<h2>Welcome to MyApp!</h2>\n\
 					<p>Hello Friend,</p>\n\
@@ -39,6 +40,6 @@ export const emailVerificationTemplate: CreateCustomVerificationEmailTemplateCom
 					<p style=\'font-size:12px;color:#888;\'>If the button above doesn\'t work, copy and paste this link into your browser:<br>{{verification_link}}</p>\n\
 			</body>\n\
 	</html>',
-  SuccessRedirectionURL: 'https://www.google.com/',
-  FailureRedirectionURL: 'https://yourapp.com/verification-failed'
-};
+    SuccessRedirectionURL: 'https://www.google.com/',
+    FailureRedirectionURL: 'https://yourapp.com/verification-failed'
+  };

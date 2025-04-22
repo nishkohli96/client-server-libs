@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
+import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import carService from './service';
-import * as CarTypeDefs from './types';
+import type * as CarTypeDefs from './types';
 
 const carRouter = Router();
 const subRoutes = ExpressServerEndpoints.car.subRoutes;
@@ -15,20 +15,14 @@ carRouter.post(
 );
 
 /* GET /car/list */
-carRouter.get(
-  `/${subRoutes.list}`,
-  async (req, res: Response) => {
-    return await carService.listCars(res);
-  }
-);
+carRouter.get(`/${subRoutes.list}`, async (req, res: Response) => {
+  return await carService.listCars(res);
+});
 
 /* GET /car/group-by-brand */
-carRouter.get(
-  `/${subRoutes.groupByBrand}`,
-  async (req, res: Response) => {
-    return await carService.listCarsByBrand(res);
-  }
-);
+carRouter.get(`/${subRoutes.groupByBrand}`, async (req, res: Response) => {
+  return await carService.listCarsByBrand(res);
+});
 
 /* GET /car/details */
 carRouter.get(

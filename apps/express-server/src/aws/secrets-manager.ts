@@ -3,13 +3,13 @@
 import {
   SecretsManagerClient,
   CreateSecretCommand,
-  CreateSecretCommandInput,
+  type CreateSecretCommandInput,
   GetSecretValueCommand,
-  GetSecretValueCommandInput,
+  type GetSecretValueCommandInput,
   UpdateSecretCommand,
-  UpdateSecretCommandInput,
+  type UpdateSecretCommandInput,
   DeleteSecretCommand,
-  DeleteSecretCommandInput,
+  type DeleteSecretCommandInput
 } from '@aws-sdk/client-secrets-manager';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -55,11 +55,11 @@ function parseValue(value: string): string | Record<string, unknown> {
  */
 export async function getSecretValue(name: string) {
   const input: GetSecretValueCommandInput = {
-    SecretId: name,
+    SecretId: name
   };
   const command = new GetSecretValueCommand(input);
   const response = await secretsManagerClient.send(command);
-  if(!response.SecretString) {
+  if (!response.SecretString) {
     return null;
   }
   const secretValue = parseValue(response.SecretString);
@@ -76,9 +76,15 @@ export async function getSecretValue(name: string) {
  * Also refer RotateSecretCommand:
  * https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/secrets-manager/command/RotateSecretCommand/
  */
-export async function upsertSecret(secretName: string, secretValue: string | object) {
+export async function upsertSecret(
+  secretName: string,
+  secretValue: string | object
+) {
   try {
-    const valueToStore = typeof secretValue === 'string' ? secretValue : JSON.stringify(secretValue);
+    const valueToStore
+      = typeof secretValue === 'string'
+        ? secretValue
+        : JSON.stringify(secretValue);
     const input: UpdateSecretCommandInput = {
       SecretId: secretName,
       SecretString: valueToStore
@@ -89,7 +95,9 @@ export async function upsertSecret(secretName: string, secretValue: string | obj
     winstonLogger.info(`Secret "${secretName}" updated successfully.`);
   } catch (error) {
     if (error instanceof Error && error.name === 'ResourceNotFoundException') {
-      winstonLogger.info(`Secret "${secretName}" not found. Creating a new one...`);
+      winstonLogger.info(
+        `Secret "${secretName}" not found. Creating a new one...`
+      );
       await createSecret(secretName, secretValue);
       winstonLogger.info(`Secret "${secretName}" created successfully.`);
     } else {
@@ -100,10 +108,9 @@ export async function upsertSecret(secretName: string, secretValue: string | obj
 
 export async function deleteSecret(name: string) {
   const input: DeleteSecretCommandInput = {
-    SecretId: name,
+    SecretId: name
   };
   const command = new DeleteSecretCommand(input);
   await secretsManagerClient.send(command);
   winstonLogger.info(`Deleted Secret "${name}" in Secrets Manager.`);
 }
-

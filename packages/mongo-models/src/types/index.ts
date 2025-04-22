@@ -1,1 +1,1 @@
-export * from './person';
+export type * from './person';

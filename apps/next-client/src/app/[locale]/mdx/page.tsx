@@ -7,15 +7,16 @@
  */
 
 import { notFound } from 'next/navigation';
-import { Locales } from '@/types';
+import { type Locales } from '@/types';
 
 type MDXPageProps = {
-  params: { locale: Locales };
-}
+  params: Promise<{ locale: Locales }>;
+};
 
 export default async function MDXPage({ params }: MDXPageProps) {
   try {
-    const Content = (await import(`./${params.locale}.mdx`)).default;
+    const { locale } = await params;
+    const Content = (await import(`./${locale}.mdx`)).default;
     return <Content />;
   } catch (error) {
     console.log('error: ', error);

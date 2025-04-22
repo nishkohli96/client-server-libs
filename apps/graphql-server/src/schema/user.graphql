@@ -1,0 +1,76 @@
+scalar ObjectID
+scalar EmailAddress
+
+"""
+Cannot add space in enum values, hence used _
+"""
+enum Countries {
+  INDIA
+  SINGAPORE
+  AUSTRALIA
+  UNITED_ARAB_EMIRATES
+  AZERBAIJAN
+  GEORGIA
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
+type AddressSchema {
+  houseNo: String!
+  street: String!
+  landmark: String
+  city: String!
+  state: String
+  country: Countries!
+}
+
+interface UserSchema {
+  id: ObjectID!
+  name: String!
+  email: EmailAddress!
+}
+
+type CustomerSchema implements UserSchema {
+  id: ObjectID!
+  name: String!
+  email: EmailAddress!
+  address: AddressSchema
+}
+
+type AdminSchema implements UserSchema {
+  id: ObjectID!
+  name: String!
+  email: EmailAddress!
+  managerId: ObjectID
+}
+
+union AdminOrCustomerSchema = AdminSchema | CustomerSchema
+
+input AddressSchemaInput {
+  houseNo: String!
+  street: String!
+  landmark: String
+  city: String!
+  state: String
+  country: Countries!
+}
+
+input UserInput {
+  type: UserRole!
+  name: String!
+  email: EmailAddress!
+  manager: ObjectID  # Only for Admin
+  address: AddressSchemaInput  # Only for Customer
+}
+
+type Query {
+  getUsers: [AdminOrCustomerSchema!]!
+  getUserById(id: ObjectID!): AdminOrCustomerSchema
+}
+
+type Mutation {
+  createUser(userInfo: UserInput!): AdminOrCustomerSchema
+}

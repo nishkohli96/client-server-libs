@@ -3,24 +3,20 @@
 import {
   S3Client,
   HeadObjectCommand,
-  HeadObjectCommandInput,
+  type HeadObjectCommandInput,
   GetObjectCommand,
-  GetObjectCommandInput,
+  type GetObjectCommandInput,
   PutObjectCommand,
   DeleteObjectCommand,
-  DeleteObjectCommandInput,
+  type DeleteObjectCommandInput,
   DeleteBucketCommand,
-  DeleteBucketCommandInput,
+  type DeleteBucketCommandInput
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import csvParser from 'csv-parser';
 import { winstonLogger } from '@/middleware';
-import {
-  printObject,
-  listS3Buckets,
-  listS3BucketObjects
-} from '@/utils';
-import { Readable } from 'stream';
+import { printObject, listS3Buckets, listS3BucketObjects } from '@/utils';
+import { type Readable } from 'stream';
 
 export const s3Client = new S3Client();
 
@@ -41,14 +37,11 @@ export async function getS3Buckets() {
  * Upload products.csv from the assets folder in your S3 bucket to
  * test for yourself.
  */
-export async function checkIfObjectExist(
-  bucketName: string,
-  key: string
-) {
+export async function checkIfObjectExist(bucketName: string, key: string) {
   try {
     const input: HeadObjectCommandInput = {
       Bucket: bucketName,
-      Key: key,
+      Key: key
     };
     const command = new HeadObjectCommand(input);
     const response = await s3Client.send(command);
@@ -80,15 +73,12 @@ export async function getBucketObjects(bucketName: string) {
  *
  * @param: expiresIn -> expiry in seconds
  */
-export async function createPutPresignedUrl(
-  bucket: string,
-  key: string
-) {
+export async function createPutPresignedUrl(bucket: string, key: string) {
   const command = new PutObjectCommand({ Bucket: bucket, Key: key });
   return await getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
 }
 
-export function getS3Object( bucket: string, key: string) {
+export function getS3Object(bucket: string, key: string) {
   const input: GetObjectCommandInput = {
     Bucket: bucket,
     Key: key
@@ -97,10 +87,7 @@ export function getS3Object( bucket: string, key: string) {
 }
 
 /* Presigned url for downloading an object from an S3 bucket */
-export function createGetPresignedUrl(
-  bucket: string,
-  key: string
-) {
+export function createGetPresignedUrl(bucket: string, key: string) {
   const command = getS3Object(bucket, key);
   return getSignedUrl(s3Client, command, { expiresIn: 60 * 60 });
 }
@@ -128,12 +115,15 @@ export async function readCsvFromS3<T>(
 
     return new Promise((resolve, reject) => {
       const readableStream = response.Body as Readable;
-      readableStream.pipe(csvParser())
+      readableStream
+        .pipe(csvParser())
         .on('data', (row: T) => {
           records.push(row);
         })
         .on('end', () => {
-          winstonLogger.info(`CSV records fetch from file: ${printObject(records)}`);
+          winstonLogger.info(
+            `CSV records fetch from file: ${printObject(records)}`
+          );
           resolve(records);
         })
         .on('error', error => {
@@ -152,14 +142,11 @@ export async function readCsvFromS3<T>(
  * @param bucketName: Name of S3 bucket
  * @param key Eg: pic.png
  */
-export async function deleteObject(
-  bucketName: string,
-  key: string
-) {
+export async function deleteObject(bucketName: string, key: string) {
   try {
     const input: DeleteObjectCommandInput = {
       Bucket: bucketName,
-      Key: key,
+      Key: key
     };
     const command = new DeleteObjectCommand(input);
     const response = await s3Client.send(command);

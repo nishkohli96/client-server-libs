@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { PersonModel, NewPerson } from '@csl/mongo-models';
+import { type Response } from 'express';
+import { PersonModel, type NewPerson } from '@csl/mongo-models';
 import { SortDirection } from '@/types';
 import { getPaginationParams } from '@/utils';
 import * as PersonTypes from './types';

@@ -1,21 +1,30 @@
 /* eslint-disable no-use-before-define */
 
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  type CreationOptional,
+  type InferAttributes,
+  type InferCreationAttributes
+} from 'sequelize';
 import { mySQLSequelize } from '@/db/mysql';
 
 export type UserModelAttributes = InferAttributes<UserModel>;
 export type UserModelCreationAttributes = InferCreationAttributes<UserModel>;
 
-class UserModel extends Model<UserModelAttributes, UserModelCreationAttributes> {
-	declare id: CreationOptional<number>;
-	declare name: string;
-	declare email: string;
-	declare isActive: CreationOptional<boolean>;
-	declare preferences: object | null;
-	declare tags: string[] | null;
-	declare age: number;
-	declare createdAt: CreationOptional<Date>;
-	declare updatedAt: CreationOptional<Date>;
+class UserModel extends Model<
+  UserModelAttributes,
+  UserModelCreationAttributes
+> {
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare email: string;
+  declare isActive: CreationOptional<boolean>;
+  declare preferences: object | null;
+  declare tags: string[] | null;
+  declare age: number;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 }
 
 UserModel.init(
@@ -76,9 +85,9 @@ UserModel.init(
     timestamps: true,
     paranoid: true,
     /**
-		 * If using this setting, the column names will be stored in snake_case.
-		 * However when querying data, the results will be obtained in the camelCase.
-		 */
+     * If using this setting, the column names will be stored in snake_case.
+     * However when querying data, the results will be obtained in the camelCase.
+     */
     underscored: true,
     defaultScope: {
       where: {

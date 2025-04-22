@@ -1,7 +1,7 @@
 import {
-  ChangeEvent,
+  type ChangeEvent,
   useCallback,
-  DragEvent,
+  type DragEvent,
   useState,
   useEffect
 } from 'react';
@@ -20,7 +20,7 @@ type FileUploaderProps = {
   allowedFileTypes?: string;
   errorMessage?: string;
   height?: string;
-  anyFileType?: boolean
+  anyFileType?: boolean;
 };
 
 export default function FileUploader({
@@ -60,7 +60,7 @@ export default function FileUploader({
         event.target.files = null;
         return;
       } else if (event.target.files) {
-        if(multiple) {
+        if (multiple) {
           onFileUpload(event.target.files);
         } else {
           onFileUpload(event.target.files[0]);
@@ -89,7 +89,7 @@ export default function FileUploader({
         }}
       >
         <input
-          accept={anyFileType ? undefined : allowedFileTypes ?? '.jpg, .jpeg'}
+          accept={anyFileType ? undefined : (allowedFileTypes ?? '.jpg, .jpeg')}
           id="drag_and_drop_input"
           multiple={multiple}
           type="file"

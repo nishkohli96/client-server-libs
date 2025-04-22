@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, Ref, forwardRef } from 'react';
+import { Fragment, type ReactElement, type Ref, forwardRef } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,13 +6,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+import { type TransitionProps } from '@mui/material/transitions';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: ReactElement;
   },
-  ref: Ref<unknown>,
+  ref: Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -24,8 +24,8 @@ type ConfirmationDialogProps = {
   onConfirm: () => void;
   onClose: () => void;
   confirmBtnText?: string;
-  cancelBtnText?: string
-}
+  cancelBtnText?: string;
+};
 
 const ConfirmationDialog = ({
   title,

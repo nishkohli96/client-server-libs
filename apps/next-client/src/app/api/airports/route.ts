@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { AirportModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
 import { logApiError } from '@/utils';
@@ -16,13 +16,11 @@ export async function GET(request: NextRequest) {
       .skip((pageNum - 1) * recordsPerPage)
       .limit(recordsPerPage);
     return NextResponse.json(allData);
-  } catch(error) {
+  } catch (error) {
     logApiError(error, request);
     return NextResponse.json({
       message: 'Something went wrong!',
-      error: error instanceof Error
-        ? error.message
-        : JSON.stringify(error)
+      error: error instanceof Error ? error.message : JSON.stringify(error)
     });
   }
 }

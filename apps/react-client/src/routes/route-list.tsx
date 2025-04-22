@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { RouteItem } from 'types';
+import { type RouteItem } from 'types';
 import RouteNames from './route-names';
 
 const DatoCMSPage = lazy(() => import('pages/dato-cms'));
@@ -56,5 +56,5 @@ export const RouteList: RouteItem[] = [
     text: 'Edit Person',
     element: <EditPersonPage />,
     hideFromHomePage: true
-  },
+  }
 ];

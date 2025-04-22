@@ -5,12 +5,12 @@ import { toast } from 'react-toastify';
 import Link from '@mui/material/Link';
 import {
   GridActionsCellItem,
-  GridColDef,
-  GridFilterModel,
-  GridPaginationModel,
-  GridRowParams,
-  GridRowsProp,
-  GridSortItem,
+  type GridColDef,
+  type GridFilterModel,
+  type GridPaginationModel,
+  type GridRowParams,
+  type GridRowsProp,
+  type GridSortItem,
   getGridStringOperators
 } from '@mui/x-data-grid';
 import { Gender } from '@csl/mongo-models';
@@ -18,7 +18,7 @@ import { ArrayFilters, StringFilters } from '@csl/react-express';
 import { deletePerson } from 'api/services';
 import { DataTable, CenterContainer, ConfirmationDialog } from 'components';
 import RouteNames from 'routes/route-names';
-import { PersonDetails, PersonDetailsRow } from 'types';
+import { type PersonDetails, type PersonDetailsRow } from 'types';
 import { getPersonRecordIndex } from 'utils';
 import { Avatar, GenderIcon, EditIcon, DeleteIcon } from '.';
 
@@ -65,7 +65,7 @@ const PeopleDataGrid = ({
 
   const handlePersonDelete = async () => {
     const isDeleted = await deletePerson(selectedItemId ?? '');
-    if(isDeleted) {
+    if (isDeleted) {
       toast.success('Person record deleted!');
       refetchData();
     }
@@ -77,14 +77,13 @@ const PeopleDataGrid = ({
    * filters won't be applicable for this case.
    */
   const virtualsFieldFilters = getGridStringOperators().filter(
-    operator => (
+    operator =>
       operator.value !== StringFilters.Equals
       && operator.value !== StringFilters.NotEquals
       && operator.value !== ArrayFilters.isAnyOf
-    )
   );
 
-  const peopleTableColumns: GridColDef[] = [
+  const peopleTableColumns: GridColDef<PersonDetailsRow>[] = [
     {
       field: 'id',
       headerName: 'S. No.',
@@ -183,13 +182,13 @@ const PeopleDataGrid = ({
       headerAlign: 'left',
       align: 'left',
       minWidth: 120,
-      valueFormatter: value => value ? `₹ ${value}` : null
+      valueFormatter: value => (value ? `₹ ${String(value)}` : null)
     },
     {
       field: 'actions',
       type: 'actions',
       maxWidth: 70,
-      getActions: (params: GridRowParams) => [
+      getActions: params => [
         <GridActionsCellItem
           key="edit"
           icon={<EditIcon />}

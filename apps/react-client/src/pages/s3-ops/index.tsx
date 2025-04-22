@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import {
   FileUploaderRegular,
-  OutputCollectionState
+  type OutputCollectionState
 } from '@uploadcare/react-uploader';
 import { uploadFileToS3 } from '@csl/react-express';
 import { PageLayout } from 'components';

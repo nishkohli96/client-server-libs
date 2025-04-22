@@ -5,12 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { connect, disconnect } from 'mongoose';
 import { Server } from 'socket.io';
 import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-  InterServerEvents,
-  SocketData
+  type ClientToServerEvents,
+  type ServerToClientEvents,
+  type InterServerEvents,
+  type SocketData
 } from '@csl/react-express';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import { loadSSMParameters } from '@/aws';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';
@@ -170,7 +170,7 @@ io.on('connection', socket => {
 
 async function bootstrap() {
   try {
-    if(ENV_VARS.env !== 'development') {
+    if (ENV_VARS.env !== 'development') {
       await loadSSMParameters(`/${ENV_VARS.env}/`);
     }
     await connectPostgresDB();

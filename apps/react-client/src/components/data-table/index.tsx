@@ -7,13 +7,13 @@
 import {
   DataGrid,
   GridToolbar,
-  GridColDef,
-  GridRowsProp,
-  GridSortItem,
-  GridSortModel,
-  GridPaginationModel,
-  GridFilterModel,
-  GridRowParams
+  type GridColDef,
+  type GridRowsProp,
+  type GridSortItem,
+  type GridSortModel,
+  type GridPaginationModel,
+  type GridFilterModel,
+  type GridRowParams
 } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { dataTableConfig } from 'app-constants';
@@ -26,7 +26,7 @@ type DataTableProps = {
   rowCount: number;
   sortColumn?: GridSortItem;
   onSortChange: (newSortCol: GridSortItem) => void;
-  filterModel?: GridFilterModel,
+  filterModel?: GridFilterModel;
   onFilterChange: (newFilter: GridFilterModel) => void;
   handleRowClick: (params: GridRowParams) => void;
   paginationModel: GridPaginationModel;
@@ -79,7 +79,7 @@ export default function DataTable({
           flexGrow: 1,
           '& .MuiDataGrid-row:hover': {
             cursor: 'pointer'
-          },
+          }
         }}
         loading={isFetchingData}
         rowCount={rowCount}

@@ -1,7 +1,7 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import Papa from 'papaparse';
-import { Readable } from 'stream';
-import { ENV_VARS } from '@/app-constants';
+import { type Readable } from 'stream';
+import { ENV_VARS } from '@/constants';
 import {
   s3Client,
   createPutPresignedUrl,
@@ -10,7 +10,7 @@ import {
 } from '@/aws';
 import { uploadFileToS3 } from '@csl/react-express';
 import { sendErrorResponse } from '@/utils';
-import * as AwsTypeDefs from './types';
+import type * as AwsTypeDefs from './types';
 
 class AwsService {
   async getUploadPreSignedUrl(
@@ -88,11 +88,7 @@ class AwsService {
         data: preSignedUrl
       });
     } catch (error) {
-      return sendErrorResponse(
-        res,
-        error,
-        'Unable to upload csv file'
-      );
+      return sendErrorResponse(res, error, 'Unable to upload csv file');
     }
   }
 

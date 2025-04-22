@@ -8,12 +8,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/assets/styles/theme';
 import { AppBar, MixPanelClient, PageContainer } from '@/components';
 import { routing } from '@/i18n/routing';
-import { Locales } from '@/types';
+import { type Locales } from '@/types';
 import '../globals.css';
 
 type RootLayoutProps = {
   children: React.ReactNode;
-  params: { locale: Locales };
+  params: Promise<{ locale: Locales }>;
 };
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,8 +23,9 @@ const inter = Inter({ subsets: ['latin'] });
  * for the metadata of each page.
  */
 export async function generateMetadata({
-  params: { locale }
+  params
 }: Pick<RootLayoutProps, 'params'>): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'Metadata' });
   return {
     title: {
@@ -37,10 +38,11 @@ export async function generateMetadata({
 
 export default async function RootLayout({
   children,
-  params: { locale }
+  params
 }: RootLayoutProps) {
+  const { locale } = await params;
   /* Ensure that the incoming `locale` is valid */
-  if (!routing.locales.includes(locale as Locales)) {
+  if (!routing.locales.includes(locale)) {
     notFound();
   }
 

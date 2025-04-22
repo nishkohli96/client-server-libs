@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { PaletteMode } from '@mui/material/styles/createPalette';
+import { type PaletteMode } from '@mui/material/styles/createPalette';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
-import { LayoutProps } from 'types';
+import { type LayoutProps } from 'types';
 import { getTheme } from './theme';
 
 interface ThemeContextProps {
@@ -15,12 +15,12 @@ const ThemeContext = createContext<ThemeContextProps>({
   currentTheme: 'light',
   toggleTheme: () => {
     console.warn('toggleTheme not implemented');
-  },
+  }
 });
 
 export const useThemeContext = () => useContext(ThemeContext);
 
-export const AppThemeProvider = ({ children }: LayoutProps ) => {
+export const AppThemeProvider = ({ children }: LayoutProps) => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [currentTheme, setCurrentTheme] = useState<PaletteMode>('dark');
 

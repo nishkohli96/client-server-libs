@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import { useOnlineStatus } from '@/hooks';
 
 const styles: { container: CSSProperties } = {
@@ -14,7 +14,7 @@ const styles: { container: CSSProperties } = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '20px',
+    fontSize: '20px'
   }
 };
 

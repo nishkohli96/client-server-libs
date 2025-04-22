@@ -1,7 +1,7 @@
-import { Response } from 'express';
-import * as Stytch from '@/stytch';
+import { type Response } from 'express';
+import { stytchClient, stytchOrgId, stytchTestEmail } from '@/constants';
 import { sendErrorResponse } from '@/utils';
-import * as StytchTypes from './types';
+import type * as StytchTypes from './types';
 
 class StytchService {
   /**
@@ -16,13 +16,12 @@ class StytchService {
   async addMember(res: Response, reqBody: StytchTypes.CreateMemberBody) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         email_address: reqBody.email,
         name: reqBody.name,
         mfa_phone_number: reqBody.phone
       };
-      const response
-        = await Stytch.stytchClient.organizations.members.create(params);
+      const response = await stytchClient.organizations.members.create(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -41,12 +40,11 @@ class StytchService {
   async getMember(res: Response, memberId: string) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: memberId
         // email_address: reqBody.email,
       };
-      const response
-        = await Stytch.stytchClient.organizations.members.get(params);
+      const response = await stytchClient.organizations.members.get(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -71,14 +69,13 @@ class StytchService {
   ) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: memberId,
         email_address: reqBody.email,
         name: reqBody.name,
         mfa_phone_number: reqBody.phone
       };
-      const response
-        = await Stytch.stytchClient.organizations.members.update(params);
+      const response = await stytchClient.organizations.members.update(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -104,12 +101,12 @@ class StytchService {
   ) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: memberId,
-        email_address: reqBody.email,
+        email_address: reqBody.email
       };
       const response
-        = await Stytch.stytchClient.organizations.members.unlinkRetiredEmail(params);
+        = await stytchClient.organizations.members.unlinkRetiredEmail(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -124,11 +121,10 @@ class StytchService {
   async deleteMember(res: Response, memberId: string) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
-        member_id: memberId,
+        organization_id: stytchOrgId,
+        member_id: memberId
       };
-      const response
-        = await Stytch.stytchClient.organizations.members.delete(params);
+      const response = await stytchClient.organizations.members.delete(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -147,13 +143,12 @@ class StytchService {
   async migratePassword(res: Response, reqBody: StytchTypes.SetPassword) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         email_address: reqBody.email,
         hash: reqBody.hash,
         hash_type: reqBody.hash_type
       };
-      const response
-        = await Stytch.stytchClient.passwords.migrate(params);
+      const response = await stytchClient.passwords.migrate(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -174,11 +169,11 @@ class StytchService {
   async sendSignInEmail(res: Response) {
     try {
       const params = {
-        email_address: Stytch.stytchTestEmail,
-        organization_id: Stytch.stytchOrgId
+        email_address: stytchTestEmail,
+        organization_id: stytchOrgId
       };
       const response
-        = await Stytch.stytchClient.magicLinks.email.loginOrSignup(params);
+        = await stytchClient.magicLinks.email.loginOrSignup(params);
 
       return res.status(200).json({
         success: true,
@@ -194,11 +189,11 @@ class StytchService {
   async sendDiscoveryEmail(res: Response, redirectURL: string) {
     try {
       const params = {
-        email_address: Stytch.stytchTestEmail,
+        email_address: stytchTestEmail,
         discovery_redirect_url: redirectURL
       };
       const response
-        = await Stytch.stytchClient.magicLinks.email.discovery.send(params);
+        = await stytchClient.magicLinks.email.discovery.send(params);
 
       return res.status(200).json({
         success: true,
@@ -234,11 +229,10 @@ class StytchService {
   async resetPassword(res: Response, reqBody: StytchTypes.EmailPayload) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         email_address: reqBody.email
       };
-      const response
-        = await Stytch.stytchClient.passwords.email.resetStart(params);
+      const response = await stytchClient.passwords.email.resetStart(params);
 
       return res.status(200).json({
         success: true,
@@ -254,11 +248,11 @@ class StytchService {
   async loginWithPassword(res: Response, reqBody: StytchTypes.UserLogin) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         email_address: reqBody.email,
         password: reqBody.password
       };
-      const response = await Stytch.stytchClient.passwords.authenticate(params);
+      const response = await stytchClient.passwords.authenticate(params);
 
       return res.status(200).json({
         success: true,
@@ -283,8 +277,7 @@ class StytchService {
       const params = {
         password: reqBody.password
       };
-      const response
-        = await Stytch.stytchClient.passwords.strengthCheck(params);
+      const response = await stytchClient.passwords.strengthCheck(params);
 
       return res.status(200).json({
         success: true,
@@ -307,10 +300,10 @@ class StytchService {
   async sendSMSOtp(res: Response, memberId: string) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: memberId
       };
-      const response = await Stytch.stytchClient.otps.sms.send(params);
+      const response = await stytchClient.otps.sms.send(params);
 
       return res.status(200).json({
         success: true,
@@ -326,11 +319,11 @@ class StytchService {
   async verifySMSOtp(res: Response, payload: StytchTypes.VerifyCode) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: payload.memberId,
         code: payload.code
       };
-      const response = await Stytch.stytchClient.otps.sms.authenticate(params);
+      const response = await stytchClient.otps.sms.authenticate(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -345,10 +338,9 @@ class StytchService {
   async sendOtp(res: Response) {
     try {
       const params = {
-        email_address: Stytch.stytchTestEmail
+        email_address: stytchTestEmail
       };
-      const response
-        = await Stytch.stytchClient.otps.email.discovery.send(params);
+      const response = await stytchClient.otps.email.discovery.send(params);
 
       return res.status(200).json({
         success: true,
@@ -367,11 +359,11 @@ class StytchService {
   async verifyOtp(res: Response, otp: string) {
     try {
       const params = {
-        email_address: Stytch.stytchTestEmail,
+        email_address: stytchTestEmail,
         code: otp
       };
       const response
-        = await Stytch.stytchClient.otps.email.discovery.authenticate(params);
+        = await stytchClient.otps.email.discovery.authenticate(params);
 
       return res.status(200).json({
         success: true,
@@ -387,11 +379,10 @@ class StytchService {
   async getRecoveryCodes(res: Response, memberId: string) {
     try {
       const params = {
-        organization_id: Stytch.stytchOrgId,
+        organization_id: stytchOrgId,
         member_id: memberId
       };
-      const response
-        = await Stytch.stytchClient.recoveryCodes.get(params);
+      const response = await stytchClient.recoveryCodes.get(params);
 
       return res.status(200).json({
         success: true,
@@ -407,4 +398,3 @@ class StytchService {
 
 const stytchService = new StytchService();
 export default stytchService;
-

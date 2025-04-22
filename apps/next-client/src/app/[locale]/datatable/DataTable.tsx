@@ -7,9 +7,9 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  flexRender,
+  flexRender
 } from '@tanstack/react-table';
-import { PersonDetails } from '@/types';
+import { type PersonDetails } from '@/types';
 import { Gender } from '@csl/mongo-models';
 
 const columnHelper = createColumnHelper<PersonDetails>();
@@ -23,17 +23,17 @@ const tableColumns = [
       // Accessor Column
       columnHelper.accessor('first_name', {
         cell: info => info.getValue(),
-        footer: props => props.column.id,
+        footer: props => props.column.id
       }),
       // Accessor Column
       columnHelper.accessor(row => row.last_name, {
         id: 'last_name',
         cell: info => info.getValue(),
         header: () => <span>Last Name</span>,
-        footer: props => props.column.id,
-      }),
-    ],
-  }),
+        footer: props => props.column.id
+      })
+    ]
+  })
 ];
 
 const data = [
@@ -48,7 +48,7 @@ const data = [
     gender: Gender.Male,
     email: 'nk',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 ];
 
@@ -59,7 +59,7 @@ const DataTable = () => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    getSortedRowModel: getSortedRowModel()
   });
 
   return (
@@ -70,7 +70,10 @@ const DataTable = () => {
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
                 <th key={header.id} colSpan={header.colSpan}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
                 </th>
               ))}
             </tr>
@@ -97,4 +100,3 @@ const DataTable = () => {
 };
 
 export default DataTable;
-

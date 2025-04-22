@@ -1,8 +1,8 @@
-import { Request } from 'express';
-import fs from 'fs';
+import { type Request } from 'express';
+import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
-import multer, { FileFilterCallback } from 'multer';
-import { ServerConfig } from '@/app-constants';
+import multer, { type FileFilterCallback } from 'multer';
+import { ServerConfig } from '@/constants';
 
 const fileFilter = (allowedFileTypes?: string[]) => {
   return function applyFileFilter(
@@ -30,13 +30,13 @@ const fileStorage = (dirPath?: string) =>
      */
     destination(req, file, cb) {
       let folderPath = path.join(ServerConfig.multer.dirs.upload);
-      if(dirPath) {
+      if (dirPath) {
         folderPath = path.join(folderPath, dirPath);
       } else {
         folderPath = path.join(folderPath, file.fieldname);
       }
-      if (!fs.existsSync(folderPath)) {
-        fs.mkdirSync(folderPath, { recursive: true });
+      if (!existsSync(folderPath)) {
+        mkdirSync(folderPath, { recursive: true });
       }
       cb(null, folderPath);
     },

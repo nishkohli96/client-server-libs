@@ -1,5 +1,5 @@
 import Redis from 'ioredis';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 /**
  * If you are developing locally and your Redis is in AWS VPC,
@@ -46,11 +46,10 @@ export async function awsRedisOps() {
   console.assert(getResult === 'value');
 
   /**
-	 * Elasticache can also accept redis JSON, meaning you can
-	 * set and get JSON objects directly. Refer the redis docs
-	 * under the apps/docs folder for redis commands.
+   * Elasticache can also accept redis JSON, meaning you can
+   * set and get JSON objects directly. Refer the redis docs
+   * under the apps/docs folder for redis commands.
    */
   /* Close the connection */
   awsRedisClient.disconnect();
 }
-

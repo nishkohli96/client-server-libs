@@ -11,16 +11,16 @@ import RHFTextField from '@nish1896/rhf-mui-components/mui/textfield';
 import RHFCountrySelect from '@nish1896/rhf-mui-components/mui/country-select';
 import RHFRadioGroup from '@nish1896/rhf-mui-components/mui/radio-group';
 import RHFDatePicker from '@nish1896/rhf-mui-components/mui-pickers/date';
-import { PersonInfo, Gender } from '@csl/mongo-models';
+import { type PersonInfo, Gender } from '@csl/mongo-models';
 import { PageLayout } from 'components';
 import { reqdErrorMsg, minLengthErrMsg } from './helpers';
 
 type PersonFormProps = {
-  title: string
+  title: string;
   initialValues?: PersonInfo;
   disabled?: boolean;
   onFormSubmit?: (fieldValues: PersonInfo) => void;
-}
+};
 
 const PersonForm = ({
   title,
@@ -38,15 +38,18 @@ const PersonForm = ({
     defaultValues: initialValues
   });
 
-  const validateAvatar = async(url: string) => {
-    if(!url) {
+  const validateAvatar = async (url: string) => {
+    if (!url) {
       clearErrors('avatar');
       return;
     }
     try {
       const response = await axios.head(url);
       if (response.status !== 200) {
-        setError('avatar', { type: 'invalidURL', message: 'Invalid avatar URL' });
+        setError('avatar', {
+          type: 'invalidURL',
+          message: 'Invalid avatar URL'
+        });
       } else {
         clearErrors('avatar');
       }
@@ -185,9 +188,7 @@ const PersonForm = ({
                 slotProps={{
                   input: {
                     startAdornment: (
-                      <InputAdornment position="start">
-                        ₹
-                      </InputAdornment>
+                      <InputAdornment position="start">₹</InputAdornment>
                     )
                   }
                 }}
@@ -265,11 +266,7 @@ const PersonForm = ({
               </Box>
             </Grid>
             <Grid size={12}>
-              <Button
-                variant="contained"
-                type="submit"
-                disabled={disabled}
-              >
+              <Button variant="contained" type="submit" disabled={disabled}>
                 Submit
               </Button>
             </Grid>
@@ -281,4 +278,3 @@ const PersonForm = ({
 };
 
 export default PersonForm;
-

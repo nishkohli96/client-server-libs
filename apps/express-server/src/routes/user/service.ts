@@ -1,6 +1,6 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import {
-  UserModelCreationAttributes,
+  type UserModelCreationAttributes,
   UserModel,
   InactiveUserModel
 } from '@/db/mysql/models';

@@ -1,7 +1,7 @@
-import { Router, Response } from 'express';
+import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import awsService from './service';
-import * as AwsTypeDefs from './types';
+import type * as AwsTypeDefs from './types';
 
 const awsRouter = Router();
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;
@@ -23,12 +23,9 @@ awsRouter.get(
 );
 
 /* POST /aws/upload-csv-file */
-awsRouter.post(
-  `/${subRoutes.uploadCSVFile}`,
-  async (_, res: Response) => {
-    return await awsService.uploadCSVFile(res);
-  }
-);
+awsRouter.post(`/${subRoutes.uploadCSVFile}`, async (_, res: Response) => {
+  return await awsService.uploadCSVFile(res);
+});
 
 /* GET /aws/download-file */
 awsRouter.get(

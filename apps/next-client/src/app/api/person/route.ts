@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { PersonModel } from '@csl/mongo-models';
 import mongoDB from '@/mongoDB';
 
@@ -32,9 +32,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({
       message: 'Something went wrong!',
-      error: error instanceof Error
-        ? error.message
-        : JSON.stringify(error)
+      error: error instanceof Error ? error.message : JSON.stringify(error)
     });
   }
 }

@@ -1,6 +1,6 @@
 import os from 'os';
 import { Sequelize } from 'sequelize';
-import { ENV_VARS, isProductionEnv } from '@/app-constants';
+import { ENV_VARS, isProductionEnv } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 const hostName = os.hostname();
@@ -27,18 +27,16 @@ export const mySQLSequelize = new Sequelize(ENV_VARS.mySQLUrl, {
 export async function connectMySQLDB() {
   try {
     await mySQLSequelize.authenticate();
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`
-    );
+    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`);
 
     /**
      * sequelize.close() -> will close the connection to the DB.
-	   * You will need to create a new Sequelize instance to
-	   * access your database again.
+     * You will need to create a new Sequelize instance to
+     * access your database again.
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to MySQL Database ⚠', error);
-    process.exit(1);
+    // process.exit(1);
   }
 }
 

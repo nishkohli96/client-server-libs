@@ -1,6 +1,11 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import sequelize, { Op } from 'sequelize';
-import { BuyerModel, CarBrandModel, CarModel, CarModelCreationAttributes } from '@/db/postgres/models';
+import {
+  BuyerModel,
+  CarBrandModel,
+  CarModel,
+  type CarModelCreationAttributes
+} from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 
 /**
@@ -53,7 +58,7 @@ class CarService {
         include: {
           model: CarBrandModel,
           as: 'brand',
-          attributes: ['name'],
+          attributes: ['name']
         },
         /**
          * Attributes are the columns that you want to retrieve from the table.
@@ -70,7 +75,7 @@ class CarService {
           [
             sequelize.literal('array_length("colors", 1)'),
             'num_available_colors'
-          ],
+          ]
         ],
         /**
          * https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#ordering
@@ -127,7 +132,7 @@ class CarService {
             'cars'
           ]
         ],
-        group: ['brand_id'],
+        group: ['brand_id']
       });
       return res.json({
         success: true,
@@ -159,7 +164,7 @@ class CarService {
           id: carId
         }
       });
-      if(!car) {
+      if (!car) {
         return res.status(404).json({
           success: false,
           status: 404,
@@ -217,7 +222,7 @@ class CarService {
           id: carId
         }
       });
-      if(!car) {
+      if (!car) {
         return res.status(404).json({
           success: false,
           status: 404,
@@ -249,7 +254,7 @@ class CarService {
          * By Passing paranoid: false, we are including deleted
          * records in our query
          */
-        paranoid: false,
+        paranoid: false
       });
       return res.json({
         success: true,
@@ -261,7 +266,11 @@ class CarService {
         }
       });
     } catch (error) {
-      return sendErrorResponse(res, error, 'Unable to get list of deleted cars');
+      return sendErrorResponse(
+        res,
+        error,
+        'Unable to get list of deleted cars'
+      );
     }
   }
 
@@ -269,11 +278,11 @@ class CarService {
     try {
       const car = await CarModel.findOne({
         where: {
-          id: carId,
+          id: carId
         },
-        paranoid: false,
+        paranoid: false
       });
-      if(!car) {
+      if (!car) {
         return res.status(404).json({
           success: false,
           status: 404,
@@ -303,69 +312,55 @@ class CarService {
    */
   async getOwnersList(res: Response) {
     try {
-      const carOwnersList = await CarModel.findAll(
-        {
-          include: [
-            {
-              model: CarBrandModel,
-              as: 'brand',
-              attributes: [
-                'id',
-                'name',
-                'country'
-              ]
-            },
-            /**
-             * Say if BuyerModel has user details and PurchaseModel
-             * links buyer_id to car_id, you will need four joins:
-             *
-             * 1. CarModel (Primary car data)
-             * 2. CarBrandModel (Brand details for the car)
-             * 3. PurchaseModel (Links car purchases to buyers)
-             * 4. BuyerModel (Details of the buyer, including user details)
-             *
-             * Then the shape of this model would be like,
-             * {
-             *   model: PurchaseModel,
-             *   as: 'purchases',
-             *   attributes: [
-             *     'id', 'buyer_id', 'car_id', 'purchased_on'
-             *   ],
-             *   include: [
-             *     {
-             *       model: BuyerModel,
-             *       as: 'buyer',
-             *       attributes: ['id', 'name', 'email'],
-             *       include: [
-             *        {
-             *          model: UserModel,
-             *          as: 'user',
-             *          attributes: ['id', 'name', 'email']
-             *        }
-             *       ]
-             *     }
-             *   ]
-             * }
-             */
-            {
-              model: BuyerModel,
-              as: 'owners',
-              attributes: [
-                'name',
-                'color',
-                'purchased_on'
-              ]
-            }
-          ],
-          attributes: {
-            exclude: [
-              'created_at',
-              'updated_at',
-              'deleted_at'
-            ]
+      const carOwnersList = await CarModel.findAll({
+        include: [
+          {
+            model: CarBrandModel,
+            as: 'brand',
+            attributes: ['id', 'name', 'country']
+          },
+          /**
+           * Say if BuyerModel has user details and PurchaseModel
+           * links buyer_id to car_id, you will need four joins:
+           *
+           * 1. CarModel (Primary car data)
+           * 2. CarBrandModel (Brand details for the car)
+           * 3. PurchaseModel (Links car purchases to buyers)
+           * 4. BuyerModel (Details of the buyer, including user details)
+           *
+           * Then the shape of this model would be like,
+           * {
+           *   model: PurchaseModel,
+           *   as: 'purchases',
+           *   attributes: [
+           *     'id', 'buyer_id', 'car_id', 'purchased_on'
+           *   ],
+           *   include: [
+           *     {
+           *       model: BuyerModel,
+           *       as: 'buyer',
+           *       attributes: ['id', 'name', 'email'],
+           *       include: [
+           *        {
+           *          model: UserModel,
+           *          as: 'user',
+           *          attributes: ['id', 'name', 'email']
+           *        }
+           *       ]
+           *     }
+           *   ]
+           * }
+           */
+          {
+            model: BuyerModel,
+            as: 'owners',
+            attributes: ['name', 'color', 'purchased_on']
           }
+        ],
+        attributes: {
+          exclude: ['created_at', 'updated_at', 'deleted_at']
         }
-      );
+      });
       return res.json({
         success: true,
         status: 200,

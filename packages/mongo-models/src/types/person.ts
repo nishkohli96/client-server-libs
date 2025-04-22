@@ -1,12 +1,8 @@
-import { Person } from '@/models/Person';
+import { type Person } from '@/models/Person';
 
 export type PersonInfo = Omit<Person, '_id'>;
 
 export type NewPerson = Omit<
   Person,
-  | '_id'
-  | 'createdAt'
-  | 'updatedAt'
-  | 'fullName'
-  | 'fullAddress'
+  '_id' | 'createdAt' | 'updatedAt' | 'fullName' | 'fullAddress'
 >;

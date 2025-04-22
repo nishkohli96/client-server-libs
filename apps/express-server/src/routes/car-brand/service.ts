@@ -1,7 +1,7 @@
-import { Response } from 'express';
+import { type Response } from 'express';
 import { CarBrandModel } from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
-import * as CarBrandTypeDefs from './types';
+import type * as CarBrandTypeDefs from './types';
 
 class CarBrandService {
   async addCarbrand(res: Response, carBrandData: CarBrandTypeDefs.AddCarBrand) {

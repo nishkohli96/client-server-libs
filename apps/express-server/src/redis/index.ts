@@ -22,7 +22,7 @@
  * instance.
  */
 import { createClient } from 'redis';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 const { user, password, host, port } = ENV_VARS.redis;
@@ -36,11 +36,16 @@ export const redisClient = createClient({
   }
 });
 
+/**
+ * Redis Cloud may delete the database if it is not used for a
+ * certain period of time. To prevent this, you can set up a
+ * cron job to ping the database at regular intervals.
+ */
 export async function connectToRedis() {
   try {
     await redisClient.connect();
     winstonLogger.info('Redis Client connected!');
-  } catch(error) {
+  } catch (error) {
     winstonLogger.error('Error connecting Redis Client:', error);
   }
 }
@@ -58,8 +63,7 @@ export async function disconnectRedis() {
   try {
     await redisClient.quit();
     winstonLogger.info('Redis Client disconnected!');
-  } catch(error) {
+  } catch (error) {
     winstonLogger.error('Error disconnecting Redis Client:', error);
   }
 }
-
