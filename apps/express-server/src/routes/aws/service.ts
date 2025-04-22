@@ -1,7 +1,7 @@
 import { type Response } from 'express';
 import Papa from 'papaparse';
 import { type Readable } from 'stream';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import {
   s3Client,
   createPutPresignedUrl,

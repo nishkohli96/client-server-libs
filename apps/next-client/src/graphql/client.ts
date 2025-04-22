@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-hooks';
 import memCache from 'graphql-hooks-memcache';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 export const datoCmsClient = new GraphQLClient({
   url: 'https://graphql.datocms.com/',

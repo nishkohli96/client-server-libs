@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import { createLogger, addColors, format, transports } from 'winston';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 const { combine, timestamp, printf } = format;
 

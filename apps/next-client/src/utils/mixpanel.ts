@@ -1,5 +1,5 @@
 import mixpanel from 'mixpanel-browser';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 const MIXPANEL_TOKEN = ENV_VARS.mixPanelToken;
 

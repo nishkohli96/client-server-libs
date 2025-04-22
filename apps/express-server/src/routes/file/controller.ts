@@ -1,6 +1,6 @@
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
-import { ServerConfig } from '@/app-constants';
+import { ServerConfig } from '@/constants';
 import { fileUploader, winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
 import fileService from './service';

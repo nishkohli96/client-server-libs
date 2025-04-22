@@ -3,6 +3,8 @@ type PageInfo = {
   href: string;
 };
 
+const stripePrefix = '/stripe';
+
 export const PageLinks: PageInfo[] = [
   {
     title: 'DatoCMS',
@@ -27,5 +29,9 @@ export const PageLinks: PageInfo[] = [
   {
     title: 'Location',
     href: '/location'
+  },
+  {
+    title: 'Stripe',
+    href: stripePrefix
   }
 ];

@@ -46,13 +46,14 @@
     "redis": "^4.7.0",
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
+    "stripe": "^18.0.0",
     "stytch": "^12.4.0",
     "uuid": "^11.0.5",
     "winston": "3.11.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
-    "@nish1896/eslint-flat-config": "^2.0.2",
+    "@nish1896/eslint-flat-config": "^2.0.3",
     "@sentry/cli": "^2.42.1",
     "@types/cors": "^2.8.17",
     "@types/express": "4.17.21",

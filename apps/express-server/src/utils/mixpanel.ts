@@ -1,5 +1,5 @@
 import Mixpanel from 'mixpanel';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 
 export const mixpanel = Mixpanel.init(ENV_VARS.mixPanelToken, {
   host: 'api-in.mixpanel.com',

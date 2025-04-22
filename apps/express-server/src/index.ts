@@ -10,7 +10,7 @@ import {
   type InterServerEvents,
   type SocketData
 } from '@csl/react-express';
-import { ENV_VARS } from '@/app-constants';
+import { ENV_VARS } from '@/constants';
 import { loadSSMParameters } from '@/aws';
 import { connectPostgresDB, disconnectPostgresDB } from '@/db/postgres';
 import { connectMySQLDB, disconnectMySQLDB } from '@/db/mysql';

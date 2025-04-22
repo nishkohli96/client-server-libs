@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Typography from '@mui/material/Typography';
-import { pokeApi } from '@/axios/pokeApi';
+import { pokeApi } from '@/axios';
 
 type IDParams = {
   params: Promise<{ id: string }>;
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { id } = await params;
   return {
     title: id.charAt(0).toUpperCase() + id.slice(1),
-    description: `Details for ${id}`,
+    description: `Details for ${id}`
   };
 }
 
@@ -41,15 +41,17 @@ export default async function PokemonDetails({ params }: IDParams) {
   const success = await pokemonDetails();
   return (
     <main>
-      {success ? (
-        <Typography variant="body1">
-          {`Check console to view details for ${id.toUpperCase()}`}
-        </Typography>
-      ) : (
-        <Typography variant="body2" color="error">
-          {`No details found for ${id}`}
-        </Typography>
-      )}
+      {success
+        ? (
+          <Typography variant="body1">
+            {`Check console to view details for ${id.toUpperCase()}`}
+          </Typography>
+        )
+        : (
+          <Typography variant="body2" color="error">
+            {`No details found for ${id}`}
+          </Typography>
+        )}
     </main>
   );
 }
