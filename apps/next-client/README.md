@@ -10,3 +10,4 @@
 - Get Location using `navigator`
 - [Sentry](https://docs.sentry.io/platforms/javascript/guides/nextjs/) integration
 - Track user analytics using [Mixpanel](https://mixpanel.com/home/)
+- [Stripe](https://docs.stripe.com/) payment links integration
