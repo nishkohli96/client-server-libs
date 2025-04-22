@@ -17,7 +17,7 @@ The code for shared packages are in the `packages` folder & the applications cod
 
 Install `node_modules`
 
-```
+```bash
 yarn
 ```
 
@@ -25,7 +25,7 @@ Build, run, lint or test all your apps in one command thanks to [Turborepo's Pip
 
 To build all the shared packages,
 
-```
+```bash
 turbo lib:build
 ```
 
@@ -38,6 +38,22 @@ Each of the applications have common scripts which can be easily executed in par
 |`start`| Run the production build |
 |`prod`| Build the app and then run the build |
 |`lint`| Run eslint to fix code |
+
+## Upgrade Dependencies
+
+[npm-check-updates](https://www.npmjs.com/package/npm-check-updates) is an excellent tool for detecting the latest versions of dependencies and updating them in your `package.json`. It simplifies the process of keeping your project up to date with the latest package versions.
+
+To update all **dependencies** and **devDependencies** across the workspace, run:
+
+```bash
+ncu -ws --format group -u
+```
+
+Followed by
+
+```bash
+turbo build
+```
 
 ## Support Me
 
