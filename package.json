@@ -33,7 +33,7 @@
     "turbo": "^2.5.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,html,css,sass,scss}": [
+    "*.{json,html,css,sass,scss}": [
       "prettier --write --ignore-unknown"
     ],
     "*.{js,jsx,ts,tsx}": [
