@@ -1,6 +1,6 @@
 import { type MetadataRoute } from 'next';
 import { host } from '@/config';
-import { getPathname, routing } from '@/i18n/routing';
+import { getPathname, i18nRouting } from '@/services/i18n';
 import { type Locales } from '@/types';
 
 type Href = Parameters<typeof getPathname>[0]['href'];
@@ -12,10 +12,10 @@ function getUrl(href: Href, locale: Locales) {
 
 function getEntry(href: Href) {
   return {
-    url: getUrl(href, routing.defaultLocale),
+    url: getUrl(href, i18nRouting.defaultLocale),
     alternates: {
       languages: Object.fromEntries(
-        routing.locales.map(locale => [locale, getUrl(href, locale)])
+        i18nRouting.locales.map(locale => [locale, getUrl(href, locale)])
       )
     }
   };
