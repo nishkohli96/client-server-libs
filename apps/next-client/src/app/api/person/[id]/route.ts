@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { Types } from 'mongoose';
 import { PersonModel } from '@csl/mongo-models';
-import mongoDB from '@/mongoDB';
+import { mongoDBService } from '@/services';
 
 type RequestParams = {
   params: Promise<{ id: string }>;
@@ -14,7 +14,7 @@ type RequestParams = {
 export async function GET(request: NextRequest, { params }: RequestParams) {
   const { id } = await params;
   try {
-    await mongoDB.connect();
+    await mongoDBService.connect();
     const personDetails = await PersonModel.findOne({
       _id: new Types.ObjectId(id)
     });
