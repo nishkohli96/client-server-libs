@@ -11,7 +11,7 @@
  * Refer https://mui.com/x/react-data-grid/components/
  */
 
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import MuiPagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
 

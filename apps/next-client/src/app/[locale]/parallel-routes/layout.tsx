@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 type LayoutProps = {
@@ -9,7 +9,7 @@ type LayoutProps = {
 };
 
 export const metadata: Metadata = {
-  title: 'Parallel Routes',
+  title: 'Parallel Routes'
 };
 
 export default function ParallelPagesLayout({

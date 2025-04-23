@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';

@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Image } from 'react-datocms';
 import { Loading } from '@csl/shared-fe';

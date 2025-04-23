@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { ApiEndpoints, ENV_VARS } from '@/constants';
 import { SingleStoreLocationsQuery } from '@/graphql/queries';

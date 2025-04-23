@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 
 export default function StripeRootLayout({
   children,
