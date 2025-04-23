@@ -117,9 +117,9 @@
     "@apollo/utils.keyvaluecache" "^2.1.0"
     "@apollo/utils.logger" "^2.0.0"
 
-"@apollo/server@^4.11.3":
+"@apollo/server@^4.12.0":
   version "4.12.0"
-  resolved "https://registry.npmjs.org/@apollo/server/-/server-4.12.0.tgz"
+  resolved "https://registry.yarnpkg.com/@apollo/server/-/server-4.12.0.tgz#6aa92d7596ee59b724a0f16886b483ea0ed0d9af"
   integrity sha512-Z5RNTCnIia+dFsP5HW2ugQMrIOWgyNWyKP+jMVXthp/ECjYyyRYPC41ukCDwxHQY4vNZ3rgbgqroWVQUGFt2gA==
   dependencies:
     "@apollo/cache-control-types" "^1.0.3"
@@ -3013,30 +3013,19 @@
     auto-bind "~4.0.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/typescript-resolvers@4.4.4":
-  version "4.4.4"
-  resolved "https://registry.npmjs.org/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-4.4.4.tgz"
-  integrity sha512-MOngdWxBV1ZqVc7t9cVNU+XPnaA3bls2pWfmUrJDzYZqFN7gijlcOLFGftipWb/U30q7JrYkxGjbNz0ILXI8aw==
+"@graphql-codegen/typescript-resolvers@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-4.5.0.tgz#5454243bf6c586bc8a7b0bc44e8ebcef8de5a747"
+  integrity sha512-+zLe+xzATHTfi4NG7FyM+RiTzFmDqh23McauCnJ9w8n11PMtUHfneu54iryJrJO3u/exzpwkQFOZcIxRYEI4Tg==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^5.1.0"
-    "@graphql-codegen/typescript" "^4.1.5"
-    "@graphql-codegen/visitor-plugin-common" "5.7.1"
+    "@graphql-codegen/typescript" "^4.1.6"
+    "@graphql-codegen/visitor-plugin-common" "5.8.0"
     "@graphql-tools/utils" "^10.0.0"
     auto-bind "~4.0.0"
     tslib "~2.6.0"
 
-"@graphql-codegen/typescript@4.1.5":
-  version "4.1.5"
-  resolved "https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-4.1.5.tgz"
-  integrity sha512-BmbXcS8hv75qDIp4LCFshFXXDq0PCd48n8WLZ5Qf4XCOmHYGSxMn49dp/eKeApMqXWYTkAZuNt8z90zsRSQeOg==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^5.1.0"
-    "@graphql-codegen/schema-ast" "^4.0.2"
-    "@graphql-codegen/visitor-plugin-common" "5.7.1"
-    auto-bind "~4.0.0"
-    tslib "~2.6.0"
-
-"@graphql-codegen/typescript@^4.1.5", "@graphql-codegen/typescript@^4.1.6":
+"@graphql-codegen/typescript@4.1.6", "@graphql-codegen/typescript@^4.1.6":
   version "4.1.6"
   resolved "https://registry.npmjs.org/@graphql-codegen/typescript/-/typescript-4.1.6.tgz"
   integrity sha512-vpw3sfwf9A7S+kIUjyFxuvrywGxd4lmwmyYnnDVjVE4kSQ6Td3DpqaPTy8aNQ6O96vFoi/bxbZS2BW49PwSUUA==
@@ -3045,22 +3034,6 @@
     "@graphql-codegen/schema-ast" "^4.0.2"
     "@graphql-codegen/visitor-plugin-common" "5.8.0"
     auto-bind "~4.0.0"
-    tslib "~2.6.0"
-
-"@graphql-codegen/visitor-plugin-common@5.7.1":
-  version "5.7.1"
-  resolved "https://registry.npmjs.org/@graphql-codegen/visitor-plugin-common/-/visitor-plugin-common-5.7.1.tgz"
-  integrity sha512-jnBjDN7IghoPy1TLqIE1E4O0XcoRc7dJOHENkHvzGhu0SnvPL6ZgJxkQiADI4Vg2hj/4UiTGqo8q/GRoZz22lQ==
-  dependencies:
-    "@graphql-codegen/plugin-helpers" "^5.1.0"
-    "@graphql-tools/optimize" "^2.0.0"
-    "@graphql-tools/relay-operation-optimizer" "^7.0.0"
-    "@graphql-tools/utils" "^10.0.0"
-    auto-bind "~4.0.0"
-    change-case-all "1.0.15"
-    dependency-graph "^0.11.0"
-    graphql-tag "^2.11.0"
-    parse-filepath "^1.0.2"
     tslib "~2.6.0"
 
 "@graphql-codegen/visitor-plugin-common@5.8.0", "@graphql-codegen/visitor-plugin-common@^5.8.0":
@@ -3292,7 +3265,7 @@
     "@graphql-tools/utils" "^9.2.1"
     tslib "^2.4.0"
 
-"@graphql-tools/merge@^9.0.0", "@graphql-tools/merge@^9.0.22", "@graphql-tools/merge@^9.0.24":
+"@graphql-tools/merge@^9.0.0", "@graphql-tools/merge@^9.0.24":
   version "9.0.24"
   resolved "https://registry.npmjs.org/@graphql-tools/merge/-/merge-9.0.24.tgz"
   integrity sha512-NzWx/Afl/1qHT3Nm1bghGG2l4jub28AdvtG11PoUlmjcIjnFBJMv4vqL0qnxWe8A82peWo4/TkVdjJRLXwgGEw==
@@ -11713,9 +11686,9 @@ graphql-request@^6.0.0:
     "@graphql-typed-document-node/core" "^3.2.0"
     cross-fetch "^3.1.5"
 
-graphql-scalars@^1.24.1:
+graphql-scalars@^1.24.2:
   version "1.24.2"
-  resolved "https://registry.npmjs.org/graphql-scalars/-/graphql-scalars-1.24.2.tgz"
+  resolved "https://registry.yarnpkg.com/graphql-scalars/-/graphql-scalars-1.24.2.tgz#3c1a7aba806a72532566ee482b7480476b49be65"
   integrity sha512-FoZ11yxIauEnH0E5rCUkhDXHVn/A6BBfovJdimRZCQlFCl+h7aVvarKmI15zG4VtQunmCDdqdtNs6ixThy3uAg==
   dependencies:
     tslib "^2.5.0"
@@ -14922,7 +14895,7 @@ mongodb@~6.15.0:
     bson "^6.10.3"
     mongodb-connection-string-url "^3.0.0"
 
-mongoose@^8.13.2, mongoose@^8.7.2:
+mongoose@^8.13.2:
   version "8.13.2"
   resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.13.2.tgz"
   integrity sha512-riCBqZmNkYBWjXpM3qWLDQw7QmTKsVZDPhLXFJqC87+OjocEVpvS3dA2BPPUiLAu+m0/QmEj5pSXKhH+/DgerQ==
@@ -15183,22 +15156,6 @@ node-releases@^2.0.19:
   version "2.0.19"
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.19.tgz"
   integrity sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==
-
-nodemon@^3.0.3:
-  version "3.1.9"
-  resolved "https://registry.npmjs.org/nodemon/-/nodemon-3.1.9.tgz"
-  integrity sha512-hdr1oIb2p6ZSxu3PB2JWWYS7ZQ0qvaZsc3hK8DR8f02kRzc8rjYmxAIvdz+aYC+8F2IjNaB7HMcSDg8nQpJxyg==
-  dependencies:
-    chokidar "^3.5.2"
-    debug "^4"
-    ignore-by-default "^1.0.1"
-    minimatch "^3.1.2"
-    pstree.remy "^1.1.8"
-    semver "^7.5.3"
-    simple-update-notifier "^2.0.0"
-    supports-color "^5.5.0"
-    touch "^3.1.0"
-    undefsafe "^2.0.5"
 
 nodemon@^3.1.10:
   version "3.1.10"
@@ -19063,7 +19020,7 @@ ts-node@^10.9.2:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tsc-alias@^1.8.13, tsc-alias@^1.8.15:
+tsc-alias@^1.8.15:
   version "1.8.15"
   resolved "https://registry.npmjs.org/tsc-alias/-/tsc-alias-1.8.15.tgz"
   integrity sha512-yKLVx8ddUurRwhVcS6JFF2ZjksOX2ZWDRIdgt+PQhJBDegIdAdilptiHsuAbx9UFxa16GFrxeKQ2kTcGvR6fkQ==
@@ -19308,7 +19265,7 @@ typescript@5.7.3:
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.7.3.tgz"
   integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
 
-typescript@^5.3.3, typescript@^5.8.2, typescript@^5.8.3:
+typescript@^5.8.2, typescript@^5.8.3:
   version "5.8.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.8.3.tgz"
   integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==
@@ -19612,7 +19569,7 @@ utils-merge@1.0.1:
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
 
-uuid@^11.0.5, uuid@^11.1.0:
+uuid@^11.1.0:
   version "11.1.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-11.1.0.tgz"
   integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
