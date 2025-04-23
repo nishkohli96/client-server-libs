@@ -25,12 +25,11 @@
     "prettier": "prettier \"{apps,packages}/**/*.{json,html,css,sass,scss}\" --write --ignore-unknown"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
-    "@nish1896/eslint-flat-config": "^2.0.3",
+    "@nish1896/eslint-flat-config": "^2.0.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
-    "eslint": "^9.23.0",
+    "eslint": "^9.25.0",
     "turbo": "^2.5.0"
   },
   "lint-staged": {
