@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { AirportModel } from '@csl/mongo-models';
-import { mongoDBService } from '@/services';
+import mongoDBService from '@/services/mongoDB';
 import { logApiError } from '@/utils';
 
 export async function GET(request: NextRequest) {

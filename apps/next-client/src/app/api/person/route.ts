@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { PersonModel } from '@csl/mongo-models';
-import { mongoDBService } from '@/services';
+import mongoDBService from '@/services/mongoDB';
 
 export async function GET(request: NextRequest) {
   /**

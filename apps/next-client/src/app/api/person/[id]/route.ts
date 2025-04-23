@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { Types } from 'mongoose';
 import { PersonModel } from '@csl/mongo-models';
-import { mongoDBService } from '@/services';
+import mongoDBService from '@/services/mongoDB';
 
 type RequestParams = {
   params: Promise<{ id: string }>;

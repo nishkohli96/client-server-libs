@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { PageHeading, Loading } from '@csl/shared-fe';
-import { SingleStoreLocationsQuery } from '@/graphql/queries';
+import { SingleStoreLocationsQuery } from '@/services/graphql';
 
 type Store = {
   storeName: string;
