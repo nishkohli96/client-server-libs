@@ -15,20 +15,14 @@ carRouter.post(
 );
 
 /* GET /car/list */
-carRouter.get(
-  `/${subRoutes.list}`,
-  async (req, res: Response) => {
-    return await carService.listCars(res);
-  }
-);
+carRouter.get(`/${subRoutes.list}`, async (req, res: Response) => {
+  return await carService.listCars(res);
+});
 
 /* GET /car/group-by-brand */
-carRouter.get(
-  `/${subRoutes.groupByBrand}`,
-  async (req, res: Response) => {
-    return await carService.listCarsByBrand(res);
-  }
-);
+carRouter.get(`/${subRoutes.groupByBrand}`, async (req, res: Response) => {
+  return await carService.listCarsByBrand(res);
+});
 
 /* GET /car/details */
 carRouter.get(

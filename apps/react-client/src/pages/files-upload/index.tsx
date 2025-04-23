@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import { toast } from 'react-toastify';
@@ -71,7 +71,6 @@ const FilesUploadPage = () => {
           formData.append('fileName', file.name);
 
           try {
-
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadChunk}`,
               formData,
@@ -79,7 +78,7 @@ const FilesUploadPage = () => {
                 onUploadProgress: progressEvent => {
                   const uploaded = bytesUploaded + progressEvent.loaded;
                   setProgress(Math.min((uploaded / file.size) * 100, 100));
-                },
+                }
               }
             );
             bytesUploaded += chunk.size;
@@ -140,7 +139,6 @@ const FilesUploadPage = () => {
 
       while (start < file.size) {
         if (success) {
-
           const chunk = file.slice(start, end);
           const base64Chunk = await convertToBase64(chunk);
 
@@ -150,7 +148,6 @@ const FilesUploadPage = () => {
           formData.append('fileName', file.name);
 
           try {
-
             await serverApi.post(
               `${rootPath}/${subRoutes.uploadBase64}`,
               formData
@@ -195,7 +192,11 @@ const FilesUploadPage = () => {
           <Typography>Large File Upload as Chunks</Typography>
           <FileUploader onFileUpload={onLargeFileUpload} anyFileType />
           {showProgress && (
-            <LinearProgress variant="determinate" value={progress} sx={{ mt: '20px' }} />
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{ mt: '20px' }}
+            />
           )}
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>

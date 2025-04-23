@@ -13,9 +13,9 @@ const EditPersonPage = () => {
   const { _id, ...personInfo } = personDetails;
   console.log('_id: ', _id);
 
-  const updatePerson = async(formValues: PersonInfo) => {
+  const updatePerson = async (formValues: PersonInfo) => {
     const isPersonCreated = await editPersonDetails(_id.toString(), formValues);
-    if(isPersonCreated) {
+    if (isPersonCreated) {
       navigate(RouteNames.people.rootPath);
     }
   };

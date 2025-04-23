@@ -17,7 +17,9 @@ class RandomUserAPI extends RESTDataSource {
    * http://apollographql.com/docs/apollo-server/data/fetching-rest#http-methods
    */
   async getRandomUsers(limit: number) {
-    const response = await this.get<RandomUserAPIResponse>(`${this.includeFieldsQuery}&results=${limit}`);
+    const response = await this.get<RandomUserAPIResponse>(
+      `${this.includeFieldsQuery}&results=${limit}`
+    );
     return response.results;
   }
 }

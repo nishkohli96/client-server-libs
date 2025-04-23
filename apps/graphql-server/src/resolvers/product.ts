@@ -3,7 +3,7 @@ import {
   type Product,
   type QueryGetProductByIdArgs,
   type GraphQLMutationResolver,
-  type ProductSchema,
+  type ProductSchema
 } from '@/types';
 
 type ProductMutation = Pick<GraphQLMutationResolver, 'createProduct'>;
@@ -31,21 +31,18 @@ function generateProductId() {
 
 const productMutation: ProductMutation = {
   createProduct(_, args) {
-    const {
-      name,
-      description,
-      price,
-      categoryId,
-    } = args.productInput;
-    const productCategory = categories.find(category => category.id === categoryId);
-    if(!productCategory) {
+    const { name, description, price, categoryId } = args.productInput;
+    const productCategory = categories.find(
+      category => category.id === categoryId
+    );
+    if (!productCategory) {
       throw new Error('Invalid Product Category');
     }
     const productDetails = {
       id: generateProductId(),
       name,
       description,
-      price,
+      price
     };
     products.push({
       ...productDetails,
@@ -76,10 +73,10 @@ export const productResolver = {
      * error.
      */
     category: (parent: Product | ProductSchema) => {
-      if('category' in parent) {
+      if ('category' in parent) {
         return parent.category;
       }
       return categories.find(c => c.id === parent.categoryId);
-    },
-  },
+    }
+  }
 };

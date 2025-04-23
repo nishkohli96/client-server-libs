@@ -27,19 +27,13 @@ export function StyledLink({ text, newTab, ...otherProps }: StyledLinkProps) {
     <Link {...otherProps} target={newTab ? '_blank' : '_self'}>
       <span className="text-blue-500 underline">
         {text}
-        {newTab && (
-          <ArrowOutwardIcon fontSize="small"/>
-        )}
+        {newTab && <ArrowOutwardIcon fontSize="small" />}
       </span>
     </Link>
   );
 }
 
-export function PageLink({
-  text,
-  newTab,
-  ...otherProps
-}: StyledLinkProps) {
+export function PageLink({ text, newTab, ...otherProps }: StyledLinkProps) {
   return (
     <Button
       variant="outlined"
@@ -54,9 +48,7 @@ export function PageLink({
       <Link {...otherProps}>
         <span className="text-red-400">
           {text}
-          {newTab && (
-            <ArrowOutwardIcon />
-          )}
+          {newTab && <ArrowOutwardIcon />}
         </span>
       </Link>
     </Button>

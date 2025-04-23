@@ -1,11 +1,14 @@
 import { categories } from '@/data';
-import { type GraphQLQueryResolver, type GraphQLMutationResolver } from '@/types';
+import {
+  type GraphQLQueryResolver,
+  type GraphQLMutationResolver
+} from '@/types';
 
 type CategoryQueryResolver = Pick<GraphQLQueryResolver, 'getCategories'>;
 type CategoryMutation = Pick<GraphQLMutationResolver, 'createCategory'>;
 
 const categoryQuery: CategoryQueryResolver = {
-  getCategories: () => categories,
+  getCategories: () => categories
 };
 
 function generateCategoryId() {

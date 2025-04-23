@@ -1,5 +1,9 @@
 import { type Response } from 'express';
-import { BuyerModel, CarModel, type BuyerModelCreationAttributes } from '@/db/postgres/models';
+import {
+  BuyerModel,
+  CarModel,
+  type BuyerModelCreationAttributes
+} from '@/db/postgres/models';
 import { sendErrorResponse } from '@/utils';
 
 class BuyerService {
@@ -13,7 +17,7 @@ class BuyerService {
           id: purchaseInfo.car_id
         }
       });
-      if(!carInfo) {
+      if (!carInfo) {
         return res.json({
           success: true,
           status: 400,
@@ -36,14 +40,12 @@ class BuyerService {
 
   async getPurchaseDetails(res: Response) {
     try {
-      const purchaseList = await BuyerModel.findAll(
-        {
-          include: {
-            model: CarModel,
-            as: 'carDetails'
-          }
+      const purchaseList = await BuyerModel.findAll({
+        include: {
+          model: CarModel,
+          as: 'carDetails'
         }
-      );
+      });
       return res.json({
         success: true,
         status: 200,

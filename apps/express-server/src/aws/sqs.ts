@@ -1,6 +1,5 @@
 /* https://www.npmjs.com/package/@aws-sdk/client-sqs */
 
-
 import {
   SQSClient,
   ListQueuesCommand,
@@ -14,7 +13,7 @@ import {
   type SendMessageBatchCommandInput,
   type DeleteMessageBatchCommandInput,
   DeleteMessageBatchCommand,
-  type Message,
+  type Message
 } from '@aws-sdk/client-sqs';
 import { winstonLogger } from '@/middleware';
 import { printObject } from '@/utils';
@@ -51,9 +50,8 @@ export async function sendMessagetoQueue(
   queueUrl: string,
   messageBody: string | object
 ) {
-  const msgBody = typeof messageBody === 'string'
-    ? messageBody
-    : JSON.stringify(messageBody);
+  const msgBody
+    = typeof messageBody === 'string' ? messageBody : JSON.stringify(messageBody);
   const input: SendMessageCommandInput = {
     QueueUrl: queueUrl,
     MessageBody: msgBody,
@@ -163,13 +161,15 @@ export async function sendBatchMessages(
     }));
     const input: SendMessageBatchCommandInput = {
       QueueUrl: queueUrl,
-      Entries: messages,
+      Entries: messages
     };
 
     try {
       const command = new SendMessageBatchCommand(input);
       const response = await sqsClient.send(command);
-      winstonLogger.info(`${batchId} sent successfully: ${printObject(response)}}`);
+      winstonLogger.info(
+        `${batchId} sent successfully: ${printObject(response)}}`
+      );
     } catch (error) {
       winstonLogger.error(`Error sending ${batchId}`, error);
     }

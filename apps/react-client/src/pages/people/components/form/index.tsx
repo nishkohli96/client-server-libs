@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
@@ -38,15 +38,18 @@ const PersonForm = ({
     defaultValues: initialValues
   });
 
-  const validateAvatar = async(url: string) => {
-    if(!url) {
+  const validateAvatar = async (url: string) => {
+    if (!url) {
       clearErrors('avatar');
       return;
     }
     try {
       const response = await axios.head(url);
       if (response.status !== 200) {
-        setError('avatar', { type: 'invalidURL', message: 'Invalid avatar URL' });
+        setError('avatar', {
+          type: 'invalidURL',
+          message: 'Invalid avatar URL'
+        });
       } else {
         clearErrors('avatar');
       }
@@ -185,9 +188,7 @@ const PersonForm = ({
                 slotProps={{
                   input: {
                     startAdornment: (
-                      <InputAdornment position="start">
-                        ₹
-                      </InputAdornment>
+                      <InputAdornment position="start">₹</InputAdornment>
                     )
                   }
                 }}
@@ -265,11 +266,7 @@ const PersonForm = ({
               </Box>
             </Grid>
             <Grid size={12}>
-              <Button
-                variant="contained"
-                type="submit"
-                disabled={disabled}
-              >
+              <Button variant="contained" type="submit" disabled={disabled}>
                 Submit
               </Button>
             </Grid>
@@ -281,4 +278,3 @@ const PersonForm = ({
 };
 
 export default PersonForm;
-

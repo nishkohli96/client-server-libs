@@ -1,4 +1,3 @@
-
 import { type NextRequest, NextResponse } from 'next/server';
 
 function generateQueryParamsObject(
@@ -8,19 +7,19 @@ function generateQueryParamsObject(
 
   urlSearchParams.forEach((value, key) => {
     /**
-		 * If the key already exists, convert the value to an array
-		 * (or append to the array)
-		 */
+     * If the key already exists, convert the value to an array
+     * (or append to the array)
+     */
     if (Object.hasOwn(queryParamsObject, key)) {
       /* If it's already an array, push the new value */
       if (Array.isArray(queryParamsObject[key])) {
-        (queryParamsObject[key] as string[]).push(value);
+        (queryParamsObject[key]).push(value);
       } else {
         /**
-				 * If it's not an array, convert the previous value into an array
-				 * and add the new value
-				 */
-        queryParamsObject[key] = [queryParamsObject[key] as string, value];
+         * If it's not an array, convert the previous value into an array
+         * and add the new value
+         */
+        queryParamsObject[key] = [queryParamsObject[key], value];
       }
     } else {
       queryParamsObject[key] = value;
@@ -40,11 +39,11 @@ export async function GET(
 ) {
   /**
    * Get the dynamic 'name' parameter from the URL.
-	 * For Next 15, use await to get the value of this object.
+   * For Next 15, use await to get the value of this object.
    *
    * Another way to get request params -
    * const name = req.nextUrl.pathname.split('/').pop();
-	 */
+   */
   const { name } = await params;
 
   /**

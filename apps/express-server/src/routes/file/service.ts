@@ -8,7 +8,7 @@ import {
   renameSync,
   rmdirSync,
   unlinkSync,
-  writeFileSync,
+  writeFileSync
 } from 'fs';
 import path from 'path';
 import moment from 'moment';
@@ -71,15 +71,9 @@ class FileService {
   }
 
   combineFileChunks(res: Response, fileName: string) {
-    const chunkDir = path.join(
-      this.multerDirs.upload,
-      this.multerDirs.chunk
-    );
+    const chunkDir = path.join(this.multerDirs.upload, this.multerDirs.chunk);
     const chunkFilesDir = path.join(chunkDir, fileName);
-    const outputFilePath = path.join(
-      this.multerDirs.upload,
-      `${fileName}`
-    );
+    const outputFilePath = path.join(this.multerDirs.upload, `${fileName}`);
 
     const chunkFiles = readdirSync(chunkFilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);
@@ -145,15 +139,9 @@ class FileService {
   }
 
   combineBase64Files(res: Response, fileName: string) {
-    const base64Dir = path.join(
-      this.multerDirs.upload,
-      this.multerDirs.base64
-    );
+    const base64Dir = path.join(this.multerDirs.upload, this.multerDirs.base64);
     const base64FilesDir = path.join(base64Dir, fileName);
-    const outputFilePath = path.join(
-      this.multerDirs.upload,
-      `${fileName}`
-    );
+    const outputFilePath = path.join(this.multerDirs.upload, `${fileName}`);
 
     const base64Files = readdirSync(base64FilesDir).sort((a, b) => {
       const aNum = parseInt(a.split('_')[1]);

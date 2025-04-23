@@ -35,7 +35,7 @@ const orderMutation: Pick<GraphQLMutationResolver, 'placeOrder'> = {
     };
     orders.push(order);
     return true;
-  },
+  }
 };
 
 export const orderResolver = {
@@ -58,6 +58,6 @@ export const orderResolver = {
         return 'PayPalSchema';
       }
       return null;
-    },
-  },
+    }
+  }
 };

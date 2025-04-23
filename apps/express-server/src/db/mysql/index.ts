@@ -27,14 +27,12 @@ export const mySQLSequelize = new Sequelize(ENV_VARS.mySQLUrl, {
 export async function connectMySQLDB() {
   try {
     await mySQLSequelize.authenticate();
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`
-    );
+    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MySQL DB`);
 
     /**
      * sequelize.close() -> will close the connection to the DB.
-	   * You will need to create a new Sequelize instance to
-	   * access your database again.
+     * You will need to create a new Sequelize instance to
+     * access your database again.
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to MySQL Database ⚠', error);

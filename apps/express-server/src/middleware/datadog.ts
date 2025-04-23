@@ -20,7 +20,7 @@ const ddTracer = tracer.init({
   version: pkgJson.version,
   logInjection: true,
   // analytics: true, // Enables APM analytics
-  runtimeMetrics: true,
+  runtimeMetrics: true
 });
 
 export default ddTracer;

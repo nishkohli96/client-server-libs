@@ -65,7 +65,7 @@ const PeopleDataGrid = ({
 
   const handlePersonDelete = async () => {
     const isDeleted = await deletePerson(selectedItemId ?? '');
-    if(isDeleted) {
+    if (isDeleted) {
       toast.success('Person record deleted!');
       refetchData();
     }
@@ -77,11 +77,10 @@ const PeopleDataGrid = ({
    * filters won't be applicable for this case.
    */
   const virtualsFieldFilters = getGridStringOperators().filter(
-    operator => (
+    operator =>
       operator.value !== StringFilters.Equals
       && operator.value !== StringFilters.NotEquals
       && operator.value !== ArrayFilters.isAnyOf
-    )
   );
 
   const peopleTableColumns: GridColDef<PersonDetailsRow>[] = [
@@ -183,7 +182,7 @@ const PeopleDataGrid = ({
       headerAlign: 'left',
       align: 'left',
       minWidth: 120,
-      valueFormatter: value => value ? `₹ ${String(value)}` : null
+      valueFormatter: value => (value ? `₹ ${String(value)}` : null)
     },
     {
       field: 'actions',

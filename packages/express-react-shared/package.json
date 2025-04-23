@@ -9,11 +9,10 @@
 		"lint": "eslint --fix ."
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.23.0",
-    "@nish1896/eslint-flat-config": "^2.0.3",
-		"eslint": "^9.23.0",
-		"tsc-alias": "^1.8.13",
-		"typescript": "^5.3.3"
+    "@nish1896/eslint-flat-config": "^2.0.4",
+		"eslint": "^9.25.1",
+		"tsc-alias": "^1.8.15",
+		"typescript": "^5.8.3"
 	},
 	"license":"ISC"
 }

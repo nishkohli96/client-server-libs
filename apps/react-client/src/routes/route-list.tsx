@@ -56,5 +56,5 @@ export const RouteList: RouteItem[] = [
     text: 'Edit Person',
     element: <EditPersonPage />,
     hideFromHomePage: true
-  },
+  }
 ];

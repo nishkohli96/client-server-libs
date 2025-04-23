@@ -23,12 +23,9 @@ awsRouter.get(
 );
 
 /* POST /aws/upload-csv-file */
-awsRouter.post(
-  `/${subRoutes.uploadCSVFile}`,
-  async (_, res: Response) => {
-    return await awsService.uploadCSVFile(res);
-  }
-);
+awsRouter.post(`/${subRoutes.uploadCSVFile}`, async (_, res: Response) => {
+  return await awsService.uploadCSVFile(res);
+});
 
 /* GET /aws/download-file */
 awsRouter.get(

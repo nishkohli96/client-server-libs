@@ -28,8 +28,6 @@ export function sendErrorResponse(
     success: false,
     status: 500,
     message: message ?? 'An error occurred',
-    error: error instanceof Error
-      ? error.message
-      : JSON.stringify(error)
+    error: error instanceof Error ? error.message : JSON.stringify(error)
   });
 }

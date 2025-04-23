@@ -120,10 +120,7 @@ class QueryFilter {
 
       case GenericFilters.isEmpty:
         return {
-          $or: [
-            { [this.field]: { $exists: false } },
-            { [this.field]: null }
-          ]
+          $or: [{ [this.field]: { $exists: false } }, { [this.field]: null }]
         };
 
       case GenericFilters.isNotEmpty:

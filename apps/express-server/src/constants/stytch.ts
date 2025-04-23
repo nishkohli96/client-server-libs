@@ -3,7 +3,7 @@ import { ENV_VARS } from '@/constants';
 
 export const stytchClient = new stytch.B2BClient({
   project_id: ENV_VARS.stytch.projectId,
-  secret: ENV_VARS.stytch.secret,
+  secret: ENV_VARS.stytch.secret
 });
 
 export const stytchOrgId = ENV_VARS.stytch.orgId;

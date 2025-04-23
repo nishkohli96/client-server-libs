@@ -55,7 +55,7 @@ export const ENV_VARS = Object.freeze({
     sqsFifoUrl: defEnvVariable('AWS_SQS_FIFO_URL'),
     snsTopicArn: defEnvVariable('AWS_SNS_TOPIC_ARN')
   },
-  stripeSecretKey: defEnvVariable('STRIPE_SECRET_KEY'),
+  stripeSecretKey: defEnvVariable('STRIPE_SECRET_KEY')
 });
 
 export const isProductionEnv = ENV_VARS.env === 'production';

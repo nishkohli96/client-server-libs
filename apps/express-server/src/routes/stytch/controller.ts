@@ -10,7 +10,10 @@ const subRoutes = ExpressServerEndpoints.stytch.subRoutes;
 /* POST: /stytch/add-member */
 stytchRouter.post(
   `/${subRoutes.addMember}`,
-  async (req: Request<object, object, StytchTypes.CreateMemberBody>, res: Response) => {
+  async (
+    req: Request<object, object, StytchTypes.CreateMemberBody>,
+    res: Response
+  ) => {
     return await stytchService.addMember(res, req.body);
   }
 );
@@ -26,7 +29,10 @@ stytchRouter.get(
 /* PATCH: /stytch/update-member */
 stytchRouter.patch(
   `/${subRoutes.updateMember}/:memberId`,
-  async (req: Request<StytchTypes.GetMember, object, StytchTypes.CreateMemberBody>, res: Response) => {
+  async (
+    req: Request<StytchTypes.GetMember, object, StytchTypes.CreateMemberBody>,
+    res: Response
+  ) => {
     return await stytchService.updateMember(res, req.params.memberId, req.body);
   }
 );
@@ -34,7 +40,10 @@ stytchRouter.patch(
 /* DELETE: /stytch/unlink-email */
 stytchRouter.delete(
   `/${subRoutes.unlinkEmail}/:memberId`,
-  async (req: Request<StytchTypes.GetMember, object, StytchTypes.EmailPayload>, res: Response) => {
+  async (
+    req: Request<StytchTypes.GetMember, object, StytchTypes.EmailPayload>,
+    res: Response
+  ) => {
     return await stytchService.unlinkEmail(res, req.params.memberId, req.body);
   }
 );
@@ -50,7 +59,10 @@ stytchRouter.delete(
 /* POST: /stytch/migrate-password */
 stytchRouter.post(
   `/${subRoutes.migratePassword}`,
-  async (req: Request<object, object, StytchTypes.SetPassword>, res: Response) => {
+  async (
+    req: Request<object, object, StytchTypes.SetPassword>,
+    res: Response
+  ) => {
     return await stytchService.migratePassword(res, req.body);
   }
 );
@@ -91,7 +103,10 @@ stytchRouter.get(
 /* POST: /stytch/verify-sms-otp */
 stytchRouter.post(
   `/${subRoutes.verifySMSOTP}`,
-  async (req: Request<object, object, StytchTypes.VerifyCode>, res: Response) => {
+  async (
+    req: Request<object, object, StytchTypes.VerifyCode>,
+    res: Response
+  ) => {
     return await stytchService.verifySMSOtp(res, req.body);
   }
 );
@@ -143,10 +158,7 @@ stytchRouter.post(
 /* POST: /stytch/authenticate-email-otp */
 stytchRouter.post(
   `/${subRoutes.authenticateEmailOTP}`,
-  async (
-    req: Request<object, object, { code: string }>,
-    res: Response
-  ) => {
+  async (req: Request<object, object, { code: string }>, res: Response) => {
     const otpCode = req.body.code;
     return await stytchService.verifyOtp(res, otpCode);
   }
@@ -155,10 +167,7 @@ stytchRouter.post(
 /* GET: /stytch/get-recovery-codes */
 stytchRouter.get(
   `/${subRoutes.getRecoveryCodes}/:memberId`,
-  async (
-    req: Request<StytchTypes.GetMember>,
-    res: Response
-  ) => {
+  async (req: Request<StytchTypes.GetMember>, res: Response) => {
     return await stytchService.getRecoveryCodes(res, req.params.memberId);
   }
 );

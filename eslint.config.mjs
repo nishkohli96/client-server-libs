@@ -10,4 +10,9 @@ export default [
 	{
 		rules: {},
 	},
+	{
+		ignores: [
+			'./apps/graphql-server/src/types/graphql.ts'
+		]
+	}
 ];

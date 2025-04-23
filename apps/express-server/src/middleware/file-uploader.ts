@@ -30,7 +30,7 @@ const fileStorage = (dirPath?: string) =>
      */
     destination(req, file, cb) {
       let folderPath = path.join(ServerConfig.multer.dirs.upload);
-      if(dirPath) {
+      if (dirPath) {
         folderPath = path.join(folderPath, dirPath);
       } else {
         folderPath = path.join(folderPath, file.fieldname);

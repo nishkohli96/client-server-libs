@@ -30,7 +30,9 @@ export async function putRecordInDynamoDB(
     };
     const command = new PutItemCommand(input);
     const response = await dynamoDBClient.send(command);
-    winstonLogger.info(`Response after inserting record into table "${tableName}": ${printObject(response)}`);
+    winstonLogger.info(
+      `Response after inserting record into table "${tableName}": ${printObject(response)}`
+    );
   } catch (error) {
     winstonLogger.error('Error inserting record into table:', error);
     throw error;
@@ -63,7 +65,9 @@ export async function getRecordOfDynamoDB(
     };
     const command = new GetItemCommand(input);
     const response = await dynamoDBClient.send(command);
-    winstonLogger.info(`Fetched record from table "${tableName}": ${printObject(response)}`);
+    winstonLogger.info(
+      `Fetched record from table "${tableName}": ${printObject(response)}`
+    );
   } catch (error) {
     winstonLogger.error('Error fetching record from table:', error);
     throw error;
@@ -75,9 +79,7 @@ export async function getRecordOfDynamoDB(
  * should be avoided. Prefer Query for better performance
  * when you have known keys.
  */
-export async function queryDynamoDBRecords(
-  tableName: string,
-) {
+export async function queryDynamoDBRecords(tableName: string) {
   try {
     const input: QueryCommandInput = {
       TableName: tableName,
@@ -87,11 +89,13 @@ export async function queryDynamoDBRecords(
         }
       },
       KeyConditionExpression: 'Artist = :v1',
-      AttributesToGet: ['artistId', 'Artist'],
+      AttributesToGet: ['artistId', 'Artist']
     };
     const command = new QueryCommand(input);
     const response = await dynamoDBClient.send(command);
-    winstonLogger.info(`Fetched records from table "${tableName}": ${printObject(response)}`);
+    winstonLogger.info(
+      `Fetched records from table "${tableName}": ${printObject(response)}`
+    );
   } catch (error) {
     winstonLogger.error('Error fetching records from table:', error);
     throw error;
@@ -102,9 +106,7 @@ export async function queryDynamoDBRecords(
  * To update and/or delete multiple items in one go, use
  * BatchWriteItemCommand.
  */
-export async function updateDynamoDBRecords(
-  tableName: string,
-) {
+export async function updateDynamoDBRecords(tableName: string) {
   try {
     const input: UpdateItemCommandInput = {
       TableName: tableName,
@@ -126,15 +128,13 @@ export async function updateDynamoDBRecords(
   }
 }
 
-export async function deleteDynamoDBRecords(
-  tableName: string,
-) {
+export async function deleteDynamoDBRecords(tableName: string) {
   try {
     const input: DeleteItemCommandInput = {
       TableName: tableName,
       Key: {
         productId: { S: '12345' }
-      },
+      }
     };
     const command = new DeleteItemCommand(input);
     const response = await dynamoDBClient.send(command);

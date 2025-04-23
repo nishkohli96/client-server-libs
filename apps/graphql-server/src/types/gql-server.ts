@@ -2,7 +2,7 @@ import type RandomUserAPI from '@/api/randomuser';
 import {
   type RandomUser,
   type QueryResolvers as BaseQueryResolver,
-  type MutationResolvers as BaseMutationResolver,
+  type MutationResolvers as BaseMutationResolver
 } from '@/types';
 
 export type GraphQLServerContext = {
@@ -17,9 +17,10 @@ export type GraphQLServerContext = {
  */
 export type GraphQLQueryResolver = BaseQueryResolver<GraphQLServerContext>;
 
-export type GraphQLMutationResolver = BaseMutationResolver<GraphQLServerContext>;
+export type GraphQLMutationResolver =
+  BaseMutationResolver<GraphQLServerContext>;
 
 export type RandomUserAPIResponse = {
-	results: RandomUser[];
-	info: object;
+  results: RandomUser[];
+  info: object;
 };

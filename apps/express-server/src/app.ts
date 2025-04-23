@@ -19,14 +19,18 @@ function generatePath(routeName: string): string {
  * ensure that Express can handle large JSON and
  * URL-encoded payloads.
  */
-app.use(express.json({
-  /* Can also write as "10mb" */
-  limit: ServerConfig.multer.maxFieldLimit
-}));
-app.use(express.urlencoded({
-  limit: ServerConfig.multer.maxFieldLimit,
-  extended: true
-}));
+app.use(
+  express.json({
+    /* Can also write as "10mb" */
+    limit: ServerConfig.multer.maxFieldLimit
+  })
+);
+app.use(
+  express.urlencoded({
+    limit: ServerConfig.multer.maxFieldLimit,
+    extended: true
+  })
+);
 
 app.use(cors());
 app.use(requestLogger);
@@ -89,4 +93,3 @@ Sentry.setupExpressErrorHandler(app);
 // });
 
 export default app;
-

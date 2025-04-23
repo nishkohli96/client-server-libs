@@ -5,12 +5,7 @@ import { createTheme } from '@mui/material/styles';
 import { LightThemePalette, DarkThemePalette } from './palette';
 
 const roboto = Roboto({
-  weight: [
-    '300',
-    '400',
-    '500',
-    '700'
-  ],
+  weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap'
 });

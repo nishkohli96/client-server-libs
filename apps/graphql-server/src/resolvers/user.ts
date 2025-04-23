@@ -8,10 +8,7 @@ import {
   UserRole
 } from '@/types';
 
-type UserQueryResolver = Pick<
-  GraphQLQueryResolver,
-  'getUsers' | 'getUserById'
->;
+type UserQueryResolver = Pick<GraphQLQueryResolver, 'getUsers' | 'getUserById'>;
 type UserMutation = Pick<GraphQLMutationResolver, 'createUser'>;
 
 const userQuery: UserQueryResolver = {
@@ -29,7 +26,9 @@ const userMutation: UserMutation = {
 
     if (type !== UserRole.Admin && type !== UserRole.Customer) {
       /* eslint-disable @typescript-eslint/restrict-template-expressions */
-      throw new Error(`Invalid type: ${type}. Must be "${UserRole.Admin}" or "${UserRole.Customer}".`);
+      throw new Error(
+        `Invalid type: ${type}. Must be "${UserRole.Admin}" or "${UserRole.Customer}".`
+      );
     }
     const newUserId = new Types.ObjectId().toString();
     if (type === UserRole.Admin) {
@@ -40,7 +39,7 @@ const userMutation: UserMutation = {
         id: newUserId,
         name,
         email,
-        manager,
+        manager
       };
       users.push(newAdmin);
       return newAdmin;
@@ -57,13 +56,13 @@ const userMutation: UserMutation = {
         id: newUserId,
         name,
         email,
-        address,
+        address
       };
       users.push(newCustomer);
       return newCustomer;
     }
     throw new Error('Invalid input data.');
-  },
+  }
 };
 
 export const userResolver = {
@@ -78,6 +77,6 @@ export const userResolver = {
         return 'AdminSchema';
       }
       return null;
-    },
-  },
+    }
+  }
 };

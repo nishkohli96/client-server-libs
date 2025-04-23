@@ -88,11 +88,7 @@ class AwsService {
         data: preSignedUrl
       });
     } catch (error) {
-      return sendErrorResponse(
-        res,
-        error,
-        'Unable to upload csv file'
-      );
+      return sendErrorResponse(res, error, 'Unable to upload csv file');
     }
   }
 

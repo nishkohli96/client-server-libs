@@ -45,7 +45,7 @@ export async function connectToRedis() {
   try {
     await redisClient.connect();
     winstonLogger.info('Redis Client connected!');
-  } catch(error) {
+  } catch (error) {
     winstonLogger.error('Error connecting Redis Client:', error);
   }
 }
@@ -63,8 +63,7 @@ export async function disconnectRedis() {
   try {
     await redisClient.quit();
     winstonLogger.info('Redis Client disconnected!');
-  } catch(error) {
+  } catch (error) {
     winstonLogger.error('Error disconnecting Redis Client:', error);
   }
 }
-

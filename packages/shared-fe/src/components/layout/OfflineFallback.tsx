@@ -14,7 +14,7 @@ const styles: { container: CSSProperties } = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '20px',
+    fontSize: '20px'
   }
 };
 

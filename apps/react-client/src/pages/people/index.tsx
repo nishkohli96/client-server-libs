@@ -42,7 +42,7 @@ function PeopleListingPage() {
    * this wont trigger the API.
    */
   const [filterModel, setFilterModel] = useState<GridFilterModel>();
-  const filterModelRef = useRef<GridFilterModel>();
+  const filterModelRef = useRef<GridFilterModel>(null);
 
   const [sortColumn, setSortColumn] = useState<GridSortItem>();
   const [paginationModel, setPaginationModel]
@@ -176,4 +176,3 @@ function PeopleListingPage() {
 }
 
 export default PeopleListingPage;
-

@@ -50,5 +50,5 @@ export const users: AdminOrCustomerSchema[] = [
       state: null,
       country: Countries.UnitedArabEmirates
     }
-  },
+  }
 ];

@@ -28,7 +28,7 @@ const server = new ApolloServer<GraphQLServerContext>({
     EmailAddressTypeDefinition,
     ObjectIDTypeDefinition,
     UUIDDefinition,
-    typeDefs,
+    typeDefs
   ],
   resolvers: {
     DateTimeISO: DateTimeISOResolver,
@@ -77,11 +77,11 @@ async function bootstrap() {
        * We create new instances of our data sources with each request,
        * passing in our server's cache.
        */
-      return ({
+      return {
         dataSources: {
-          randomUserAPI: new RandomUserAPI({ cache }),
+          randomUserAPI: new RandomUserAPI({ cache })
         }
-      });
+      };
     }
   });
   console.log(`🚀  Server ready at: ${url}`);

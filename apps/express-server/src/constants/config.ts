@@ -1,7 +1,7 @@
 const oneMb = 1024 * 1024;
 
 function setSizeInMB(size?: number): number {
-  if(!size) {
+  if (!size) {
     size = 1;
   }
   return size * oneMb;

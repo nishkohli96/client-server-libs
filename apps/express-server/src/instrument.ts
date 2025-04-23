@@ -4,9 +4,7 @@ import { ENV_VARS } from '@/constants';
 
 Sentry.init({
   dsn: ENV_VARS.sentryDSN,
-  integrations: [
-    nodeProfilingIntegration(),
-  ],
+  integrations: [nodeProfilingIntegration()],
   /* Tracing: Capture 100% of the transactions */
   tracesSampleRate: 1.0,
   profilesSampleRate: 1.0,
@@ -14,8 +12,8 @@ Sentry.init({
 });
 
 export function startProfiler() {
-// Manually call startProfiler and stopProfiler
-// to profile the code in between
+  // Manually call startProfiler and stopProfiler
+  // to profile the code in between
   Sentry.profiler.startProfiler();
 }
 

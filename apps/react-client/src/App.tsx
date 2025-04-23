@@ -5,7 +5,6 @@ import { Loading, useOnlineStatus, OfflineFallback } from '@csl/shared-fe';
 import { useSocketConnection } from 'hooks';
 import { AppThemeProvider } from 'theme';
 import Routing from 'routes';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = () => {
   useSocketConnection();

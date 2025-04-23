@@ -170,7 +170,7 @@ io.on('connection', socket => {
 
 async function bootstrap() {
   try {
-    if(ENV_VARS.env !== 'development') {
+    if (ENV_VARS.env !== 'development') {
       await loadSSMParameters(`/${ENV_VARS.env}/`);
     }
     await connectPostgresDB();

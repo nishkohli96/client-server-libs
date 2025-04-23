@@ -32,14 +32,12 @@ export async function connectPostgresDB() {
      * It can't be disabled though.
      */
     await postgreSequelize.authenticate();
-    winstonLogger.info(
-      `[ ⚡️ ${hostName} ⚡️ ] - Connected to Postgres`
-    );
+    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to Postgres`);
 
     /**
      * sequelize.close() -> will close the connection to the DB.
-	   * You will need to create a new Sequelize instance to
-	   * access your database again.
+     * You will need to create a new Sequelize instance to
+     * access your database again.
      */
   } catch (error) {
     winstonLogger.error('⚠ Error connecting to Postgres Database ⚠', error);
@@ -54,7 +52,10 @@ export async function disconnectPostgresDB() {
       `[ ⚡️ ${hostName} ⚡️ ] - Postgres Database connection closed successfully`
     );
   } catch (error) {
-    winstonLogger.error('⚠ Error disconnecting from Postgres Database ⚠', error);
+    winstonLogger.error(
+      '⚠ Error disconnecting from Postgres Database ⚠',
+      error
+    );
     process.exit(1);
   }
 }

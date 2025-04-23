@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Image } from 'react-datocms';
 import { Loading } from '@csl/shared-fe';
@@ -32,24 +32,26 @@ const DatoCMSPage = () => {
   return (
     <PageLayout seoTitle={pageTitle}>
       <Grid container spacing={2}>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <Fragment>
-            {storesList
-              && storesList.allStores.map((store, idx) => (
-                <Grid size={{ xs: 12, md: 6 }} key={idx}>
-                  <Typography>
-                    {store.storeName}
-                  </Typography>
-                  <Image
-                    data={store.storeImage.responsiveImage}
-                    key={store.storeName}
-                  />
-                </Grid>
-              ))}
-          </Fragment>
-        )}
+        {isLoading
+          ? (
+            <Loading />
+          )
+          : (
+            <Fragment>
+              {storesList
+                && storesList.allStores.map((store, idx) => (
+                  <Grid size={{ xs: 12, md: 6 }} key={idx}>
+                    <Typography>
+                      {store.storeName}
+                    </Typography>
+                    <Image
+                      data={store.storeImage.responsiveImage}
+                      key={store.storeName}
+                    />
+                  </Grid>
+                ))}
+            </Fragment>
+          )}
       </Grid>
     </PageLayout>
   );

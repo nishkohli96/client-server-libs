@@ -14,4 +14,8 @@ export type CarDetails = {
 
 export type GetCarDetailsRequest = Request<CarDetails>;
 
-export type UpdateCarDetailsRequest = Request<CarDetails, object, CarModelCreationAttributes>;
+export type UpdateCarDetailsRequest = Request<
+  CarDetails,
+  object,
+  CarModelCreationAttributes
+>;

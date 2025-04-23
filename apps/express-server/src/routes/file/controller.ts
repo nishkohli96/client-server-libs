@@ -10,7 +10,11 @@ const fileRouter = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const multerDirs = ServerConfig.multer.dirs;
 
-const mediaUploader = fileUploader('test-folder/some-dir', ['.jpg', '.jpeg', '.png']);
+const mediaUploader = fileUploader('test-folder/some-dir', [
+  '.jpg',
+  '.jpeg',
+  '.png'
+]);
 const chunkUploader = fileUploader(multerDirs.chunk);
 const uploader = fileUploader();
 
@@ -171,10 +175,7 @@ fileRouter.get(
  */
 fileRouter.post(
   `/${subRoutes.combineWithffmpeg}`,
-  function combineVideosWithFfmpeg(
-    req,
-    res: Response
-  ) {
+  function combineVideosWithFfmpeg(req, res: Response) {
     return fileService.combineVideosWithFfmpeg(res);
   }
 );

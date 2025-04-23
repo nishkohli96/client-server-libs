@@ -44,8 +44,7 @@ class StytchService {
         member_id: memberId
         // email_address: reqBody.email,
       };
-      const response
-        = await stytchClient.organizations.members.get(params);
+      const response = await stytchClient.organizations.members.get(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -76,8 +75,7 @@ class StytchService {
         name: reqBody.name,
         mfa_phone_number: reqBody.phone
       };
-      const response
-        = await stytchClient.organizations.members.update(params);
+      const response = await stytchClient.organizations.members.update(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -105,7 +103,7 @@ class StytchService {
       const params = {
         organization_id: stytchOrgId,
         member_id: memberId,
-        email_address: reqBody.email,
+        email_address: reqBody.email
       };
       const response
         = await stytchClient.organizations.members.unlinkRetiredEmail(params);
@@ -124,10 +122,9 @@ class StytchService {
     try {
       const params = {
         organization_id: stytchOrgId,
-        member_id: memberId,
+        member_id: memberId
       };
-      const response
-        = await stytchClient.organizations.members.delete(params);
+      const response = await stytchClient.organizations.members.delete(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -151,8 +148,7 @@ class StytchService {
         hash: reqBody.hash,
         hash_type: reqBody.hash_type
       };
-      const response
-        = await stytchClient.passwords.migrate(params);
+      const response = await stytchClient.passwords.migrate(params);
       return res.status(200).json({
         success: true,
         status: 200,
@@ -236,8 +232,7 @@ class StytchService {
         organization_id: stytchOrgId,
         email_address: reqBody.email
       };
-      const response
-        = await stytchClient.passwords.email.resetStart(params);
+      const response = await stytchClient.passwords.email.resetStart(params);
 
       return res.status(200).json({
         success: true,
@@ -282,8 +277,7 @@ class StytchService {
       const params = {
         password: reqBody.password
       };
-      const response
-        = await stytchClient.passwords.strengthCheck(params);
+      const response = await stytchClient.passwords.strengthCheck(params);
 
       return res.status(200).json({
         success: true,
@@ -346,8 +340,7 @@ class StytchService {
       const params = {
         email_address: stytchTestEmail
       };
-      const response
-        = await stytchClient.otps.email.discovery.send(params);
+      const response = await stytchClient.otps.email.discovery.send(params);
 
       return res.status(200).json({
         success: true,
@@ -389,8 +382,7 @@ class StytchService {
         organization_id: stytchOrgId,
         member_id: memberId
       };
-      const response
-        = await stytchClient.recoveryCodes.get(params);
+      const response = await stytchClient.recoveryCodes.get(params);
 
       return res.status(200).json({
         success: true,
@@ -406,4 +398,3 @@ class StytchService {
 
 const stytchService = new StytchService();
 export default stytchService;
-

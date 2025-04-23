@@ -26,9 +26,11 @@ carBrandRouter.get(
 carBrandRouter.delete(
   `/${subRoutes.delete}/:brandId`,
   async (req: CarBrandTypeDefs.RequestCarBrandById, res: Response) => {
-    return await carBrandService.deleteCarBrand(res, Number(req.params.brandId));
+    return await carBrandService.deleteCarBrand(
+      res,
+      Number(req.params.brandId)
+    );
   }
 );
-
 
 export { carBrandRouter };

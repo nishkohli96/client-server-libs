@@ -2,7 +2,7 @@
 
 import { useQuery } from 'graphql-hooks';
 import Image from 'next/image';
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { PageHeading, Loading } from '@csl/shared-fe';
 import { SingleStoreLocationsQuery } from '@/graphql/queries';

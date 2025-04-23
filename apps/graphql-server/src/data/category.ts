@@ -8,5 +8,5 @@ export const categories: CategorySchema[] = [
   {
     id: 'cat-002',
     name: 'Kitchenware'
-  },
+  }
 ];

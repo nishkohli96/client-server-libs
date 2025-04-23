@@ -79,7 +79,7 @@ export default function DataTable({
           flexGrow: 1,
           '& .MuiDataGrid-row:hover': {
             cursor: 'pointer'
-          },
+          }
         }}
         loading={isFetchingData}
         rowCount={rowCount}

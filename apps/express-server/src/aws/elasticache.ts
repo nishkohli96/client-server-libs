@@ -46,11 +46,10 @@ export async function awsRedisOps() {
   console.assert(getResult === 'value');
 
   /**
-	 * Elasticache can also accept redis JSON, meaning you can
-	 * set and get JSON objects directly. Refer the redis docs
-	 * under the apps/docs folder for redis commands.
+   * Elasticache can also accept redis JSON, meaning you can
+   * set and get JSON objects directly. Refer the redis docs
+   * under the apps/docs folder for redis commands.
    */
   /* Close the connection */
   awsRedisClient.disconnect();
 }
-
