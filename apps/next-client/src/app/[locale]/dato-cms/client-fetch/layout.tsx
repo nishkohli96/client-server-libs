@@ -1,7 +1,7 @@
 'use client';
 
 import { ClientContext } from 'graphql-hooks';
-import { datoCmsClient } from '@/services/graphql';
+import { datoCmsClient } from '@/services/graphql/client';
 
 type LayoutProps = {
   children: React.ReactNode;
