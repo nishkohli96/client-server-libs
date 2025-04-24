@@ -1,5 +1,5 @@
-// services/firebase.ts
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { firebaseConfig } from '@/constants';
 
 class FirebaseService {
@@ -24,6 +24,10 @@ class FirebaseService {
       return getAnalytics(this.firebaseApp);
     }
     return null;
+  }
+
+  public getAuthInstance() {
+    return getAuth(this.firebaseApp);
   }
 }
 
