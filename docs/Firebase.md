@@ -8,11 +8,7 @@
 
 ## Analytics
 
-1.   Event names in Google Analytics (GA4) are **case-sensitive**. Stick to **lowercase snake_case** for all event names, e.g.:
-
-    ```
-    logEvent(analytics, 'user_signed_up');
-    ```
+1.   Event names in Google Analytics (GA4) are **case-sensitive**. Stick to **lowercase snake_case** for all event names, e.g.: `logEvent(analytics, 'user_signed_up');`
 
 2.  **MeasurementId**: This ID is automatically created when you enable Analytics in your Firebase project and register a web app, and it's required to use Analytics. Note: For apps using the Firebase JavaScript SDK **v7.20.0 and later**, Firebase dynamically fetches the `measurementId` when your app initializes Analytics. Having this ID in your config object is optional, but it does serve as a fallback in the rare case that the dynamic fetch fails.
 
@@ -24,8 +20,8 @@
     - After authentication (e.g., after login/signup).
     - Or when you have meaningful user metadata (e.g. preferences, subscription level, role).
 
-		```
-		setUserId(analytics, user.id);
+    ```
+    setUserId(analytics, user.id);
     setUserProperties(analytics, {
       theme: user.theme,
       plan: user.plan,
@@ -48,8 +44,8 @@
         - GA4 custom reporting
         - Segmenting similar screens
 
-		```
-		logEvent(analytics, 'screen_view', {
+    ```
+    logEvent(analytics, 'screen_view', {
       firebase_screen: 'settings_page',
       firebase_screen_class: 'SettingsComponent'
     });
