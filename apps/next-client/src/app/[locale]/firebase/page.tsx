@@ -1,25 +1,14 @@
-'use client';
-
-import { useEffect } from 'react';
-import { logEvent } from 'firebase/analytics';
+import { Fragment } from 'react';
 import { PageHeading } from '@csl/shared-fe';
-import firebaseService from '@/services/firebase';
+import { FirebasePageAnalytics } from '@/components';
 
 export default function FirebasePage() {
-  useEffect(() => {
-    (async () => {
-      const analytics = await firebaseService.getAnalyticsInstance();
-      if (analytics) {
-        logEvent(analytics, 'page_view', {
-          page_title: 'Firebase Page',
-          page_location: window.location.href,
-          page_path: window.location.pathname,
-        });
-      }
-    })();
-  }, []);
-
   return (
-    <PageHeading title="Firebase" />
+    <Fragment>
+      <FirebasePageAnalytics
+        title="Firebase Page"
+      />
+      <PageHeading title="Firebase" />
+    </Fragment>
   );
 }
