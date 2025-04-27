@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { AirportModel } from '@csl/mongo-models';
-import mongoDB from '@/mongoDB';
+import mongoDBService from '@/services/mongoDB';
 import { logApiError } from '@/utils';
 
 export async function GET(request: NextRequest) {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const recordsPerPage = limit ? Number(limit) : 10;
 
   try {
-    await mongoDB.connect();
+    await mongoDBService.connect();
     const allData = await AirportModel.find()
       .skip((pageNum - 1) * recordsPerPage)
       .limit(recordsPerPage);
