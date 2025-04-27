@@ -52,3 +52,10 @@
     ```
 
     `firebase_screen_class` is optional but helpful for structure. It's not required to track screen views.
+
+
+## Authentication
+
+1.  Enable different authentication methods for your app by going to `Project Shortcuts > Authentication > Sign-in method`. You can also customise the signup templates in the templates tab. For external auth providers like Github, you need to paste the App/Client Id and secret of the authenticating applications at their end.
+
+2.  

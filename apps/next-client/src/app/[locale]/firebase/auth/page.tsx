@@ -1,8 +1,16 @@
 'use client';
+
+/**
+ * firebaseui library is written in UMD style (Universal Module Definition),
+ * old style JS. Hence, we need to use `import * as` syntax to import it.
+ */
+
+import { useEffect } from 'react';
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth'; // ✅ Required to use firebase.auth
-import firebaseUI from 'firebaseui';
+import * as firebaseUI from 'firebaseui';
+import 'firebase/compat/auth';
 import 'firebaseui/dist/firebaseui.css';
+import firebaseService from '@/services/firebase';
 
 export default function FirebaseSignIn() {
   const firebaseContainerId = 'firebase-auth-container';
@@ -19,8 +27,10 @@ export default function FirebaseSignIn() {
     ]
   };
 
-  const ui = new firebaseUI.auth.AuthUI(firebase.auth());
-  ui.start(`#${firebaseContainerId}`, uiConfig);
+  useEffect(() => {
+    const ui = new firebaseUI.auth.AuthUI(firebaseService.getAuthInstance());
+    ui.start(`#${firebaseContainerId}`, uiConfig);
+  }, []);
 
   return <div id={firebaseContainerId} />;
 }
