@@ -7,7 +7,16 @@ const ENV_VARS = Object.freeze({
     dsn: env.REACT_APP_SENTRY_DSN ?? ''
   },
   mixPanelToken: env.REACT_APP_MIXPANEL_TOKEN ?? '',
-  uploadCareKey: env.REACT_APP_UPLOADERCARE_KEY ?? ''
+  uploadCareKey: env.REACT_APP_UPLOADERCARE_KEY ?? '',
+  firebase: {
+    apiKey: env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: env.REACT_APP_FIREBASE_DOMAIN,
+    projectId: env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: env.REACT_APP_FIREBASE_BUCKET,
+    messagingSenderId: env.REACT_APP_FIREBASE_SENDER_ID,
+    appId: env.REACT_APP_FIREBASE_APP_ID,
+    vapidKey: env.REACT_APP_FIREBASE_WEBPUSH_VAPID
+  },
 });
 
 export default ENV_VARS;
