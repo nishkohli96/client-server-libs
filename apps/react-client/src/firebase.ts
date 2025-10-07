@@ -1,6 +1,30 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken, onMessage, type MessagePayload } from 'firebase/messaging';
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+  type MessagePayload
+} from 'firebase/messaging';
 import { ENV_VARS } from 'app-constants';
+
+// Extend the Window interface to include 'safari'
+declare global {
+  interface Window {
+    safari?: {
+      pushNotification?: {
+        permission: (
+          webPushId: string
+        ) => { permission: string; deviceToken?: string };
+        requestPermission: (
+          webServiceURL: string,
+          webPushId: string,
+          userInfo: any,
+          callback: (permission: { deviceToken?: string; permission: string }) => void
+        ) => void;
+      };
+    };
+  }
+}
 
 const firebaseConfig = {
   apiKey: ENV_VARS.firebase.apiKey,
@@ -10,11 +34,16 @@ const firebaseConfig = {
   messagingSenderId: ENV_VARS.firebase.messagingSenderId,
   appId: ENV_VARS.firebase.appId,
   measurementId: ENV_VARS.firebase.measurementId,
-  vapidKey: ENV_VARS.firebase.vapidKey,
+  vapidKey: ENV_VARS.firebase.vapidKey
 };
 
 const app = initializeApp(firebaseConfig);
 export const messaging = getMessaging(app);
+
+export type NotificationToken = {
+  type: 'FCM' | 'Safari';
+  token: string | null;
+};
 
 export const getBrowser = () => {
   const ua = navigator.userAgent;
@@ -36,9 +65,35 @@ export const getBrowser = () => {
 // Function to request permission & get token
 export const requestFCMToken = async () => {
   const browser = getBrowser();
-  if (browser === 'safari') {
-    console.warn('FCM not supported in Safari.');
-    return null;
+
+  // --- Safari ---
+  if (
+    browser === 'safari'
+    && 'safari' in window
+    && typeof window.safari === 'object'
+    && 'pushNotification' in window.safari
+  ) {
+    const permissionData = (window as any).safari.pushNotification.permission(
+      'web.com.yourdomain.notifications'
+    );
+
+    if (permissionData.permission === 'default') {
+      return new Promise(resolve => {
+        window?.safari?.pushNotification?.requestPermission(
+          'https://yourdomain.com/safari-push', // webServiceURL
+          'web.com.yourdomain.notifications', // Website Push ID
+          {},
+          permission => {
+            resolve({ type: 'Safari', token: permission.deviceToken || null });
+          }
+        );
+      });
+    } else if (permissionData.permission === 'granted') {
+      return { type: 'Safari', token: permissionData.deviceToken || null };
+    } else {
+      console.warn('Safari notifications denied');
+      return { type: 'Safari', token: null };
+    }
   }
 
   try {
