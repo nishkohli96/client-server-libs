@@ -12,7 +12,8 @@ export default [
 	},
 	{
 		ignores: [
-			'./apps/graphql-server/src/types/graphql.ts'
+			'./apps/graphql-server/src/types/graphql.ts',
+			'./apps/react-client/public/firebase-messaging-sw.js'
 		]
 	}
 ];

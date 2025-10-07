@@ -1,14 +1,16 @@
-// src/firebase.js
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { ENV_VARS } from 'app-constants';
 
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-  messagingSenderId: 'YOUR_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  apiKey: ENV_VARS.firebase.apiKey,
+  authDomain: ENV_VARS.firebase.authDomain,
+  projectId: ENV_VARS.firebase.projectId,
+  storageBucket: ENV_VARS.firebase.storageBucket,
+  messagingSenderId: ENV_VARS.firebase.messagingSenderId,
+  appId: ENV_VARS.firebase.appId,
+  measurementId: ENV_VARS.firebase.measurementId,
+  vapidKey: ENV_VARS.firebase.vapidKey,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -21,6 +23,9 @@ export const requestFCMToken = async () => {
     if (permission === 'granted') {
       const token = await getToken(messaging, {
         vapidKey: 'YOUR_PUBLIC_VAPID_KEY',
+        serviceWorkerRegistration: await navigator.serviceWorker.register(
+          '/firebase-messaging-sw.js'
+        )
       });
       console.log('FCM Token:', token);
       return token;

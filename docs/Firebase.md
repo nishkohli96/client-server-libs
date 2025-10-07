@@ -63,3 +63,11 @@
 1.  Enable different authentication methods for your app by going to `Project Shortcuts > Authentication > Sign-in method`. You can also customise the signup templates in the templates tab. For external auth providers like Github, you need to paste the App/Client Id and secret of the authenticating applications at their end.
 
 2.  
+
+
+## Web Push Notifications
+
+🧩 **Step 1: Enable Web Push in Firebase Console**
+  - Go to Firebase Console → Project Settings → Cloud Messaging.
+  - In the Web configuration section, click Generate Key Pair to create a VAPID key pair.
+  - Copy the Public key — you’ll need it in your web app.
