@@ -8,15 +8,17 @@
 
 ## Analytics
 
-1.   Event names in Google Analytics (GA4) are **case-sensitive**. Stick to **lowercase snake_case** for all event names, e.g.: `logEvent(analytics, 'user_signed_up');`
+1.  Google analytics will only be enabled in the `production` environment.
 
-2.  **MeasurementId**: This ID is automatically created when you enable Analytics in your Firebase project and register a web app, and it's required to use Analytics. Note: For apps using the Firebase JavaScript SDK **v7.20.0 and later**, Firebase dynamically fetches the `measurementId` when your app initializes Analytics. Having this ID in your config object is optional, but it does serve as a fallback in the rare case that the dynamic fetch fails.
+2.  Event names in Google Analytics (GA4) are **case-sensitive**. Stick to **lowercase snake_case** for all event names, e.g.: `logEvent(analytics, 'user_signed_up');`
 
-3.  **Custom parameters** can be used as dimensions or metrics in Analytics reports. Once you've logged a custom parameter using the SDK, register the dimension or metric to ensure those custom parameters appear in Analytics reports. Do this via: `Analytics > Events > Manage Custom Definitions > Create Custom Dimensions`. Refer the list of [recommended events](https://support.google.com/analytics/answer/9267735).
+3.  **MeasurementId**: This ID is automatically created when you enable Analytics in your Firebase project and register a web app, and it's required to use Analytics. Note: For apps using the Firebase JavaScript SDK **v7.20.0 and later**, Firebase dynamically fetches the `measurementId` when your app initializes Analytics. Having this ID in your config object is optional, but it does serve as a fallback in the rare case that the dynamic fetch fails.
 
-4.  Analytics automatically logs some user properties; you don't need to add any code to enable them. If you need to collect additional data, you can set up to 25 different user properties per project.
+4.  **Custom parameters** can be used as dimensions or metrics in Analytics reports. Once you've logged a custom parameter using the SDK, register the dimension or metric to ensure those custom parameters appear in Analytics reports. Do this via: `Analytics > Events > Manage Custom Definitions > Create Custom Dimensions`. Refer the list of [recommended events](https://support.google.com/analytics/answer/9267735).
 
-5.  You should set user properties and user ID:
+5.  Analytics automatically logs some user properties; you don't need to add any code to enable them. If you need to collect additional data, you can set up to 25 different user properties per project.
+
+6.  You should set user properties and user ID:
     - After authentication (e.g., after login/signup).
     - Or when you have meaningful user metadata (e.g. preferences, subscription level, role).
 
@@ -28,7 +30,7 @@
     });
     ```
 
-6.  ✅ Automatically collected:
+7.  ✅ Automatically collected:
     - IP Address (used internally for geolocation).
     - Location Data (country, city, region).
     - Device info (platform, browser, etc).
@@ -36,7 +38,7 @@
 
 		This is part of the default collection — you don’t need to manually log these.
 
-7.  🔍 What does firebase_screen_class do?
+8.  🔍 What does firebase_screen_class do?
     - It lets you group multiple screens logically under a class/category.
     - Originally used in mobile SDKs (Android/iOS), where screens map to Activities or ViewControllers.
     - In the web context, it's less important — but still useful for:
@@ -52,6 +54,8 @@
     ```
 
     `firebase_screen_class` is optional but helpful for structure. It's not required to track screen views.
+
+9.  The value of `trackingId` for Google Analytics SDK is the value for the `measurementId` of your firebase app. The `anonymizeIP: true` config tells Google Analytics to anonymize the user's IP by zeroing out the last part of the address (for IPv4) before storing it. It improves user privacy and helps comply with privacy regulations like GDPR. Geolocation data is less precise, but still generally good at the country or region level.
 
 
 ## Authentication
