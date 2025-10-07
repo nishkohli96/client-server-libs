@@ -16,12 +16,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const messaging = getMessaging(app);
 
+export const getBrowser = () => {
+  const ua = navigator.userAgent;
+  if ((/chrome|crios|crmo/i).test(ua)) {
+    return 'chrome';
+  }
+  if ((/firefox|fxios/i).test(ua)) {
+    return 'firefox';
+  }
+  if ((/safari/i).test(ua) && !(/chrome|crios|crmo|android/i).test(ua)) {
+    return 'safari';
+  }
+  if ((/edg/i).test(ua)) {
+    return 'edge';
+  }
+  return 'other';
+};
+
 // Function to request permission & get token
 export const requestFCMToken = async () => {
-  const isSafari
-    = (/^((?!chrome|android).)*safari/i).test(navigator.userAgent);
-
-  if (isSafari) {
+  const browser = getBrowser();
+  if (browser === 'safari') {
     console.warn('FCM not supported in Safari.');
     return null;
   }
