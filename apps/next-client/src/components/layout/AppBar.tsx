@@ -4,7 +4,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { LocaleSwitcher } from '@/components';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/services/i18n';
 
 const AppBar = () => {
   return (
@@ -12,12 +12,7 @@ const AppBar = () => {
       <MuiAppBar position="static">
         <Toolbar>
           <Link href="/" style={{ marginRight: '10px' }}>
-            <Image
-              src="/favicon.ico"
-              alt="Logo"
-              width={40}
-              height={40}
-            />
+            <Image src="/favicon.ico" alt="Logo" width={40} height={40} />
           </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Next Client
@@ -32,4 +27,3 @@ const AppBar = () => {
 };
 
 export default AppBar;
-

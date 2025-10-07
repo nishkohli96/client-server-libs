@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { routing, usePathname, useRouter } from '@/i18n/routing';
+import { i18nRouting, usePathname, useRouter } from '@/services/i18n';
 import { type Locales } from '@/types';
 
 export default function LocaleSwitcher() {
@@ -36,7 +36,7 @@ export default function LocaleSwitcher() {
       disabled={isPending}
       onChange={onSelectChange}
     >
-      {routing.locales.map(cur => (
+      {i18nRouting.locales.map(cur => (
         <MenuItem key={cur} value={cur}>
           {t('locale', { locale: cur })}
         </MenuItem>

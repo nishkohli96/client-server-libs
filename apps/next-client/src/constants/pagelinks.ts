@@ -33,5 +33,9 @@ export const PageLinks: PageInfo[] = [
   {
     title: 'Stripe',
     href: stripePrefix
+  },
+  {
+    title: 'Firebase',
+    href: '/firebase'
   }
 ];

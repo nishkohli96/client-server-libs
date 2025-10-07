@@ -2,7 +2,11 @@ import createMDX from '@next/mdx';
 import createNextIntlPlugin from 'next-intl/plugin';
 import { withSentryConfig } from '@sentry/nextjs';
 
-const withNextIntl = createNextIntlPlugin();
+/**
+ * By default, it expects i18n/request.ts to be directly under
+ * the "src" folder.
+ */
+const withNextIntl = createNextIntlPlugin('./src/services/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

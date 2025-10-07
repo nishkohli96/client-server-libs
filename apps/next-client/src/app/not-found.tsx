@@ -1,5 +1,5 @@
 import { BaseLayout, NotFoundPage } from '@/components';
-import { routing } from '@/i18n/routing';
+import { i18nRouting } from '@/services/i18n';
 
 /**
  * This page renders when a route like `/unknown.txt` is requested.
@@ -9,7 +9,7 @@ import { routing } from '@/i18n/routing';
 
 export default function GlobalNotFound() {
   return (
-    <BaseLayout locale={routing.defaultLocale}>
+    <BaseLayout locale={i18nRouting.defaultLocale}>
       <NotFoundPage />
     </BaseLayout>
   );
