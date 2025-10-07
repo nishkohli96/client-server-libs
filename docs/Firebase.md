@@ -67,6 +67,8 @@
 
 ## Web Push Notifications
 
+WebPush notifications are handled by `firebase-messaging-sw.js` service worker. While development, if any changes need to be made in the service worker file, make sure to clear the old sw from the `Application/Service workers` tab in the developer console.  
+
 🧩 **Step 1: Enable Web Push in Firebase Console**
   - Go to Firebase Console → Project Settings → Cloud Messaging.
   - In the Web configuration section, click Generate Key Pair to create a VAPID key pair.

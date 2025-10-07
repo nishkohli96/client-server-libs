@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { getMessaging, getToken, onMessage, type MessagePayload } from 'firebase/messaging';
 import { ENV_VARS } from 'app-constants';
 
 const firebaseConfig = {
@@ -18,16 +18,25 @@ export const messaging = getMessaging(app);
 
 // Function to request permission & get token
 export const requestFCMToken = async () => {
+  const isSafari
+    = (/^((?!chrome|android).)*safari/i).test(navigator.userAgent);
+
+  if (isSafari) {
+    console.warn('FCM not supported in Safari.');
+    return null;
+  }
+
   try {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       const token = await getToken(messaging, {
-        vapidKey: 'YOUR_PUBLIC_VAPID_KEY',
+        vapidKey: firebaseConfig.vapidKey,
         serviceWorkerRegistration: await navigator.serviceWorker.register(
           '/firebase-messaging-sw.js'
         )
       });
       console.log('FCM Token:', token);
+      localStorage.setItem('fcm_token', token);
       return token;
     } else {
       console.warn('Notification permission not granted.');
@@ -38,7 +47,7 @@ export const requestFCMToken = async () => {
 };
 
 // Listen for foreground messages
-export const onMessageListener = () =>
+export const onMessageListener = (): Promise<MessagePayload> =>
   new Promise(resolve => {
     onMessage(messaging, payload => {
       resolve(payload);
