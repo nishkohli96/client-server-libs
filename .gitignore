@@ -46,6 +46,7 @@ coverage
 # express-server
 apps/express-server/public
 apps/express-server/uploads
+apps/express-server/src/firebase/service-account.json
 
 # config files for migrations
 apps/mysql-migrations/config/config.json

@@ -89,7 +89,6 @@ export const requestFCMToken = async () => {
           '/firebase-messaging-sw.js'
         )
       });
-      console.log('FCM Token:', token);
       localStorage.setItem('fcm_token', token);
       return token;
     } else {
