@@ -67,7 +67,9 @@
 
 ## Web Push Notifications
 
-WebPush notifications are handled by `firebase-messaging-sw.js` service worker. While development, if any changes need to be made in the service worker file, make sure to clear the old sw from the `Application/Service workers` tab in the developer console.  
+WebPush notifications are handled by `firebase-messaging-sw.js` service worker. While development, if any changes need to be made in the service worker file, make sure to clear the old sw from the `Application/Service workers` tab in the developer console.
+
+For safari, notifications are supported using APNS. To enable web push notifications on the latest versions of safari (16+), call the `Notification.requestPermission` method inside an event listener, say on click of a button. Refer [this firebase post](https://firebase.blog/posts/2023/08/fcm-for-safari) for more details.
 
 🧩 **Step 1: Enable Web Push in Firebase Console**
   - Go to Firebase Console → Project Settings → Cloud Messaging.

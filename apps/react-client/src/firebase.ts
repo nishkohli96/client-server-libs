@@ -6,6 +6,7 @@ import {
   type MessagePayload
 } from 'firebase/messaging';
 import { ENV_VARS } from 'app-constants';
+import { getBrowserName } from 'utils';
 
 // Extend the Window interface to include 'safari'
 declare global {
@@ -45,26 +46,9 @@ export type NotificationToken = {
   token: string | null;
 };
 
-export const getBrowser = () => {
-  const ua = navigator.userAgent;
-  if ((/chrome|crios|crmo/i).test(ua)) {
-    return 'chrome';
-  }
-  if ((/firefox|fxios/i).test(ua)) {
-    return 'firefox';
-  }
-  if ((/safari/i).test(ua) && !(/chrome|crios|crmo|android/i).test(ua)) {
-    return 'safari';
-  }
-  if ((/edg/i).test(ua)) {
-    return 'edge';
-  }
-  return 'other';
-};
-
 // Function to request permission & get token
 export const requestFCMToken = async () => {
-  const browser = getBrowser();
+  const browser = getBrowserName();
 
   // --- Safari ---
   if (
