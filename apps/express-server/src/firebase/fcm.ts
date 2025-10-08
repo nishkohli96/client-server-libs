@@ -17,16 +17,30 @@ export const sendFCMNotification = async (
   body: string,
   data: Record<string, string> = {}
 ) => {
-  const message: Message = {
+
+  const message = {
     notification: { title, body },
-    data,
-    token,
+    tokens: [token], // send to all saved tokens
   };
 
   try {
-    const response = await admin.messaging().send(message);
-    console.log('FCM Response:', response);
+    const response = await admin.messaging().sendEachForMulticast(message);
+    console.log('response: ', response);
+    // res.json({ successCount: response.successCount, failureCount: response.failureCount });
   } catch (err) {
-    console.error('FCM Error:', err);
+    console.error('Error sending message:', err);
+    // res.status(500).json({ error: err.message });
   }
+  // const message: Message = {
+  //   notification: { title, body },
+  //   data,
+  //   token,
+  // };
+
+  // try {
+  //   const response = await admin.messaging().send(message);
+  //   console.log('FCM Response:', response);
+  // } catch (err) {
+  //   console.error('FCM Error:', err);
+  // }
 };
