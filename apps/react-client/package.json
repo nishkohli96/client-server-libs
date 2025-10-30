@@ -45,7 +45,7 @@
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
-    "@nish1896/eslint-flat-config": "^2.0.4",
+    "@nish1896/eslint-flat-config": "^3.0.3",
     "@sentry/cli": "^2.43.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.2.1",
