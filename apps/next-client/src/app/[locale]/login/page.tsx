@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   return (
     <div className="p-6">
-      <button onClick={() => signIn()}>Sign in with Google</button>
+      <button onClick={() => signIn('google')}>Sign in with Google</button>
     </div>
   );
 }

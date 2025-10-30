@@ -1,4 +1,5 @@
 export const ENV_VARS = Object.freeze({
+  appURL: process.env.APP_URL ?? 'http://localhost:3001',
   expressServerURL: process.env.EXPRESS_SERVER_URL ?? 'http://localhost:8000',
   datoCMS: {
     key_server: process.env.DATO_API_TOKEN ?? '',
@@ -17,6 +18,7 @@ export const ENV_VARS = Object.freeze({
   },
   mixPanelToken: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '',
   auth: {
+    nextAuthSecret: process.env.NEXT_AUTH_SECRET ?? '',
     googleId: process.env.AUTH_GOOGLE_ID ?? '',
     googleSecret: process.env.AUTH_GOOGLE_SECRET ?? ''
   }
