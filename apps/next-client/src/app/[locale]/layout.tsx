@@ -6,7 +6,12 @@ import { notFound } from 'next/navigation';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/assets/styles/theme';
-import { AppBar, MixPanelClient, PageContainer } from '@/components';
+import {
+  AppBar,
+  MixPanelClient,
+  PageContainer,
+  SessionProviderWrapper
+} from '@/components';
 import { routing } from '@/i18n/routing';
 import { type Locales } from '@/types';
 import '../globals.css';
@@ -58,11 +63,13 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <AppRouterCacheProvider options={{ key: 'mui' }}>
             <ThemeProvider theme={theme}>
-              <AppBar />
-              <PageContainer>
-                <MixPanelClient />
-                {children}
-              </PageContainer>
+              <SessionProviderWrapper>
+                <AppBar />
+                <PageContainer>
+                  <MixPanelClient />
+                  {children}
+                </PageContainer>
+              </SessionProviderWrapper>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>

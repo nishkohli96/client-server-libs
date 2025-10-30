@@ -17,8 +17,8 @@ export type GraphQLServerContext = {
  */
 export type GraphQLQueryResolver = BaseQueryResolver<GraphQLServerContext>;
 
-export type GraphQLMutationResolver =
-  BaseMutationResolver<GraphQLServerContext>;
+export type GraphQLMutationResolver
+  = BaseMutationResolver<GraphQLServerContext>;
 
 export type RandomUserAPIResponse = {
   results: RandomUser[];
