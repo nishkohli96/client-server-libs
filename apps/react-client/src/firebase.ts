@@ -1,12 +1,11 @@
-import { initializeApp } from 'firebase/app';
 import {
   getMessaging,
   getToken,
   onMessage,
   type MessagePayload
 } from 'firebase/messaging';
-import { ENV_VARS } from 'app-constants';
-import { getBrowserName } from 'utils';
+import { getBrowserName } from '@csl/shared-fe';
+import { firebaseApp, firebaseConfig } from 'app-constants';
 
 // Extend the Window interface to include 'safari'
 declare global {
@@ -27,19 +26,7 @@ declare global {
   }
 }
 
-const firebaseConfig = {
-  apiKey: ENV_VARS.firebase.apiKey,
-  authDomain: ENV_VARS.firebase.authDomain,
-  projectId: ENV_VARS.firebase.projectId,
-  storageBucket: ENV_VARS.firebase.storageBucket,
-  messagingSenderId: ENV_VARS.firebase.messagingSenderId,
-  appId: ENV_VARS.firebase.appId,
-  measurementId: ENV_VARS.firebase.measurementId,
-  vapidKey: ENV_VARS.firebase.vapidKey
-};
-
-const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
+export const messaging = getMessaging(firebaseApp);
 
 export type NotificationToken = {
   type: 'FCM' | 'Safari';

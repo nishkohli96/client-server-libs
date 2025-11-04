@@ -6,25 +6,12 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken } from 'firebase/messaging';
-import { ENV_VARS } from 'app-constants';
-import { isSafari } from 'utils';
+import { isSafari } from '@csl/shared-fe';
+import { firebaseApp, firebaseConfig } from 'app-constants';
 import ThemeChangeButton from './ThemeChangeButton';
 
-const firebaseConfig = {
-  apiKey: ENV_VARS.firebase.apiKey,
-  authDomain: ENV_VARS.firebase.authDomain,
-  projectId: ENV_VARS.firebase.projectId,
-  storageBucket: ENV_VARS.firebase.storageBucket,
-  messagingSenderId: ENV_VARS.firebase.messagingSenderId,
-  appId: ENV_VARS.firebase.appId,
-  measurementId: ENV_VARS.firebase.measurementId,
-  vapidKey: ENV_VARS.firebase.vapidKey
-};
-
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+const messaging = getMessaging(firebaseApp);
 
 const AppBar = () => {
   const navigate = useNavigate();
@@ -33,7 +20,7 @@ const AppBar = () => {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
       const token = await getToken(messaging, {
-        vapidKey: ENV_VARS.firebase.vapidKey,
+        vapidKey: firebaseConfig.vapidKey,
       });
       console.log('FCM Token:', token);
       localStorage.setItem('fcm_token', token);

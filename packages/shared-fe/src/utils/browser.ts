@@ -4,7 +4,7 @@ export const isSafari = () => {
 };
 
 export const getBrowserName = () => {
-  const ua = navigator.userAgent;
+  const ua = navigator.userAgent.toLowerCase();
   if ((/chrome|crios|crmo/i).test(ua)) {
     return 'chrome';
   }
