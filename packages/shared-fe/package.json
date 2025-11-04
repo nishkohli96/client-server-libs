@@ -11,7 +11,8 @@
   "dependencies": {
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "ua-parser-js": "^2.0.6"
   },
   "devDependencies": {
     "@nish1896/eslint-flat-config": "^2.0.4",

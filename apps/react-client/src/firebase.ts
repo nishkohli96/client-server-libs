@@ -1,32 +1,29 @@
-import {
-  getMessaging,
-  getToken,
-  onMessage,
-  type MessagePayload
-} from 'firebase/messaging';
+import { getToken, onMessage, type MessagePayload } from 'firebase/messaging';
 import { getBrowserName } from '@csl/shared-fe';
-import { firebaseApp, firebaseConfig } from 'app-constants';
+import { firebaseConfig, firebaseMessaging } from 'app-constants';
 
 // Extend the Window interface to include 'safari'
 declare global {
   interface Window {
     safari?: {
       pushNotification?: {
-        permission: (
-          webPushId: string
-        ) => { permission: string; deviceToken?: string };
+        permission: (webPushId: string) => {
+          permission: string;
+          deviceToken?: string;
+        };
         requestPermission: (
           webServiceURL: string,
           webPushId: string,
           userInfo: any,
-          callback: (permission: { deviceToken?: string; permission: string }) => void
+          callback: (permission: {
+            deviceToken?: string;
+            permission: string;
+          }) => void
         ) => void;
       };
     };
   }
 }
-
-export const messaging = getMessaging(firebaseApp);
 
 export type NotificationToken = {
   type: 'FCM' | 'Safari';
@@ -34,10 +31,10 @@ export type NotificationToken = {
 };
 
 // Function to request permission & get token
-export const requestFCMToken = async () => {
+export const requestFCMToken = async (): Promise<NotificationToken> => {
   const browser = getBrowserName();
 
-  // --- Safari ---
+  /* --- Safari --- */
   if (
     browser === 'safari'
     && 'safari' in window
@@ -51,8 +48,8 @@ export const requestFCMToken = async () => {
     if (permissionData.permission === 'default') {
       return new Promise(resolve => {
         window?.safari?.pushNotification?.requestPermission(
-          'https://yourdomain.com/safari-push', // webServiceURL
-          'web.com.yourdomain.notifications', // Website Push ID
+          'https://yourdomain.com/safari-push',
+          'web.com.yourdomain.notifications',
           {},
           permission => {
             resolve({ type: 'Safari', token: permission.deviceToken || null });
@@ -67,29 +64,32 @@ export const requestFCMToken = async () => {
     }
   }
 
+  /* --- Other browsers --- */
   try {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
-      const token = await getToken(messaging, {
+      const token = await getToken(firebaseMessaging, {
         vapidKey: firebaseConfig.vapidKey,
         serviceWorkerRegistration: await navigator.serviceWorker.register(
           '/firebase-messaging-sw.js'
         )
       });
       localStorage.setItem('fcm_token', token);
-      return token;
+      return { type: 'FCM', token };
     } else {
       console.warn('Notification permission not granted.');
+      return { type: 'FCM', token: null };
     }
   } catch (err) {
     console.error('Error getting FCM token:', err);
+    return { type: 'FCM', token: null };
   }
 };
 
-// Listen for foreground messages
+/* Listen for foreground messages */
 export const onMessageListener = (): Promise<MessagePayload> =>
   new Promise(resolve => {
-    onMessage(messaging, payload => {
+    onMessage(firebaseMessaging, payload => {
       resolve(payload);
     });
   });

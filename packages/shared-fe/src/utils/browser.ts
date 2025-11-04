@@ -1,3 +1,14 @@
+import { UAParser } from 'ua-parser-js';
+
+export function getDeviceInfo() {
+  const parser = UAParser();
+  return {
+    browser: parser.browser.name,
+    os: parser.os.name,
+    device: parser.device.type || 'desktop'
+  };
+}
+
 export const isSafari = () => {
   const ua = navigator.userAgent.toLowerCase();
   return (/safari/).test(ua) && !(/chrome|crios|crmo|android|fxios/).test(ua);

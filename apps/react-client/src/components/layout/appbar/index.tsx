@@ -6,12 +6,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { getMessaging, getToken } from 'firebase/messaging';
+import { getToken } from 'firebase/messaging';
 import { isSafari } from '@csl/shared-fe';
-import { firebaseApp, firebaseConfig } from 'app-constants';
+import { firebaseConfig, firebaseMessaging } from 'app-constants';
 import ThemeChangeButton from './ThemeChangeButton';
-
-const messaging = getMessaging(firebaseApp);
 
 const AppBar = () => {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ const AppBar = () => {
   const handleEnableNotifications = async () => {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
-      const token = await getToken(messaging, {
+      const token = await getToken(firebaseMessaging, {
         vapidKey: firebaseConfig.vapidKey,
       });
       console.log('FCM Token:', token);

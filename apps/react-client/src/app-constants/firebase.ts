@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getMessaging } from 'firebase/messaging';
 import { ENV_VARS } from '.';
 
 export const firebaseConfig = {
@@ -13,3 +14,5 @@ export const firebaseConfig = {
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
+
+export const firebaseMessaging = getMessaging(firebaseApp);
