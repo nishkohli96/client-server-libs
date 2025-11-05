@@ -268,7 +268,7 @@ export type ResolverTypeWrapper<T> = Promise<T> | T;
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>, TArgs = Record<PropertyKey, never>> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -305,21 +305,21 @@ export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, 
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+export type SubscriptionResolver<TResult, TKey extends string, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>, TArgs = Record<PropertyKey, never>> =
   | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
-export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+export type TypeResolveFn<TTypes, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>> = (
   parent: TParent,
   context: TContext,
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>, TArgs = Record<PropertyKey, never>> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
@@ -327,15 +327,26 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping of union types */
 export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = {
-  AdminOrCustomerSchema: ( AdminSchema ) | ( CustomerSchema );
-  PaymentMethod: ( CreditCardSchema ) | ( PayPalSchema );
+  AdminOrCustomerSchema:
+    | ( AdminSchema )
+    | ( CustomerSchema )
+  ;
+  PaymentMethod:
+    | ( CreditCardSchema )
+    | ( PayPalSchema )
+  ;
 };
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = {
-  UserSchema: ( AdminSchema ) | ( CustomerSchema );
+  UserSchema:
+    | ( AdminSchema )
+    | ( CustomerSchema )
+  ;
 };
 
 /** Mapping between all available schema types and the resolvers types */
@@ -355,7 +366,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Mutation: ResolverTypeWrapper<{}>;
+  Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   ObjectID: ResolverTypeWrapper<Scalars['ObjectID']['output']>;
   OrderInput: OrderInput;
   OrderSchema: ResolverTypeWrapper<Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversTypes['AdminOrCustomerSchema'], payment: ResolversTypes['PaymentMethod'] }>;
@@ -367,12 +378,12 @@ export type ResolversTypes = {
   PaymentOption: PaymentOption;
   ProductInput: ProductInput;
   ProductSchema: ResolverTypeWrapper<ProductSchema>;
-  Query: ResolverTypeWrapper<{}>;
+  Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   RandomUser: ResolverTypeWrapper<RandomUser>;
   RandomUserGender: RandomUserGender;
   RandomUserName: ResolverTypeWrapper<RandomUserName>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  Subscription: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<Record<PropertyKey, never>>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
   UserInput: UserInput;
   UserRole: UserRole;
@@ -395,7 +406,7 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
-  Mutation: {};
+  Mutation: Record<PropertyKey, never>;
   ObjectID: Scalars['ObjectID']['output'];
   OrderInput: OrderInput;
   OrderSchema: Omit<OrderSchema, 'customer' | 'payment'> & { customer: ResolversParentTypes['AdminOrCustomerSchema'], payment: ResolversParentTypes['PaymentMethod'] };
@@ -405,11 +416,11 @@ export type ResolversParentTypes = {
   PaymentMethodInput: PaymentMethodInput;
   ProductInput: ProductInput;
   ProductSchema: ProductSchema;
-  Query: {};
+  Query: Record<PropertyKey, never>;
   RandomUser: RandomUser;
   RandomUserName: RandomUserName;
   String: Scalars['String']['output'];
-  Subscription: {};
+  Subscription: Record<PropertyKey, never>;
   UUID: Scalars['UUID']['output'];
   UserInput: UserInput;
   UserSchema: ResolversInterfaceTypes<ResolversParentTypes>['UserSchema'];
@@ -422,7 +433,6 @@ export type AddressSchemaResolvers<ContextType = any, ParentType extends Resolve
   landmark?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   street?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type AdminOrCustomerSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminOrCustomerSchema'] = ResolversParentTypes['AdminOrCustomerSchema']> = {
@@ -440,7 +450,6 @@ export type AdminSchemaResolvers<ContextType = any, ParentType extends Resolvers
 export type CategorySchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CategorySchema'] = ResolversParentTypes['CategorySchema']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CreditCardSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreditCardSchema'] = ResolversParentTypes['CreditCardSchema']> = {
@@ -485,7 +494,6 @@ export type OrderSchemaResolvers<ContextType = any, ParentType extends Resolvers
   products?: Resolver<Array<ResolversTypes['ProductSchema']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['OrderStatus'], ParentType, ContextType>;
   totalAmount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PayPalSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['PayPalSchema'] = ResolversParentTypes['PayPalSchema']> = {
@@ -504,7 +512,6 @@ export type ProductSchemaResolvers<ContextType = any, ParentType extends Resolve
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -523,14 +530,12 @@ export type RandomUserResolvers<ContextType = any, ParentType extends ResolversP
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['RandomUserGender']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['RandomUserName']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type RandomUserNameResolvers<ContextType = any, ParentType extends ResolversParentTypes['RandomUserName'] = ResolversParentTypes['RandomUserName']> = {
   first?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   last?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -543,9 +548,6 @@ export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type UserSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserSchema'] = ResolversParentTypes['UserSchema']> = {
   __resolveType: TypeResolveFn<'AdminSchema' | 'CustomerSchema', ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['EmailAddress'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ObjectID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
