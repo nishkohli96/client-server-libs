@@ -14,6 +14,9 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org nish1896 --project react-client build && sentry-cli sourcemaps upload --org nish1896 --project react-client build"
   },
   "dependencies": {
+    "@csl/mongo-models": "link:../../packages/mongo-models/dist",
+    "@csl/react-express": "link:../../packages/express-react-shared/dist",
+    "@csl/shared-fe": "link:../../packages/shared-fe/dist",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^5.0.1",
