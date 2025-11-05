@@ -3,12 +3,13 @@
  * https://docs.stripe.com/api/customers?lang=node
  */
 
+import type express from 'express';
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeCustomersService from './service';
 import type * as StripeCustomerTypedefs from './types';
 
-const stripeCustomersRouter = Router();
+const stripeCustomersRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes.customers.subRoutes;
 
 /* POST /stripe/customers/create */

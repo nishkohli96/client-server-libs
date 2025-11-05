@@ -1,8 +1,9 @@
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import socketService from './service';
 
-const socketRouter = Router();
+const socketRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.socket.subRoutes;
 
 socketRouter.get(

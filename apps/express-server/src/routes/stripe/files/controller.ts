@@ -3,12 +3,13 @@
  * https://docs.stripe.com/api/files?lang=node
  */
 
+import type express from 'express';
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeFilesService from './service';
 import type * as StripeFileTypedefs from './types';
 
-const stripeFilesRouter = Router();
+const stripeFilesRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes.files.subRoutes;
 
 /* POST /stripe/files/list */

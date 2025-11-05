@@ -1,3 +1,4 @@
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ServerConfig } from '@/constants';
@@ -6,7 +7,7 @@ import { printObject } from '@/utils';
 import fileService from './service';
 import type * as FileTypeDefs from './types';
 
-const fileRouter = Router();
+const fileRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.files.subRoutes;
 const multerDirs = ServerConfig.multer.dirs;
 

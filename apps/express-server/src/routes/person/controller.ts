@@ -1,9 +1,10 @@
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import type * as PersonTypes from './types';
 import personService from './service';
 
-const personRouter = Router();
+const personRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.people.subRoutes;
 
 /* GET: /people/list  */

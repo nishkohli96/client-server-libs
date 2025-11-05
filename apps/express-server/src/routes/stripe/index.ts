@@ -1,3 +1,4 @@
+import type express from 'express';
 import { Router } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { stripeCheckoutRouter } from './checkout/controller';
@@ -7,7 +8,7 @@ import { stripePaymentsRouter } from './payments/controller';
 import { stripePricesRouter } from './prices/controller';
 import { stripeProductsRouter } from './products/controller';
 
-const stripeRouter = Router();
+const stripeRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes;
 
 stripeRouter.use(subRoutes.checkout.rootPath, stripeCheckoutRouter);

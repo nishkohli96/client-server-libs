@@ -1,10 +1,11 @@
+import type express from 'express';
 import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import { ENV_VARS } from '@/constants';
 import stytchService from './service';
 import type * as StytchTypes from './types';
 
-const stytchRouter = Router();
+const stytchRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.stytch.subRoutes;
 
 /* POST: /stytch/add-member */

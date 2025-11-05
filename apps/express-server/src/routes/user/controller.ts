@@ -1,9 +1,10 @@
+import type express from 'express';
 import { Router, type Response, type Request } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import type * as UserTypes from './types';
 import userService from './service';
 
-const userRouter = Router();
+const userRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.user.subRoutes;
 
 /* POST /user/add */

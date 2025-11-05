@@ -1,9 +1,10 @@
+import type express from 'express';
 import { Router, type Request, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import carService from './service';
 import type * as CarTypeDefs from './types';
 
-const carRouter = Router();
+const carRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.car.subRoutes;
 
 /* POST /car/add */

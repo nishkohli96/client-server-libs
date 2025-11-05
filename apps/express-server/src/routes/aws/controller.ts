@@ -1,9 +1,10 @@
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import awsService from './service';
 import type * as AwsTypeDefs from './types';
 
-const awsRouter = Router();
+const awsRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.aws.subRoutes;
 
 /* GET /aws/upload-presigned-url */

@@ -3,12 +3,13 @@
  * https://docs.stripe.com/api/products?lang=node
  */
 
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import stripeProductsService from './service';
 import type * as StripeProductsTypedefs from './types';
 
-const stripeProductsRouter = Router();
+const stripeProductsRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.stripe.subRoutes.products.subRoutes;
 
 /* POST /stripe/products/create */

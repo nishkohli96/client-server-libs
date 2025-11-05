@@ -1,9 +1,10 @@
+import type express from 'express';
 import { Router, type Response } from 'express';
 import { ExpressServerEndpoints } from '@csl/react-express';
 import carBrandService from './service';
 import type * as CarBrandTypeDefs from './types';
 
-const carBrandRouter = Router();
+const carBrandRouter: express.Router = Router();
 const subRoutes = ExpressServerEndpoints.carBrand.subRoutes;
 
 /* POST /car-brand/add */
