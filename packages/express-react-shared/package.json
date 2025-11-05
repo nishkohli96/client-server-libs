@@ -10,9 +10,9 @@
 	},
 	"devDependencies": {
     "@nish1896/eslint-flat-config": "^3.0.3",
-		"eslint": "^9.25.1",
-		"tsc-alias": "^1.8.15",
-		"typescript": "^5.8.3"
+		"eslint": "^9.39.1",
+		"tsc-alias": "^1.8.16",
+		"typescript": "^5.9.3"
 	},
 	"license":"ISC"
 }
