@@ -35,7 +35,11 @@ export const PageLinks: PageInfo[] = [
     href: stripePrefix
   },
   {
+    title: 'Next Auth',
+    href: '/login'
+  },
+  {
     title: 'Firebase',
     href: '/firebase'
-  }
+  },
 ];

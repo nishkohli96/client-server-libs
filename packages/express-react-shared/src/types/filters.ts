@@ -38,9 +38,9 @@ export enum ArrayFilters {
   isAnyOf = 'isAnyOf'
 }
 
-export type FilterOperator =
-  | GenericFilters
-  | StringFilters
-  | DateFilters
-  | NumberFilters
-  | ArrayFilters;
+export type FilterOperator
+  = | GenericFilters
+    | StringFilters
+    | DateFilters
+    | NumberFilters
+    | ArrayFilters;

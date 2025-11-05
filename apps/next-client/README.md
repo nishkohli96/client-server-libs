@@ -11,3 +11,4 @@
 - [Sentry](https://docs.sentry.io/platforms/javascript/guides/nextjs/) integration
 - Track user analytics using [Mixpanel](https://mixpanel.com/home/)
 - [Stripe](https://docs.stripe.com/) payment links integration
+- Google Sign In using [next-auth](https://next-auth.js.org/)

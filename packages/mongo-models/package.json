@@ -13,7 +13,7 @@
     "moment": "^2.30.1"
   },
   "devDependencies": {
-    "@nish1896/eslint-flat-config": "^2.0.4",
+    "@nish1896/eslint-flat-config": "^3.0.3",
     "@types/node": "^22.14.1",
     "eslint": "^9.25.1",
     "tsc-alias": "^1.8.15",
