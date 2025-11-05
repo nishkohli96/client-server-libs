@@ -3,10 +3,6 @@
   "author": "Nishant Kohli",
   "version": "1.1.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "engines": {
     "node": ">=20.11.0"
   },
@@ -40,5 +36,5 @@
       "eslint --fix"
     ]
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "pnpm@10.14.0"
 }

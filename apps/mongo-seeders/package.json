@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
-    "@csl/mongo-models": "*",
     "csv-parse": "^5.6.0",
     "dotenv": "^16.5.0",
     "migrate-mongo": "^12.1.3",

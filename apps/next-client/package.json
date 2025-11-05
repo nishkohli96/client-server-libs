@@ -10,8 +10,6 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "@csl/mongo-models": "*",
-    "@csl/shared-fe": "*",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

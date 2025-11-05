@@ -23,8 +23,6 @@
     "@aws-sdk/client-sqs": "^3.787.0",
     "@aws-sdk/client-ssm": "^3.787.0",
     "@aws-sdk/s3-request-presigner": "^3.787.0",
-    "@csl/mongo-models": "*",
-    "@csl/react-express": "*",
     "@sentry/cli": "^2.43.0",
     "@sentry/node": "^9.13.0",
     "@sentry/profiling-node": "^9.13.0",
