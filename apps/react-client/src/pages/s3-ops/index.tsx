@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
-import {
-  FileUploaderRegular,
-  type OutputCollectionState
-} from '@uploadcare/react-uploader';
 import { uploadFileToS3 } from '@csl/react-express';
 import { PageLayout } from 'components';
-import { ENV_VARS } from 'app-constants';
 import {
   getS3PresignedUrl,
   getPreSignedFileUrl,
@@ -23,12 +18,6 @@ import axios from 'axios';
  */
 const S3OpsPage = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
-  const handleFileChange = (event: OutputCollectionState) => {
-    const files = event.successEntries.map(f => f.file) as File[];
-    setUploadedFile(files?.length ? files[0] : null);
-    console.log('files: ', files);
-  };
 
   const uploadToS3 = async () => {
     try {
@@ -100,10 +89,6 @@ const S3OpsPage = () => {
 
   return (
     <PageLayout seoTitle="S3 Ops">
-      <FileUploaderRegular
-        pubkey={ENV_VARS.uploadCareKey}
-        onChange={handleFileChange}
-      />
       <br />
       <Button variant="outlined" color="primary" onClick={uploadToS3}>
         Upload to S3

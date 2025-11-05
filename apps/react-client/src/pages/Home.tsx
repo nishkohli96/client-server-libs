@@ -1,11 +1,9 @@
 import { Fragment } from 'react';
 import Typography from '@mui/material/Typography';
-import { useOnlineStatus } from '@csl/shared-fe';
 import { NavPill, PageLayout } from 'components';
 import { RouteList } from 'routes/route-list';
 
 export default function HomePage() {
-  useOnlineStatus();
   return (
     <PageLayout seoTitle="Home Page" hidePageTitle>
       <Typography variant="h5" color="error">

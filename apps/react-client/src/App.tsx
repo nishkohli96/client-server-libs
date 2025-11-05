@@ -52,11 +52,6 @@ const App = () => {
       })
       .catch(err =>
         console.error('Error in foreground message listener:', err));
-
-    // Cleanup if necessary
-    return () => {
-      // nothing to clean up here, onMessage is persistent
-    };
   }, []);
 
   useSocketConnection();
