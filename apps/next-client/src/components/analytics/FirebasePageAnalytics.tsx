@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 import { useFirebasePageView } from '@/hooks';
 
 type FirebasePageAnalyticsProps = {
-	title: string;
+  title: string;
 };
 
 export default function FirebasePageAnalytics ({
