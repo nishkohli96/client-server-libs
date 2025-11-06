@@ -15,27 +15,25 @@
 
 The code for shared packages are in the `packages` folder & the applications code in the `apps` folder.
 
-Install `node_modules`
+Run the `setup.sh` script.
 
 ```bash
-yarn
+sh setup.sh
 ```
 
-Due to some issues with `express` dependencies, you also need to run
+This will perform the following tasks:
 
-```
-npm dedupe
-```
+- Install `node_modules` in workspace root
+- Build the `@csl/mongo-models`, `@csl/react-express` and `@csl/shared-fe` packages.
+- Link these packages to the respective applications in the `apps` directory. 
 
-to scan your `node_modules` and moves dependencies up in the tree if different versions can be consolidated. Delete the `package-lock.json` after running this command.
+To apply any changes made in the shared packages, rebuild them by running the command below:
+
+```bash
+yarn lib
+```
 
 Build, run, lint or test all your apps in one command thanks to [Turborepo's Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-
-To build all the shared packages,
-
-```bash
-turbo lib:build
-```
 
 Each of the applications have common scripts which can be easily executed in parallel by turborepo's pipelines. Add these in `turbo.json`.
 
