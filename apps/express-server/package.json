@@ -29,6 +29,7 @@
     "@sentry/node": "^9.13.0",
     "@sentry/profiling-node": "^9.13.0",
     "apn": "^2.2.0",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
     "dd-trace": "^5.48.1",

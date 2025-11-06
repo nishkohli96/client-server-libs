@@ -9,7 +9,8 @@ import { routesArray } from '@/routes';
 import { io } from '.';
 import { sendSafariNotification } from '@/firebase/apns';
 import { sendFCMNotification } from './firebase/fcm';
-const app = express();
+
+const app: express.Application = express();
 
 function generatePath(routeName: string): string {
   return `${ExpressServerEndpoints.apiPrefix}${routeName}`;

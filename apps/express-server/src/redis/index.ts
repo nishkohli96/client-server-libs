@@ -21,13 +21,13 @@
  * this case, as it automatically connects when creating a new
  * instance.
  */
-import { createClient } from 'redis';
+import { createClient, type RedisClientType } from 'redis';
 import { ENV_VARS } from '@/constants';
 import { winstonLogger } from '@/middleware';
 
 const { user, password, host, port } = ENV_VARS.redis;
 
-export const redisClient = createClient({
+export const redisClient: RedisClientType = createClient({
   username: user,
   password,
   socket: {

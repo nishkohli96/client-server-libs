@@ -11,7 +11,7 @@
     "lib": "turbo run lib:build",
     "react-client": "yarn workspace react-client dev",
     "next-client": "yarn workspace next-client dev",
-    "express-server": "yarn workspace express-server dev",
+    "express-server": "pnpm --filter express-server run dev",
     "nestjs-server": "yarn workspace nestjs-server dev",
     "graphql-server": "yarn workspace graphql-server dev",
     "codegen": "yarn workspace graphql-server codegen",
