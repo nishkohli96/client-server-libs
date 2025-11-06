@@ -59,6 +59,7 @@
     "@nish1896/eslint-flat-config": "^3.0.3",
     "@sentry/cli": "^2.43.0",
     "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.5",
     "@types/fluent-ffmpeg": "^2.1.27",
     "@types/multer": "2.0.0",
     "@types/node": "^22.14.1",

@@ -1,18 +1,23 @@
 {
-	"name": "@csl/react-express",
-	"version": "1.0.0",
+  "name": "@csl/react-express",
+  "version": "1.0.0",
   "author": "Nishant Kohli",
   "main": "./dist/index.js",
-	"description": "Common code and config shared between react-client and express-server",
-	"scripts": {
-		"lib:build": "tsc && tsc-alias",
-		"lint": "eslint --fix ."
-	},
-	"devDependencies": {
+  "description": "Common code and config shared between react-client and express-server",
+  "scripts": {
+    "lib:build": "tsc && tsc-alias",
+    "lint": "eslint --fix ."
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "react": "^19.2.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
     "@nish1896/eslint-flat-config": "^3.0.3",
-		"eslint": "^9.25.1",
-		"tsc-alias": "^1.8.15",
-		"typescript": "^5.8.3"
+    "eslint": "^9.39.1",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.9.3"
 	},
 	"license":"ISC"
 }
