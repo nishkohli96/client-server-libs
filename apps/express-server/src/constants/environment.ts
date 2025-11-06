@@ -11,8 +11,7 @@ function defEnvVariable(varName: string, defaultValue?: string): string {
   if (defaultValue) {
     return defaultValue.trim();
   }
-  return varName;
-  // throw new Error(`Missing environment variable: ${varName}`);
+  throw new Error(`Missing environment variable: ${varName}`);
 }
 
 export const ENV_VARS = Object.freeze({
