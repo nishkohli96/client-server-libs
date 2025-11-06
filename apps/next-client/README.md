@@ -12,3 +12,4 @@
 - Track user analytics using [Mixpanel](https://mixpanel.com/home/)
 - [Stripe](https://docs.stripe.com/) payment links integration
 - Google Sign In using [next-auth](https://next-auth.js.org/)
+- Get Browser Info using [ua-parser-js](https://www.npmjs.com/package/ua-parser-js) which internally uses [color-convert](https://www.npmjs.com/package/color-convert)

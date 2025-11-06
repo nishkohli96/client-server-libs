@@ -42,4 +42,8 @@ export const PageLinks: PageInfo[] = [
     title: 'Firebase',
     href: '/firebase'
   },
+  {
+    title: 'Browser Info',
+    href: '/browser'
+  },
 ];

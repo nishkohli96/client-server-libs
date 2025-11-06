@@ -24,6 +24,7 @@
     "@sentry/nextjs": "^9",
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.8.4",
+    "color-convert":"^3.1.2",
     "firebase": "^11.6.0",
     "firebaseui": "^6.1.0",
     "graphql": "^16.10.0",
@@ -36,8 +37,10 @@
     "next-intl": "^4.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-json-tree":"^0.20.0",
     "socket.io-client": "^4.8.1",
-    "stripe": "^18.0.0"
+    "stripe": "^18.0.0",
+    "ua-parser-js": "^2.0.6"
   },
   "devDependencies": {
     "@nish1896/eslint-flat-config": "^3.0.3",

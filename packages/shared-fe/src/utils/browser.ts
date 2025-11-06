@@ -2,11 +2,7 @@ import { UAParser } from 'ua-parser-js';
 
 export function getDeviceInfo() {
   const parser = UAParser();
-  return {
-    browser: parser.browser.name,
-    os: parser.os.name,
-    device: parser.device.type || 'desktop'
-  };
+  return parser;
 }
 
 export const isSafari = () => {
