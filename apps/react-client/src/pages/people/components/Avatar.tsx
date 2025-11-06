@@ -14,13 +14,15 @@ const Avatar = ({ url, fullName }: AvatarProps) => {
 
   return (
     <Fragment>
-      {url ? (
-        <MuiAvatar src={url} alt={fullName} />
-      ) : (
-        <MuiAvatar>
-          {getAvatarInitials()}
-        </MuiAvatar>
-      )}
+      {url
+        ? (
+          <MuiAvatar src={url} alt={fullName} />
+        )
+        : (
+          <MuiAvatar>
+            {getAvatarInitials()}
+          </MuiAvatar>
+        )}
     </Fragment>
   );
 };

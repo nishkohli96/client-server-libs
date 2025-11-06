@@ -7,7 +7,6 @@ const ENV_VARS = Object.freeze({
     dsn: env.REACT_APP_SENTRY_DSN ?? ''
   },
   mixPanelToken: env.REACT_APP_MIXPANEL_TOKEN ?? '',
-  uploadCareKey: env.REACT_APP_UPLOADERCARE_KEY ?? '',
   firebase: {
     apiKey: env.REACT_APP_FIREBASE_API_KEY as string,
     authDomain: env.REACT_APP_FIREBASE_DOMAIN as string,

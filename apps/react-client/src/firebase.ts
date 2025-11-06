@@ -14,6 +14,7 @@ declare global {
         requestPermission: (
           webServiceURL: string,
           webPushId: string,
+          /* eslint-ignore @typescript-eslint/no-explicit-any */
           userInfo: any,
           callback: (permission: {
             deviceToken?: string;
@@ -41,10 +42,13 @@ export const requestFCMToken = async (): Promise<NotificationToken> => {
     && typeof window.safari === 'object'
     && 'pushNotification' in window.safari
   ) {
-    const permissionData = (window as any).safari.pushNotification.permission(
+    const permissionData = window?.safari?.pushNotification?.permission(
       'web.com.yourdomain.notifications'
     );
-
+    if(!permissionData) {
+      console.warn('Safari notifications denied');
+      return { type: 'Safari', token: null };
+    }
     if (permissionData.permission === 'default') {
       return new Promise(resolve => {
         window?.safari?.pushNotification?.requestPermission(
@@ -58,9 +62,6 @@ export const requestFCMToken = async (): Promise<NotificationToken> => {
       });
     } else if (permissionData.permission === 'granted') {
       return { type: 'Safari', token: permissionData.deviceToken || null };
-    } else {
-      console.warn('Safari notifications denied');
-      return { type: 'Safari', token: null };
     }
   }
 
