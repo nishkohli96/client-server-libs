@@ -29,7 +29,7 @@
     "@sentry/react": "^9.13.0",
     "@uploadcare/react-uploader": "^1.6.0",
     "axios": "^1.8.4",
-    "firebase": "12.3.0",
+    "firebase": "^12.5.0",
     "joi": "^17.13.3",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
