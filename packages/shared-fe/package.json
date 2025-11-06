@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@nish1896/eslint-flat-config": "^3.0.3",
+    "@types/react": "^19.2.2",
     "eslint": "^9.39.1",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3"
