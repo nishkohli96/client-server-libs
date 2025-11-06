@@ -7,7 +7,8 @@ import { ENV_VARS, ServerConfig } from '@/constants';
 import { requestLogger } from '@/middleware';
 import { routesArray } from '@/routes';
 import { io } from '.';
-
+import { sendSafariNotification } from '@/firebase/apns';
+import { sendFCMNotification } from './firebase/fcm';
 const app = express();
 
 function generatePath(routeName: string): string {
@@ -61,6 +62,24 @@ routesArray.forEach(route =>
 app.get('/debug-sentry', function mainHandler() {
   throw new Error('My first Sentry error!');
 });
+
+// sendSafariNotification(
+//   'eQ5dYEavCKvGtvYrgJ0oLf:APA91bG1lOfYjB13MCCxVj6aZYi9mjf28h4KfUqLFxMOw_MsFzHCRqZi3ewLutwfQzcrMmmDTf4C_R4Zo87udDtnCjvcP7hrHHAEp3gTIdXglBFXTV1B1QY',
+//   'Hello from APNs',
+//   'This is a test notification sent via APNs',
+//   'https://57f50d0eb427.ngrok-free.app'
+// ).then(() => {
+//   console.log('Safari notification sent (if device token is valid)');
+// }).catch(err => {
+//   console.error('Error sending Safari notification:', err);
+// });
+
+sendFCMNotification(
+  'eQ5dYEavCKvGtvYrgJ0oLf:APA91bG1lOfYjB13MCCxVj6aZYi9mjf28h4KfUqLFxMOw_MsFzHCRqZi3ewLutwfQzcrMmmDTf4C_R4Zo87udDtnCjvcP7hrHHAEp3gTIdXglBFXTV1B1QY',
+  'Hello from FCM in safari',
+  'This is a test notification sent via FCM',
+  { customData: 'your_custom_data' }
+);
 
 /* 404 Handler */
 app.get('*', (req: Request, response: Response) => {

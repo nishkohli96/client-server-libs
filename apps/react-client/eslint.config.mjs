@@ -10,4 +10,9 @@ export default [
   {
     rules: {},
   },
+  {
+    ignores: [
+			'./public/firebase-messaging-sw.js'
+		]
+  }
 ];

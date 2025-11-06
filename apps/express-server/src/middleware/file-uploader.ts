@@ -4,21 +4,20 @@ import path from 'path';
 import multer, { type FileFilterCallback } from 'multer';
 import { ServerConfig } from '@/constants';
 
-const fileFilter = (allowedFileTypes?: string[]) => {
-  return function applyFileFilter(
-    _: Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
-  ) {
-    const fileExtension = path.extname(file.originalname).toLowerCase();
-    if (!allowedFileTypes) {
-      cb(null, true);
-    } else if (allowedFileTypes && allowedFileTypes.includes(fileExtension)) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
+const reqFileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: FileFilterCallback,
+  allowedFileTypes?: string[]
+) => {
+  const fileExtension = path.extname(file.originalname).toLowerCase();
+  if (!allowedFileTypes) {
+    cb(null, true);
+  } else if (allowedFileTypes && allowedFileTypes.includes(fileExtension)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
 };
 
 const fileStorage = (dirPath?: string) =>
@@ -53,7 +52,12 @@ const fileStorage = (dirPath?: string) =>
 export const fileUploader = (dirPath?: string, allowedFileTypes?: string[]) =>
   multer({
     storage: fileStorage(dirPath),
-    fileFilter: fileFilter(allowedFileTypes),
+    fileFilter: (req, file, cb) => reqFileFilter(
+      req,
+      file,
+      cb,
+      allowedFileTypes
+    ),
     limits: {
       /**
        * 50 MB for file size, can easily change the

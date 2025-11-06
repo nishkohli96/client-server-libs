@@ -1,33 +1,25 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
-import {
-  FileUploaderRegular,
-  type OutputCollectionState
-} from '@uploadcare/react-uploader';
 import { uploadFileToS3 } from '@csl/react-express';
 import { PageLayout } from 'components';
-import { ENV_VARS } from 'app-constants';
 import {
   getS3PresignedUrl,
   getPreSignedFileUrl,
   downloadFile
 } from 'api/services';
 import { sanitizeFileName } from 'utils';
-import '@uploadcare/react-uploader/core.css';
 import axios from 'axios';
 
-/**
- * Uploadcare has 14-days of access to premium features, and is then
- * a paid service.
- */
 const S3OpsPage = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  const handleFileChange = (event: OutputCollectionState) => {
-    const files = event.successEntries.map(f => f.file) as File[];
-    setUploadedFile(files?.length ? files[0] : null);
-    console.log('files: ', files);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFile(file);
+      toast.info(`Selected: ${file.name}`);
+    }
   };
 
   const uploadToS3 = async () => {
@@ -100,10 +92,15 @@ const S3OpsPage = () => {
 
   return (
     <PageLayout seoTitle="S3 Ops">
-      <FileUploaderRegular
-        pubkey={ENV_VARS.uploadCareKey}
-        onChange={handleFileChange}
-      />
+      <Button variant="outlined" component="label">
+        Choose File
+        <input
+          type="file"
+          hidden
+          onChange={handleFileChange}
+          accept="application/pdf"
+        />
+      </Button>
       <br />
       <Button variant="outlined" color="primary" onClick={uploadToS3}>
         Upload to S3

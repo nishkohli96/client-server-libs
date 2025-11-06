@@ -61,11 +61,11 @@ io.engine.generateId = () => uuidv4();
  * response headers of the first HTTP request of the
  * session (the handshake), allowing you to customize them.
  */
-io.engine.on('initial_headers', headers => {
-  winstonLogger.info('Sending Initial Headers !');
-  headers.test = '123';
-  headers['set-cookie'] = 'mycookie=456';
-});
+// io.engine.on('initial_headers', headers => {
+//   winstonLogger.info('Sending Initial Headers !');
+//   headers.test = '123';
+//   headers['set-cookie'] = 'mycookie=456';
+// });
 
 /**
  * headers: will be emitted just before writing the
@@ -73,21 +73,21 @@ io.engine.on('initial_headers', headers => {
  * (including the WebSocket upgrade), allowing you to
  * customize them.
  */
-io.engine.on('headers', headers => {
-  winstonLogger.info('Sending Headers...');
-  headers.test = '789';
-});
+// io.engine.on('headers', headers => {
+//   winstonLogger.info('Sending Headers...');
+//   headers.test = '789';
+// });
 
-io.engine.on('connection_error', err => {
-  /* the request object */
-  winstonLogger.error(err.req);
-  /* the error code, for example 1 */
-  winstonLogger.error(err.code);
-  /* the error message, for example "Session ID unknown" */
-  winstonLogger.error(err.message);
-  /* some additional error context */
-  winstonLogger.error(err.context);
-});
+// io.engine.on('connection_error', err => {
+//   /* the request object */
+//   winstonLogger.error(err.req);
+//   /* the error code, for example 1 */
+//   winstonLogger.error(err.code);
+//   /* the error message, for example "Session ID unknown" */
+//   winstonLogger.error(err.message);
+//   /* some additional error context */
+//   winstonLogger.error(err.context);
+// });
 
 /**
  * Socket middleware.
@@ -111,73 +111,73 @@ io.engine.on('connection_error', err => {
  * });
  */
 
-io.on('connection', socket => {
-  /**
-   * Each new connection is assigned a random 20-characters
-   * identifier which is synced with the value on the
-   * client-side, ie the values of both socket.id on client
-   * and server are equal for a particular connection.
-   *
-   * FYI: The Id attribute is an ephemeral ID that is not meant
-   * to be used in your application (or only for debugging purposes)
-   * Use a regular session ID instead (either sent in a cookie,
-   * or stored in the localStorage and sent in the auth payload)
-   */
-  winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
-  winstonLogger.info(`Socket Room: ${printObject(socket.rooms)}`);
+// io.on('connection', socket => {
+//   /**
+//    * Each new connection is assigned a random 20-characters
+//    * identifier which is synced with the value on the
+//    * client-side, ie the values of both socket.id on client
+//    * and server are equal for a particular connection.
+//    *
+//    * FYI: The Id attribute is an ephemeral ID that is not meant
+//    * to be used in your application (or only for debugging purposes)
+//    * Use a regular session ID instead (either sent in a cookie,
+//    * or stored in the localStorage and sent in the auth payload)
+//    */
+//   winstonLogger.info(`Socket connection established with Id - ${socket.id}`);
+//   winstonLogger.info(`Socket Room: ${printObject(socket.rooms)}`);
 
-  /*  number of currently connected clients */
-  const count = io.engine.clientsCount;
-  winstonLogger.info(`Total clients connected - ${count}`);
+//   /*  number of currently connected clients */
+//   const count = io.engine.clientsCount;
+//   winstonLogger.info(`Total clients connected - ${count}`);
 
-  /**
-   * recovery was successful: socket.id, socket.rooms and socket.data
-   * were restored.
-   *
-   * if (socket.recovered) {
-   * } else {}
-   */
+//   /**
+//    * recovery was successful: socket.id, socket.rooms and socket.data
+//    * were restored.
+//    *
+//    * if (socket.recovered) {
+//    * } else {}
+//    */
 
-  /**
-   * Catch-all listeners - Called for an incoming event
-   *
-   * socket.onAny((eventName, ...args) => {
-   *   console.log(eventName); // 'hello'
-   *   console.log(args); // [ 1, '2', { 3: '4', 5: ArrayBuffer (1) [ 6 ] } ]
-   * });
-   *
-   * Similarly, for outgoing packets, use
-   * socket.onAnyOutgoing((eventName, ...args) => {}
-   */
+//   /**
+//    * Catch-all listeners - Called for an incoming event
+//    *
+//    * socket.onAny((eventName, ...args) => {
+//    *   console.log(eventName); // 'hello'
+//    *   console.log(args); // [ 1, '2', { 3: '4', 5: ArrayBuffer (1) [ 6 ] } ]
+//    * });
+//    *
+//    * Similarly, for outgoing packets, use
+//    * socket.onAnyOutgoing((eventName, ...args) => {}
+//    */
 
-  socket.emit('basicEmit', 1, '2', Buffer.from([3]));
+//   socket.emit('basicEmit', 1, '2', Buffer.from([3]));
 
-  socket.on('submitForm', (inputValue, ack) => {
-    winstonLogger.info('--- submitForm event ---');
-    ack({ message: `Server received inputValue: ${inputValue}` });
-  });
+//   socket.on('submitForm', (inputValue, ack) => {
+//     winstonLogger.info('--- submitForm event ---');
+//     ack({ message: `Server received inputValue: ${inputValue}` });
+//   });
 
-  /**
-   * socket.on("disconnecting", (reason) => {
-   *
-   * This event is similar to disconnect but is fired a
-   * bit earlier, when the Socket#rooms set is not empty yet.
-   */
-  socket.on('disconnect', reason => {
-    winstonLogger.info(`Disconnected - ${reason}`);
-  });
-});
+//   /**
+//    * socket.on("disconnecting", (reason) => {
+//    *
+//    * This event is similar to disconnect but is fired a
+//    * bit earlier, when the Socket#rooms set is not empty yet.
+//    */
+//   socket.on('disconnect', reason => {
+//     winstonLogger.info(`Disconnected - ${reason}`);
+//   });
+// });
 
 async function bootstrap() {
   try {
     if (ENV_VARS.env !== 'development') {
       await loadSSMParameters(`/${ENV_VARS.env}/`);
     }
-    await connectPostgresDB();
-    await connectMySQLDB();
-    await connect(dbConnectionString);
-    winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
-    await connectToRedis();
+    // await connectPostgresDB();
+    // await connectMySQLDB();
+    // await connect(dbConnectionString);
+    // winstonLogger.info(`[ ⚡️ ${hostName} ⚡️ ] - Connected to MongoDB`);
+    // await connectToRedis();
 
     server.listen(port, () => {
       winstonLogger.info(

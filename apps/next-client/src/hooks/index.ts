@@ -1,0 +1,1 @@
+export { useFirebasePageView } from './useFirebasePageView';
