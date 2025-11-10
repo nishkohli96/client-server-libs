@@ -1,0 +1,8 @@
+{
+  "websiteName": "",
+  "websitePushID": "",
+  "allowedDomains": ["allowed_FE_domains"],
+  "urlFormatString": "frontendURL/%@/%@",
+  "authenticationToken": "19f8d7a6e9fb8a7f6d9330dabe",
+  "webServiceURL": "apns_api_endpoint_url"
+}
