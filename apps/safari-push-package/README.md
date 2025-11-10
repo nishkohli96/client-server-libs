@@ -19,15 +19,15 @@ Please refer to the attached [document](./Safari%20Web%20Push%20Package.docx) fo
 
 5. Run the following command to generate the push package:
 
-  ```bash
-  php createPushPackage.php > pushPackage.zip
-  ```
+    ```bash
+    php createPushPackage.php > pushPackage.zip
+    ```
 
 6. To verify the contents of your generated package, run:
 
-  ```bash
-  unzip -l pushPackage.zip
-  ```
+    ```bash
+    unzip -l pushPackage.zip
+    ```
 
 ---
 
@@ -61,8 +61,3 @@ pushPackage/
 - Ensure that `manifest.json` contains the correct SHA-1 hash map of all files.
 - The `signature` file must be a valid detached **PKCS7 signature** of the `manifest.json` file.
 - The `website.json` file defines your push configuration, including the identifier, URL, and authentication token.
-
----
-
-**Author:** Nishant Kohli
-**Purpose:** Safari Web Push Notification Package Generator
