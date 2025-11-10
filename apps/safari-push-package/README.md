@@ -2,7 +2,7 @@
 
 This repository contains the code and resources required to generate a **Safari Push Package** for enabling Safari web notifications.
 
-Please refer to the attached [document](./Safari%20Web%20Push%20Package.docx) for detailed step-by-step instructions.
+Please refer to the attached [document](./Safari%20Web%20Push%20Package.pdf) for detailed step-by-step instructions.
 
 ---
 
